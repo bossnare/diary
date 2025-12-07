@@ -5,36 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1765022972050,
-      "tag": "0000_many_nighthawk",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1765025130787,
-      "tag": "0001_spicy_emma_frost",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1765027265265,
-      "tag": "0002_nappy_domino",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "6",
-      "when": 1765030352162,
-      "tag": "0003_quiet_captain_america",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "6",
-      "when": 1765030502383,
-      "tag": "0004_special_turbo",
+      "when": 1765034199366,
+      "tag": "0000_nifty_the_hood",
       "breakpoints": true
     }
   ]

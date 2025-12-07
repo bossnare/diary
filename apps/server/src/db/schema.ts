@@ -9,10 +9,10 @@ export const users = sqliteTable('users', {
   role: text('role').notNull().default('user'),
   createdAt: integer('created_at', { mode: 'timestamp' })
     .notNull()
-    .default(sql`(CURRENT_TIMESTAMP)`),
+    .default(sql`CURRENT_TIMESTAMP`),
   updatedAt: integer('updated_at', { mode: 'timestamp' })
     .notNull()
-    .default(sql`(CURRENT_TIMESTAMP)`),
+    .default(sql`CURRENT_TIMESTAMP`),
 });
 
 export const notes = sqliteTable('notes', {
@@ -21,8 +21,8 @@ export const notes = sqliteTable('notes', {
   content: text('content').notNull(),
   createdAt: integer('created_at', { mode: 'timestamp' })
     .notNull()
-    .default(sql`(CURRENT_TIMESTAMP)`),
+    .default(sql`CURRENT_TIMESTAMP`),
   updatedAt: integer('updated_at', { mode: 'timestamp' })
     .notNull()
-    .default(sql`(CURRENT_TIMESTAMP)`),
+    .default(sql`CURRENT_TIMESTAMP`),
 });
