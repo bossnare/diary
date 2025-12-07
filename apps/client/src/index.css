@@ -8,3 +8,18 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+#root {
+  padding: 0 8px;
+  margin: 0 auto;
+}
+
+@layer base {
+  body {
+    @apply overflow-hidden bg-black text-white;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+}
