@@ -15,7 +15,7 @@ export const TopBar = () => {
         <NavTab />
       </ul>
       <div className="flex items-center justify-end gap-2 grow">
-        <div className="rounded-full bg-zinc-900 size-10"></div>
+        <div className="rounded-full bg-zinc-900 size-9"></div>
         {/* mobile menu button */}
         <button
           onClick={() => setOpenMenu(!openMenu)}
