@@ -9,7 +9,7 @@ export const Logo = ({ className }: { className?: string }) => {
         className="size-6 md:size-8"
       />
       <span className="text-xl font-black leading-none tracking-tight select-none md:text-2xl">
-        memopad
+        memoroom
       </span>
     </div>
   );
