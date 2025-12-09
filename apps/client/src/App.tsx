@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="relative max-h-screen h-dvh">
       {/* sidebar */}
-      <div className="fixed inset-y-0 hidden w-64 overflow-y-auto border-r md:block border-zinc-900">
+      <div className="fixed inset-y-0 hidden w-64 overflow-y-auto border-r md:block border-zinc-800">
         <aside className="relative px-2 space-y-1 size-full">
           <Logo className="sticky top-0 hidden w-full py-3 bg-black/80 backdrop-blur-sm md:flex" />
           <nav className="pb-2 rounded-md bg-zinc-950">
@@ -49,12 +49,12 @@ function App() {
         <aside
           className={`${
             openSide ? 'translate-x-0' : '-translate-x-full'
-          } md:hidden transition-transform duration-100 ease-in-out w-7/8 bg-black z-50 fixed inset-y-0 border-r border-zinc-900 rounded-r-2xl flex items-center justify-center`}
+          } md:hidden transition-transform duration-100 ease-in-out w-7/8 bg-black z-50 fixed inset-y-0 border-r border-zinc-800 rounded-r-2xl flex items-center justify-center`}
         >
           <div className="border-4 rounded-full border-zinc-100 size-20 animate-spin border-t-transparent"></div>
         </aside>
 
-        <main className="h-[calc(100dvh-3.5rem)] bg-linear-to-b from-zinc-950/50 to-zinc-950/20 overflow-y-auto px-2 grid grid-cols-4 mt-[3.4px] md:mt-1 rounded-t-xl border-t border-zinc-900 items-start gap-2">
+        <main className="h-[calc(100dvh-3.5rem)] bg-linear-to-b from-zinc-950/50 to-zinc-950/20 overflow-y-auto px-2 grid grid-cols-4 mt-[3.4px] md:mt-1 rounded-t-xl border-t border-zinc-800 items-start gap-2">
           <div className="flex justify-center py-6 col-span-full">
             <div className="flex flex-col items-center justify-center w-full gap-4 p-10 rounded-lg md:w-2/3 bg-zinc-950">
               <h4 className="text-lg font-black">Browse your notes</h4>
