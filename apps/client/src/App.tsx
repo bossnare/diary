@@ -5,6 +5,7 @@ import { Button } from './components/ui/button';
 import { NavTab } from './components/navigation/NavTab';
 import { useEffect, useRef, useState } from 'react';
 import { useIsMobile } from './hooks/use-mobile';
+import { motion } from 'motion/react';
 
 // type Note = {
 //   id: string;
@@ -96,15 +97,31 @@ function App() {
       </div>
 
       {!openSide && (
-        <div className="fixed bottom-24 md:bottom-6 right-4">
-          <button className="flex items-center justify-center p-2 bg-blue-800 rounded-full shadow-md shadow-blue-800/20 size-14 active:opacity-80 md:hover:opacity-80">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          className="fixed bottom-24 md:bottom-6 right-4"
+        >
+          <button className="flex items-center justify-center p-2 bg-blue-800 rounded-full shadow-lg shadow-blue-800/20 size-14 active:opacity-80 md:hover:opacity-80">
             <PenLine className="size-auto" />
           </button>
-        </div>
+        </motion.div>
       )}
 
       {/* BottomBar */}
-      <div className="fixed inset-x-0 bottom-0 h-16 px-2 border-t bg-zinc-950/94 backdrop-blur-sm md:hidden border-zinc-800">
+      <div
+        style={
+          !isMobile
+            ? {}
+            : {
+                transform: openSide
+                  ? `translateX(${sidebarWidth}px)`
+                  : 'translateX(0)',
+              }
+        }
+        className="fixed inset-x-0 bottom-0 h-16 px-2 transition-transform duration-200 ease-in-out border-t bg-zinc-950/94 backdrop-blur-sm md:hidden border-zinc-800"
+      >
         <nav className="select-none size-full">
           <ul className="flex items-center justify-around size-full">
             <NavTab />
