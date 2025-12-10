@@ -17,6 +17,10 @@ export const usersRoute = new Elysia({
       data: safeUser,
     };
   })
+  .get('/me', ({ headers }) => {
+    const token = headers.Authorization?.split(' ')[1] as string;
+    return { token: token };
+  })
   .get('/:id', async ({ params, set }) => {
     const userById = await UsersService.getById(params.id);
     set.status = 200;
