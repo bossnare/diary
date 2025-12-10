@@ -7,7 +7,7 @@ export function NavTab() {
       <li>
         <NavLink to="/dashboard/skelton">
           {({ isActive }) => (
-            <button className="relative flex items-center justify-center w-full gap-2 px-2 font-semibold text-white rounded-md cursor-pointer md:justify-start md:bg-zinc-900 md:px-3 h-9">
+            <button className="relative flex items-center justify-center w-full gap-2 px-2 font-semibold text-white rounded-md cursor-pointer md:justify-start md:bg-background/50 md:px-3 h-9">
               <Layers className="md:size-5" />{' '}
               <span className="hidden md:block">Overview</span>
               {/* underline */}
