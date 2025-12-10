@@ -1,5 +1,6 @@
 import Elysia, { t } from 'elysia';
 import { UsersService } from '../services/users.service';
+import jwt from 'jsonwebtoken';
 
 export const usersRoute = new Elysia({
   prefix: '/users',
@@ -17,9 +18,13 @@ export const usersRoute = new Elysia({
       data: safeUser,
     };
   })
-  .get('/me', ({ headers }) => {
-    const token = headers.Authorization?.split(' ')[1] as string;
-    return { token: token };
+  .get('/me', async ({ headers }) => {
+    const token = headers.authorization?.split(' ')[1] as string;
+    const payload = jwt.verify(token, process.env.JWT_SECRET!) as {
+      email: string;
+    };
+
+    return await UsersService.findMeByToken(payload.email);
   })
   .get('/:id', async ({ params, set }) => {
     const userById = await UsersService.getById(params.id);

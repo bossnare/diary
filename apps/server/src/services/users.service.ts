@@ -1,7 +1,10 @@
 import { db } from '@/db';
-import { users } from '@/db/schema';
+import { notes, users } from '@/db/schema';
+import type { NewUser, User, Note } from '@/types/base.type';
 import argon2 from 'argon2';
 import { eq } from 'drizzle-orm';
+
+type UserWithNote = User & { notes: Note[] };
 
 export const UsersService = {
   async getAll() {
@@ -10,11 +13,23 @@ export const UsersService = {
     return { data, count };
   },
 
+  async findMeByToken(currentUserEmail: string) {
+    return await db.query.users.findFirst({
+      where: eq(users.email, currentUserEmail),
+      columns: {
+        password: false,
+      },
+      with: {
+        notes: true,
+      },
+    });
+  },
+
   async getById(id: string) {
     return await db.select().from(users).where(eq(users.id, id));
   },
 
-  async create(body: { email: string; password: string; username: string }) {
+  async create(body: NewUser) {
     const hashedPassword = await argon2.hash(body.password);
     const user = await db
       .insert(users)

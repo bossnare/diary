@@ -1,5 +1,6 @@
 import { db } from '@/db';
 import { notes } from '@/db/schema';
+import { NewNote } from '@/types/base.type';
 import { eq } from 'drizzle-orm';
 
 export const NotesService = {
@@ -12,7 +13,7 @@ export const NotesService = {
   async getById(id: string) {
     return await db.select().from(notes).where(eq(notes.id, id));
   },
-  async create(body: { title: string; content: string }) {
+  async create(body: NewNote) {
     return await db
       .insert(notes)
       .values({
