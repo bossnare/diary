@@ -66,7 +66,7 @@ function Overview() {
           ref={sideBarRef}
           className={`${
             openSide ? 'translate-x-0' : '-translate-x-full'
-          } md:hidden transition-transform will-change-transform duration-200 z-50 ease-in-out w-6/7 bg-black fixed inset-y-0 border-r border-zinc-800 rounded-r-2xl overflow-hidden`}
+          } md:hidden transition-transform will-change-transform duration-200 z-50 ease-in-out w-5/6 bg-black fixed inset-y-0 border-r border-zinc-800 rounded-r-2xl overflow-hidden`}
         >
           <aside
             className={`${

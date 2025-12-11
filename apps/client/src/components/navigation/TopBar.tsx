@@ -25,7 +25,7 @@ export const TopBar = ({
           }}
           className="md:hidden"
         >
-          <TextAlignJustify />
+          <TextAlignJustify className="size-[26px]" />
         </ButtonIcon>
         <Logo className="md:hidden" />
       </div>
