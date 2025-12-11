@@ -29,7 +29,7 @@ export const UsersService = {
     // default notes
     await NotesService.create({
       userId: user[0].id,
-      title: 'Welcome to OnlineNotes!',
+      title: 'Welcome to Memoroom!',
       content:
         'This is your first note. Feel free to edit or delete it. Start adding your own notes to keep track of your thoughts and ideas!',
       color: '#f5f5f5',
