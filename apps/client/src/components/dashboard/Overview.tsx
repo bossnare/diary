@@ -65,7 +65,7 @@ function Overview() {
         <div
           ref={sideBarRef}
           className={`${
-            openSide ? 'scale-100 opacity-100 z-999' : 'scale-90 opacity-0 z-1'
+            openSide ? 'scale-100 opacity-100 z-999' : 'scale-80 opacity-0 z-1'
           } md:hidden transition-transform will-change-transform duration-200 ease-in-out w-5/6 bg-black fixed inset-y-0 border-r border-zinc-800 rounded-r-2xl flex items-center justify-center`}
         >
           <div className="border-4 rounded-full border-zinc-100 size-20 animate-spin border-t-transparent"></div>
@@ -83,7 +83,7 @@ function Overview() {
                   backgroundColor: 'black',
                 }
           }
-          className="relative h-full z-50 transition-transform duration-200 ease-in-out will-change-transform md:transition-all md:will-change-auto md:duration-50 md:ml-64"
+          className="relative h-full z-50 transition-transform duration-150 ease-in-out will-change-transform md:transition-all md:will-change-auto md:duration-50 md:ml-64"
         >
           <TopBar setOpenSide={setOpenSide} openSide={openSide} />
 
@@ -128,7 +128,7 @@ function Overview() {
                     : 'translateX(0)',
                 }
           }
-          className="fixed inset-x-0 z-50 bottom-0 h-16 px-2 transition-transform duration-200 ease-in-out border-t bg-zinc-950/94 backdrop-blur-sm md:hidden border-zinc-800"
+          className="fixed inset-x-0 z-50 bottom-0 h-16 px-2 transition-transform duration-150 ease-in-out border-t bg-zinc-950/94 backdrop-blur-sm md:hidden border-zinc-800"
         >
           <nav className="select-none size-full">
             <ul className="flex items-center justify-around size-full">
