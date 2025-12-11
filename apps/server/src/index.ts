@@ -5,15 +5,12 @@ import { notesRoute } from './routes/notes.route';
 import { authRoute } from './routes/auth.route';
 
 const app = new Elysia({ prefix: '/api' })
-  .use(
-    cors({
+  .use(cors(
+    {
       origin: 'http://localhost:5173',
       methods: ['GET', 'POST', 'PUT', 'DELETE'],
-      // allowedHeaders: ["Content-Type", "Authorization"],
       credentials: true,
-      // maxAge: 3600
-    })
-  )
+    }))
   .get('/', () => 'Hello Elysia --powered by bun server')
   .use(usersRoute)
   .use(notesRoute)
