@@ -1,10 +1,8 @@
 import { db } from '@/db';
-import { notes, users } from '@/db/schema';
+import {  users } from '@/db/schema';
 import type { NewUser, User, Note } from '@/types/base.type';
 import argon2 from 'argon2';
 import { eq } from 'drizzle-orm';
-
-type UserWithNote = User & { notes: Note[] };
 
 export const UsersService = {
   async getAll() {
