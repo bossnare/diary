@@ -56,7 +56,7 @@ export const TopBar = ({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
           // transition={{type}}
-          className="fixed w-1/2 p-2 rounded-lg shadow-xl sm:w-1/2 bg-zinc-950 top-16 right-3 md:hidden"
+          className="fixed w-4/5 p-2 rounded-lg shadow-xl sm:w-3/4 bg-background top-16 right-4 md:hidden"
         >
           <ul className="flex flex-col gap-1">
             <li>

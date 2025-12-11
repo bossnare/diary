@@ -96,7 +96,7 @@ function Overview() {
         >
           <TopBar setOpenSide={setOpenSide} openSide={openSide} />
 
-          <main className="h-[calc(100dvh-3.5rem)] bg-linear-to-b from-background to-background/20 overflow-y-auto px-2 grid grid-cols-4 items-start gap-2">
+          <main className="h-[calc(100dvh-3.5rem)] bg-linear-to-b from-background to-background/20 overflow-y-auto px-4 grid grid-cols-4 items-start gap-2">
             <div className="flex justify-center py-6 col-span-full">
               <div className="flex flex-col items-center justify-center w-full gap-4 p-10 rounded-lg md:w-2/3 bg-muted">
                 <h4 className="text-lg font-black">Browse your notes</h4>
@@ -120,7 +120,7 @@ function Overview() {
             exit={{ opacity: 0, y: -10 }}
             className="fixed bottom-24 md:bottom-6 right-4"
           >
-            <button className="flex items-center justify-center p-2 bg-blue-800 rounded-full shadow-lg shadow-blue-800/20 size-14 active:opacity-80 md:hover:opacity-80">
+            <button className="flex items-center justify-center p-2 bg-blue-800 rounded-full shadow-lg shadow-blue-800/30 md:shadow-blue-800/20 size-14 active:opacity-80 md:hover:opacity-80">
               <PenLine className="size-auto" />
             </button>
           </motion.div>
