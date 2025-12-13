@@ -8,6 +8,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { motion } from 'motion/react';
 import { waitVibrate } from '@/utils/vibration';
 import { useUser } from '@/api/user.api';
+import { AuthService } from '@/auth-services/clients.service';
 
 // type Note = {
 //   id: string;
@@ -41,10 +42,24 @@ function Overview() {
               </ul>
             </nav>
 
-            <div className="absolute inset-x-0 bottom-0 flex items-center px-2 bg-linear-to-b from-transparent via-zinc-950/20 to-zinc-950 h-15">
-              <div className="w-full active:bg-zinc-900">
+            <div className="absolute flex-col gap-2 inset-x-0 bottom-0 flex items-center px-2 bg-linear-to-b from-transparent via-zinc-950/20 to-zinc-950 h-15">
+              <div
+                onClick={() => AuthService.githubSign()}
+                className="w-full active:bg-zinc-900"
+              >
                 <Button size="medium" className="w-full">
                   <Plus /> Create new note
+                </Button>
+              </div>
+              <div
+                onClick={() => AuthService.googleSign()}
+                className="w-full active:bg-zinc-900"
+              >
+                <Button
+                  size="medium"
+                  className="w-full bg-foreground text-zinc-950"
+                >
+                  <Plus /> With Google
                 </Button>
               </div>
             </div>

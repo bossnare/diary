@@ -1,3 +1,5 @@
+import { cn } from '@/lib/utils';
+
 export const Button = ({
   children,
   size = 'large',
@@ -11,7 +13,11 @@ export const Button = ({
 
   return (
     <button
-      className={`flex transition-opacity will-change-opacity duration-300 ease-in-out items-center font-medium ${variants} px-6 gap-2 bg-primary rounded-md md:hover:opacity-80 active:opacity-60 ${className}`}
+      className={cn(
+        'flex transition-opacity will-change-opacity duration-300 ease-in-out items-center font-medium px-6 gap-2 bg-primary rounded-md md:hover:opacity-80 active:opacity-60',
+        variants,
+        className
+      )}
     >
       {children}
     </button>
@@ -30,7 +36,10 @@ export const ButtonIcon = ({
   return (
     <button
       onClick={onClick}
-      className={`transition-colors will-change-colors duration-300 ease-in-out p-2 rounded-full md:hover:opacity-80 active:opacity-80 active:bg-zinc-900 md:hover:bg-zinc-900 ${className}`}
+      className={cn(
+        'transition-colors will-change-colors duration-300 ease-in-out p-2 rounded-full md:hover:opacity-80 active:opacity-80 active:bg-zinc-900 md:hover:bg-zinc-900',
+        className
+      )}
     >
       {children}
     </button>
