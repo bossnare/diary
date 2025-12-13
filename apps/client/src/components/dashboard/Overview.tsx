@@ -33,7 +33,7 @@ function Overview() {
     <>
       <div className="relative max-h-screen overflow-hidden h-dvh">
         {/* sidebar */}
-        <div className="fixed inset-y-0 z-20 hidden w-64 overflow-y-auto border-r md:block border-zinc-800">
+        <div className="fixed inset-y-0 z-20 hidden w-64 overflow-y-auto scrollbar-none border-r md:block border-zinc-800">
           <aside className="relative px-2 space-y-1 size-full">
             <Logo className="sticky top-0 hidden w-full py-3 bg-black/80 backdrop-blur-sm md:flex" />
             <nav className="pb-2 rounded-md bg-muted">
