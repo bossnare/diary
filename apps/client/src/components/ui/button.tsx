@@ -17,7 +17,7 @@ export const Button = ({
     <button
       onClick={onClick}
       className={cn(
-        'flex transition-opacity will-change-opacity duration-300 ease-in-out items-center justify-center font-medium px-6 gap-2 bg-primary rounded-md md:hover:opacity-80 active:opacity-60',
+        'flex transition-opacity will-change-opacity text-white duration-300 ease-in-out items-center justify-center font-medium px-6 gap-2 bg-primary rounded-md md:hover:opacity-80 active:opacity-60',
         variants,
         className
       )}
@@ -40,7 +40,7 @@ export const ButtonIcon = ({
     <button
       onClick={onClick}
       className={cn(
-        'transition-colors will-change-colors duration-300 ease-in-out p-2 rounded-full md:hover:opacity-80 active:opacity-80 active:bg-muted-foreground md:hover:bg-muted-foreground',
+        'transition-colors will-change-colors duration-300 ease-in-out p-2 rounded-full md:hover:opacity-80 active:opacity-80 active:bg-muted-foreground/40 md:hover:bg-muted-foreground/40',
         className
       )}
     >

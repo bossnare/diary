@@ -8,7 +8,7 @@ export const Logo = ({ className }: { className?: string }) => {
         alt="Memo"
         className="size-6 md:size-7"
       />
-      <span className="text-[21px] font-extrabold leading-none tracking-tight select-none md:text-2xl">
+      <span className="text-[21px] font-extrabold leading-none tracking-tighter select-none md:text-2xl">
         memoroom
       </span>
     </div>

@@ -129,7 +129,7 @@ function Overview() {
             exit={{ opacity: 0, y: -10 }}
             className="fixed bottom-24 md:bottom-6 right-4"
           >
-            <button className="flex items-center justify-center p-2 rounded-full shadow-md bg-primary shadow-primary/30 md:shadow-blue-800/20 size-14 active:opacity-80 md:hover:opacity-80">
+            <button className="flex items-center justify-center p-2 text-white rounded-full shadow-md bg-primary size-14 active:opacity-80 md:hover:opacity-80">
               <PenLine className="size-auto" />
             </button>
           </motion.div>
