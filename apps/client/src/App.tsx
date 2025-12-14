@@ -9,20 +9,18 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AppRoutes />
-
-      {/* Auth is pending overlay */}
-      {pending && (
-        <div className="fixed z-100 bg-black/70 inset-0 flex items-center justify-center px-4">
-          <div className="bg-muted rounded-3xl h-1/3 md:h-1/2 w-full md:w-2/3 flex items-center justify-center">
-            <div className="flex w-full h-4/5 items-center justify-center flex-col gap-2 border-t border-zinc-700 p-6">
-              <div className="size-8 border-3 border-foreground border-t-transparent rounded-full animate-spin"></div>
-              <span className="text-muted-foreground text-lg font-semibold">
-                Authentication...
-              </span>
-            </div>
+      {pending ? (
+        // is pending auth
+        <div className="inset-0 flex items-center justify-center px-4 min-h-dvh z-100">
+          <div className="flex flex-col items-center justify-center gap-2 md:flex-row">
+            <span className="rounded-full size-8 border-3 border-foreground border-t-muted animate-spin"></span>
+            <span className="text-lg font-semibold tracking-tighter text-muted-foreground">
+              Authentication...
+            </span>
           </div>
         </div>
+      ) : (
+        <AppRoutes />
       )}
 
       {/* vercel services */}

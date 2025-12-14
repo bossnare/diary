@@ -5,6 +5,7 @@ import { TopBar } from '@/components/navigation/TopBar';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useAuth } from '@/hooks/use-session';
+import RefreshWrapper from '@/pull-to-refresh';
 import { waitVibrate } from '@/utils/vibration';
 import { Earth, PenLine, Plus } from 'lucide-react';
 import { motion } from 'motion/react';
@@ -102,24 +103,25 @@ function Overview() {
           className="relative h-full transition-transform duration-200 ease-in-out will-change-transform md:transition-all md:will-change-auto md:duration-50 md:ml-64"
         >
           <TopBar setOpenSide={setOpenSide} openSide={openSide} />
-
-          <main className="grid items-start min-h-full grid-cols-4 gap-2 px-4 overflow-y-auto">
-            <div className="flex justify-center py-6 col-span-full">
-              <div className="flex flex-col items-center justify-center w-full gap-4 p-10 rounded-lg md:w-2/3 bg-muted">
-                <h4 className="text-lg font-black">
-                  Good morning {user?.email}
-                </h4>
-                <p className="text-sm text-center text-muted-foreground">
-                  If you click this browse button, your Overview system down
-                  instead, and keep click, calm. As a JS dev, click this button
-                  please.
-                </p>
-                <Button>
-                  <Earth /> Browse notes
-                </Button>
+          <RefreshWrapper onRefresh={async () => window.location.reload()}>
+            <main className="grid items-start min-h-full grid-cols-4 gap-2 px-4 overflow-y-auto">
+              <div className="flex justify-center py-6 col-span-full">
+                <div className="flex flex-col items-center justify-center w-full gap-4 p-10 rounded-lg md:w-2/3 bg-muted">
+                  <h4 className="text-lg font-black">
+                    Good morning {user?.email}
+                  </h4>
+                  <p className="text-sm text-center text-muted-foreground">
+                    If you click this browse button, your Overview system down
+                    instead, and keep click, calm. As a JS dev, click this
+                    button please.
+                  </p>
+                  <Button>
+                    <Earth /> Browse notes
+                  </Button>
+                </div>
               </div>
-            </div>
-          </main>
+            </main>
+          </RefreshWrapper>
         </div>
 
         {!openSide && (
