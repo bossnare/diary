@@ -40,7 +40,7 @@ export const ButtonIcon = ({
     <button
       onClick={onClick}
       className={cn(
-        'transition-colors will-change-colors duration-300 ease-in-out p-2 rounded-full md:hover:opacity-80 active:opacity-80 active:bg-zinc-900 md:hover:bg-zinc-900',
+        'transition-colors will-change-colors duration-300 ease-in-out p-2 rounded-full md:hover:opacity-80 active:opacity-80 active:bg-muted-foreground md:hover:bg-muted-foreground',
         className
       )}
     >

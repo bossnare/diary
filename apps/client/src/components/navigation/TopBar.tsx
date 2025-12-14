@@ -15,7 +15,7 @@ export const TopBar = ({
   const [openMenu, setOpenMenu] = useState(false);
 
   return (
-    <nav className="sticky inset-x-0 top-0 flex items-center gap-2 px-2 py-1 pl-1 border-b h-14 md:px-3 bg-zinc-950 border-zinc-800">
+    <nav className="sticky inset-x-0 top-0 flex items-center gap-2 px-2 py-1 pl-1 border-b shadow-lg h-14 md:px-3 bg-background border-border">
       <div className="flex items-center gap-2 shrink-0">
         {/* mobile menu button */}
         <ButtonIcon
@@ -30,17 +30,17 @@ export const TopBar = ({
         <Logo className="md:hidden" />
       </div>
       {/* desktop navigation */}
-      <div className="hidden h-10 py-1 px-2 rounded-md bg-zinc-900 gap-2 md:inline-flex w-[36%] items-center shrink-0">
-        <Search className="text-zinc-500" />
+      <div className="hidden h-10 py-1 px-2 rounded-md bg-input gap-2 md:inline-flex w-[36%] items-center shrink-0">
+        <Search className="text-muted-foreground" />
         <input
           type="text"
           name="current-search"
-          className="focus:outline-none pl-0.5 text-zinc-300 grow placeholder:text-sm placeholder:text-zinc-500"
+          className="focus:outline-none pl-0.5 text-foreground/80 grow placeholder:text-sm placeholder:text-muted-foreground"
           placeholder="Search a note..."
         />
       </div>
       <div className="flex items-center justify-end gap-3 md:gap-4 grow">
-        <div className="hidden rounded-full size-10 md:flex bg-zinc-900"></div>
+        <div className="hidden rounded-full size-10 md:flex bg-input"></div>
         <ButtonIcon
           onClick={() => setOpenMenu(!openMenu)}
           className="md:hidden"
