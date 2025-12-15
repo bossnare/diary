@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { TextAlignJustify, Ellipsis, Search } from 'lucide-react';
 import { Logo } from '@/components/brand/Logo';
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { ButtonIcon } from '@/components/ui/button';
 import { waitVibrate } from '@/utils/vibration';
 
@@ -13,6 +13,7 @@ export const TopBar = ({
   openSide: boolean;
 }) => {
   const [openMenu, setOpenMenu] = useState(false);
+  const inputId = useId();
 
   return (
     <nav className="sticky inset-x-0 top-0 flex items-center gap-2 px-2 py-1 pl-1 border-b shadow-lg h-14 md:px-3 bg-background border-border">
@@ -31,8 +32,11 @@ export const TopBar = ({
       </div>
       {/* desktop navigation */}
       <div className="hidden h-10 py-1 px-2 rounded-md bg-input gap-2 md:inline-flex w-[36%] items-center shrink-0">
-        <Search className="text-muted-foreground" />
+        <label htmlFor={inputId}>
+          <Search className="text-muted-foreground" />
+        </label>
         <input
+          id={inputId}
           type="text"
           name="current-search"
           className="focus:outline-none pl-0.5 text-foreground/80 grow placeholder:text-sm placeholder:text-muted-foreground"
@@ -56,7 +60,7 @@ export const TopBar = ({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
           // transition={{type}}
-          className="fixed w-4/5 p-2 rounded-lg shadow-xl sm:w-3/4 bg-background top-16 right-4 md:hidden"
+          className="fixed w-4/5 p-2 rounded-lg shadow-xl z-100! sm:w-3/4 bg-background top-16 right-4 md:hidden"
         >
           <ul className="flex flex-col gap-1">
             <li>

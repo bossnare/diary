@@ -19,9 +19,6 @@ export const useAuth = () => {
       setSession(session);
       setUser(session?.user || null);
       setPending(false);
-      // redirect
-      if (session) navigate('/dashboard', { replace: true });
-      else navigate('/', { replace: true });
     };
 
     checkSession();
@@ -32,14 +29,16 @@ export const useAuth = () => {
         setSession(session);
         setUser(session?.user || null);
         setPending(false);
-        // redirect
-        if (session) navigate('/dashboard', { replace: true });
-        else navigate('/', { replace: true });
       }
     );
 
     return () => listener.subscription.unsubscribe();
   }, [navigate]);
+
+  useEffect(() => {
+    // redirect
+    if (session) navigate('/dashboard', { replace: true });
+  }, [session, navigate]);
 
   return { session, user, pending };
 };
