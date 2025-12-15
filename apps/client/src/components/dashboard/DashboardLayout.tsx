@@ -4,21 +4,22 @@ import { NavTab } from '@/components/navigation/NavTab';
 import { TopBar } from '@/components/navigation/TopBar';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { useToggle } from '@/hooks/use-toggle';
-import { cn } from '@/lib/utils';
 import RefreshWrapper from '@/pull-to-refresh';
 import { waitVibrate } from '@/utils/vibration';
-import { PenLine, Plus, ChevronUp, ChevronDown } from 'lucide-react';
+import { PenLine, Plus } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import { ToggleTheme } from '@/components/ui/toggle-theme';
+import { useAuth } from '@/hooks/use-auth';
 
 function DashboardLayout() {
   const [openSide, setOpenSide] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(0);
   const sideBarRef = useRef<HTMLDivElement | null>(null);
   const isMobile = useIsMobile();
-  const { value: isOpen, toggle: toggleOpen } = useToggle(true);
+  const { user } = useAuth();
+  console.log(user);
 
   useEffect(() => {
     if (sideBarRef.current) {
@@ -40,72 +41,9 @@ function DashboardLayout() {
               </ul>
             </nav>
 
-            <fieldset
-              name="theme"
-              className="px-2 pt-4 mt-4 border-t border-sidebar-border"
-            >
-              <button
-                onClick={toggleOpen}
-                className="flex items-center justify-between w-full py-2 duration-200 rounded md:active:bg-muted-foreground/40 tansition-colors active:bg-muted md:hover:bg-muted"
-              >
-                <span>Theme</span>
-                <span className="mr-1">
-                  {isOpen ? <ChevronUp /> : <ChevronDown />}
-                </span>
-              </button>
-              <div
-                className={cn(
-                  isOpen ? 'h-24' : 'h-0',
-                  'flex transition-all duration-200 ease-in-out overflow-hidden flex-col px-1 mt-2 gap-4 *:flex *:justify-between'
-                )}
-              >
-                <div>
-                  <input
-                    id="system"
-                    name="theme"
-                    value="system"
-                    type="radio"
-                    className="cursor-pointer"
-                  />{' '}
-                  <label
-                    htmlFor="system"
-                    className="font-medium cursor-pointer text-muted-foreground md:text-sm"
-                  >
-                    System
-                  </label>
-                </div>
-                <div>
-                  <input
-                    id="light"
-                    name="theme"
-                    value="light"
-                    type="radio"
-                    className="cursor-pointer"
-                  />{' '}
-                  <label
-                    htmlFor="light"
-                    className="font-medium cursor-pointer text-muted-foreground md:text-sm"
-                  >
-                    Light
-                  </label>
-                </div>
-                <div>
-                  <input
-                    id="dark"
-                    name="theme"
-                    value="dark"
-                    type="radio"
-                    className="cursor-pointer"
-                  />{' '}
-                  <label
-                    htmlFor="dark"
-                    className="font-medium cursor-pointer text-muted-foreground md:text-sm"
-                  >
-                    Dark
-                  </label>
-                </div>
-              </div>
-            </fieldset>
+            <div className="h-1 my-6 border-t border-sidebar-border"></div>
+
+            <ToggleTheme />
 
             <div className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-2 px-4 pb-6 bg-linear-to-b from-transparent via-zinc-950/20 to-zinc-950/40 dark:to-zinc-950/80 min-h-15">
               <div className="w-full active:bg-muted">
@@ -149,12 +87,28 @@ function DashboardLayout() {
           <aside
             className={`${
               openSide ? 'scale-100' : 'scale-20'
-            } size-full tansition-transform will-change-transform duration-250 rounded-xl flex-col space-y-3 *:border *:border-border *:h-20 *:w-full *:bg-muted/60 *:rounded-lg ease-in-out overflow-y-auto flex items-center`}
+            } size-full tansition-transform will-change-transform duration-250 rounded-xl ease-in-out overflow-y-auto`}
           >
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <div className="flex items-center gap-3 mb-4">
+              <img
+                src={user?.user_metadata.avatar_url}
+                className="object-cover rounded-full shrink-0 size-10 bg-muted"
+                loading="lazy"
+                alt="user_avatar"
+              />
+              <div className="flex flex-col -space-y-2 overflow-hidden">
+                <span className="text-lg font-bold tracking-tight truncate line-clamp-1">
+                  {user?.user_metadata.name.split('(')[0] || 'User Memoroom'}{' '}
+                </span>
+                <span className="text-sm text-muted-foreground">
+                  @{user?.user_metadata.user_name}
+                </span>
+              </div>
+            </div>
+
+            <div className="h-1 my-6 border-t border-sidebar-border"></div>
+
+            <ToggleTheme />
           </aside>
         </div>
 
