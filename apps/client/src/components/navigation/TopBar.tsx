@@ -4,6 +4,7 @@ import { Logo } from '@/components/brand/Logo';
 import { useId, useState } from 'react';
 import { ButtonIcon } from '@/components/ui/button';
 import { waitVibrate } from '@/utils/vibration';
+import { useAuth } from '@/hooks/use-auth';
 
 export const TopBar = ({
   setOpenSide,
@@ -14,6 +15,7 @@ export const TopBar = ({
 }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const inputId = useId();
+  const { user } = useAuth();
 
   return (
     <nav className="sticky inset-x-0 top-0 flex items-center gap-2 px-2 py-1 pl-1 border-b shadow-lg h-14 md:px-3 bg-background border-border">
@@ -50,7 +52,17 @@ export const TopBar = ({
           <span className="absolute p-1 rounded-full top-1 size-2 right-0.5 bg-destructive"></span>
         </ButtonIcon>
 
-        <div className="hidden rounded-full size-10 md:flex bg-input"></div>
+        <div
+          title={user?.user_metadata.name.split('(')[0]}
+          className="hidden overflow-hidden rounded-full cursor-pointer size-8 md:block bg-input"
+        >
+          <img
+            src={user?.user_metadata.avatar_url}
+            alt="user_avatar"
+            className="object-cover size-full"
+            loading="lazy"
+          />
+        </div>
         <ButtonIcon
           onClick={() => setOpenMenu(!openMenu)}
           className="md:hidden"
