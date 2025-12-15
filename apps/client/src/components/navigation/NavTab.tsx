@@ -7,7 +7,7 @@ export function NavTab() {
   const defaultClass =
     'relative flex items-center justify-center md:justify-start md:rounded-md w-full cursor-pointer gap-2 p-4 md:px-3 md:h-9 ease-in-out';
   const inactiveClass =
-    'font-medium transition-colors duration-300 ease-in-out md:hover:opacity-80 text-muted-foreground active:bg-muted md:hover:bg-muted/60';
+    'font-medium transition-colors rounded-full duration-300 ease-in-out md:hover:opacity-80 text-muted-foreground active:bg-muted-foreground/20 md:hover:bg-muted/60';
 
   return (
     <>
