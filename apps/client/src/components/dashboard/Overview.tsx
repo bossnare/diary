@@ -9,10 +9,9 @@ function Overview() {
     <>
       <div className="flex justify-center py-6 col-span-full">
         <div className="flex flex-col items-center justify-center w-full gap-4 p-10 rounded-lg md:w-2/3 bg-muted">
-          <h4 className="text-lg font-black">Good morning {user?.email}</h4>
+          <h4 className="text-lg font-black text-center">Good morning {user?.user_metadata.name.split(' (')[0]}</h4>
           <p className="text-center md:text-sm text-muted-foreground">
-            If you click this browse button, your Overview system down instead,
-            and keep click, calm. As a JS dev, click this button please.
+            If you know, you know. As a social media fan, you maybe know it.
           </p>
           <Button>
             <Earth /> Browse notes
