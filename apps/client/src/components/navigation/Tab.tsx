@@ -11,15 +11,26 @@ export const Tab = ({
 }) => {
   const activeClass = ' font-semibold text-sidebar-foreground md:bg-muted';
   const defaultClass =
-    'relative flex items-center justify-center md:justify-start md:rounded-md w-full cursor-pointer gap-2 p-3 md:px-3 md:h-9 ease-in-out';
+    'relative transition-colors duration-300 ease-in-out flex items-center justify-center md:justify-start md:rounded-md w-full cursor-pointer gap-3 p-3 md:px-3 md:h-9 ease-in-out';
   const inactiveClass =
-    'font-medium transition-colors rounded-full duration-300 ease-in-out md:hover:opacity-80 text-muted-foreground active:bg-muted-foreground/20 md:hover:bg-muted/60';
+    'font-medium rounded-full md:hover:opacity-80 text-muted-foreground active:bg-muted-foreground/20 md:hover:bg-muted/60';
 
   return (
     <button
       className={cn(defaultClass, isActive ? activeClass : inactiveClass)}
     >
-      <Icon className="md:size-5 size-7" />
+      {
+        label === 'Search' ? (<Icon
+      weight={isActive ? 'fill' : 'regular'}
+        className=
+          'md:size-6 size-7 rounded-md'
+      />) : (
+        <Icon
+        className=
+          'md:size-6 size-7 rounded-md'
+      />
+      )
+      }
       <span className="hidden md:block">{label}</span>
       {/* underline */}
       {isActive && (

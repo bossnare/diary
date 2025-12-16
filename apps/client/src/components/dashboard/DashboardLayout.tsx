@@ -36,7 +36,7 @@ function DashboardLayout() {
 
           <aside className="relative text-sidebar-foreground space-y-1 px-3 w-full h-[calc(100%-8%)] overflow-y-auto scrollbar-none">
             <nav className="mt-1 rounded-md">
-              <ul className="flex flex-col space-y-1.5">
+              <ul className="flex flex-col gap-2">
                 <NavTab />
               </ul>
             </nav>

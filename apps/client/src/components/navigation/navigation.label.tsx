@@ -3,11 +3,12 @@ import {
   UserCog,
   Trash,
   Archive,
-  Bell,
   Layers,
-  Search,
   Tags,
+  Bell,
 } from 'lucide-react';
+
+import { MagnifyingGlassIcon } from '@phosphor-icons/react';
 
 const miniNavLabel = [
   {
@@ -42,7 +43,7 @@ const tabLabel = [
   {
     id: 2,
     label: 'Search',
-    icon: Search,
+    icon: MagnifyingGlassIcon,
     route: '/dashboard/search',
   },
   {
