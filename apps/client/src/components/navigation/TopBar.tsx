@@ -1,10 +1,10 @@
-import { motion } from 'motion/react';
 import { TextAlignJustify, Ellipsis, Search, BellIcon } from 'lucide-react';
 import { Logo } from '@/components/brand/Logo';
 import { useId, useState } from 'react';
 import { ButtonIcon } from '@/components/ui/button';
 import { waitVibrate } from '@/utils/vibration';
 import { useAuth } from '@/hooks/use-auth';
+import { MiniNav } from './MiniNav';
 
 export const TopBar = ({
   setOpenSide,
@@ -18,7 +18,7 @@ export const TopBar = ({
   const { user } = useAuth();
 
   return (
-    <nav className="sticky inset-x-0 top-0 flex items-center gap-2 px-2 py-1 pl-1 border-b shadow-lg h-14 md:px-3 bg-background border-border">
+    <nav className="sticky inset-x-0 top-0 flex items-center gap-2 z-99 px-2 py-1 pl-1 border-b shadow-lg h-14 md:px-3 bg-background border-border">
       <div className="flex items-center gap-2 shrink-0">
         {/* mobile menu button */}
         <ButtonIcon
@@ -72,34 +72,7 @@ export const TopBar = ({
       </div>
 
       {/* mobile navigation tab */}
-      {openMenu && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 10 }}
-          // transition={{type}}
-          className="fixed w-4/5 p-2 rounded-lg shadow-xl z-100! sm:w-3/4 bg-background top-16 right-4 md:hidden"
-        >
-          <ul className="flex flex-col gap-1">
-            <li>
-              <button className="flex w-full gap-2 px-2 h-9">
-                Workspaces settings
-              </button>
-            </li>
-            <li>
-              <button className="flex w-full gap-2 px-2 h-9">
-                Account health
-              </button>
-            </li>
-            <li>
-              <button className="flex w-full gap-2 px-2 h-9">Archives</button>
-            </li>
-            <li>
-              <button className="flex w-full gap-2 px-2 h-9">Trash</button>
-            </li>
-          </ul>
-        </motion.div>
-      )}
+      {openMenu && <MiniNav />}
     </nav>
   );
 };
