@@ -19,18 +19,14 @@ export const Tab = ({
     <button
       className={cn(defaultClass, isActive ? activeClass : inactiveClass)}
     >
-      {
-        label === 'Search' ? (<Icon
-      weight={isActive ? 'fill' : 'regular'}
-        className=
-          'md:size-6 size-7 rounded-md'
-      />) : (
+      {label === 'Search' ? (
         <Icon
-        className=
-          'md:size-6 size-7 rounded-md'
-      />
-      )
-      }
+          weight={isActive ? 'fill' : 'bold'}
+          className="md:size-6 size-7 rounded-md"
+        />
+      ) : (
+        <Icon className="md:size-6 size-7 rounded-md" />
+      )}
       <span className="hidden md:block">{label}</span>
       {/* underline */}
       {isActive && (
