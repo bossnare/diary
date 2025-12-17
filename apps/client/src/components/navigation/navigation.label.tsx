@@ -10,7 +10,7 @@ import {
 
 import { MagnifyingGlassIcon } from '@phosphor-icons/react';
 
-const miniNavLabel = [
+const kebabMenuLabel = [
   {
     id: 1,
     label: 'Workspace settings',
@@ -60,4 +60,4 @@ const tabLabel = [
   },
 ];
 
-export { miniNavLabel, tabLabel };
+export { kebabMenuLabel, tabLabel };

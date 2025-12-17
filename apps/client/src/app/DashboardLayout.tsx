@@ -5,11 +5,12 @@ import { Button, ButtonIcon } from '@/components/ui/button';
 import { ToggleTheme } from '@/components/ui/toggle-theme';
 import { useAuth } from '@/hooks/use-auth';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { fabButtonVariants } from '@/motions/motion.variant';
 import RefreshWrapper from '@/pull-to-refresh';
 import { supabase } from '@/services/auth-client.service';
 import { waitVibrate } from '@/utils/vibration';
 import { PenLine, Plus, Settings } from 'lucide-react';
-import { motion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
@@ -144,18 +145,21 @@ function DashboardLayout() {
           </RefreshWrapper>
         </div>
 
-        {!openSide && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="fixed bottom-24 md:bottom-12 right-4"
-          >
-            <ButtonIcon className="text-white shadow-lg bg-primary size-14 md:hover:bg-primary">
-              <PenLine className="size-auto" />
-            </ButtonIcon>
-          </motion.div>
-        )}
+        <AnimatePresence>
+          {!openSide && (
+            <motion.div
+              variants={fabButtonVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="fixed bottom-24 md:bottom-12 right-4"
+            >
+              <ButtonIcon className="text-white shadow-lg bg-primary size-14 active:bg-primary hover:bg-primary">
+                <PenLine className="size-auto" />
+              </ButtonIcon>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* BottomBar */}
         <div

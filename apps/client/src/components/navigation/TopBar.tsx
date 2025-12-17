@@ -9,7 +9,8 @@ import { useId } from 'react';
 import { ButtonIcon } from '@/components/ui/button';
 import { waitVibrate } from '@/utils/vibration';
 import { useAuth } from '@/hooks/use-auth';
-import { MiniNav } from './MiniNav';
+import { KebabMenu } from './KebabMenu';
+import { AnimatePresence } from 'motion/react';
 
 export const TopBar = ({
   setOpenSide,
@@ -73,7 +74,7 @@ export const TopBar = ({
           )}
         </div>
         {/* mobile navigation tab */}
-        {!openSide && <MiniNav />}{' '}
+        <AnimatePresence>{!openSide && <KebabMenu />}</AnimatePresence>
       </div>
     </nav>
   );

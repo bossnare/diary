@@ -17,13 +17,13 @@ function Overview() {
             <div className="flex justify-end gap-4">
               <Button
                 size="medium"
-                className="bg-secondary-foreground text-foreground/80 w-auto!"
+                className="font-normal shadow-xs bg-secondary-foreground text-foreground/80"
               >
-                Plus tard
+                later
               </Button>
               <Button
                 size="medium"
-                className="bg-secondary text-secondary-foreground w-auto!"
+                className="bg-secondary text-secondary-foreground"
               >
                 Configure
               </Button>

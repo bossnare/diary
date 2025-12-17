@@ -8,7 +8,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, size = 'large', className, ...props }, ref) => {
-    const variants = size === 'large' ? 'h-10 px-6' : 'h-9 px-5';
+    const variants = size === 'large' ? 'h-10 px-6 font-semibold' : 'h-9 px-5';
 
     return (
       <button
