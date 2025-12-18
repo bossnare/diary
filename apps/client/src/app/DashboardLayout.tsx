@@ -1,9 +1,11 @@
 import { Logo } from '@/components/brand/Logo';
 import { NavTab } from '@/components/navigation/NavTab';
+import { Overlay } from '@/components/navigation/Overlay';
+// import { SideOver } from '@/components/navigation/SideOver';
 import { TopBar } from '@/components/navigation/TopBar';
 import { Button, ButtonIcon } from '@/components/ui/button';
 import { ToggleTheme } from '@/components/ui/toggle-theme';
-import { useAuth } from '@/hooks/use-auth';
+import { MiniProfile } from '@/components/users/MiniProfile';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { fabButtonVariants } from '@/motions/motion.variant';
 import RefreshWrapper from '@/pull-to-refresh';
@@ -19,8 +21,6 @@ function DashboardLayout() {
   const [sidebarWidth, setSidebarWidth] = useState(0);
   const sideBarRef = useRef<HTMLDivElement | null>(null);
   const isMobile = useIsMobile();
-  const { user } = useAuth();
-  console.log(user);
 
   useEffect(() => {
     if (sideBarRef.current) {
@@ -32,10 +32,10 @@ function DashboardLayout() {
     <>
       <div className="relative max-h-screen overflow-hidden h-dvh">
         {/* sidebar */}
-        <div className="fixed inset-y-0 z-20 hidden w-64 border-r bg-sidebar md:block border-sidebar-border">
+        <div className="fixed inset-y-0 z-20 hidden w-64 border-r text-sidebar-foreground bg-sidebar md:block border-sidebar-border">
           <Logo className="sticky top-0 hidden w-full px-5 py-3 md:flex" />
 
-          <aside className="relative text-sidebar-foreground space-y-4 px-3 w-full h-[calc(100%-8%)] overflow-y-auto scrollbar-none">
+          <aside className="relative space-y-4 px-3 w-full h-[calc(100%-6%)] overflow-y-auto scrollbar-none">
             <nav className="mt-1 rounded-md">
               <ul className="flex flex-col gap-2">
                 <NavTab />
@@ -46,68 +46,40 @@ function DashboardLayout() {
 
             <ToggleTheme />
 
-            <div className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-2 px-4 pb-6 bg-linear-to-b from-transparent via-zinc-950/20 to-zinc-950/10 dark:to-zinc-950/80 min-h-15">
+            <div className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-2 px-3 pb-2 bg-linear-to-b from-transparent via-zinc-950/20 to-zinc-950/10 dark:to-zinc-950/80 min-h-15">
               <div className="w-full active:bg-muted">
                 <Button className="w-full bg-secondary text-secondary-foreground">
                   <Plus /> Create new note
-                </Button>
-              </div>
-              {/* prov logout */}
-              <div className="w-full active:bg-muted">
-                <Button
-                  onClick={async () => await supabase.auth.signOut()}
-                  size="medium"
-                  className="w-full font-normal border bg-muted text-foreground/90 border-input"
-                >
-                  Logout
                 </Button>
               </div>
             </div>
           </aside>
         </div>
 
-        <div
+        <Overlay
+          className="z-40 md:hidden"
           onClick={() => {
             waitVibrate(200, 'low');
             setOpenSide(false);
           }}
-          className={`${
-            openSide
-              ? 'opacity-100 pointer-events-auto'
-              : 'opacity-0 pointer-events-none'
-          } inset-0 transition-opacity duration-300 ease-in-out bg-black/50 cursor-pointer fixed z-40 md:hidden`}
-        ></div>
+          conditionValue={openSide}
+        />
 
         {/* sidebar mobile */}
         <div
           ref={sideBarRef}
           className={`${
             openSide ? 'translate-x-0' : '-translate-x-full'
-          } md:hidden transition-transform will-change-transform duration-200 px-4 py-3 z-50 ease-in-out w-6/7 bg-background fixed inset-y-0 border-r border-border rounded-tr-3xl overflow-hidden`}
+          } md:hidden transition-transform will-change-transform text-sidebar-foreground duration-200 px-4 py-3 z-50 ease-in-out w-6/7 bg-sidebar fixed inset-y-0 border-r border-sidebar-border rounded-tr-3xl overflow-hidden`}
         >
           <aside className={`relative size-full rounded-xl overflow-y-auto`}>
-            <div className="flex items-center gap-3 mb-4">
-              <img
-                src={user?.user_metadata.avatar_url}
-                className="object-cover rounded-full shrink-0 size-10 bg-muted"
-                loading="lazy"
-                alt="user_avatar"
-              />
-              <div className="flex flex-col -space-y-1 overflow-hidden grow">
-                <span className="text-lg font-bold tracking-tight truncate line-clamp-1">
-                  {user?.user_metadata.name.split(' (')[0] || 'User Memoroom'}
-                </span>
-                <span className="text-sm text-muted-foreground">
-                  {user?.user_metadata.email_verified && 'Account verified'}
-                </span>
-              </div>
-              <div className="ml-auto shrink-0">
+            <MiniProfile
+              btnAction={
                 <ButtonIcon>
                   <Settings />
                 </ButtonIcon>
-              </div>
-            </div>
-
+              }
+            />
             <div className="h-1 my-6 border-t border-sidebar-border"></div>
 
             <ToggleTheme />
@@ -138,7 +110,7 @@ function DashboardLayout() {
         >
           <TopBar setOpenSide={setOpenSide} openSide={openSide} />
           <RefreshWrapper onRefresh={async () => window.location.reload()}>
-            <main className="grid items-start min-h-full grid-cols-4 gap-2 px-4 py-2 overflow-y-auto">
+            <main className="grid items-start min-h-full grid-cols-4 gap-2 px-4 py-2 overflow-y-auto overscroll-contain">
               {/* nested routes here */}
               <Outlet />
             </main>
@@ -154,7 +126,7 @@ function DashboardLayout() {
               exit="exit"
               className="fixed bottom-24 md:bottom-12 right-4"
             >
-              <ButtonIcon className="text-white shadow-lg bg-primary size-14 active:bg-primary hover:bg-primary">
+              <ButtonIcon className="text-white shadow-lg bg-primary size-14 active:bg-primary md:hover:bg-primary">
                 <PenLine className="size-auto" />
               </ButtonIcon>
             </motion.div>
@@ -180,6 +152,8 @@ function DashboardLayout() {
             </ul>
           </nav>
         </div>
+
+        {/* sideOver */}
       </div>
     </>
   );

@@ -17,7 +17,7 @@ function Overview() {
             <div className="flex justify-end gap-4">
               <Button
                 size="medium"
-                className="font-normal shadow-xs bg-secondary-foreground text-foreground/80"
+                className="font-normal shadow-xs bg-input text-foreground/80"
               >
                 later
               </Button>

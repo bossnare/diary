@@ -50,7 +50,7 @@ export const KebabMenu = () => {
           animate="visible"
           exit="exit"
           // transition={{type}}
-          className="fixed w-3/4 p-2 rounded-lg shadow-xl sm:w-3/4 bg-background top-16 right-3 md:hidden"
+          className="fixed w-3/4 p-2 rounded-lg shadow-xl sm:w-3/4 bg-background dark:bg-sidebar top-16 right-3 md:hidden"
         >
           <ul className="flex flex-col gap-2">
             {kebabMenuLabel.map((m) => (

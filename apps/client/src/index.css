@@ -3,7 +3,8 @@
 
 @layer base {
   body {
-    @apply relative overflow-hidden font-sans overscroll-none bg-background text-foreground;
+    /* overscroll-none overflow-hidden */
+    @apply relative font-sans bg-background text-foreground;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;

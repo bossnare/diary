@@ -8,7 +8,7 @@ export const ToggleTheme = () => {
   const { setTheme, theme } = useTheme();
 
   return (
-    <div className="px-2">
+    <div className="px-1">
       <button
         onClick={toggleOpen}
         className="flex items-center justify-between w-full px-1 py-2 duration-200 rounded md:active:bg-muted-foreground/40 tansition-colors active:bg-muted md:hover:bg-muted"
