@@ -1,17 +1,16 @@
 import { Logo } from '@/components/brand/Logo';
 import { NavTab } from '@/components/navigation/NavTab';
 import { Overlay } from '@/components/navigation/Overlay';
+import { MobileSidebar } from '@/components/navigation/Sidebar';
 // import { SideOver } from '@/components/navigation/SideOver';
 import { TopBar } from '@/components/navigation/TopBar';
 import { Button, ButtonIcon } from '@/components/ui/button';
 import { ToggleTheme } from '@/components/ui/toggle-theme';
-import { MiniProfile } from '@/components/users/MiniProfile';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { fabButtonVariants } from '@/motions/motion.variant';
 import RefreshWrapper from '@/pull-to-refresh';
-import { supabase } from '@/services/auth-client.service';
 import { waitVibrate } from '@/utils/vibration';
-import { PenLine, Plus, Settings } from 'lucide-react';
+import { PenLine, Plus } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { Outlet } from 'react-router-dom';
@@ -19,12 +18,12 @@ import { Outlet } from 'react-router-dom';
 function DashboardLayout() {
   const [openSide, setOpenSide] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(0);
-  const sideBarRef = useRef<HTMLDivElement | null>(null);
+  const sidebarRef = useRef<HTMLDivElement | null>(null);
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    if (sideBarRef.current) {
-      setSidebarWidth(sideBarRef.current.getBoundingClientRect().width);
+    if (sidebarRef.current) {
+      setSidebarWidth(sidebarRef.current.getBoundingClientRect().width);
     }
   }, []);
 
@@ -33,9 +32,9 @@ function DashboardLayout() {
       <div className="relative max-h-screen overflow-hidden h-dvh">
         {/* sidebar */}
         <div className="fixed inset-y-0 z-20 hidden w-64 border-r text-sidebar-foreground bg-sidebar md:block border-sidebar-border">
-          <Logo className="sticky top-0 hidden w-full px-5 py-3 md:flex" />
+          <Logo className="sticky top-0 hidden w-full px-5 py-4 md:flex" />
 
-          <aside className="relative space-y-4 px-3 w-full h-[calc(100%-6%)] overflow-y-auto scrollbar-none">
+          <aside className="relative space-y-4 px-3 w-full h-[calc(100%-8%)] overflow-y-auto scrollbar-none">
             <nav className="mt-1 rounded-md">
               <ul className="flex flex-col gap-2">
                 <NavTab />
@@ -66,34 +65,7 @@ function DashboardLayout() {
         />
 
         {/* sidebar mobile */}
-        <div
-          ref={sideBarRef}
-          className={`${
-            openSide ? 'translate-x-0' : '-translate-x-full'
-          } md:hidden transition-transform will-change-transform text-sidebar-foreground duration-200 px-4 py-3 z-50 ease-in-out w-6/7 bg-sidebar fixed inset-y-0 border-r border-sidebar-border rounded-tr-3xl overflow-hidden`}
-        >
-          <aside className={`relative size-full rounded-xl overflow-y-auto`}>
-            <MiniProfile
-              btnAction={
-                <ButtonIcon>
-                  <Settings />
-                </ButtonIcon>
-              }
-            />
-            <div className="h-1 my-6 border-t border-sidebar-border"></div>
-
-            <ToggleTheme />
-            <div className="absolute inset-x-0 w-full px-2 bottom-2 active:bg-muted">
-              <Button
-                onClick={async () => await supabase.auth.signOut()}
-                size="large"
-                className="w-full font-normal border bg-muted text-foreground/90 border-input"
-              >
-                Logout
-              </Button>
-            </div>
-          </aside>
-        </div>
+        <MobileSidebar open={openSide} ref={sidebarRef} />
 
         {/* main content */}
         <div
@@ -110,7 +82,7 @@ function DashboardLayout() {
         >
           <TopBar setOpenSide={setOpenSide} openSide={openSide} />
           <RefreshWrapper onRefresh={async () => window.location.reload()}>
-            <main className="grid items-start min-h-full grid-cols-4 gap-2 px-4 py-2 overflow-y-auto overscroll-contain">
+            <main className="grid items-start min-h-full grid-cols-4 gap-2 px-2 py-2 overflow-y-auto md:px-4 overscroll-contain">
               {/* nested routes here */}
               <Outlet />
             </main>

@@ -1,10 +1,11 @@
 import { MiniProfile } from '@/components/users/MiniProfile';
-import { X } from 'lucide-react';
-import { ButtonIcon, Button } from '../ui/button';
-import { Overlay } from './Overlay';
 import { cn } from '@/lib/utils';
 import { supabase } from '@/services/auth-client.service';
-import { sideOverLabel } from './navigation.label';
+import { X } from 'lucide-react';
+import { Button, ButtonIcon } from '../ui/button';
+import { sideBarLabel } from './navigation.label';
+import { Overlay } from './Overlay';
+import { SideBarTabWrapper } from './sideBarTab';
 
 export const SideOver = ({
   openSideOver,
@@ -34,14 +35,13 @@ export const SideOver = ({
             </ButtonIcon>
           }
         />
-        <div className="flex flex-col gap-2 grow">
-          {sideOverLabel.map((s) => (
-            <button
-              key={s.id}
-              className="w-full flex justify-start gap-3 px-2 items-center text-sidebar-foreground/80 lg:hover:text-sidebar-foreground md:active:text-sidebar-foreground h-9 rounded-sm lg:hover:bg-muted md:active:bg-muted lg:active:text-sidebar-foreground/70"
-            >
-              <s.icon className="size-5" /> {s.label}
-            </button>
+        <ul className="flex flex-col gap-2 grow">
+          {sideBarLabel.map((s) => (
+            <li key={s.id}>
+              <SideBarTabWrapper>
+                <s.icon className="size-5" /> {s.label}
+              </SideBarTabWrapper>
+            </li>
           ))}
           <div className="w-full mt-auto">
             <Button
@@ -52,7 +52,7 @@ export const SideOver = ({
               Log out
             </Button>
           </div>
-        </div>
+        </ul>
       </nav>
     </>
   );

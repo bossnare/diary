@@ -1,13 +1,13 @@
 import {
   Archive,
   Bell,
+  KeyRound,
   Layers,
+  Palette,
   Settings,
   Tags,
   Trash,
   UserCog,
-  Palette,
-  KeyRound,
 } from 'lucide-react';
 
 import { MagnifyingGlassIcon } from '@phosphor-icons/react';
@@ -35,9 +35,10 @@ const kebabMenuLabel = [
   },
 ];
 
-const sideOverLabel = [
+const sideBarLabel = [
   {
     id: 1,
+    hiddenOnMobile: true,
     label: 'Account Settings',
     icon: UserCog,
     route: '/app',
@@ -89,4 +90,4 @@ const tabLabel = [
   },
 ];
 
-export { kebabMenuLabel, tabLabel, sideOverLabel };
+export { kebabMenuLabel, sideBarLabel, tabLabel };

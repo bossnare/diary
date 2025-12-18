@@ -19,7 +19,7 @@ function Overview() {
                 size="medium"
                 className="font-normal shadow-xs bg-input text-foreground/80"
               >
-                later
+                Later
               </Button>
               <Button
                 size="medium"
