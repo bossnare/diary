@@ -42,7 +42,7 @@ function DashboardLayout() {
                     : 'translateX(0)',
                 }
           }
-          className="relative transition-transform duration-200 ease-in-out will-change-transform md:transition-all md:will-change-auto md:duration-50 md:ml-64"
+          className="relative transition-transform duration-200 ease-in-out will-change-transform md:transition-all md:will-change-auto md:duration-50 md:ml-14 lg:ml-64"
         >
           <TopBar />
           {/* route content */}

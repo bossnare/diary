@@ -1,6 +1,7 @@
 import { Paragraphe } from '@/components/Paragraphe';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/use-auth';
+import { X } from 'lucide-react';
 
 const labels = ['PayPal', 'Spotify', 'Melodayz'];
 
@@ -10,7 +11,7 @@ function Overview() {
   return (
     <>
       <div className="py-2 space-y-4">
-        <div className="flex flex-col w-full gap-2 p-4 rounded-lg shadow-xs md:p-3 bg-muted/80 dark:bg-muted/50">
+        <div className="flex relative flex-col w-full gap-2 p-4 rounded-lg shadow-xs md:p-3 bg-muted/80 dark:bg-muted/50">
           <h4 className="font-bold">Complete your profile</h4>
           <div className="flex flex-col justify-center gap-3 md:items-center md:flex-row md:justify-between">
             <Paragraphe className="text-muted-foreground md:text-sm hover:text-primary cursor-pointer">
@@ -18,18 +19,18 @@ function Overview() {
               As a social media fan, you maybe know it.
             </Paragraphe>
             <div className="flex justify-end gap-4">
-              <Button
-                size="sm"
-                variant="ghost"
-                className="shadow-xs bg-accent dark:bg-accent/50 text-foreground/80"
-              >
-                Later
-              </Button>
               <Button size="sm" variant="secondary">
                 Configure
               </Button>
             </div>
           </div>
+
+          {/* skip */}
+          <span className="right-1 top-0.5 absolute">
+            <Button size="icon-sm" variant="ghost">
+              <X className="" />
+            </Button>
+          </span>
         </div>
 
         {/* content */}

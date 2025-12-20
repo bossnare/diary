@@ -6,6 +6,7 @@ import { motion } from 'motion/react';
 import { useEffect, useRef } from 'react';
 import { kebabMenuLabel } from './navigation.label';
 import { handleWait } from '@/utils/handle-wait';
+import { useLayoutStore } from '@/stores/UXStore';
 
 export const KebabMenu = () => {
   const {
@@ -13,6 +14,7 @@ export const KebabMenu = () => {
     toggle: toggleOpenKebabMenu,
     setFalse: setOpenKebabToFalse,
   } = useToggle();
+  const isOpenMobileSidebar = useLayoutStore((s) => s.isOpenMobileSidebar);
 
   const kebabMenuRef = useRef<HTMLDivElement | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
@@ -45,7 +47,7 @@ export const KebabMenu = () => {
         <Ellipsis />
       </Button>
       {/* Kebab menu */}
-      {openKebabMenu && (
+      {!isOpenMobileSidebar && openKebabMenu && (
         <motion.div
           variants={kebabMenuVariants}
           ref={kebabMenuRef}

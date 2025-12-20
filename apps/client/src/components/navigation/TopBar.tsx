@@ -17,7 +17,6 @@ import { KebabMenu } from './KebabMenu';
 export const TopBar = () => {
   const inputId = useId();
   const { user } = useAuth();
-  const isOpenMobileSidebar = useLayoutStore((s) => s.isOpenMobileSidebar);
   const toggleIsOpenMobileSidebar = useLayoutStore(
     (s) => s.toggleIsOpenMobileSidebar
   );
@@ -75,7 +74,7 @@ export const TopBar = () => {
         </div>
         {/* mobile navigation tab */}
         <AnimatePresence>
-          {!isOpenMobileSidebar && <KebabMenu />}
+          <KebabMenu />
         </AnimatePresence>
       </div>
     </nav>

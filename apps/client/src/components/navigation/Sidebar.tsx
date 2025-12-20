@@ -1,4 +1,4 @@
-import { Plus, Settings } from 'lucide-react';
+import { Plus, Settings, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MiniProfile } from '@/components/users/MiniProfile';
 // import { ToggleTheme } from '../ui/toggle-theme';
@@ -10,6 +10,7 @@ import { desctructiveLabel, sideBarLabel } from './navigation.label';
 import { NavTab } from './NavTab';
 import { Overlay } from './Overlay';
 import { SideBarTabWrapper } from './sideBarTab';
+import { useToggle } from '@/hooks/use-toggle';
 
 type SidebarProps = React.HTMLAttributes<HTMLDivElement> & {
   ref?: React.Ref<HTMLDivElement>;
@@ -87,13 +88,25 @@ export const MobileSidebar = ({ ref, ...props }: SidebarProps) => {
 };
 
 export const DesktopSidebar = ({ ref, ...props }: SidebarProps) => {
+  const { value: isOpenPanel, toggle: toggleOpenPanel } = useToggle();
+
   return (
     <div
       {...props}
       ref={ref}
-      className="fixed inset-y-0 z-20 hidden w-64 border-r text-sidebar-foreground bg-sidebar md:block border-sidebar-border"
+      className="fixed inset-y-0 z-20 hidden md:w-14 lg:w-64 border-r text-sidebar-foreground bg-sidebar md:block border-sidebar-border"
     >
-      <Logo className="sticky top-0 hidden w-full px-5 py-4 md:flex" />
+      <div className="w-full flex justify-between items-center py-3 px-4 pr-2 ">
+        <Logo />
+        <Button
+          onClick={toggleOpenPanel}
+          variant="ghost"
+          size="icon"
+          className="text-sidebar-foreground/80"
+        >
+          {isOpenPanel ? <PanelLeftOpen /> : <PanelLeftClose />}
+        </Button>
+      </div>
 
       <aside className="relative space-y-4 px-3 w-full h-[calc(100%-8%)] overflow-y-auto scrollbar-none">
         <nav className="mt-1 rounded-md">

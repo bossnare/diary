@@ -5,7 +5,7 @@ export const Logo = ({ className }: { className?: string }) => {
     <div
       className={`flex gap-2 cursor-pointer active:opacity-80 md:hover:opacity-80 ${className}`}
     >
-      <img src={logo} alt="logo" className="size-6" loading="lazy" />
+      <img src={logo} alt="logo" className="size-6 shrink-0!" loading="lazy" />
       <span className="text-[21px] font-extrabold leading-none tracking-tighter select-none md:text-[23px]">
         memoroom
       </span>
