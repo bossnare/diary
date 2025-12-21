@@ -1,9 +1,9 @@
-import { Plus, Settings, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MiniProfile } from '@/components/users/MiniProfile';
+import { PanelLeftClose, PanelLeftOpen, Plus, Settings } from 'lucide-react';
 // import { ToggleTheme } from '../ui/toggle-theme';
 import { supabase } from '@/services/auth-client.service';
-import { useLayoutStore } from '@/stores/UXStore';
+import { useLayoutStore } from '@/stores/layoutStore';
 import { waitVibrate } from '@/utils/vibration';
 import { Logo } from '../brand/Logo';
 import { desctructiveLabel, sideBarLabel } from './navigation.label';
@@ -99,11 +99,12 @@ export const DesktopSidebar = ({
       style={{ width: `${width}px` }}
       {...props}
       ref={ref}
-      className="fixed inset-y-0 z-20 hidden duration-100 ease-in-out border-r transition-width md:max-w-[60px] lg:max-w-64 text-sidebar-foreground bg-sidebar md:block border-sidebar-border"
+      className="fixed inset-y-0 z-20 hidden duration-100 ease-in-out border-r transition-all md:max-w-[60px] lg:max-w-64 text-sidebar-foreground bg-sidebar md:block border-sidebar-border"
     >
       <div className="items-center justify-between hidden w-full px-3 py-3 pr-2 lg:flex ">
         {isOpenPanel && <Logo />}
         <Button
+          title="Ctrl+T"
           onClick={toggleOpenPanel}
           variant="ghost"
           size="icon"

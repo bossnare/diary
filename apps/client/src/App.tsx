@@ -1,9 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Analytics } from '@vercel/analytics/react';
-import { AppRoutes } from './routes/Routes';
-import { useIsPublicRoute } from './hooks/useIsPublicRoute';
 import { useEffect } from 'react';
 import { useTheme } from './hooks/use-theme';
+import { useIsPublicRoute } from './hooks/useIsPublicRoute';
+import { AppRoutes } from './routes/Routes';
 
 function App() {
   const isPublicRoute = useIsPublicRoute();
