@@ -8,13 +8,14 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useIsDesktop } from '@/hooks/use-desktop';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { fabButtonVariants } from '@/motions/motion.variant';
-import { useLayoutStore } from '@/stores/UXStore';
+import { useLayoutStore } from '@/stores/layoutStore';
 import { PenLine } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
 function DashboardLayout() {
+  // store state
   const isOpenMobileSidebar = useLayoutStore((s) => s.isOpenMobileSidebar);
   const isOpenPanel = useLayoutStore((s) => s.isOpenPanel);
   const setIsOpenPanel = useLayoutStore((s) => s.setIsOpenPanel);
@@ -22,26 +23,28 @@ function DashboardLayout() {
     (s) => s.setIsOpenMobileSidebar
   );
 
+  // local state
   const [mobileSidebarWidth, setMobileSidebarWidth] = useState(0);
   const mobileSidebarRef = useRef<HTMLDivElement | null>(null);
   const isMobile = useIsMobile();
-  const isDesktop = useIsDesktop();
-
-  // avoid bad state interactivity
-  // good lifecycle
-  useEffect(() => {
-    if (!isMobile) setIsOpenMobileSidebar(false);
-  }, [isMobile, setIsOpenMobileSidebar]);
-
-  useEffect(() => {
-    if (!isDesktop) setIsOpenPanel(true);
-    else setIsOpenPanel(false);
-  }, [isDesktop, setIsOpenPanel]);
+  const isDesktop = useIsDesktop(); // >= lg
 
   //  reactive main width
   const MIN_PANEL_WIDTH = 60;
   const MAX_PANEL_WIDTH = 256;
   const SIDEBAR_WIDTH = isOpenPanel ? MAX_PANEL_WIDTH : MIN_PANEL_WIDTH;
+
+  // main transform style breakpoint
+  const MAIN_TRANSFORM = !isMobile
+    ? {
+        transform: `translateX(${SIDEBAR_WIDTH}px)`,
+        width: `calc(100% - ${SIDEBAR_WIDTH}px)`,
+      }
+    : {
+        transform: isOpenMobileSidebar
+          ? `translateX(${mobileSidebarWidth}px)`
+          : 'translateX(0)',
+      };
 
   useEffect(() => {
     // get mobile sidebar width
@@ -52,6 +55,15 @@ function DashboardLayout() {
     }
   }, []);
 
+  // auto-collapsed sidebar
+  useEffect(() => {
+    if (!isMobile) setIsOpenMobileSidebar(false);
+  }, [isMobile, setIsOpenMobileSidebar]);
+
+  useEffect(() => {
+    setIsOpenPanel(isDesktop);
+  }, [isDesktop, setIsOpenPanel]);
+
   return (
     <>
       <div className="relative overflow-hidden">
@@ -60,19 +72,7 @@ function DashboardLayout() {
         {/* mobile sidebar  */}
         <MobileSidebar ref={mobileSidebarRef} /> {/* main content */}
         <div
-          style={
-            !isMobile
-              ? {
-                  transform: `translateX(${SIDEBAR_WIDTH}px)`,
-                  width: `calc(100% - ${SIDEBAR_WIDTH}px)`,
-                }
-              : {
-                  transform: isOpenMobileSidebar
-                    ? `translateX(${mobileSidebarWidth}px)`
-                    : 'translateX(0)',
-                  width: '100%',
-                }
-          }
+          style={MAIN_TRANSFORM}
           className="relative transition-transform duration-200 ease-in-out will-change-transform md:duration-100"
         >
           <TopBar />

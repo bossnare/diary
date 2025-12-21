@@ -1,3 +1,5 @@
+import { supabase } from '@/services/auth-client.service';
+import { type Session } from '@supabase/supabase-js';
 import axios, {
   type InternalAxiosRequestConfig,
   type AxiosInstance,
@@ -5,21 +7,40 @@ import axios, {
 
 //creation d'instance axios
 const api: AxiosInstance = axios.create();
+let currentSession: Session | null = null;
+
+async function initSession() {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  currentSession = session;
+  //  on auth change
+  supabase.auth.onAuthStateChange((_event, session) => {
+    currentSession = session;
+  });
+}
+
+initSession();
 
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     // check if the request is for login
-    const isLogin = config.url?.includes('/auth/login');
+    // const isLogin = config.url?.includes('/auth/login');
 
-    if (!isLogin) {
-      const token =
-        typeof window !== 'undefined'
-          ? localStorage.getItem('access_token')
-          : null; //apetraka type foana
-      // if (token && config.headers) {
-      (
-        config.headers as Record<string, string>
-      ).Authorization = `Bearer ${token}`;
+    // if (!isLogin) {
+    //   const token =
+    //     typeof window !== 'undefined'
+    //       ? localStorage.getItem('access_token')
+    //       : null; //apetraka type foana
+    //   // if (token && config.headers) {
+    //   (
+    //     config.headers as Record<string, string>
+    //   ).Authorization = `Bearer ${token}`;
+    // }
+
+    const token = currentSession?.access_token;
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
 
     // if use cookies

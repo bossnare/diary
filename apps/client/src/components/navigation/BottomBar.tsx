@@ -1,5 +1,5 @@
-import { useLayoutStore } from '@/stores/UXStore';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useLayoutStore } from '@/stores/layoutStore';
 import { NavTab } from './NavTab';
 
 export const BottomBar = ({

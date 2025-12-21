@@ -2,7 +2,7 @@ import { Logo } from '@/components/brand/Logo';
 import { Button } from '@/components/ui/button';
 import { UserAvatar } from '@/components/users/UserAvatar';
 import { useAuth } from '@/hooks/use-auth';
-import { useLayoutStore } from '@/stores/UXStore';
+import { useLayoutStore } from '@/stores/layoutStore';
 import { waitVibrate } from '@/utils/vibration';
 import {
   BellIcon,
@@ -48,7 +48,7 @@ export const TopBar = () => {
           id={inputId}
           type="text"
           name="current-search"
-          className="focus:outline-none pl-0.5 text-foreground/80 grow placeholder:text-sm placeholder:text-muted-foreground"
+          className="focus:outline-none pl-0.5 text-foreground/90 grow placeholder:text-sm placeholder:text-muted-foreground"
           placeholder="Search your notes, workspaces, ..."
         />
       </div>

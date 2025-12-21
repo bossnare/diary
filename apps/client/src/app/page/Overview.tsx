@@ -7,6 +7,8 @@ const labels = ['PayPal', 'Spotify', 'Melodayz'];
 
 function Overview() {
   const { user } = useAuth();
+  // const { data: me } = useMe();
+  // const notes: NoteInterface[] = me?.data?.notes;
 
   return (
     <>

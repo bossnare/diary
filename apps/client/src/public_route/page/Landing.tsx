@@ -1,23 +1,57 @@
 import { Logo } from '@/components/brand/Logo';
 import { Button } from '@/components/ui/button';
 import { useToggle } from '@/hooks/use-toggle';
-import { landingMenuVariants } from '@/motions/motion.variant';
-import { TextAlignJustify, X } from 'lucide-react';
+import {
+  landingMenuVariants,
+  landingBodyVariants,
+} from '@/motions/motion.variant';
+import { Merge, TextAlignJustify, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Login } from './Login';
+import { Paragraphe } from '@/components/Paragraphe';
+import { landingPageLabel } from '@/components/navigation/navigation.label';
+import { NavLink } from 'react-router-dom';
+import { cn } from '@/lib/utils';
 
 export const LandingPage = () => {
   const { value: openMenu, toggle: toggleOpenMenu } = useToggle();
 
   return (
     <div className="relative h-screen">
-      <header className="sticky">
-        <nav className="sticky inset-x-0 top-0 flex items-center h-12 gap-2 px-2 py-1 pr-1 shadow-lg md:pr-2 z-99 md:px-3 bg-sidebar/80 backdrop-blur-sm">
+      <header className="fixed inset-x-0 top-0 z-99">
+        <nav className="inset-x-0 top-0 flex items-center justify-between h-12 gap-2 px-2 py-1 pr-1 md:pr-6 md:px-6">
           <div className="flex items-center gap-2 shrink-0">
             <Logo />
           </div>
 
-          <div className="flex items-center justify-end gap-3 md:gap-4 grow">
+          {/* nav */}
+          <div className="hidden md:flex grow">
+            <ul className="flex gap-8 text-accent-foreground *:px-2 mx-auto text-sm">
+              {landingPageLabel.map((l) => (
+                <li key={l.id}>
+                  <NavLink to={l.route}>
+                    {({ isActive }) => (
+                      <button
+                        className={cn(
+                          isActive
+                            ? 'text-primary font-bold'
+                            : 'hover:not-focus:opacity-80 active:text-muted-foreground font-medium',
+                          'relative flex justify-center'
+                        )}
+                      >
+                        {l.label}
+                        {isActive && (
+                          <span className="absolute rounded-full -bottom-3 size-2 bg-primary"></span>
+                        )}
+                      </button>
+                    )}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="flex items-center justify-end gap-3 md:gap-4">
             <div className="flex gap-3 md:gap-4">
               <Button
                 size="sm"
@@ -44,23 +78,47 @@ export const LandingPage = () => {
         </nav>
       </header>
       {/* main */}
-      <main>
-        <div className="flex flex-col items-center justify-center gap-6 px-2 h-[calc(100dvh-48px)]">
-          <h1 className="text-4xl italic font-extrabold tracking-tight text-center scroll-m-20 text-balance">
-            Create Your Second Brain
-          </h1>
+      <main className="relative overflow-hidden">
+        <div className="absolute rounded-full left-10 top-2 bg-primary h-70 w-50 lg:w-120 lg:h-80 -z-1"></div>
+        <div className="absolute right-0 rounded-full bg-primary/80 bottom-10 size-60 lg:size-80 -z-1"></div>
+        <div className="absolute bottom-0 z-11 size-50 md:size-90 right-2">
+          <img
+            src="/landing_cover.png"
+            alt="landing-cover"
+            className="dark:invert size-full invert-0"
+          />
+        </div>
+        {/* overlay blur */}
+        <div className="absolute z-10 bg-background/50 backdrop-blur-3xl size-full"></div>
 
-          <div className="flex gap-3">
-            <Button
-              size="lg"
-              className="bg-secondary text-secondary-foreground"
-            >
-              About us
-            </Button>
-            <Button size="lg" className="bg-primary text-white/90">
-              Get started
-            </Button>
-          </div>
+        <div className="relative flex items-center justify-center px-4 z-12 h-dvh">
+          <motion.div
+            variants={landingBodyVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="flex flex-col items-center justify-center max-w-lg gap-6"
+          >
+            <span className="space-y-2">
+              <h1 className="text-4xl italic font-extrabold tracking-tight text-center scroll-m-20 text-balance">
+                Create Your Second Brain
+              </h1>
+              <Paragraphe className="text-sm text-center text-muted-foreground">
+                Organize ideas, share knowledge, and grow together. Your ideas
+                don&apos;t belong alone.
+              </Paragraphe>
+            </span>
+
+            <div className="flex gap-3">
+              <Button variant="secondary" size="lg" className="font-semibold">
+                <Merge />
+                Explore community
+              </Button>
+              <Button size="lg" className="font-bold">
+                Get started
+              </Button>
+            </div>
+          </motion.div>
         </div>
       </main>
 

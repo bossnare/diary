@@ -4,6 +4,12 @@ export const landingMenuVariants = {
   exit: { opacity: 0, y: '-100vh' },
 };
 
+export const landingBodyVariants = {
+  hidden: { opacity: 0, y: '50' },
+  visible: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: '50' },
+};
+
 export const kebabMenuVariants = {
   hidden: { opacity: 0, y: -10 },
   visible: { opacity: 1, y: 0 },

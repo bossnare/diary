@@ -1,9 +1,9 @@
+import { Button } from '@/components/ui/button';
 import { MiniProfile } from '@/components/users/MiniProfile';
 import { cn } from '@/lib/utils';
 import { supabase } from '@/services/auth-client.service';
-import { useLayoutStore } from '@/stores/UXStore';
+import { useLayoutStore } from '@/stores/layoutStore';
 import { X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { desctructiveLabel, sideBarLabel } from './navigation.label';
 import { Overlay } from './Overlay';
 import { SideBarTabWrapper } from './sideBarTab';
