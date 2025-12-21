@@ -7,7 +7,7 @@ export function NavTab() {
     <>
       {tabLabel.map((t) => (
         <li key={t.id}>
-          <NavLink to={t.route} end={t.route === '/app'}>
+          <NavLink title={t.label} to={t.route} end={t.route === '/app'}>
             {({ isActive }) => (
               <Tab isActive={isActive} Icon={t.icon} label={t.label} />
             )}

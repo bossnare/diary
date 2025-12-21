@@ -24,7 +24,7 @@ export const UserAvatar = ({
         src={user?.user_metadata.avatar_url}
       ></AvatarImage>
       <AvatarFallback className="font-bold">
-        {fallback || username}
+        {fallback || username || 'U'}
       </AvatarFallback>
     </Avatar>
   );

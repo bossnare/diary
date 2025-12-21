@@ -10,7 +10,6 @@ import { desctructiveLabel, sideBarLabel } from './navigation.label';
 import { NavTab } from './NavTab';
 import { Overlay } from './Overlay';
 import { SideBarTabWrapper } from './sideBarTab';
-import { useToggle } from '@/hooks/use-toggle';
 
 type SidebarProps = React.HTMLAttributes<HTMLDivElement> & {
   ref?: React.Ref<HTMLDivElement>;
@@ -87,28 +86,34 @@ export const MobileSidebar = ({ ref, ...props }: SidebarProps) => {
   );
 };
 
-export const DesktopSidebar = ({ ref, ...props }: SidebarProps) => {
-  const { value: isOpenPanel, toggle: toggleOpenPanel } = useToggle();
+export const DesktopSidebar = ({
+  width,
+  ref,
+  ...props
+}: SidebarProps & { width: number }) => {
+  const isOpenPanel = useLayoutStore((s) => s.isOpenPanel);
+  const toggleOpenPanel = useLayoutStore((s) => s.toggleOpenPanel);
 
   return (
     <div
+      style={{ width: `${width}px` }}
       {...props}
       ref={ref}
-      className="fixed inset-y-0 z-20 hidden md:w-14 lg:w-64 border-r text-sidebar-foreground bg-sidebar md:block border-sidebar-border"
+      className="fixed inset-y-0 z-20 hidden duration-100 ease-in-out border-r transition-width md:max-w-[60px] lg:max-w-64 text-sidebar-foreground bg-sidebar md:block border-sidebar-border"
     >
-      <div className="w-full flex justify-between items-center py-3 px-4 pr-2 ">
-        <Logo />
+      <div className="items-center justify-between hidden w-full px-3 py-3 pr-2 lg:flex ">
+        {isOpenPanel && <Logo />}
         <Button
           onClick={toggleOpenPanel}
           variant="ghost"
           size="icon"
           className="text-sidebar-foreground/80"
         >
-          {isOpenPanel ? <PanelLeftOpen /> : <PanelLeftClose />}
+          {isOpenPanel ? <PanelLeftClose /> : <PanelLeftOpen />}
         </Button>
       </div>
 
-      <aside className="relative space-y-4 px-3 w-full h-[calc(100%-8%)] overflow-y-auto scrollbar-none">
+      <aside className="relative space-y-4 px-3 w-full md:h-full lg:h-[calc(100%-8%)] overflow-y-auto scrollbar-none">
         <nav className="mt-1 rounded-md">
           <ul className="flex flex-col gap-2">
             <NavTab />
@@ -122,11 +127,13 @@ export const DesktopSidebar = ({ ref, ...props }: SidebarProps) => {
         <div className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-2 px-3 pb-2 bg-linear-to-b from-transparent via-zinc-950/20 to-zinc-950/10 dark:to-zinc-950/80 min-h-15">
           <div className="w-full active:bg-muted">
             <Button
+              title="create new note"
               size="lg"
               variant="secondary"
               className="w-full font-semibold"
             >
-              <Plus /> Create new note
+              <Plus />
+              {isOpenPanel ? 'Create new note' : null}
             </Button>
           </div>
         </div>

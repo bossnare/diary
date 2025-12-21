@@ -12,7 +12,11 @@ export const Login = () => {
         <h2>Sign in</h2>{' '}
       </span>
       <div className="flex flex-col gap-4 md:flex-row">
-        <Button variant="secondary" onClick={() => AuthService.googleSign()}>
+        <Button
+          size="lg"
+          variant="secondary"
+          onClick={() => AuthService.googleSign()}
+        >
           <img
             src={google}
             className="size-5"
@@ -21,10 +25,14 @@ export const Login = () => {
           />{' '}
           Continue with Google
         </Button>
-        <Button variant="secondary" onClick={() => AuthService.githubSign()}>
+        <Button
+          size="lg"
+          variant="secondary"
+          onClick={() => AuthService.githubSign()}
+        >
           <img
             src={github}
-            className="size-5 text-blue-400"
+            className="text-blue-400 size-5"
             alt="github-logo"
             loading="lazy"
           />{' '}

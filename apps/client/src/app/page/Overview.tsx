@@ -11,10 +11,10 @@ function Overview() {
   return (
     <>
       <div className="py-2 space-y-4">
-        <div className="flex relative flex-col w-full gap-2 p-4 rounded-lg shadow-xs md:p-3 bg-muted/80 dark:bg-muted/50">
+        <div className="relative flex flex-col w-full gap-2 p-4 rounded-lg shadow-xs md:p-3 bg-muted/80 dark:bg-muted/50">
           <h4 className="font-bold">Complete your profile</h4>
           <div className="flex flex-col justify-center gap-3 md:items-center md:flex-row md:justify-between">
-            <Paragraphe className="text-muted-foreground md:text-sm hover:text-primary cursor-pointer">
+            <Paragraphe className="cursor-pointer text-muted-foreground md:text-sm hover:text-primary">
               {user?.user_metadata.name.split(' (')[0]} If you know, you know.
               As a social media fan, you maybe know it.
             </Paragraphe>
@@ -47,7 +47,7 @@ function Overview() {
           {labels.map((l, i) => (
             <div
               key={i}
-              className="h-20 has-checked:bg-primary/20 space-x-3 has-checked:ring-primary ring ring-input rounded-md bg-sidebar font-bold text-lg p-6"
+              className="h-20 p-6 space-x-3 text-lg font-bold rounded-md has-checked:bg-primary/40 has-checked:ring-primary ring ring-input bg-sidebar"
             >
               <input
                 type="radio"
