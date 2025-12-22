@@ -17,13 +17,8 @@ export const Login = () => {
           variant="secondary"
           onClick={() => AuthService.googleSign()}
         >
-          <img
-            src={google}
-            className="size-5"
-            alt="google-logo"
-            loading="lazy"
-          />{' '}
-          Continue with Google
+          <img src={google} className="size-5" alt="google-logo" /> Continue
+          with Google
         </Button>
         <Button
           size="lg"
@@ -34,7 +29,6 @@ export const Login = () => {
             src={github}
             className="text-blue-400 size-5"
             alt="github-logo"
-            loading="lazy"
           />{' '}
           Continue with GitHub
         </Button>

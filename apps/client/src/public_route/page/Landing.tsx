@@ -4,14 +4,15 @@ import { useToggle } from '@/hooks/use-toggle';
 import {
   landingMenuVariants,
   landingBodyVariants,
+  traitVariants,
 } from '@/motions/motion.variant';
-import { Merge, TextAlignJustify, X } from 'lucide-react';
+import { Merge, TextAlignJustify, X, ArrowDownCircle } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-import { Login } from './Login';
 import { Paragraphe } from '@/components/Paragraphe';
 import { landingPageLabel } from '@/components/navigation/navigation.label';
 import { NavLink } from 'react-router-dom';
 import { cn } from '@/lib/utils';
+import boxWithLine from '@/assets/box_with_line.png';
 
 export const LandingPage = () => {
   const { value: openMenu, toggle: toggleOpenMenu } = useToggle();
@@ -26,7 +27,7 @@ export const LandingPage = () => {
 
           {/* nav */}
           <div className="hidden md:flex grow">
-            <ul className="flex gap-8 text-accent-foreground *:px-2 mx-auto text-sm">
+            <ul className="flex md:gap-4 lg:gap-8 text-accent-foreground *:px-2 mx-auto text-sm">
               {landingPageLabel.map((l) => (
                 <li key={l.id}>
                   <NavLink to={l.route}>
@@ -34,15 +35,24 @@ export const LandingPage = () => {
                       <button
                         className={cn(
                           isActive
-                            ? 'text-primary font-bold'
-                            : 'hover:not-focus:opacity-80 active:text-muted-foreground font-medium',
-                          'relative flex justify-center'
+                            ? 'text-primary'
+                            : 'hover:not-focus:opacity-80 active:text-muted-foreground',
+                          'relative flex justify-center',
+                          'transition-colors duration-100 ease font-medium'
                         )}
                       >
                         {l.label}
-                        {isActive && (
-                          <span className="absolute rounded-full -bottom-3 size-2 bg-primary"></span>
-                        )}
+                        <AnimatePresence>
+                          {isActive && (
+                            <motion.span
+                              variants={landingBodyVariants}
+                              initial="hidden"
+                              animate="visible"
+                              exit="exit"
+                              className="absolute rounded-full -bottom-3 size-2 bg-primary"
+                            ></motion.span>
+                          )}
+                        </AnimatePresence>
                       </button>
                     )}
                   </NavLink>
@@ -79,24 +89,34 @@ export const LandingPage = () => {
       </header>
       {/* main */}
       <main className="relative overflow-hidden">
-        <div className="absolute rounded-full left-10 top-2 bg-primary h-70 w-50 lg:w-120 lg:h-80 -z-1"></div>
-        <div className="absolute right-0 rounded-full bg-primary/80 bottom-10 size-60 lg:size-80 -z-1"></div>
-        <div className="absolute bottom-0 z-11 size-50 md:size-90 right-2">
+        <div className="absolute rounded-full left-10 top-2 brightness-140 bg-primary h-70 w-50 lg:w-120 lg:h-80 -z-1"></div>
+        <div className="absolute right-0 rounded-full bg-primary bottom-10 size-60 lg:size-80 -z-1"></div>
+        {/* grainy noise */}
+        <span className="absolute z-11 mix-blend-overlay size-full bg-[url('./assets/noise.svg')]"></span>
+        {/* box with line */}
+        <div className="absolute bottom-0 z-12 size-50 md:size-90 right-2">
           <img
-            src="/landing_cover.png"
-            alt="landing-cover"
+            src={boxWithLine}
+            fetchPriority="high"
+            alt="box-with-line"
             className="dark:invert size-full invert-0"
           />
         </div>
         {/* overlay blur */}
         <div className="absolute z-10 bg-background/50 backdrop-blur-3xl size-full"></div>
 
-        <div className="relative flex items-center justify-center px-4 z-12 h-dvh">
+        <section className="relative flex items-center justify-center px-4 z-12 h-dvh">
           <motion.div
             variants={landingBodyVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
+            transition={{
+              type: 'spring',
+              mass: 0.3,
+              stiffness: 600,
+              damping: 60,
+            }}
             className="flex flex-col items-center justify-center max-w-lg gap-6"
           >
             <span className="space-y-2">
@@ -115,11 +135,11 @@ export const LandingPage = () => {
                 Explore community
               </Button>
               <Button size="lg" className="font-bold">
-                Get started
+                <ArrowDownCircle /> Get started
               </Button>
             </div>
           </motion.div>
-        </div>
+        </section>
       </main>
 
       {/* mobile menu content */}
@@ -136,19 +156,61 @@ export const LandingPage = () => {
               stiffness: 100,
               damping: 10,
             }}
-            className="fixed inset-0 md:hidden bg-sidebar z-100"
+            className="fixed flex flex-col inset-0 md:hidden bg-background z-100"
           >
-            <div className="flex justify-end px-1 py-1">
-              <Button
-                size="icon-lg"
-                variant="ghost"
-                onClick={toggleOpenMenu}
-                className="md:hidden"
-              >
+            <nav className="flex justify-end px-1 py-1">
+              <Button size="icon-lg" variant="ghost" onClick={toggleOpenMenu}>
                 <X />
               </Button>
+            </nav>
+
+            <div className="px-4 relative grow">
+              <ul className="space-y-4">
+                {landingPageLabel.map((l) => (
+                  <li key={l.id}>
+                    <NavLink to={l.route}>
+                      {({ isActive }) => (
+                        <button
+                          className={cn(
+                            isActive
+                              ? 'text-primary ng-primary/20 dark:bg-primary/16 w-full'
+                              : 'active:text-muted-foreground w-1/3',
+                            'relative flex justify-center',
+                            'transition-colors duration-100 font-bold rounded-sm text-lg ease px-2 flex items-center justify-start h-10'
+                          )}
+                        >
+                          {l.label}
+                          <AnimatePresence>
+                            {isActive && (
+                              <motion.span
+                                variants={traitVariants}
+                                initial="hidden"
+                                animate="visible"
+                                exit="exit"
+                                className="absolute bottom-0 w-10 h-1 bg-primary"
+                              ></motion.span>
+                            )}
+                          </AnimatePresence>
+                        </button>
+                      )}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="text-center text-sm text-balance py-2 absolute inset-x-0 bottom-0 text-muted-foreground">
+                &copy; {new Date().getFullYear()}{' '}
+                <span className="tracking-tighter text-foreground">
+                  Memoroom
+                </span>{' '}
+                Powered by{' '}
+                <a href="https://github/bossnare">
+                  <Button className="p-0 text-foreground" variant="link">
+                    Christo Razafimanga
+                  </Button>
+                </a>
+              </div>
             </div>
-            <Login />
           </motion.nav>
         )}
       </AnimatePresence>
