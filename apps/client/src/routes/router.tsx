@@ -1,15 +1,15 @@
-import DashboardLayout from '@/app/DashboardLayout';
+import DashboardLayout from '@/app/layout/DashboardLayout';
 import Overview from '@/app/page/Overview';
-import { Login } from '@/public_route/page/Login';
-import { HomeScreenLoader } from '@/components/HomeScreenLoader';
+import { Login } from '@/public-site/page/Login';
+import { HomeScreenLoader } from '@/app/components/HomeScreenLoader';
 import { useAuth } from '@/hooks/use-auth';
 import { useIsPublicRoute } from '@/hooks/useIsPublicRoute';
 import { Route, Routes } from 'react-router-dom';
 import { ProtectedRoutes } from './ProtectedRoutes';
-import { PublicLayout } from '../public_route/PublicLayout';
-import { NotFound } from '@/components/not-found';
-import { LandingPage } from '@/public_route/page/Landing';
-import { SignUp } from '@/public_route/page/Signup';
+import { PublicLayout } from '../public-site/PublicLayout';
+import { NotFound } from '@/app/components/not-found';
+import { LandingPage } from '@/public-site/page/Landing';
+import { SignUp } from '@/public-site/page/Signup';
 
 export const AppRoutes = () => {
   const { pending, session } = useAuth();

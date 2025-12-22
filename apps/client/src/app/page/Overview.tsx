@@ -1,4 +1,4 @@
-import { Paragraphe } from '@/components/Paragraphe';
+import { Paragraphe } from '@/app/components/Paragraphe';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/use-auth';
 import { X } from 'lucide-react';
