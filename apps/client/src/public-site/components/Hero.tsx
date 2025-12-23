@@ -16,7 +16,7 @@ export function Hero() {
       {/* grainy noise */}
       <span className="absolute z-11 opacity-70 dark:opacity-80 mix-blend-overlay size-full bg-[url('./assets/noise.svg')]"></span>
       {/* box with line */}
-      <div className="absolute bottom-0 z-12 size-50 md:size-80 right-2">
+      <div className="absolute bottom-0 z-12 size-60 md:size-80 right-2">
         <img
           src={boxWithLine}
           fetchPriority="high"
@@ -38,7 +38,7 @@ export function Hero() {
           stiffness: 600,
           damping: 60,
         }}
-        className="z-20 flex flex-col items-center justify-center max-w-lg gap-6"
+        className="z-20 flex flex-col items-center justify-center max-w-lg gap-6 pb-40 md:pb-0"
       >
         <span className="space-y-2">
           <h1 className="text-4xl font-extrabold tracking-tight text-center scroll-m-20 text-balance">

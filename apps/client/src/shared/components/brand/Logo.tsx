@@ -1,20 +1,34 @@
 import logo from '@/assets/icon_32x32_mono.svg';
+import { cn } from '@/lib/utils';
+type Props = React.HTMLAttributes<HTMLDivElement> & { size?: 'sm' | 'lg' };
 
-export const Logo = ({ className }: { className?: string }) => {
+export const Logo = ({ className, size = 'lg', ...props }: Props) => {
+  const dflt = 'flex font-extrabold leading-none tracking-tighter select-none';
+  const lg = 'text-[20px] md:text-[22px]';
+  const sm = 'text-[18px] md:text-[20px]';
+  const iconSize = size === 'sm' ? 'size-5' : 'size-6';
+
+  const sz = {
+    lg,
+    sm,
+  };
+
   return (
     <div
-      className={`flex gap-2 cursor-pointer active:opacity-80 md:hover:opacity-80 ${className}`}
+      {...props}
+      className={cn(
+        ' flex items-center gap-2 cursor-pointer active:opacity-80 md:hover:opacity-80',
+        className
+      )}
     >
       <img
         src={logo}
         fetchPriority="high"
         loading="eager"
         alt="logo"
-        className="size-6 shrink-0!"
+        className={cn(iconSize, 'shrink-0!')}
       />
-      <span className="text-[21px] flex font-extrabold leading-none tracking-tighter select-none md:text-[23px]">
-        memoroom
-      </span>
+      <span className={cn(dflt, sz[size])}>memoroom</span>
     </div>
   );
 };

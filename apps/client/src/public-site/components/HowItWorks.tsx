@@ -8,7 +8,7 @@ export function HowItWorks() {
         subtext="From idea to clarity in seconds"
       />
       <div className="flex flex-col items-center gap-4 mx-auto font-bold py-14">
-        <div className="rounded-full animate-spin size-10 border-5 border-accent-foreground/90 border-t-transparent"></div>
+        <div className="rounded-full animate-spin size-10 border-5 border-accent-foreground/90 border-t-accent-foreground/10"></div>
         Loading content...
       </div>
     </section>

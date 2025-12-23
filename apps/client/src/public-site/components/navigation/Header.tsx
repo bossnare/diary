@@ -30,7 +30,7 @@ export const Header = ({ toggleOpenMenu }: { toggleOpenMenu?: () => void }) => {
           'flex items-center justify-between transition-colors h-12 gap-2 px-2 py-1 pr-1 md:pr-6 md:px-6'
         )}
       >
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center shrink-0">
           <Logo />
         </div>
 

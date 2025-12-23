@@ -26,7 +26,7 @@ export const LandingPage = () => {
       <MobileMenu open={openMenu} toggleOpen={toggleOpenMenu} />
 
       {/* Footer */}
-      <footer className="px-3 py-4 bg-sidebar">
+      <footer className="px-3 py-6 bg-sidebar">
         <Footer />
       </footer>
     </div>
