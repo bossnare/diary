@@ -35,7 +35,7 @@ function Card({ title, content, number }: Props) {
       transition={{ duration: 0.4, ease: 'easeOut' }}
       className="p-4 space-y-4 transition-transform duration-100 ease-in-out border rounded-md shadow-lg border-input/50 dark:border-0 card hover:shadow-sm lg:duration-300 will-change-transform active:-translate-y-4 bg-card dark:bg-card/40"
     >
-      <header className="gap-3 md:gap-2 md:flex md:items-center">
+      <header className="space-y-3 md:space-y-0 md:gap-2 md:flex md:items-center">
         <div className="flex items-center justify-center rounded-full bg-primary dark:bg-secondary size-8">
           <span className="font-black tracking-tight text-secondary-foreground">
             0{number}
