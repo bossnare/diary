@@ -9,7 +9,13 @@ import { NavLink } from 'react-router-dom';
 import { landingPageLabel } from './label';
 import { ModeToggle } from '@/components/mode-toggle';
 
-export const Header = ({ toggleOpenMenu }: { toggleOpenMenu?: () => void }) => {
+export const Header = ({
+  toggleOpenMenu,
+  setOpenLoginCard,
+}: {
+  toggleOpenMenu?: () => void;
+  setOpenLoginCard: () => void;
+}) => {
   const [scroll, setScroll] = useState(0);
   const [isNeedBg, setIsNeedBg] = useState(false);
 
@@ -24,7 +30,7 @@ export const Header = ({ toggleOpenMenu }: { toggleOpenMenu?: () => void }) => {
   }, [scroll]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-99">
+    <header className="fixed inset-x-0 top-0 z-50">
       <nav
         className={cn(
           isNeedBg ? 'bg-background/80 backdrop-blur-md' : 'bg-transparent',
@@ -82,7 +88,12 @@ export const Header = ({ toggleOpenMenu }: { toggleOpenMenu?: () => void }) => {
             >
               Sign up
             </Button>
-            <Button size="sm" variant="secondary" className="font-bold">
+            <Button
+              onClick={setOpenLoginCard}
+              size="sm"
+              variant="secondary"
+              className="font-bold"
+            >
               Sign in
             </Button>
           </div>

@@ -6,7 +6,6 @@ import { X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { NavLink } from 'react-router-dom';
 import { landingPageLabel } from './label';
-import { Overlay } from '@/shared/components/Overlay';
 import { ModeToggle } from '@/components/mode-toggle';
 
 {
@@ -85,8 +84,6 @@ export const MobileMenu = ({
           </motion.nav>
         )}
       </AnimatePresence>
-
-      <Overlay open={open} />
     </>
   );
 };

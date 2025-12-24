@@ -17,13 +17,13 @@ export function ModeToggle({ className }: { className?: string }) {
         setToggle((prev) => !prev);
       }}
       className={cn(
-        'w-20 border rounded-full bg-background dark:border-input',
+        'w-14 h-6 border flex items-center rounded-full bg-background dark:border-input',
         className
       )}
     >
       <Button
         variant="ghost"
-        className="transition-transform duration-100 ease-out translate-x-0 bg-muted/20! backdrop-blur-sm rounded-full dark:translate-x-[2.86rem] bg-"
+        className="transition-transform  duration-100 ease-out translate-x-0 bg-muted/20! backdrop-blur-sm rounded-full dark:translate-x-full bg-"
         size="icon"
       >
         <Sun className="transition-all scale-100 rotate-0 dark:scale-0 dark:-rotate-90" />

@@ -16,7 +16,9 @@ export const Footer = ({
           {/* footer */}
           <ul className={ulClass}>
             <li>
-              <Logo size="sm" />
+              <a href="#hero">
+                <Logo size="sm" />
+              </a>
             </li>
             <span className="divide">-</span>
             <li>Create Your Second Brain.</li>

@@ -52,3 +52,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .fixed-center {
+    @apply -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2;
+  }
+  .fixed-center-x {
+    @apply -translate-x-1/2 left-1/2;
+  }
+  .fixed-center-y {
+    @apply -translate-y-1/2 top-1/2;
+  }
+}

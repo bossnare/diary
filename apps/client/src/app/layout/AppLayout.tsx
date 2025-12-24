@@ -84,7 +84,7 @@ function DashboardLayout() {
             onRefresh={async () => window.location.reload()}
           >
             <ScrollArea className="h-[calc(100dvh-116px)] md:h-[calc(100dvh-56px)]">
-              <main className="pb-[60px] min-h-full px-2 py-2 md:px-4 overscroll-contain">
+              <main className="pb-[60px] min-h-full px-2 py-2 md:px-4 scroll-touch overscroll-contain">
                 <Outlet />
               </main>
             </ScrollArea>

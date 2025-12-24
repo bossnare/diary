@@ -5,9 +5,15 @@ export const landingMenuVariants = {
 };
 
 export const heroVariants = {
-  hidden: { opacity: 0, y: 100 },
+  hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: 100 },
+  exit: { opacity: 0, y: 40 },
+};
+
+export const overlayVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: 50 },
 };
 
 export const lineVariants = {

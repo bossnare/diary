@@ -5,14 +5,24 @@ import { Header } from '@/public-site/components/navigation/Header';
 import { MobileMenu } from '@/public-site/components/navigation/MobileMenu';
 import { WhyItMatters } from '@/public-site/components/WhyItMatters';
 import { Footer } from '@/shared/components/brand/Footer';
+import { LoginCard } from '../components/Card';
 
 export const LandingPage = () => {
   const { value: openMenu, toggle: toggleOpenMenu } = useToggle();
+  const {
+    value: openLoginCard,
+    setTrue: setOpenLoginCard,
+    toggle: toggleOpenLoginCard,
+  } = useToggle();
 
   return (
     <div className="relative h-screen">
+      <LoginCard open={openLoginCard} toggle={toggleOpenLoginCard} />
       {/* header */}
-      <Header toggleOpenMenu={toggleOpenMenu} />
+      <Header
+        toggleOpenMenu={toggleOpenMenu}
+        setOpenLoginCard={setOpenLoginCard}
+      />
       {/* main */}
       <main className="relative min-h-screen">
         <Hero />
