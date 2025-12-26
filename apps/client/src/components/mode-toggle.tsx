@@ -17,7 +17,7 @@ export function ModeToggle({ className }: { className?: string }) {
         setToggle((prev) => !prev);
       }}
       className={cn(
-        'hover:opacity-90 w-14 h-[1.40rem] inline-flex shadow-xs items-center dark:justify-end active:bg-input dark:active:bg-muted border rounded-full bg-background dark:bg-input/30 border-input',
+        'hover:opacity-90 w-11 h-[1.40rem] inline-flex shadow-xs items-center dark:justify-end active:bg-input dark:active:bg-muted border rounded-full bg-background dark:bg-input/30 border-input',
         className
       )}
     >

@@ -5,8 +5,8 @@ import { Footer } from '@/shared/components/brand/Footer';
 import { X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { NavLink } from 'react-router-dom';
-import { landingPageLabel } from './label';
 import { ModeToggle } from '@/components/mode-toggle';
+import { useLabel } from '@/public-site/hooks/use-label';
 
 {
   /* mobile only menu content */
@@ -18,6 +18,8 @@ export const MobileMenu = ({
   open?: boolean;
   toggleOpen?: () => void;
 }) => {
+  const menuLabel = useLabel();
+
   return (
     <>
       <AnimatePresence>
@@ -45,7 +47,7 @@ export const MobileMenu = ({
 
             <div className="relative px-4 grow">
               <ul className="space-y-4">
-                {landingPageLabel.map((l) => (
+                {menuLabel.map((l) => (
                   <li key={l.id}>
                     <NavLink to={l.route}>
                       {({ isActive }) => (

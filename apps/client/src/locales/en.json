@@ -5,9 +5,57 @@
         "pricing": "Pricing",
         "contact": "Contact"
     },
-    "button": {
-        "signup": "Sign up",
-        "signin": "Sign in"
+    "footer": {
+        "label": {
+            "howItWorks": "How it works",
+            "features": "Features",
+            "about": "About",
+            "pricing": "Pricing",
+            "contact": "Contact"
+        },
+        "account": {
+            "noAccount": "No account yet",
+            "haveAccount": ""
+        },
+        "legal": {
+            "agree": " By continuing, you agree to our",
+            "term": "Terms of Services",
+            "policy": "Privacy Policy"
+        },
+        "meta": {
+            "build": "Built & Powered by",
+            "copy": "All Rights reserved"
+        }
+    },
+    "language": {
+        "en": "English",
+        "fr": "French",
+        "mg": "Malagassy"
+    },
+    "auth": {
+        "title": {
+            "signin": "Sign in",
+            "signup": "Sign up"
+        },
+        "subtitle": {
+            "signin": "",
+            "signup": ""
+        },
+        "placeholder": {
+            "email": "Your email and continue"
+        },
+        "loading": {
+            "OAuthState": "wait just a second"
+        },
+        "textDivide": "or",
+        "button": {
+            "signup": "Sign up",
+            "signin": "Sign in",
+            "OAuth": {
+                "with": "With",
+                "withEmail": "Continue with email"
+            }
+        }
     },
     "hero": {
         "title": "Create Your Second Brain",

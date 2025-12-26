@@ -11,15 +11,18 @@ import { AuthService } from '@/services/supabase.service';
 import { handleWait } from '@/utils/handle-wait';
 import { Spinner } from '@/shared/components/Spinner';
 import { X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const LoadingCard = ({ open }: { open?: boolean }) => {
+  const { t } = useTranslation();
+
   return (
     <>
       <Overlay className="z-97" open={open} />
       {open && (
-        <div className="fixed flex items-center justify-center w-5/6 lg:w-full max-w-sm gap-3 p-6 rounded-lg bg-background fixed-center z-98">
+        <div className="fixed flex items-center justify-center w-5/6 max-w-sm gap-3 p-6 rounded-lg lg:w-full bg-background fixed-center z-98">
           <Spinner variant="half" />{' '}
-          <span className="font-medium">wait just a second...</span>
+          <span className="font-medium">{t('auth.loading.OAuthState')}...</span>
         </div>
       )}
     </>
@@ -37,6 +40,7 @@ const LoginCard = ({
 }) => {
   const isMobile = useIsMobile();
   const providerButtonSize = !isMobile ? 'default' : 'lg';
+  const { t } = useTranslation();
 
   return (
     <>
@@ -60,7 +64,7 @@ const LoginCard = ({
 
               <header>
                 <h4 className="text-2xl font-semibold tracking-tight text-center">
-                  Sign in
+                  {t('auth.title.signin')}
                 </h4>
                 <Paragraphe className="text-sm text-center text-muted-foreground">
                   Choose the provider are you enjoy to connect.
@@ -87,7 +91,7 @@ const LoginCard = ({
                     alt="google-logo"
                     className="size-5 md:size-4"
                   />{' '}
-                  With Google
+                  {t('auth.button.OAuth.with')} Google
                 </Button>
                 <Button
                   onClick={() =>
@@ -107,57 +111,57 @@ const LoginCard = ({
                     alt="github-logo"
                     className="size-5 md:size-4 invert"
                   />{' '}
-                  With GitHub
+                  {t('auth.button.OAuth.with')} GitHub
                 </Button>
               </div>
 
-              <div className="py-3 flex items-center justify-center gap-3">
-                <span className="w-20 md:w-10 inline-flex border-t border-muted"></span>
-                <span>OR</span>
-                <span className="w-20 md:w-10 inline-flex border-t border-muted"></span>
+              <div className="flex items-center justify-center gap-3 py-3">
+                <span className="inline-flex w-20 border-t md:w-10 border-muted"></span>
+                <span>{t('auth.textDivide')}</span>
+                <span className="inline-flex w-20 border-t md:w-10 border-muted"></span>
               </div>
 
               <form action="#" className="flex flex-col items-center gap-4">
                 <Input
                   type="email"
                   name="email"
-                  placeholder="Your email and continue..."
-                  className="h-12 md:h-10"
+                  placeholder={`${t('auth.placeholder.email')}...`}
+                  className="h-12 placeholder:text-sm md:h-10"
                 />
                 <Button
                   variant="secondary"
                   size={providerButtonSize}
                   className="w-full"
                 >
-                  Continue with email
+                  {t('auth.button.OAuth.withEmail')}
                 </Button>
               </form>
 
               {/* terms & privacy policy */}
-              <div className="pt-4 text-center text-xs text-muted-foreground text-balance">
-                <span className="leading-none">
-                  No account yet?{' '}
+              <div className="pt-4 text-xs text-center text-muted-foreground text-balance">
+                <span>
+                  {t('footer.account.noAccount')}?{' '}
                   <a href="#">
                     {' '}
                     <Button className="p-0" variant="link">
-                      Sign up
+                      {t('auth.button.signup')}
                     </Button>
                     {'. '}
                   </a>
                 </span>
                 <span>
-                  By continuing, you agree to our{' '}
+                  {t('footer.legal.agree')}{' '}
                   <a href="#">
                     {' '}
                     <Button className="p-0 text-xs" variant="link">
-                      Terms of Services
+                      {t('footer.legal.term')}
                     </Button>{' '}
                   </a>{' '}
-                  and{' '}
+                  {t('auth.textDivide')}{' '}
                   <a href="#">
                     {' '}
                     <Button className="p-0 text-xs" variant="link">
-                      Privacy Policy
+                      {t('footer.legal.policy')}
                     </Button>{' '}
                   </a>
                 </span>

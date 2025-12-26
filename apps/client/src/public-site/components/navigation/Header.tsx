@@ -6,9 +6,9 @@ import { TextAlignJustify } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { landingPageLabel } from './label';
 import { ModeToggle } from '@/components/mode-toggle';
 import { useTranslation } from 'react-i18next';
+import { useLabel } from '@/public-site/hooks/use-label';
 
 export const Header = ({
   toggleOpenMenu,
@@ -19,6 +19,7 @@ export const Header = ({
 }) => {
   const [scroll, setScroll] = useState(0);
   const [isNeedBg, setIsNeedBg] = useState(false);
+  const navbarLabel = useLabel();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -36,17 +37,17 @@ export const Header = ({
       <nav
         className={cn(
           isNeedBg ? 'bg-background/80 backdrop-blur-md' : 'bg-transparent',
-          'flex items-center justify-between transition-colors h-12 gap-2 px-2 py-1 pr-1 md:pr-6 md:px-6'
+          'flex items-center flex-wrap md:justify-end justify-between transition-colors min-h-12 gap-2 px-2 py-1 pr-1 md:pr-6 md:px-6'
         )}
       >
-        <div className="flex items-center shrink-0">
+        <div className="flex items-center shrink-0 lg:min-w-1/5">
           <Logo />
         </div>
 
         {/* nav */}
         <div className="hidden md:flex grow">
           <ul className="flex md:gap-4 lg:gap-8 text-accent-foreground *:px-2 mx-auto text-sm">
-            {landingPageLabel.map((l) => (
+            {navbarLabel.map((l) => (
               <li key={l.id}>
                 <NavLink to={l.route}>
                   {({ isActive }) => (
@@ -79,7 +80,7 @@ export const Header = ({
           </ul>
         </div>
 
-        <div className="flex items-center justify-end gap-3 md:gap-4">
+        <div className="flex items-center justify-end gap-3 lg:min-w-1/5 md:gap-4">
           <ModeToggle className="hidden md:inline-flex" />
 
           <div className="flex gap-3 md:gap-4">
@@ -88,7 +89,7 @@ export const Header = ({
               className="hidden shadow-xs md:inline-flex bg-background text-foreground"
               variant="ghost"
             >
-              {t('button.signup')}
+              {t('auth.button.signup')}
             </Button>
             <Button
               onClick={setOpenLoginCard}
@@ -96,7 +97,7 @@ export const Header = ({
               variant="secondary"
               className="font-bold"
             >
-              {t('button.signin')}
+              {t('auth.button.signin')}
             </Button>
           </div>
 

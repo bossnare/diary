@@ -1,51 +1,119 @@
 {
     "header": {
-        "contact": "Fifandraisana",
-        "home": "Trano",
+        "home": "Fandraisana",
         "about": "Mombamomba",
-        "pricing": "Vidiny"
+        "pricing": "Vidiny",
+        "contact": "Fifandraisana"
     },
-    "button": {
-        "signup": "Hisoratra",
-        "signin": "Hiditra"
+    "footer": {
+        "label": {
+            "howItWorks": "Ahoana ny fiasany",
+            "features": "Features",
+            "about": "Mombamomba",
+            "pricing": "Vidiny",
+            "contact": "Fifandraisana"
+        },
+        "account": {
+            "noAccount": "Tsy mbola manana kaonty ve ianao",
+            "haveAccount": ""
+        },
+        "legal": {
+            "agree": "Rehefa manohy ianao dia manaiky ny",
+            "term": "Fepetra fampiasana",
+            "policy": "Politikan'ny fiarovana ny angon-drakitra"
+        },
+        "meta": {
+            "build": "Namboarina sy notohanan'i",
+            "copy": "Zo rehetra voatokana"
+        }
+    },
+    "auth": {
+        "title": {
+            "signin": "Hiditra",
+            "signup": "Hisoratra anarana"
+        },
+        "subtitle": {
+            "signin": "",
+            "signup": ""
+        },
+        "placeholder": {
+            "email": "Mailakanao ary tohizo"
+        },
+        "loading": {
+            "OAuthState": "miandrasa kely segondra vitsy"
+        },
+        "textDivide": "na",
+        "button": {
+            "signup": "Hisoratra",
+            "signin": "Hiditra",
+            "OAuth": {
+                "with": "Amin'ny",
+                "withEmail": "Hanohy amin'ny mailaka"
+            }
+        }
+    },
+    "language": {
+        "en": "Anglisy",
+        "fr": "Frantsay",
+        "mg": "Malagasy"
     },
     "hero": {
         "title": "Andao Mba Hanana Loha Faharoa",
-        "subtitle": "Mandamina Hevitra, zarao ny fahalalanao, mitomboa hatrany hatrany.",
-        "secondButton": "Trandraho ny fandehany",
+        "subtitle": "Alamina ny hevitra, zaraina ny fahalalana, ary miara-mitombo.",
+        "secondButton": "Ny fomba fiasany",
         "primaryButton": "Hanomboka"
     },
     "section": {
         "whyItMatters": {
-            "title": "Toerana natokana hoan'ny fandinihana, fa tsy soratra fotsiny.",
-            "subtitle": "Sorato mora. Alamino ny hevitra. Zarao hatrany hatrany.",
+            "title": "Toerana natao hisainana, fa tsy hanoratana fotsiny",
+            "subtitle": "Manorata malalaka. Alamina ny hevitra. Zarao amin'ny tanjona mazava.",
             "card1": {
-                "title": "Makao Hevitra Aingana",
-                "description": "Makao noty eo noho eo tsy misy loza, mifantoha amin'ny hevitra fa tsy fitaovana."
+                "title": "Misambotra hevitra haingana",
+                "description": "Soraty avy hatrany ny eritreritrao, tsy misy sakana. Ny hevitra no zava-dehibe fa tsy ny fitaovana."
             },
             "card2": {
-                "title": "Alamino Ny Sainao",
-                "description": "Alamino ny notinao miaraka fanazavana. Ny hevitrao dia mijanona madio, azo tadiavina ary mifandray."
+                "title": "Mandamina ny saina",
+                "description": "Ataovy voalamina tsara ny naoty. Madio, mora tadiavina ary mifandray ny hevitrao."
             },
             "card3": {
-                "title": "Zarao Amin'ny Vondrom-piarahamonina",
-                "description": "Avadiho ho fampianarana an-kafa ny hevitrao. Mianara amin'ny hafa. Miara-miasa rehefa vonona."
+                "title": "Mizara amin'ny fiarahamonina",
+                "description": "Avadiho ho fahalalana iombonana ny naoty manokana. Mianara amin'ny hafa, mizara rehefa vonona."
             }
         },
         "howItWorks": {
-            "title": "Ahoana ny fandehany ?",
-            "subtitle": "Avy amin'ny hevitra ary manazava anaty iray segondra.",
+            "title": "Ahoana no fiasany ?",
+            "subtitle": "Avy amin'ny hevitra ho amin'ny fahazavana ao anatin'ny segondra vitsy.",
             "card1": {
                 "title": "Mamorona",
-                "description": "Sokafy toerana hoan'ny hevitrao."
+                "description": "Manokafa toerana ho an'ny hevitrao."
             },
             "card2": {
-                "title": "Mandinika",
-                "description": "Manoràta milamina toy ny mahazatra."
+                "title": "Misaintsaina",
+                "description": "Manorata malalaka, alamina ho azy."
             },
             "card3": {
-                "title": "Zarao",
-                "description": "Afaka zarainao rehefa vonona."
+                "title": "Mamoaka",
+                "description": "Avoahy rehefa vonona ianao."
+            }
+        },
+        "useCase": {
+            "title": "Namboarina mifanaraka amin'ny fomba fisainan'ny olona",
+            "subtitle": "Na mianatra ianao, na manangana, na mizara hevitra — anao ity toerana ity.",
+            "card1": {
+                "title": "Mpianatra",
+                "description": "Raiso ny lesona, alamino ny hevitra ary miara-miasa tsy misy tabataba."
+            },
+            "card2": {
+                "title": "Mpanoratra & Mpisaina",
+                "description": "Avadiho ho fahalalana voalamina ny eritreritra miparitaka."
+            },
+            "card3": {
+                "title": "Fiarahamonina",
+                "description": "Manangana fahalalana iombonana, adihevitra ary naoty iraisana amin'ny toerana iray."
+            },
+            "card4": {
+                "title": "Mpamorona & Mpanangana",
+                "description": "Mandamina sy mampivelatra hevitra mazava, manomboka amin'ny drafitra ka hatramin'ny fanatanterahana."
             }
         }
     }

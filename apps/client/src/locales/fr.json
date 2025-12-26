@@ -1,39 +1,119 @@
 {
     "header": {
         "home": "Accueil",
-        "about": "A propos",
-        "pricing": "Pricing",
+        "about": "À propos",
+        "pricing": "Tarifs",
         "contact": "Contact"
     },
-    "button": {
-        "signup": "Sign up",
-        "signin": "Sign in"
+    "footer": {
+        "label": {
+            "howItWorks": "Comment ça marche",
+            "features": "Fonctionnalités",
+            "about": "À propos",
+            "pricing": "Tarifs",
+            "contact": "Contact"
+        },
+        "account": {
+            "noAccount": "Pas encore de compte",
+            "haveAccount": ""
+        },
+        "legal": {
+            "agree": "En continuant, vous acceptez nos",
+            "term": "Conditions d'utilisations",
+            "policy": "Politique de confidialité"
+        },
+        "meta": {
+            "build": "Conçu et propulsé par",
+            "copy": "Tous droits réservés"
+        }
+    },
+    "language": {
+        "en": "Anglais",
+        "fr": "Français",
+        "mg": "Malagasy"
+    },
+    "auth": {
+        "title": {
+            "signin": "Se connecter",
+            "signup": "S'inscrire"
+        },
+        "subtitle": {
+            "signin": "",
+            "signup": ""
+        },
+        "placeholder": {
+            "email": "Votre e-mail pour continuer"
+        },
+        "loading": {
+            "OAuthState": "attendez un instant"
+        },
+        "textDivide": "ou",
+        "button": {
+            "signup": "S'inscrire",
+            "signin": "Se connecter",
+            "OAuth": {
+                "with": "Avec",
+                "withEmail": "Continue avec e-mail"
+            }
+        }
     },
     "hero": {
-        "title": "Créer Votre Sécond Mémoire",
-        "subtitle": "Organiser vos idées, partager vos connaisances, and grow together. Your ideas don't belong alone.",
-        "secondButton": "Explorer la communauté",
-        "primaryButton": "Démmarer"
+        "title": "Créez Votre Second Cerveau",
+        "subtitle": "Organisez vos idées, partagez vos connaissances et évoluez ensemble.",
+        "secondButton": "Comment ça fonctionne",
+        "primaryButton": "Commencer à écrire"
     },
     "section": {
         "whyItMatters": {
-            "title": "A space built for thinking, not just typing",
-            "subtitle": "Write freely. Organize ideas. Share knowledge with purpose."
-        },
-        "howItWorks": {
-            "title": "Comment ça marche ?",
-            "subtitle": "From idea to clarity in seconds.",
+            "title": "Un espace conçu pour réfléchir, pas seulement écrire",
+            "subtitle": "Écrivez librement. Organisez vos idées. Partagez avec intention.",
             "card1": {
-                "title": "Create",
-                "description": "Open a space for your ideas."
+                "title": "Capturer des idées rapidement",
+                "description": "Notez instantanément, sans friction. Concentrez-vous sur vos pensées, pas sur les outils."
             },
             "card2": {
-                "title": "Think",
-                "description": "Write freely, organize naturally."
+                "title": "Organiser votre esprit",
+                "description": "Structurez vos notes clairement. Vos idées restent propres, connectées et faciles à retrouver."
             },
             "card3": {
-                "title": "Publish",
-                "description": "Publish when you're ready."
+                "title": "Partager avec la communauté",
+                "description": "Transformez vos notes privées en savoir partagé. Apprenez des autres, contribuez quand vous êtes prêt."
+            }
+        },
+        "howItWorks": {
+            "title": "Comment ça fonctionne ?",
+            "subtitle": "De l'idée à la clarté en quelques secondes.",
+            "card1": {
+                "title": "Créer",
+                "description": "Ouvrez un espace pour vos idées."
+            },
+            "card2": {
+                "title": "Réfléchir",
+                "description": "Écrivez librement, organisez naturellement."
+            },
+            "card3": {
+                "title": "Publier",
+                "description": "Publiez lorsque vous êtes prêt."
+            }
+        },
+        "useCase": {
+            "title": "Conçu pour la façon dont les gens pensent réellement",
+            "subtitle": "Que vous appreniez, construisiez ou partagiez des idées, cet espace est le vôtre.",
+            "card1": {
+                "title": "Étudiants",
+                "description": "Capturez les cours, organisez vos idées et collaborez sans distraction."
+            },
+            "card2": {
+                "title": "Écrivains & Penseurs",
+                "description": "Transformez des pensées éparses en connaissances structurées à revoir et partager."
+            },
+            "card3": {
+                "title": "Communautés",
+                "description": "Créez des connaissances partagées, discussions et notes collectives en un seul endroit."
+            },
+            "card4": {
+                "title": "Créateurs & Bâtisseurs",
+                "description": "Planifiez, documentez et faites évoluer vos idées avec clarté."
             }
         }
     }
