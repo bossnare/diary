@@ -109,7 +109,11 @@ export const DesktopSidebar = ({
           size="icon"
           className="text-sidebar-foreground/80"
         >
-          {isOpenPanel ? <PanelLeftClose /> : <PanelLeftOpen />}
+          {isOpenPanel ? (
+            <PanelLeftClose className="size-5" />
+          ) : (
+            <PanelLeftOpen className="size-6" />
+          )}
         </Button>
       </div>
 
@@ -132,7 +136,7 @@ export const DesktopSidebar = ({
               variant="secondary"
               className="w-full font-semibold"
             >
-              <Plus />
+              <Plus className="size-5" />
               {isOpenPanel ? 'Create new note' : null}
             </Button>
           </div>

@@ -38,7 +38,7 @@
             "signup": "Sign up"
         },
         "subtitle": {
-            "signin": "",
+            "signin": "Continue with your preferred account",
             "signup": ""
         },
         "placeholder": {
@@ -52,7 +52,7 @@
             "signup": "Sign up",
             "signin": "Sign in",
             "OAuth": {
-                "with": "With",
+                "with": "with",
                 "withEmail": "Continue with email"
             }
         }

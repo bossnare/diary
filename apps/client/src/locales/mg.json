@@ -33,7 +33,7 @@
             "signup": "Hisoratra anarana"
         },
         "subtitle": {
-            "signin": "",
+            "signin": "Tohizo amin'ny kaonty tianao",
             "signup": ""
         },
         "placeholder": {
@@ -47,7 +47,7 @@
             "signup": "Hisoratra",
             "signin": "Hiditra",
             "OAuth": {
-                "with": "Amin'ny",
+                "with": "amin'ny",
                 "withEmail": "Hanohy amin'ny mailaka"
             }
         }

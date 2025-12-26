@@ -16,7 +16,7 @@ function Overview() {
         <div className="relative flex flex-col w-full gap-2 p-4 rounded-lg shadow-xs md:p-3 bg-muted/80 dark:bg-muted/60">
           <h4 className="font-bold">Complete your profile</h4>
           <div className="flex flex-col justify-center gap-3 md:items-center md:flex-row md:justify-between">
-            <Paragraphe className="cursor-pointer text-muted-foreground md:text-sm hover:text-primary">
+            <Paragraphe className="cursor-pointer text-muted-foreground md:text-sm">
               {user?.user_metadata.name.split(' (')[0]} If you know, you know.
               As a social media fan, you maybe know it.
             </Paragraphe>

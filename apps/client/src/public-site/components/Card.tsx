@@ -22,7 +22,9 @@ const LoadingCard = ({ open }: { open?: boolean }) => {
       {open && (
         <div className="fixed flex items-center justify-center w-5/6 max-w-sm gap-3 p-6 rounded-lg lg:w-full bg-background fixed-center z-98">
           <Spinner variant="half" />{' '}
-          <span className="font-medium">{t('auth.loading.OAuthState')}...</span>
+          <span className="font-medium text-muted-foreground dark:text-foreground">
+            {t('auth.loading.OAuthState')}...
+          </span>
         </div>
       )}
     </>
@@ -67,7 +69,7 @@ const LoginCard = ({
                   {t('auth.title.signin')}
                 </h4>
                 <Paragraphe className="text-sm text-center text-muted-foreground">
-                  Choose the provider are you enjoy to connect.
+                  {t('auth.subtitle.signin')}.
                 </Paragraphe>
               </header>
 

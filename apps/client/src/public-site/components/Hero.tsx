@@ -56,7 +56,7 @@ function Hero({ setOpenLoginCard }: { setOpenLoginCard?: () => void }) {
             duration: 0.9,
             ease: 'easeOut',
           }}
-          className="z-20 flex flex-col items-center justify-center px-4 md:px-0 max-w-lg gap-6 pb-20 md:pb-0"
+          className="z-20 flex flex-col items-center justify-center max-w-lg gap-6 px-4 pb-20 md:px-0 md:pb-0"
         >
           <span className="space-y-2">
             <h1 className="text-4xl font-extrabold tracking-tight text-center scroll-m-20 text-balance">

@@ -38,7 +38,7 @@
             "signup": "S'inscrire"
         },
         "subtitle": {
-            "signin": "",
+            "signin": "Continuer avec votre compte",
             "signup": ""
         },
         "placeholder": {
@@ -52,7 +52,7 @@
             "signup": "S'inscrire",
             "signin": "Se connecter",
             "OAuth": {
-                "with": "Avec",
+                "with": "avec",
                 "withEmail": "Continue avec e-mail"
             }
         }
@@ -61,7 +61,7 @@
         "title": "Créez Votre Second Cerveau",
         "subtitle": "Organisez vos idées, partagez vos connaissances et évoluez ensemble.",
         "secondButton": "Comment ça fonctionne",
-        "primaryButton": "Commencer à écrire"
+        "primaryButton": "Commencer"
     },
     "section": {
         "whyItMatters": {
