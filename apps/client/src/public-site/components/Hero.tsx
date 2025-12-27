@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { useButtonSize } from '@/hooks/use-button-size';
 import { heroVariants } from '@/motions/motion.variant';
 import { Paragraphe } from '@/shared/components/Paragraphe';
-import { BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -58,7 +57,7 @@ function Hero({ setOpenLoginCard }: { setOpenLoginCard?: () => void }) {
             duration: 0.9,
             ease: 'easeOut',
           }}
-          className="z-20 flex flex-col items-center justify-center max-w-lg gap-6 px-4 pb-20 md:px-0 md:pb-0"
+          className="z-20 flex flex-col items-center justify-center max-w-lg gap-6 px-4 md:px-0"
         >
           <span className="space-y-2">
             <h1 className="text-4xl font-extrabold tracking-tight text-center scroll-m-20 text-balance">
@@ -69,11 +68,11 @@ function Hero({ setOpenLoginCard }: { setOpenLoginCard?: () => void }) {
             </Paragraphe>
           </span>
 
-          <div className="flex flex-col justify-center items-center md:flex-row gap-3 md:gap-4">
+          <div className="flex flex-col items-center gap-3 md:flex-row md:gap-4">
             <Button
               onClick={setOpenLoginCard}
               size={heroButtonSize}
-              className="font-bold rounded-full md:ml-auto md:rounded-lg"
+              className="w-auto font-bold rounded-full md:rounded-lg md:order-2"
             >
               {t('hero.primaryButton')}
             </Button>
@@ -83,7 +82,6 @@ function Hero({ setOpenLoginCard }: { setOpenLoginCard?: () => void }) {
                 size={heroButtonSize}
                 className="font-semibold rounded-full md:rounded-lg"
               >
-                <BookOpen className="size-5" />
                 {t('hero.secondButton')}
               </Button>
             </a>

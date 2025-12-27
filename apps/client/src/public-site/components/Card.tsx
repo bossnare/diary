@@ -20,9 +20,9 @@ const LoadingCard = ({ open }: { open?: boolean }) => {
     <>
       <Overlay className="z-97" open={open} />
       {open && (
-        <div className="fixed flex items-center justify-center w-5/6 max-w-sm gap-3 p-6 rounded-lg lg:w-full bg-background fixed-center z-98">
+        <div className="fixed flex items-center justify-center gap-3 px-6 py-5 rounded-lg bg-background fixed-center z-98">
           <Spinner variant="half" />{' '}
-          <span className="font-medium text-muted-foreground dark:text-foreground">
+          <span className="font-medium text-muted-foreground dark:text-foreground text-nowrap md:text-sm">
             {t('auth.loading.OAuthState')}...
           </span>
         </div>

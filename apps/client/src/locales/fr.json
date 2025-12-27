@@ -115,6 +115,10 @@
                 "title": "Créateurs & Bâtisseurs",
                 "description": "Planifiez, documentez et faites évoluer vos idées avec clarté."
             }
+        },
+        "footerCTA": {
+            "button": "Commencer gratuitement",
+            "subtitle": "Une espace, mille idées à partager."
         }
     }
 }

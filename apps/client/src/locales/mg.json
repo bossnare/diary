@@ -40,7 +40,7 @@
             "email": "Mailakanao ary tohizo"
         },
         "loading": {
-            "OAuthState": "miandrasa kely segondra vitsy"
+            "OAuthState": "miandrasa kely"
         },
         "textDivide": "na",
         "button": {
@@ -115,6 +115,10 @@
                 "title": "Mpamorona & Mpanangana",
                 "description": "Mandamina sy mampivelatra hevitra mazava, manomboka amin'ny drafitra ka hatramin'ny fanatanterahana."
             }
+        },
+        "footerCTA": {
+            "button": "Hanomboka maimaim-poana",
+            "subtitle": "Toerana iray, hevitra maro hizarana."
         }
     }
 }
