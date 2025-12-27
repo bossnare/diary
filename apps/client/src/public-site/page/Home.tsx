@@ -7,6 +7,7 @@ import { WhyItMatters } from '@/public-site/components/WhyItMatters';
 import { Footer } from '@/shared/components/brand/Footer';
 import { LoadingCard, LoginCard } from '../components/Card';
 import { UseCase } from '@/public-site/components/UseCase';
+import { FooterCTA } from '../components/FooterCTA';
 
 export const LandingPage = () => {
   const { value: isPending, setTrue: setIsPending } = useToggle();
@@ -35,11 +36,12 @@ export const LandingPage = () => {
         <Hero setOpenLoginCard={setOpenLoginCard} />
         <WhyItMatters />
         {/* divide */}
-        <div className="w-full h-1 bg-background dark:bg-black"></div>
+        <div className="w-full h-0.5 bg-background dark:bg-black"></div>
         <HowItWorks />
         {/* divide */}
-        <div className="w-full h-1 bg-background dark:bg-black"></div>
+        <div className="w-full h-0.5 bg-background dark:bg-black"></div>
         <UseCase />
+        <FooterCTA setOpenLoginCard={setOpenLoginCard} />
       </main>
 
       {/* Menu content - mobile */}

@@ -115,6 +115,10 @@
                 "title": "Creators & Builders",
                 "description": "Plan, document, and evolve ideas with clarity. From draft to execution."
             }
+        },
+        "footerCTA": {
+            "button": "Start for free",
+            "subtitle": "One space. Many ways to think together."
         }
     }
 }
