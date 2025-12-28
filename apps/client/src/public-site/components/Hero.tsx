@@ -23,7 +23,7 @@ function Hero({ setOpenLoginCard }: { setOpenLoginCard: () => void }) {
       id="hero"
       className="relative flex items-center justify-center px-4 overflow-hidden h-dvh"
     >
-      <div className="absolute rounded-full dark:brightness-140 -left-5 -top-2 lg:left-12 lg:top-6 bg-primary h-70 w-50 lg:h-90 lg:w-100 -z-1"></div>
+      <div className="absolute rounded-full brightness-140 -left-5 -top-2 lg:left-12 lg:top-6 bg-primary h-70 w-50 lg:h-90 lg:w-100 -z-1"></div>
       <div className="absolute right-0 rounded-full bg-primary bottom-10 size-60 lg:size-80 -z-1"></div>
       {/* grainy noise */}
       <span className="absolute z-11 opacity-20 mix-blend-overlay size-full bg-[url('./assets/noise.svg')]"></span>
@@ -70,7 +70,7 @@ function Hero({ setOpenLoginCard }: { setOpenLoginCard: () => void }) {
             </Paragraphe>
           </span>
 
-          <div className="flex flex-col items-center gap-3 md:flex-row md:gap-4">
+          <div className="flex flex-col items-center gap-2 md:flex-row md:gap-4">
             <Button
               onClick={() => handleWait(setOpenLoginCard, 300)}
               size={heroButtonSize}

@@ -109,11 +109,7 @@ export const DesktopSidebar = ({
           size="icon"
           className="text-sidebar-foreground/80"
         >
-          {isOpenPanel ? (
-            <PanelLeftClose className="size-5" />
-          ) : (
-            <PanelLeftOpen className="size-6" />
-          )}
+          {isOpenPanel ? <PanelLeftClose /> : <PanelLeftOpen />}
         </Button>
       </div>
 

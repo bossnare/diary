@@ -1,4 +1,4 @@
-import logo from '@/assets/icon_32x32_mono.svg';
+import logo from '@/assets/icon_mono.svg';
 import { cn } from '@/lib/utils';
 type Props = React.HTMLAttributes<HTMLDivElement> & { size?: 'sm' | 'lg' };
 
@@ -26,9 +26,9 @@ export const Logo = ({ className, size = 'lg', ...props }: Props) => {
         fetchPriority="high"
         loading="eager"
         alt="logo"
-        className={cn(iconSize, 'shrink-0!')}
+        className={cn(iconSize, 'shrink-0! dark:invert')}
       />
-      <span className={cn(dflt, sz[size])}>memoroom</span>
+      <span className={cn(dflt, sz[size], 'text-foreground')}>memoroom</span>
     </div>
   );
 };

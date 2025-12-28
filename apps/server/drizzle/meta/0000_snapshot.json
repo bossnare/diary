@@ -1,5 +1,5 @@
 {
-  "id": "36211133-cbcb-422f-8a6c-4497b3479a7a",
+  "id": "efa8526e-eac3-4264-a82d-80638f692cf1",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -16,7 +16,7 @@
         },
         "user_id": {
           "name": "user_id",
-          "type": "varchar(24)",
+          "type": "uuid",
           "primaryKey": false,
           "notNull": false
         },
@@ -65,7 +65,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -94,45 +94,21 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "profiles_id_auth.users_id_fk": {
-          "name": "profiles_id_auth.users_id_fk",
+        "profiles_id_users_id_fk": {
+          "name": "profiles_id_users_id_fk",
           "tableFrom": "profiles",
-          "tableTo": "auth.users",
+          "tableTo": "users",
+          "schemaTo": "auth",
           "columnsFrom": [
             "id"
           ],
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.auth.users": {
-      "name": "auth.users",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "email": {
-          "name": "email",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},

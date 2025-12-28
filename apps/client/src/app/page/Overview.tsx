@@ -3,8 +3,6 @@ import { useAuth } from '@/hooks/use-auth';
 import { Paragraphe } from '@/shared/components/Paragraphe';
 import { X } from 'lucide-react';
 
-const labels = ['PayPal', 'Spotify', 'Melodayz'];
-
 function Overview() {
   const { user } = useAuth();
   // const { data: me } = useMe();
@@ -13,7 +11,7 @@ function Overview() {
   return (
     <>
       <div className="py-2 space-y-4">
-        <div className="relative flex flex-col w-full gap-2 p-4 rounded-lg shadow-xs md:p-3 bg-muted/80 dark:bg-muted/60">
+        <div className="relative flex flex-col w-full gap-2 p-4 rounded-lg shadow-xs md:p-3 bg-muted dark:bg-muted/60">
           <h4 className="font-bold">Complete your profile</h4>
           <div className="flex flex-col justify-center gap-3 md:items-center md:flex-row md:justify-between">
             <Paragraphe className="cursor-pointer text-muted-foreground md:text-sm">
@@ -43,22 +41,6 @@ function Overview() {
           <div></div>
           <div></div>
           <div></div>
-        </div>
-
-        <div className="flex gap-4 *:w-[calc(96%/2)] flex-wrap md:*:w-[calc(100%/6)]">
-          {labels.map((l, i) => (
-            <div
-              key={i}
-              className="h-20 p-6 space-x-3 text-lg font-bold rounded-md has-checked:bg-primary/40 has-checked:ring-primary ring ring-input bg-sidebar"
-            >
-              <input
-                type="radio"
-                name="paid"
-                className="checked:border-indigo-800 size-3"
-              />
-              <span>{l}</span>
-            </div>
-          ))}
         </div>
       </div>
     </>
