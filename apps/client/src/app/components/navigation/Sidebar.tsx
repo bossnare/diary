@@ -1,6 +1,5 @@
 import { MiniProfile } from '@/app/components/users/MiniProfile';
 import { Button } from '@/components/ui/button';
-import { supabase } from '@/services/supabase.service';
 import { Logo } from '@/shared/components/brand/Logo';
 import { useLayoutStore } from '@/stores/layoutStore';
 import { waitVibrate } from '@/utils/vibration';
@@ -65,16 +64,13 @@ export const MobileSidebar = ({ ref, ...props }: SidebarProps) => {
                         isActive
                           ? 'font-bold text-sidebar-foreground'
                           : 'font-normal active:bg-muted',
-                        'text-lg flex gap-3 px-2 py-2 items-center w-full'
+                        'text-xl flex gap-3 px-2 py-2 items-center w-full'
                       )}
                     >
                       {t.label === 'Search' ? (
-                        <t.icon
-                          className="size-5"
-                          weight={isActive ? 'fill' : 'regular'}
-                        />
+                        <t.icon weight={isActive ? 'fill' : 'bold'} />
                       ) : (
-                        <t.icon className="size-5" />
+                        <t.icon />
                       )}{' '}
                       {t.label}
                     </button>
@@ -94,11 +90,11 @@ export const MobileSidebar = ({ ref, ...props }: SidebarProps) => {
                           className={cn(
                             isActive
                               ? 'font-bold text-sidebar-foreground'
-                              : 'active:bg-muted',
-                            'text-lg flex gap-3 px-2 py-2 items-center w-full'
+                              : 'font-normal active:bg-muted',
+                            'text-xl flex gap-3 px-2 py-2 items-center w-full'
                           )}
                         >
-                          <s.icon className="size-5" /> {s.label}
+                          <s.icon /> {s.label}
                         </button>
                       )}
                     </NavLink>
