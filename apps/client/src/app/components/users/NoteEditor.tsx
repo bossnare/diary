@@ -43,7 +43,7 @@ export const NoteEditor = ({
               ref={areaRef}
               name=""
               id=""
-              className="w-full h-[calc(100%-4rem)] font-medium text-lg resize-none focus:outline-0"
+              className="w-full h-[calc(100%-4rem)] font-normal text-lg resize-none focus:outline-0"
               placeholder="Start typing freely"
             ></textarea>
           </main>
