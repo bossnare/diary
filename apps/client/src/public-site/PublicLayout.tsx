@@ -30,7 +30,7 @@ export const PublicLayout = () => {
       </main>
 
       {/* Footer */}
-      <footer className="px-3 py-6 bg-muted-foreground/10 dark:bg-sidebar">
+      <footer className="px-3 py-6 bg-muted-foreground/10 dark:bg-sidebar/20 border-t border-border/50">
         <Footer />
       </footer>
     </div>

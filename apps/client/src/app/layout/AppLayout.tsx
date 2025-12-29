@@ -16,6 +16,8 @@ import { SquarePen } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import { NoteEditor } from '../components/users/NoteEditor';
+import { useToggle } from '@/hooks/use-toggle';
 
 function DashboardLayout() {
   // store state
@@ -25,6 +27,12 @@ function DashboardLayout() {
   const setIsOpenMobileSidebar = useLayoutStore(
     (s) => s.setIsOpenMobileSidebar
   );
+
+  const {
+    value: openEditor,
+    setTrue: setOpenEditorTrue,
+    setFalse: setOpenEditorFalse,
+  } = useToggle();
 
   // local state
   const [mobileSidebarWidth, setMobileSidebarWidth] = useState(0);
@@ -83,8 +91,8 @@ function DashboardLayout() {
           <PullToRefreshWrapper
             onRefresh={async () => window.location.reload()}
           >
-            <ScrollArea className="h-[calc(100dvh-116px)] md:h-[calc(100dvh-56px)]">
-              <main className="pb-[60px] min-h-full px-2 py-2 md:px-4 scroll-touch overscroll-contain">
+            <ScrollArea className="h-[calc(100dvh-116px)] md:h-[calc(100dvh-56px)] scroll-touch">
+              <main className="pb-[60px] min-h-full px-2 py-2 md:px-4 overscroll-contain">
                 <Outlet />
               </main>
             </ScrollArea>
@@ -99,12 +107,17 @@ function DashboardLayout() {
               exit="exit"
               className="fixed bottom-24 md:bottom-12 right-5"
             >
-              <Button className="text-white rounded-full shadow-lg size-15 lg:size-14">
-                <SquarePen className="size-8 lg:size-6" />
+              <Button
+                onClick={setOpenEditorTrue}
+                className="text-white rounded-full shadow-lg size-15 lg:size-14"
+              >
+                <SquarePen className="size-7 lg:size-6" />
               </Button>
             </motion.div>
           )}
         </AnimatePresence>
+        {/* quick Editor */}
+        <NoteEditor open={openEditor} close={setOpenEditorFalse} />
         {/* mobile */}
         <BottomBar mobileSidebarWidth={mobileSidebarWidth} />
         {/* sideOver */}
