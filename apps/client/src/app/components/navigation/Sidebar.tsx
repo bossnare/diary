@@ -60,7 +60,7 @@ export const MobileSidebar = ({ ref, ...props }: SidebarProps) => {
                 <NavLink title={t.label} to={t.route} end={t.route === '/app'}>
                   {({ isActive }) => (
                     <button
-                      onClick={() => handleWait(() => setOpen(false), 200)}
+                      onClick={() => handleWait(() => setOpen(false), 100)}
                       className={cn(
                         isActive
                           ? 'font-bold text-sidebar-foreground'
@@ -87,7 +87,7 @@ export const MobileSidebar = ({ ref, ...props }: SidebarProps) => {
                     <NavLink to={s.route}>
                       {({ isActive }) => (
                         <button
-                          onClick={() => handleWait(() => setOpen(false), 200)}
+                          onClick={() => handleWait(() => setOpen(false), 100)}
                           className={cn(
                             isActive
                               ? 'font-bold text-sidebar-foreground'

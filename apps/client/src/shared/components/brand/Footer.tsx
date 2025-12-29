@@ -13,7 +13,7 @@ export const Footer = ({
 
   return (
     <>
-      <div className="text-sm flex flex-col flex-wrap [&_.link]:hover:text-foreground items-center justify-center gap-2 md:gap-1 md:space-x-10 md:flex-row text-muted-foreground [&_.divide]:text-muted-foreground/50">
+      <div className="text-sm flex flex-col flex-wrap items-center justify-center gap-2 md:gap-1 md:space-x-10 md:flex-row text-muted-foreground [&_.divide]:text-muted-foreground/50">
         {/* footer policy */}
         {content === 'haveContent' && (
           <>
@@ -33,10 +33,7 @@ export const Footer = ({
             <ul className={ulClass}>
               <li>
                 <a href="#">
-                  <Button
-                    className="p-0 text-muted-foreground link"
-                    variant="link"
-                  >
+                  <Button className="p-0 text-foreground link" variant="link">
                     {t('footer.label.features')}
                   </Button>
                 </a>
@@ -44,10 +41,7 @@ export const Footer = ({
               <span className="divide">|</span>
               <li>
                 <a href="#">
-                  <Button
-                    className="p-0 text-muted-foreground link"
-                    variant="link"
-                  >
+                  <Button className="p-0 text-foreground link" variant="link">
                     {t('footer.label.howItWorks')} ?
                   </Button>
                 </a>
@@ -55,10 +49,7 @@ export const Footer = ({
               <span className="divide">|</span>
               <li>
                 <a href="#">
-                  <Button
-                    className="p-0 text-muted-foreground link"
-                    variant="link"
-                  >
+                  <Button className="p-0 text-foreground link" variant="link">
                     {t('footer.label.pricing')}
                   </Button>
                 </a>
@@ -66,10 +57,7 @@ export const Footer = ({
               <span className="divide">|</span>
               <li>
                 <a href="#">
-                  <Button
-                    className="p-0 text-muted-foreground link"
-                    variant="link"
-                  >
+                  <Button className="p-0 text-foreground link" variant="link">
                     {t('footer.label.about')}
                   </Button>
                 </a>
@@ -77,10 +65,7 @@ export const Footer = ({
               <span className="divide">|</span>
               <li>
                 <a href="#">
-                  <Button
-                    className="p-0 text-muted-foreground link"
-                    variant="link"
-                  >
+                  <Button className="p-0 text-foreground link" variant="link">
                     {t('footer.label.contact')}
                   </Button>
                 </a>
@@ -91,10 +76,7 @@ export const Footer = ({
             <ul className={ulClass}>
               <li>
                 <a href="#">
-                  <Button
-                    className="p-0 text-muted-foreground link"
-                    variant="link"
-                  >
+                  <Button className="p-0 text-foreground link" variant="link">
                     {t('footer.legal.policy')}
                   </Button>
                 </a>
@@ -103,10 +85,7 @@ export const Footer = ({
 
               <li>
                 <a href="#">
-                  <Button
-                    className="p-0 text-muted-foreground link"
-                    variant="link"
-                  >
+                  <Button className="p-0 text-foreground link" variant="link">
                     {t('footer.legal.term')}
                   </Button>
                 </a>
@@ -122,7 +101,7 @@ export const Footer = ({
           <span>Madagascar {'- Antananarivo'}.</span>
           <span> {t('footer.meta.build')}</span>
           <a href="https://github.com/bossnare">
-            <Button className="p-0 text-muted-foreground link" variant="link">
+            <Button className="p-0 text-foreground link" variant="link">
               Christo Razafimanga
             </Button>
           </a>

@@ -59,7 +59,7 @@ export const MobileMenu = ({
                               ? 'text-primary bg-primary/20 dark:bg-primary/16'
                               : 'active:text-muted-foreground',
                             'relative flex justify-center',
-                            'transition-colors duration-100 font-semibold rounded-sm text-2xl ease px-2 flex items-center justify-start h-10'
+                            'transition-colors duration-100 w-full font-semibold rounded-sm text-2xl ease px-2 flex items-center justify-start h-10'
                           )}
                         >
                           {l.label}
@@ -81,7 +81,7 @@ export const MobileMenu = ({
                 ))}
               </ul>
 
-              <div className="absolute inset-x-0 bottom-0 px-2 py-2 bg-foreground/10">
+              <div className="absolute inset-x-0 bottom-0 px-2 py-2 bg-sidebar/20">
                 <Footer content="noContent" />
               </div>
             </div>
