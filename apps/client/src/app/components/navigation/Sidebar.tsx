@@ -43,7 +43,7 @@ export const MobileSidebar = ({ ref, ...props }: SidebarProps) => {
           <MiniProfile
             btnAction={
               <Button
-                onClick={() => setOpen(false)}
+                onClick={() => handleWait(() => setOpen(false), 200)}
                 variant="ghost"
                 size="icon-lg"
               >
@@ -64,8 +64,8 @@ export const MobileSidebar = ({ ref, ...props }: SidebarProps) => {
                       className={cn(
                         isActive
                           ? 'font-bold text-sidebar-foreground'
-                          : 'font-normal active:bg-muted',
-                        'text-xl flex gap-3 px-2 py-2 items-center w-full'
+                          : 'font-normal',
+                        'text-xl flex gap-4 px-2 py-2 items-center w-full active:bg-muted'
                       )}
                     >
                       {t.label === 'Search' ? (
@@ -92,7 +92,7 @@ export const MobileSidebar = ({ ref, ...props }: SidebarProps) => {
                             isActive
                               ? 'font-bold text-sidebar-foreground'
                               : 'font-normal active:bg-muted',
-                            'text-xl flex gap-3 px-2 py-2 items-center w-full'
+                            'text-xl flex gap-4 px-2 py-2 items-center w-full'
                           )}
                         >
                           <s.icon /> {s.label}
