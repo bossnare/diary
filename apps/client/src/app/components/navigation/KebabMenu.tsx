@@ -11,14 +11,14 @@ type Props = {
   open?: boolean;
   close: () => void;
   toggle: () => void;
-  openMobileSidebar?: boolean;
+  isOpenMobileSidebar?: boolean;
 };
 
 export const KebabMenu = ({
   open,
   close,
   toggle,
-  openMobileSidebar,
+  isOpenMobileSidebar,
 }: Props) => {
   const kebabMenuRef = useRef<HTMLDivElement | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
@@ -48,12 +48,12 @@ export const KebabMenu = ({
         size="icon-lg"
         ref={triggerRef}
         onClick={toggle}
-        className="md:hidden duration-300"
+        className="duration-300 md:hidden"
       >
         <Ellipsis />
       </Button>
       {/* Kebab menu */}
-      {!openMobileSidebar && open && (
+      {!isOpenMobileSidebar && open && (
         <motion.div
           variants={kebabMenuVariants}
           ref={kebabMenuRef}

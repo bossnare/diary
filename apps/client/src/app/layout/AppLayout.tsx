@@ -15,13 +15,14 @@ import { useLayoutStore } from '@/stores/layoutStore';
 import { SquarePen } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
-import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { AppLoader } from '../components/AppLoader';
 import { handleWait } from '@/utils/handle-wait';
 import {
   MIN_PANEL_WIDTH,
   MAX_PANEL_WIDTH,
 } from '@/app/constants/layout.constant';
+import { useToggleParams } from '@/hooks/use-toggle-params';
 
 export function AppLayout() {
   // store state
@@ -31,9 +32,8 @@ export function AppLayout() {
   const setAppLoading = useLayoutStore((s) => s.setAppLoading);
 
   // query params state
-  const [params] = useSearchParams();
-  const sidebar = params.get('sidebar');
-  const openMobileSidebar = sidebar === 'mobile';
+  const { isOpen: isOpenMobileSidebar, close: closeMobileSidebar } =
+    useToggleParams({ key: 'sidebar', value: 'mobile' })!;
 
   const navigate = useNavigate();
 
@@ -53,7 +53,7 @@ export function AppLayout() {
         width: `calc(100% - ${SIDEBAR_WIDTH}px)`,
       }
     : {
-        transform: openMobileSidebar
+        transform: isOpenMobileSidebar
           ? `translateX(${mobileSidebarWidth}px)`
           : 'translateX(0)',
       };
@@ -85,8 +85,8 @@ export function AppLayout() {
         <DesktopSidebar width={SIDEBAR_WIDTH} />
         {/* mobile sidebar  */}
         <MobileSidebar
-          open={openMobileSidebar}
-          close={() => navigate({ search: '' }, { replace: true })}
+          open={isOpenMobileSidebar}
+          close={closeMobileSidebar}
           ref={mobileSidebarRef}
         />{' '}
         {/* main content */}
@@ -108,7 +108,7 @@ export function AppLayout() {
         </div>
         {/* fab button (create note, long presse -> choice) - mobile only */}
         <AnimatePresence>
-          {!openMobileSidebar && (
+          {!isOpenMobileSidebar && (
             <motion.div
               variants={fabButtonVariants}
               initial="hidden"
@@ -134,7 +134,7 @@ export function AppLayout() {
         {/* quick Editor */}
         {/* mobile */}
         <BottomBar
-          openMobileSidebar={openMobileSidebar}
+          openMobileSidebar={isOpenMobileSidebar}
           mobileSidebarWidth={mobileSidebarWidth}
         />
         {/* sideOver */}
