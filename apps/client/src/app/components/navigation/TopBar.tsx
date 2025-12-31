@@ -13,32 +13,34 @@ import {
 import { AnimatePresence } from 'motion/react';
 import { useId } from 'react';
 import { KebabMenu } from './KebabMenu';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useToggleParams } from '@/hooks/use-toggle-params';
 
 export const TopBar = () => {
   const inputId = useId();
   const { user } = useAuth();
   const toggleOpenSideOver = useLayoutStore((s) => s.toggleOpenSideOver);
 
-  const navigate = useNavigate();
+  const { open: openMobileSidebar, isOpen: isOpenMobileSidebar } =
+    useToggleParams({
+      key: 'sidebar',
+      value: 'mobile',
+    })!;
 
-  const [params] = useSearchParams();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const menu = params.get('menu');
-  const sidebar = params.get('sidebar');
+  const {
+    isOpen: isOpenKebabMenu,
+    toggle: toggleOpenKebabMenu,
+    close: closeKebabMenu,
+  } = useToggleParams({ key: 'menu', value: 'kebab' })!;
 
-  const openKebabMenu = menu === 'kebab';
-  const openMobileSidebar = sidebar === 'mobile';
+  // const closeKebabMenu = () => {
+  //   searchParams.delete('menu');
+  //   setSearchParams(searchParams, { replace: true });
+  // };
 
-  const closeKebabMenu = () => {
-    searchParams.delete('menu');
-    setSearchParams(searchParams, { replace: true });
-  };
-
-  const toggleOpenKebabMenu = () => {
-    if (openKebabMenu) closeKebabMenu();
-    else navigate('?menu=kebab');
-  };
+  // const toggleOpenKebabMenu = () => {
+  //   if (openKebabMenu) closeKebabMenu();
+  //   else navigate('?menu=kebab');
+  // };
 
   return (
     <nav className="sticky inset-x-0 top-0 flex items-center gap-2 px-2 py-1 pl-1 shadow-lg h-13 z-99 md:h-14 md:px-2 bg-sidebar">
@@ -49,7 +51,7 @@ export const TopBar = () => {
           variant="ghost"
           onClick={() => {
             waitVibrate(200, 'low');
-            navigate(`?sidebar=mobile`);
+            openMobileSidebar();
           }}
           className="md:hidden"
         >
@@ -97,9 +99,9 @@ export const TopBar = () => {
         <AnimatePresence>
           <KebabMenu
             toggle={toggleOpenKebabMenu}
-            open={openKebabMenu}
+            open={isOpenKebabMenu}
             close={closeKebabMenu}
-            openMobileSidebar={openMobileSidebar}
+            isOpenMobileSidebar={isOpenMobileSidebar}
           />
         </AnimatePresence>
       </div>
