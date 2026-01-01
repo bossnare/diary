@@ -1,4 +1,4 @@
-import { supabase } from '@/services/supabase.service';
+import { supabase } from '@/shared/services/supabase.service';
 import { type Session } from '@supabase/supabase-js';
 import axios, {
   type AxiosInstance,

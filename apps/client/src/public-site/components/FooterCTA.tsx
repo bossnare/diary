@@ -1,11 +1,11 @@
 import { Button } from '@/components/ui/button';
-import { useButtonSize } from '@/hooks/use-button-size';
 import { Paragraphe } from '@/shared/components/Paragraphe';
-import { handleWait } from '@/utils/handle-wait';
+import { useButtonSize } from '@/shared/hooks/use-button-size';
+import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
+import { handleWait } from '@/shared/utils/handle-wait';
 import { useInView } from 'motion/react';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
 export function FooterCTA() {
   const ref = useRef(null);
@@ -13,7 +13,7 @@ export function FooterCTA() {
   const ctaSize = useButtonSize({ mobile: 'xl', landscape: 'lg' });
   const ctaVariant = isInView ? 'default' : 'outline';
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const { open: openLogin } = useQueryToggle({ key: 'auth', value: 'login' })!;
 
   return (
     <section
@@ -22,7 +22,7 @@ export function FooterCTA() {
     >
       <div ref={ref} className="text-center">
         <Button
-          onClick={() => handleWait(() => navigate('?auth=login'), 300)}
+          onClick={() => handleWait(openLogin, 300)}
           size={ctaSize}
           variant={ctaVariant}
           className="font-bold transition-colors duration-300 border-0 rounded-full shadow-lg shadow-primary dark:brightness-120"

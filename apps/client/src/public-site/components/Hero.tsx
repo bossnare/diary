@@ -1,19 +1,19 @@
 import boxWithLine from '@/assets/box_with_line.png';
 import { Button } from '@/components/ui/button';
-import { useButtonSize } from '@/hooks/use-button-size';
-import { heroVariants } from '@/motions/motion.variant';
 import { Paragraphe } from '@/shared/components/Paragraphe';
-import { handleWait } from '@/utils/handle-wait';
-import { motion, AnimatePresence } from 'motion/react';
+import { useButtonSize } from '@/shared/hooks/use-button-size';
+import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
+import { heroVariants } from '@/shared/motions/motion.variant';
+import { handleWait } from '@/shared/utils/handle-wait';
+import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
 function Hero() {
   const [mounted, setMounted] = useState(false);
   const { t } = useTranslation();
   const heroButtonSize = useButtonSize({ mobile: 'xl', landscape: 'lg' });
-  const navigate = useNavigate();
+  const { open: openLogin } = useQueryToggle({ key: 'auth', value: 'login' })!;
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -74,7 +74,7 @@ function Hero() {
 
           <div className="flex flex-col items-center gap-2 md:flex-row md:gap-4">
             <Button
-              onClick={() => handleWait(() => navigate('?auth=login'), 300)}
+              onClick={() => handleWait(openLogin, 300)}
               size={heroButtonSize}
               className="w-auto font-bold rounded-full md:rounded-lg md:order-2"
             >

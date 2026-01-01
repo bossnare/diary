@@ -1,25 +1,26 @@
-import { useToggle } from '@/hooks/use-toggle';
+import { LoadingCard, LoginCard } from '@/public-site/components/Card';
 import { Header } from '@/public-site/components/navigation/Header';
 import { MobileMenu } from '@/public-site/components/navigation/MobileMenu';
 import { Footer } from '@/shared/components/brand/Footer';
-import { LoadingCard, LoginCard } from '@/public-site/components/Card';
-import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
+import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
+import { useToggle } from '@/shared/hooks/use-toggle';
+import { Outlet } from 'react-router-dom';
 
 export const PublicLayout = () => {
-  const navigate = useNavigate();
-
   const {
     value: isPending,
     setTrue: setIsPending,
     setFalse: setIsPendingFalse,
   } = useToggle();
 
-  const [params] = useSearchParams();
-  const auth = params.get('auth');
-  const menu = params.get('menu');
-
-  const loginOpen = auth === 'login';
-  const mobileMenuOpen = menu === 'mobileMenu';
+  const { isOpen: isLoginOpen, close: closeLogin } = useQueryToggle({
+    key: 'auth',
+    value: 'login',
+  })!;
+  const { isOpen: isMobileMenuOpen, close: closeMobileMenu } = useQueryToggle({
+    key: 'menu',
+    value: 'mobile',
+  })!;
 
   return (
     <div className="relative h-screen">
@@ -27,16 +28,13 @@ export const PublicLayout = () => {
       <LoginCard
         setIsPendingFalse={setIsPendingFalse}
         setIsPending={setIsPending}
-        open={loginOpen}
-        close={() => navigate(-1) || navigate('/', { replace: true })}
+        open={isLoginOpen}
+        close={closeLogin}
       />
       {/* header */}
       <Header />
       {/* Menu content - mobile */}
-      <MobileMenu
-        open={mobileMenuOpen}
-        close={() => navigate(-1) || navigate('/', { replace: true })}
-      />
+      <MobileMenu open={isMobileMenuOpen} close={closeMobileMenu} />
       {/* main */}
       <main className="relative min-h-screen">
         <Outlet />

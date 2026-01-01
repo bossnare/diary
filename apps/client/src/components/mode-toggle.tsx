@@ -1,7 +1,7 @@
-import { Moon, Sun } from 'lucide-react';
+import { cn } from '@/app/lib/utils';
 import { useTheme } from '@/components/theme-provider';
+import { Moon, Sun } from 'lucide-react';
 import { useState } from 'react';
-import { cn } from '@/lib/utils';
 
 export function ModeToggle({ className }: { className?: string }) {
   const { theme, setTheme } = useTheme();

@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/hooks/use-auth';
 import { Paragraphe } from '@/shared/components/Paragraphe';
+import { useAuth } from '@/shared/hooks/use-auth';
 import { X } from 'lucide-react';
 
 function Overview() {

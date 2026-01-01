@@ -1,20 +1,20 @@
+import { NoteEditor } from '@/app/components/users/NoteEditor';
+import { useIsPublicRoute } from '@/shared/hooks/useIsPublicRoute';
 import { AppLayout } from '@/app/layout/AppLayout';
+import MiniLayout from '@/app/layout/MiniLayout';
 import Overview from '@/app/page/Overview';
+import { PublicLayout } from '@/public-site/layout/PublicLayout';
+import { About } from '@/public-site/page/About';
+import { Contact } from '@/public-site/page/Contact';
+import { Home } from '@/public-site/page/Home';
+import { Pricing } from '@/public-site/page/Pricing';
+import { SignUp } from '@/public-site/page/Signup';
 import { HomeScreenLoader } from '@/shared/components/HomeScreenLoader';
-import { useAuth } from '@/hooks/use-auth';
-import { useIsPublicRoute } from '@/hooks/useIsPublicRoute';
+import { NotFound } from '@/shared/components/not-found';
+import { useAuth } from '@/shared/hooks/use-auth';
 import { Route, Routes } from 'react-router-dom';
 import { ProtectedRoutes } from './ProtectedRoutes';
-import { PublicLayout } from '@/public-site/layout/PublicLayout';
-import { NotFound } from '@/shared/components/not-found';
-import { SignUp } from '@/public-site/page/Signup';
 import { PublicRoutes } from './PublicRoutes';
-import { Home } from '@/public-site/page/Home';
-import { About } from '@/public-site/page/About';
-import { Pricing } from '@/public-site/page/Pricing';
-import { Contact } from '@/public-site/page/Contact';
-import { NoteEditor } from '@/app/components/users/NoteEditor';
-import MiniLayout from '@/app/layout/MiniLayout';
 
 export const AppRoutes = () => {
   const { pending, session } = useAuth();

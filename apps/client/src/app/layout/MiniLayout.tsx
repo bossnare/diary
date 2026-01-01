@@ -1,17 +1,17 @@
 // for new notes, edit, ...edit free
 
+import {
+  MAX_PANEL_WIDTH,
+  MIN_PANEL_WIDTH,
+} from '@/app/constants/layout.constant';
+import { useIsDesktop } from '@/shared/hooks/use-desktop';
+import { useIsMobile } from '@/shared/hooks/use-mobile';
+import { useLayoutStore } from '@/app/stores/layoutStore';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { useIsDesktop } from '@/hooks/use-desktop';
-import { useIsMobile } from '@/hooks/use-mobile';
-import { useLayoutStore } from '@/stores/layoutStore';
 import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { AppLoader } from '../components/AppLoader';
 import { DesktopSidebar } from '../components/navigation/Sidebar';
-import {
-  MIN_PANEL_WIDTH,
-  MAX_PANEL_WIDTH,
-} from '@/app/constants/layout.constant';
 
 function MiniLayout() {
   // store state

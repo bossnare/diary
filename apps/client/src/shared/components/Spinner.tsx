@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
+import * as React from 'react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/app/lib/utils';
 
 const spinnerVariants = cva('inline-flex rounded-full animate-spin', {
   variants: {
@@ -17,7 +17,7 @@ const spinnerVariants = cva('inline-flex rounded-full animate-spin', {
     size: {
       default: 'size-6 border-4',
       sm: 'size-5 border-3',
-      lg: 'size-8 border-6',
+      lg: 'size-8 border-4',
     },
   },
   defaultVariants: {

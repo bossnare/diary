@@ -1,9 +1,9 @@
-import * as React from 'react';
+import { cn } from '@/app/lib/utils';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { getInitials } from '@/app/utils/get-name.strings';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
-import { cn } from '@/lib/utils';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import type { User } from '@supabase/supabase-js';
-import { getInitials } from '@/utils/get-name.strings';
+import * as React from 'react';
 
 export const UserAvatar = ({
   user,

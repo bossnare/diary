@@ -1,8 +1,8 @@
 import { MiniProfile } from '@/app/components/users/MiniProfile';
+import { cn } from '@/app/lib/utils';
+import { useLayoutStore } from '@/app/stores/layoutStore';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { supabase } from '@/services/supabase.service';
-import { useLayoutStore } from '@/stores/layoutStore';
+import { supabase } from '@/shared/services/supabase.service';
 import { X } from 'lucide-react';
 import { Overlay } from '../../../shared/components/Overlay';
 import { desctructiveLabel, sideBarLabel } from './label';

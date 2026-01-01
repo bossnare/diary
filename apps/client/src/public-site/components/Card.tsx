@@ -1,17 +1,17 @@
-import { overlayVariants } from '@/motions/motion.variant';
-import { Overlay } from '@/shared/components/Overlay';
-import { motion, AnimatePresence } from 'motion/react';
-import { Paragraphe } from '@/shared/components/Paragraphe';
-import { Button } from '@/components/ui/button';
 import github from '@/assets/providers/github.svg';
 import google from '@/assets/providers/google.svg';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { AuthService } from '@/services/supabase.service';
-import { handleWait } from '@/utils/handle-wait';
+import { Overlay } from '@/shared/components/Overlay';
+import { Paragraphe } from '@/shared/components/Paragraphe';
 import { Spinner } from '@/shared/components/Spinner';
+import { useButtonSize } from '@/shared/hooks/use-button-size';
+import { overlayVariants } from '@/shared/motions/motion.variant';
+import { AuthService } from '@/shared/services/supabase.service';
+import { handleWait } from '@/shared/utils/handle-wait';
 import { X } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
 import { useTranslation } from 'react-i18next';
-import { useButtonSize } from '@/hooks/use-button-size';
 
 const LoadingCard = ({ open }: { open?: boolean }) => {
   const { t } = useTranslation();
@@ -190,4 +190,4 @@ const LoginCard = ({
   );
 };
 
-export { LoginCard, LoadingCard };
+export { LoadingCard, LoginCard };

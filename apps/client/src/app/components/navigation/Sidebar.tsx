@@ -1,16 +1,16 @@
 import { MiniProfile } from '@/app/components/users/MiniProfile';
+import { cn } from '@/app/lib/utils';
+import { useLayoutStore } from '@/app/stores/layoutStore';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/shared/components/brand/Logo';
-import { useLayoutStore } from '@/stores/layoutStore';
-import { waitVibrate } from '@/utils/vibration';
-import { PanelLeftClose, PanelLeftOpen, Plus, Settings } from 'lucide-react';
 import { Overlay } from '@/shared/components/Overlay';
+import { handleWait } from '@/shared/utils/handle-wait';
+import { waitVibrate } from '@/shared/utils/vibration';
+import { PanelLeftClose, PanelLeftOpen, Plus, Settings } from 'lucide-react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { desctructiveLabel, sideBarLabel, tabLabel } from './label';
 import { NavTab } from './NavTab';
 import { SideBarTabWrapper } from './sideBarTab';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { cn } from '@/lib/utils';
-import { handleWait } from '@/utils/handle-wait';
 
 type SidebarProps = React.HTMLAttributes<HTMLDivElement> & {
   ref?: React.Ref<HTMLDivElement>;

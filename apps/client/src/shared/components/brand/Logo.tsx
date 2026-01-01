@@ -1,5 +1,5 @@
+import { cn } from '@/app/lib/utils';
 import logo from '@/assets/icon_mono.svg';
-import { cn } from '@/lib/utils';
 type Props = React.HTMLAttributes<HTMLDivElement> & { size?: 'sm' | 'lg' };
 
 export const Logo = ({ className, size = 'lg', ...props }: Props) => {

@@ -1,6 +1,6 @@
-import { useTheme, type Theme } from '@/hooks/use-theme';
-import { useToggle } from '@/hooks/use-toggle';
-import { cn } from '@/lib/utils';
+import { useTheme, type Theme } from '@/app/hooks/use-theme';
+import { cn } from '@/app/lib/utils';
+import { useToggle } from '@/shared/hooks/use-toggle';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 export const ToggleTheme = () => {

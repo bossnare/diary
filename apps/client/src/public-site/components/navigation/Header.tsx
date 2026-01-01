@@ -1,22 +1,24 @@
+import { cn } from '@/app/lib/utils';
+import { ModeToggle } from '@/components/mode-toggle';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { lineVariants } from '@/motions/motion.variant';
+import { Back } from '@/public-site/components/navigation/Back';
+import { useLabel } from '@/public-site/hooks/use-label';
 import { Logo } from '@/shared/components/brand/Logo';
+import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
+import { lineVariants } from '@/shared/motions/motion.variant';
+import { handleWait } from '@/shared/utils/handle-wait';
 import { TextAlignJustify } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState } from 'react';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { ModeToggle } from '@/components/mode-toggle';
 import { useTranslation } from 'react-i18next';
-import { useLabel } from '@/public-site/hooks/use-label';
-import { handleWait } from '@/utils/handle-wait';
-import { Back } from '@/public-site/components/navigation/Back';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 export const Header = () => {
   const [scroll, setScroll] = useState(0);
   const [isNeedBg, setIsNeedBg] = useState(false);
   const navbarLabel = useLabel();
   const { t } = useTranslation();
+  const { open: openLogin } = useQueryToggle({ key: 'auth', value: 'login' })!;
 
   // Logo optional rendering
   const { pathname } = useLocation();
@@ -89,19 +91,15 @@ export const Header = () => {
 
           <div className="flex gap-3 md:gap-4">
             <Button
+              onClick={() => handleWait(openLogin, 200)}
               size="sm"
               className="hidden shadow-xs md:inline-flex bg-background text-foreground"
               variant="ghost"
             >
-              {t('auth.button.signup')}
-            </Button>
-            <Button
-              onClick={() => handleWait(() => navigate('?auth=login'), 200)}
-              size="sm"
-              variant="secondary"
-              className="font-bold"
-            >
               {t('auth.button.signin')}
+            </Button>
+            <Button size="sm" variant="secondary" className="font-bold">
+              {t('auth.button.signup')}
             </Button>
           </div>
 

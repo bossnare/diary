@@ -1,11 +1,11 @@
 import { Button } from '@/components/ui/button';
-import { kebabMenuVariants } from '@/motions/motion.variant';
-import { handleWait } from '@/utils/handle-wait';
+import { useIsMobile } from '@/shared/hooks/use-mobile';
+import { kebabMenuVariants } from '@/shared/motions/motion.variant';
+import { handleWait } from '@/shared/utils/handle-wait';
 import { Ellipsis } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useRef } from 'react';
 import { kebabMenuLabel } from './label';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 type Props = {
   open?: boolean;

@@ -1,9 +1,9 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import en from './locales/en.json';
-import fr from './locales/fr.json';
-import mg from './locales/mg.json';
+import en from '@/public-site/locales/en.json';
+import fr from '@/public-site/locales/fr.json';
+import mg from '@/public-site/locales/mg.json';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 i18n

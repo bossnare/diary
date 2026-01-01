@@ -1,3 +1,4 @@
+import { AppLoader } from '@/app/components/AppLoader';
 import { BottomBar } from '@/app/components/navigation/BottomBar';
 import {
   DesktopSidebar,
@@ -6,23 +7,22 @@ import {
 import { SideOver } from '@/app/components/navigation/SideOver';
 import { TopBar } from '@/app/components/navigation/TopBar';
 import PullToRefreshWrapper from '@/app/components/pull-to-refresh';
+import {
+  MAX_PANEL_WIDTH,
+  MIN_PANEL_WIDTH,
+} from '@/app/constants/layout.constant';
+import { useLayoutStore } from '@/app/stores/layoutStore';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { useIsDesktop } from '@/hooks/use-desktop';
-import { useIsMobile } from '@/hooks/use-mobile';
-import { fabButtonVariants } from '@/motions/motion.variant';
-import { useLayoutStore } from '@/stores/layoutStore';
+import { useIsDesktop } from '@/shared/hooks/use-desktop';
+import { useIsMobile } from '@/shared/hooks/use-mobile';
+import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
+import { fabButtonVariants } from '@/shared/motions/motion.variant';
+import { handleWait } from '@/shared/utils/handle-wait';
 import { SquarePen } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { AppLoader } from '../components/AppLoader';
-import { handleWait } from '@/utils/handle-wait';
-import {
-  MIN_PANEL_WIDTH,
-  MAX_PANEL_WIDTH,
-} from '@/app/constants/layout.constant';
-import { useToggleParams } from '@/hooks/use-toggle-params';
 
 export function AppLayout() {
   // store state
@@ -33,7 +33,7 @@ export function AppLayout() {
 
   // query params state
   const { isOpen: isOpenMobileSidebar, close: closeMobileSidebar } =
-    useToggleParams({ key: 'sidebar', value: 'mobile' })!;
+    useQueryToggle({ key: 'sidebar', value: 'mobile' })!;
 
   const navigate = useNavigate();
 

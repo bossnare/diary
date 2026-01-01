@@ -6,12 +6,12 @@ type Config = Partial<{
 }>;
 
 // Params driven UI/UX state
-export const useToggleParams = (config: Config) => {
+export const useQueryToggle = (config: Config) => {
   const { key, value = '1' } = config;
   const [searchParams, setParams] = useSearchParams();
 
   if (!key || !value) {
-    console.log("useToggleParams isn't work without key, value.");
+    console.log("useQueryToggle isn't work without key, value.");
     return;
   }
 

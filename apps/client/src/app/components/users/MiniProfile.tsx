@@ -1,4 +1,4 @@
-import { useAuth } from '@/hooks/use-auth';
+import { useAuth } from '@/shared/hooks/use-auth';
 import { UserAvatar } from './UserAvatar';
 
 export const MiniProfile = ({ btnAction }: { btnAction?: React.ReactNode }) => {

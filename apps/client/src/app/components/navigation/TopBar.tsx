@@ -1,9 +1,10 @@
 import { UserAvatar } from '@/app/components/users/UserAvatar';
+import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
+import { useLayoutStore } from '@/app/stores/layoutStore';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/hooks/use-auth';
 import { Logo } from '@/shared/components/brand/Logo';
-import { useLayoutStore } from '@/stores/layoutStore';
-import { waitVibrate } from '@/utils/vibration';
+import { useAuth } from '@/shared/hooks/use-auth';
+import { waitVibrate } from '@/shared/utils/vibration';
 import {
   BellIcon,
   Search,
@@ -13,7 +14,6 @@ import {
 import { AnimatePresence } from 'motion/react';
 import { useId } from 'react';
 import { KebabMenu } from './KebabMenu';
-import { useToggleParams } from '@/hooks/use-toggle-params';
 
 export const TopBar = () => {
   const inputId = useId();
@@ -21,7 +21,7 @@ export const TopBar = () => {
   const toggleOpenSideOver = useLayoutStore((s) => s.toggleOpenSideOver);
 
   const { open: openMobileSidebar, isOpen: isOpenMobileSidebar } =
-    useToggleParams({
+    useQueryToggle({
       key: 'sidebar',
       value: 'mobile',
     })!;
@@ -30,7 +30,7 @@ export const TopBar = () => {
     isOpen: isOpenKebabMenu,
     toggle: toggleOpenKebabMenu,
     close: closeKebabMenu,
-  } = useToggleParams({ key: 'menu', value: 'kebab' })!;
+  } = useQueryToggle({ key: 'menu', value: 'kebab' })!;
 
   // const closeKebabMenu = () => {
   //   searchParams.delete('menu');

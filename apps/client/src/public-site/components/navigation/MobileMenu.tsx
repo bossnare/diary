@@ -1,13 +1,16 @@
+import { cn } from '@/app/lib/utils';
+import { ModeToggle } from '@/components/mode-toggle';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { landingMenuVariants, lineVariants } from '@/motions/motion.variant';
+import { useLabel } from '@/public-site/hooks/use-label';
 import { Footer } from '@/shared/components/brand/Footer';
+import {
+  landingMenuVariants,
+  lineVariants,
+} from '@/shared/motions/motion.variant';
+import { handleWait } from '@/shared/utils/handle-wait';
 import { X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { NavLink } from 'react-router-dom';
-import { ModeToggle } from '@/components/mode-toggle';
-import { useLabel } from '@/public-site/hooks/use-label';
-import { handleWait } from '@/utils/handle-wait';
 
 {
   /* mobile only menu content */
