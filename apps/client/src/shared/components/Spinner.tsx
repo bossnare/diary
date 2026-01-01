@@ -17,7 +17,7 @@ const spinnerVariants = cva('inline-flex rounded-full animate-spin', {
     size: {
       default: 'size-6 border-4',
       sm: 'size-5 border-3',
-      lg: 'size-8 border-4',
+      lg: 'size-8 border-5',
     },
   },
   defaultVariants: {
