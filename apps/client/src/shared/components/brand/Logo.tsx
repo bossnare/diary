@@ -54,7 +54,7 @@ export const Logo = ({ mono, className, size = 'lg', ...props }: Props) => {
         </span>
       )}
 
-      <span className={cn(dflt, sz[size], 'text-foreground')}>memoroom</span>
+      <span className={cn(dflt, sz[size], 'text-foreground')}>DIARY</span>
     </div>
   );
 };
