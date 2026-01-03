@@ -1,7 +1,6 @@
 import { usePathname } from '@/shared/hooks/use-pathname';
 import { cn } from '@/app/lib/utils';
 import { Button } from '@/components/ui/button';
-import { handleWait } from '@/shared/utils/handle-wait';
 import { ArrowLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -18,9 +17,7 @@ export const Back = ({ className, fallbackRoute = '/', ...props }: Props) => {
     <div {...props} className={cn(' flex items-center gap-1', className)}>
       <Button
         onClick={() =>
-          handleWait(
-            () => navigate(-1) || navigate(fallbackRoute, { replace: true })
-          )
+          navigate(-1) || navigate(fallbackRoute, { replace: true })
         }
         size="icon-xl"
         variant="ghost"
