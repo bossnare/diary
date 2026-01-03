@@ -1,5 +1,7 @@
 import api from '@/app/lib/api';
+import { cn } from '@/app/lib/utils';
 import { Button } from '@/components/ui/button';
+import { useIsMobile } from '@/shared/hooks/use-mobile';
 import { handleWait } from '@/shared/utils/handle-wait';
 import { motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
@@ -10,6 +12,7 @@ export const NoteEditor = () => {
   const [chars, setChars] = useState(0);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const isMobile = useIsMobile();
 
   const body = {
     title,
@@ -86,7 +89,7 @@ export const NoteEditor = () => {
           <div className="max-w-6xl px-4 pb-20 mx-auto space-y-3 lg:pb-32">
             <textarea
               rows={1}
-              className="w-full py-1 text-3xl font-bold leading-10 tracking-tight resize-none scrollbar-none placeholder:text-2xl focus:outline-0"
+              className="w-full mt-2 text-3xl font-bold leading-10 tracking-tight resize-none scrollbar-none placeholder:text-2xl focus:outline-0"
               placeholder="Title"
               value={title}
               onInput={(e) => {
@@ -134,13 +137,20 @@ export const NoteEditor = () => {
               }}
               name=""
               id=""
-              className="w-full text-lg font-normal resize-none scroll-mb-24 placeholder:text-base focus:outline-0"
-              placeholder="Start typing freely..."
+              className="w-full font-normal leading-8 resize-none scroll-mb-24 placeholder:text-base focus:outline-0"
+              placeholder="Start writing..."
             ></textarea>
           </div>
         </main>
 
-        <footer className="sticky bottom-keyboard-height bg-sidebar/50">
+        <footer
+          className={cn(
+            !isMobile
+              ? 'sticky bottom-0'
+              : 'fixed inset-x-0 bottom-keyboard-height',
+            'bg-sidebar/50'
+          )}
+        >
           <div className="max-w-6xl px-4 mx-auto h-14 bg-muted"></div>
         </footer>
       </motion.div>
