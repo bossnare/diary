@@ -37,9 +37,9 @@ export const NoteEditor = () => {
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
-        className="px-2 lg:px-4 bg-background h-dvh"
+        className="px-2 raltive lg:px-4 h-dvh"
       >
-        <nav className="flex items-center justify-between w-full h-12 py-2">
+        <nav className="flex sticky bg-background top-0 left-0 items-center justify-between w-full h-12 py-2">
           <button
             onClick={() => navigate(-1)}
             className="p-0 font-semibold text-primary active:opacity-80"
@@ -59,7 +59,7 @@ export const NoteEditor = () => {
           </Button>
         </nav>
 
-        <main className="flex flex-col min-h-[calc(100%-6.5rem)] py-2 space-y-3">
+        <main className="flex flex-col py-2 space-y-3">
           <textarea
             rows={1}
             className="w-full py-1 text-3xl font-bold leading-10 tracking-tight resize-none scrollbar-none placeholder:text-2xl focus:outline-0"
@@ -73,7 +73,7 @@ export const NoteEditor = () => {
             }}
             onBlur={() => setTitle(title.trim())}
           ></textarea>
-          <div className="space-x-2 text-sm text-muted-foreground">
+          <div className="space-x-2 bg-background sticky top-12 left-0 text-sm text-muted-foreground">
             <span>
               {new Date().toLocaleDateString('en-US', {
                 weekday: 'short',
@@ -90,18 +90,28 @@ export const NoteEditor = () => {
               {chars} {chars > 1 ? 'characters' : 'character'}
             </span>
           </div>
-          <textarea
-            ref={areaRef}
-            value={content}
-            onChange={(e) => {
-              setChars(e.target.value.length);
-              setContent(e.currentTarget.value);
-            }}
-            name=""
-            id=""
-            className="w-full min-h-100 pb-12 text-lg font-normal resize-none scrollbar-none placeholder:text-base focus:outline-0"
-            placeholder="Start typing freely..."
-          ></textarea>
+          {/* content */}
+          <div className="pb-12 h-[calc(100vh-15rem)]">
+            <textarea
+              ref={areaRef}
+              value={content}
+              onChange={(e) => {
+                setChars(e.target.value.length);
+                setContent(e.currentTarget.value);
+              }}
+              onInput={(e) => {
+                if (e.currentTarget.value.trim()) {
+                  e.currentTarget.style.height = '100%';
+                } else {
+                  e.currentTarget.style.height = 'auto';
+                }
+              }}
+              name=""
+              id=""
+              className="w-full text-lg font-normal resize-none placeholder:text-base focus:outline-0"
+              placeholder="Start typing freely..."
+            ></textarea>
+          </div>
         </main>
 
         <nav className="absolute bottom-0 left-0 w-full py-2 h-14 bg-sidebar/50"></nav>
