@@ -9,7 +9,7 @@ export const MiniProfile = ({ btnAction }: { btnAction?: React.ReactNode }) => {
       <UserAvatar user={user} />
       <div className="flex flex-col -space-y-1 overflow-hidden grow">
         <span className="text-lg font-bold tracking-tight truncate md:text-base line-clamp-1">
-          {user?.user_metadata.name.split(' (')[0] || 'User Memoroom'}
+          {user?.user_metadata.name.split(' (')[0] || 'User Diary'}
         </span>
         <span className="text-sm text-muted-foreground">
           {user?.user_metadata.email_verified && 'Account verified'}

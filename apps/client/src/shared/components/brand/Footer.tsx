@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button';
-import { Logo } from './Logo';
-import { useTranslation } from 'react-i18next';
 import { LanguageToggle } from '@/components/language-toggle';
+import { Button } from '@/components/ui/button';
+import { useTranslation } from 'react-i18next';
+import { Logo } from './Logo';
 
 export const Footer = ({
   content = 'haveContent',
@@ -96,7 +96,7 @@ export const Footer = ({
         {/* footer copyright - meta */}
         <div className="space-x-2 text-center">
           <span>&copy; {new Date().getFullYear()}</span>
-          <span className="font-medium tracking-tighter">Memoroom .</span>
+          <span className="font-medium tracking-tighter">Diary .</span>
           <span>{t('footer.meta.copy')}.</span>
           <span>Madagascar {'- Antananarivo'}.</span>
           <span> {t('footer.meta.build')}</span>

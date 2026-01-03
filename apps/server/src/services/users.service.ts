@@ -1,7 +1,7 @@
 import { db } from '@/db';
 import { profiles } from '@/db/schema';
-import type { NewUser, User, Note } from '@/types/base.type';
 import { eq } from 'drizzle-orm';
+import jwt from 'jsonwebtoken';
 
 export const UsersService = {
   async getAll() {
@@ -10,7 +10,15 @@ export const UsersService = {
     return { data, count };
   },
 
-  async findMeByToken(id: string) {
+  async getUserFromToken(token: string) {
+    const decoded = jwt.decode(token) as { sub: string; email: string };
+    return {
+      id: decoded.sub,
+      email: decoded.email,
+    };
+  },
+
+  async getMeById(id: string) {
     return await db.query.profiles.findFirst({
       where: eq(profiles.id, id),
       with: {

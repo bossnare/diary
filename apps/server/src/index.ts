@@ -2,7 +2,6 @@ import { cors } from '@elysiajs/cors';
 import { Elysia } from 'elysia';
 import { notesRoute } from './routes/notes.route';
 import { usersRoute } from './routes/users.route';
-import { jwtDecode } from 'jwt-decode';
 import { users } from './api/fake';
 import { type JWTPayload } from '@/types/auth.type';
 
@@ -27,22 +26,6 @@ const app = new Elysia({ prefix: '/api' })
     )
   )
   .get('/', () => 'Hello Elysia --powered by bun server')
-  // fake
-  .get('/fake/me', ({ headers, set }) => {
-    const token = headers.authorization?.split(' ')[1] as string;
-    if (!token) {
-      set.status = 401;
-      throw new Error('Unauthorized!');
-    }
-    const payload: JWTPayload = jwtDecode(token);
-    const me = users.filter((user) => user.email === payload.email)[0];
-    set.status = 200;
-
-    return {
-      ok: true,
-      data: me,
-    };
-  })
   .use(usersRoute)
   .use(notesRoute)
   .listen(process.env.PORT || 3000);

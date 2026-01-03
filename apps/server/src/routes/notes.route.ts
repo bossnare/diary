@@ -1,7 +1,7 @@
 import { JWTPayload } from '@/types/auth.type';
 import Elysia, { t } from 'elysia';
 import { NotesService } from '@/services/notes.service';
-import { jwtDecode } from 'jwt-decode';
+import { UsersService } from '@/services/users.service';
 
 export const notesRoute = new Elysia({
   prefix: '/notes',
@@ -22,18 +22,13 @@ export const notesRoute = new Elysia({
     '/create',
     async ({ body, set, headers }) => {
       const token = headers.authorization?.split(' ')[1] as string;
-      if (!token) {
-        set.status = 401;
-        throw new Error('Unauthorized!');
-      }
-      const payload: JWTPayload = jwtDecode(token);
-      console.log(payload);
-      const bodyPayload = {
+      const { id } = await UsersService.getUserFromToken(token);
+      const payload = {
         ...body,
-        userId: payload.sub,
+        userId: id,
       };
-      console.log(bodyPayload);
-      const note = await NotesService.create(bodyPayload);
+
+      const note = await NotesService.create(payload);
       set.status = 201;
 
       return {
