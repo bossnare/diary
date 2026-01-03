@@ -99,7 +99,7 @@ export const NoteEditor = () => {
             }}
             name=""
             id=""
-            className="w-full min-h-100text-lg font-normal resize-none scrollbar-none placeholder:text-base focus:outline-0"
+            className="w-full min-h-100 pb-12 text-lg font-normal resize-none scrollbar-none placeholder:text-base focus:outline-0"
             placeholder="Start typing freely..."
           ></textarea>
         </main>
