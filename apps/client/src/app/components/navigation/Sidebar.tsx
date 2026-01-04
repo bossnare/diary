@@ -163,7 +163,7 @@ export const DesktopSidebar = ({
               title="create new note"
               size="lg"
               variant="secondary"
-              className="w-full font-semibold"
+              className="w-full font-semibold hidden lg:inline-flex"
             >
               <Plus className="size-5" />
               {isOpenPanel ? 'Create new note' : null}

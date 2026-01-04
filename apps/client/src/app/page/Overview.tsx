@@ -44,13 +44,13 @@ function Overview() {
                 All notes
               </h3>
             </header>
-            <div className="grid grid-cols-2 md:grid-cols-4 pt-4 gap-3 flex-wrap">
+            <div className="grid grid-cols-2 lg:grid-cols-4 pt-4 gap-3 flex-wrap">
               {me?.data?.notes.map((n) => (
-                <div className="bg-background dark:bg-muted/50 md:shadow-sm min-h-30 flex flex-col gap-4 rounded-3xl lg:rounded-xl p-4">
+                <div className="bg-background cursor-pointer dark:bg-muted/80 md:shadow-sm min-h-30 flex flex-col gap-4 rounded-3xl lg:rounded-xl p-4">
                   <span className="text-lg md:text-base font-bold truncate line-clamp-2">
                     {n.title || 'Untitled'}
                   </span>
-                  <span className="opacity-80 truncate text-wrap md:text-sm line-clamp-3">
+                  <span className="opacity-70 truncate text-wrap md:text-sm line-clamp-3">
                     {n.content}
                   </span>
                 </div>
