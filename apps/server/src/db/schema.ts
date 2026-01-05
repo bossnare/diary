@@ -7,6 +7,8 @@ export const profiles = pgTable('profiles', {
     .primaryKey()
     .references(() => authUsers.id, { onDelete: 'cascade' }),
   avarata_url: text('avatar_url'),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
 });
 
 export const notes = pgTable('notes', {

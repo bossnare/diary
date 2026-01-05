@@ -76,7 +76,7 @@ function Overview() {
                 All notes
               </h3>
               <div className="gap-4">
-                <Button variant="ghost" size="icon-xl">
+                <Button variant="ghost" size="icon-lg">
                   <ArrowDownNarrowWide />
                 </Button>
               </div>

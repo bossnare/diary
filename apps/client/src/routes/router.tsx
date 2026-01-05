@@ -15,6 +15,7 @@ import { useAuth } from '@/shared/hooks/use-auth';
 import { Route, Routes } from 'react-router-dom';
 import { ProtectedRoutes } from './ProtectedRoutes';
 import { PublicRoutes } from './PublicRoutes';
+import Notification from '@/app/page/Notification';
 
 export const AppRoutes = () => {
   const { pending, session } = useAuth();
@@ -45,16 +46,16 @@ export const AppRoutes = () => {
             <Route path="/app" element={<AppLayout />}>
               <Route index element={<Overview />} />
               <Route path="search" element={<div>Search Route</div>} />
-              <Route
-                path="notification"
-                element={<div className="text-center py-4">Notification</div>}
-              />
+
               <Route path="tags" element={<div>Tags Route</div>} />
             </Route>
 
             {/* notes */}
             <Route path="/note" element={<MiniLayout />}>
               <Route path="new" element={<NoteEditor />} />
+            </Route>
+            <Route path="/app">
+              <Route path="notification" element={<Notification />} />
             </Route>
           </Route>
           {/* not found route */}

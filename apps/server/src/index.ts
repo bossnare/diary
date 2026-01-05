@@ -2,8 +2,7 @@ import { cors } from '@elysiajs/cors';
 import { Elysia } from 'elysia';
 import { notesRoute } from './routes/notes.route';
 import { usersRoute } from './routes/users.route';
-import { users } from './api/fake';
-import { type JWTPayload } from '@/types/auth.type';
+import { notificationsRoute } from './routes/notifications.route';
 
 const ENV = process.env.NODE_ENV;
 
@@ -28,6 +27,7 @@ const app = new Elysia({ prefix: '/api' })
   .get('/', () => 'Hello Elysia --powered by bun server')
   .use(usersRoute)
   .use(notesRoute)
+  .use(notificationsRoute)
   .listen(process.env.PORT || 3000);
 
 console.log(
