@@ -3,15 +3,15 @@ import { Button } from '@/components/ui/button';
 // import { useAuth } from '@/shared/hooks/use-auth';
 // import { X } from 'lucide-react';
 import { Spinner } from '@/shared/components/Spinner';
-import { useMe } from '../api/user.api';
+import { useNote } from '../api/notes.api';
 import { ArrowDownNarrowWide } from 'lucide-react';
 import { useIsMobile } from '@/shared/hooks/use-mobile';
 import type { NoteInterface } from '@/app/types/note.interface';
 import { EmptyEmpty as EmptyNotes } from '../components/users/Empty';
 
 function Overview() {
-  const { data, isPending, isError, error, refetch } = useMe();
-  const notes = data?.data as NoteInterface[];
+  const { data, isPending, isError, error, refetch } = useNote();
+  const notes = data as NoteInterface[];
 
   const isMobile = useIsMobile();
   const spinnerSize = !isMobile ? 'default' : 'lg';
@@ -86,7 +86,7 @@ function Overview() {
             {notes?.map((note) => (
               <div
                 key={note.id}
-                className="bg-background cursor-pointer dark:bg-muted/80 md:shadow-sm min-h-30 flex flex-col gap-4 rounded-3xl lg:rounded-xl p-4"
+                className="bg-background cursor-pointer dark:bg-muted/80 lg:shadow-sm min-h-30 flex flex-col gap-4 rounded-3xl lg:rounded-xl p-4"
               >
                 <span className="text-lg md:text-base font-bold truncate line-clamp-2">
                   {note.title || 'Untitled'}

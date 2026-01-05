@@ -3,24 +3,23 @@ import type { NoteInterface } from '@/app/types/note.interface';
 
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
-type NoteResponse = {
-  data: NoteInterface[];
-};
-
-export function useMe() {
-  return useQuery<NoteResponse>({
+export function useNote() {
+  return useQuery<NoteInterface[]>({
     queryKey: ['notes'],
-    queryFn: async () => fetcher('/notes'),
-    staleTime: 5 * 1000, // 5 sec
-    cacheTime: 1000 * 60 * 5, // 5 min
+    queryFn: async () => {
+      const res = await fetcher('/notes');
+      return res.data; // return {.., data}
+    },
+    staleTime: 3_000, // 3 sec
+    // cacheTime: 1000 * 60 * 5, // 5 min
     gcTime: 2 * 60 * 100, // 2 min
     refetchOnWindowFocus: true,
   });
 }
 
-export function useMeCache() {
+export function useNoteCache() {
   const queryClient = useQueryClient();
-  return queryClient.getQueriesData<NoteResponse>({
+  return queryClient.getQueriesData<NoteInterface[]>({
     queryKey: ['notes'],
   });
 }

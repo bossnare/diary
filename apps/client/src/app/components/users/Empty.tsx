@@ -27,7 +27,7 @@ export function EmptyEmpty() {
       <EmptyContent>
         <div className="flex gap-2">
           <Button>Create Notes</Button>
-          <Button variant="outline">Create by Template</Button>
+          <Button variant="outline">Paste from Clipboard</Button>
         </div>
       </EmptyContent>
       {/* <Button
