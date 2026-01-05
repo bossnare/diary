@@ -7,8 +7,8 @@ export const profiles = pgTable('profiles', {
     .primaryKey()
     .references(() => authUsers.id, { onDelete: 'cascade' }),
   avarata_url: text('avatar_url'),
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow(),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
 });
 
 export const notes = pgTable('notes', {
@@ -19,8 +19,8 @@ export const notes = pgTable('notes', {
   title: text('title').notNull(),
   content: text('content').notNull(),
   color: text('color'),
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow(),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
 });
 
 export const notifications = pgTable('notifications', {
@@ -32,8 +32,8 @@ export const notifications = pgTable('notifications', {
   title: text('title').notNull(),
   message: text('message').notNull(),
   isRead: boolean('is_read').default(false).notNull(),
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow(),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
 });
 
 export const usersRelations = relations(profiles, ({ many }) => ({

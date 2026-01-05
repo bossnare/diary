@@ -8,6 +8,8 @@ import { ArrowDownNarrowWide, ArrowLeft } from 'lucide-react';
 import { useIsMobile } from '@/shared/hooks/use-mobile';
 import type { NotificationInterface } from '@/app/types/notification.interface';
 import { useNavigate } from 'react-router-dom';
+import { cn } from '../lib/utils';
+import timeAgo from '../lib/timeAgo';
 
 function Notification() {
   const { data, isPending, isError, error, refetch } = useNotification();
@@ -47,9 +49,9 @@ function Notification() {
 
   return (
     <>
-      <div className="max-w-4xl min-h-screen px-1 mx-auto md:px-6 bg-primary/10">
+      <div className="max-w-4xl min-h-screen mx-auto md:px-6 lg:bg-muted/80 lg:dark:bg-muted/10">
         <>
-          <header className="pt-4 lg:pt-8">
+          <header className="px-1 pt-4 lg:pt-8">
             <div className="flex justify-between">
               <div className="flex items-center gap-2">
                 <Button
@@ -72,20 +74,30 @@ function Notification() {
               </div>
             </div>
           </header>
-          <main className="md:px-6">
-            <div className="grid flex-wrap grid-cols-1 gap-2 pt-4">
+          <main className="min-h-100 md:px-6">
+            <div className="grid flex-wrap grid-cols-1 gap-1 pt-4 lg:gap-2">
               {notifications?.map((notif) => (
                 <div
                   role="button"
                   key={notif.id}
-                  className="flex flex-col select-none gap-3 p-2 px-4 cursor-pointer rounded-2xl bg-background active:bg-muted! hover:opacity-80 dark:bg-muted/50 lg:rounded-xl"
+                  className={cn(
+                    notif.isRead
+                      ? 'bg-transparent'
+                      : 'bg-blue-100/80 dark:bg-primary/12',
+                    'select-none flex flex-col gap-1 lg:flex-row lg:gap-4 p-2 px-4 cursor-pointer active:bg-muted! hover:opacity-80 lg:rounded-lg'
+                  )}
                 >
-                  <span className="font-bold truncate md:text-base line-clamp-1">
-                    {notif.title || 'Untitled'}
-                  </span>
-                  <span className="truncate opacity-70 text-wrap md:text-sm line-clamp-2">
-                    {notif.message}
-                  </span>
+                  <div className="flex flex-col gap-3 grow">
+                    <span className="font-bold truncate md:text-base line-clamp-1">
+                      {notif.title || 'Untitled'}
+                    </span>
+                    <span className="truncate opacity-90 text-wrap md:text-sm line-clamp-2">
+                      {notif.message}
+                    </span>
+                  </div>
+                  <div className="text-sm shrink-0 text-muted-foreground">
+                    {timeAgo(notif.createdAt)}
+                  </div>
                 </div>
               ))}
             </div>
