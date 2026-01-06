@@ -110,7 +110,7 @@ function Overview() {
                 <div
                   role="button"
                   key={note.id}
-                  className="flex flex-col gap-4 p-4 cursor-pointer select-none bg-background group hover:bg-background/80 dark:hover:bg-muted active:opacity-80 dark:bg-muted/80 lg:shadow-sm min-h-30 rounded-3xl lg:rounded-xl"
+                  className="flex flex-col gap-4 p-4 cursor-pointer select-none bg-background group active:scale-99 hover:bg-background/80 dark:hover:bg-muted active:opacity-60 dark:bg-muted/80 lg:shadow-sm min-h-30 rounded-3xl lg:rounded-xl"
                 >
                   <span className="text-lg font-bold truncate md:text-base line-clamp-2">
                     {note.title || 'Untitled'}
