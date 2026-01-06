@@ -28,7 +28,7 @@ export const MobileSidebar = ({
       <Overlay
         className="z-40 dark:bg-white/40 md:hidden"
         onClick={() => {
-          waitVibrate(300, 'low');
+          waitVibrate(320, 'low');
           close();
         }}
         open={open}
@@ -39,7 +39,7 @@ export const MobileSidebar = ({
         ref={ref}
         className={`${
           open ? 'translate-x-0' : '-translate-x-full'
-        } md:hidden transition-transform will-change-transform text-sidebar-foreground overflow-y-auto duration-280 px-4 py-2 z-50 ease-in-out w-5/6 bg-background fixed inset-y-0 border-r border-sidebar-border/30 overflow-hidden`}
+        } md:hidden transition-transform will-change-transform text-sidebar-foreground overflow-y-auto duration-300 px-4 py-2 z-50 ease-in-out w-5/6 bg-background fixed inset-y-0 border-r border-sidebar-border/30 overflow-hidden`}
       >
         <aside className={`relative size-full rounded-xl`}>
           <MiniProfile />
