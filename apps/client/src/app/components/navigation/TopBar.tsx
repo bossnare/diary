@@ -51,7 +51,7 @@ export const TopBar = () => {
           size="icon-lg"
           variant="ghost"
           onClick={() => {
-            waitVibrate(300, 'low');
+            waitVibrate(320, 'low');
             openMobileSidebar();
           }}
           className="md:hidden"
