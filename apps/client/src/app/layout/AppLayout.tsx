@@ -145,7 +145,7 @@ export function AppLayout() {
         {/* quick Editor */}
         {/* mobile */}
         {isOpenTooltip ? (
-          // on select notes card by long press on mobile device
+          // on select notes card by long press on mobile device (by long press)
           <MobileNoteTooltip />
         ) : (
           <BottomBar
