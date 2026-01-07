@@ -16,10 +16,27 @@ import { Route, Routes } from 'react-router-dom';
 import { ProtectedRoutes } from './ProtectedRoutes';
 import { PublicRoutes } from './PublicRoutes';
 import Notification from '@/app/page/Notification';
+import { useUserProfile } from '@/app/api/user-profiles.api';
+import { useTheme } from '@/components/theme-provider';
+import { useEffect } from 'react';
 
 export const AppRoutes = () => {
   const { pending, session } = useAuth();
   const isPublicRoute = useIsPublicRoute();
+
+  const { setTheme } = useTheme();
+  const { data: userProfiles } = useUserProfile();
+  console.log(userProfiles);
+
+  const userTheme = (userProfiles?.themeMode || 'dark') as
+    | 'system'
+    | 'light'
+    | 'dark';
+
+  // rosolve theme from user profiles
+  useEffect(() => {
+    if (!isPublicRoute) setTheme(userTheme);
+  }, [setTheme, isPublicRoute, userTheme]);
 
   return (
     <>
