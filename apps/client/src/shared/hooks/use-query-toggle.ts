@@ -18,6 +18,7 @@ export const useQueryToggle = (config: Config) => {
   const isOpen = searchParams.get(key) === value;
 
   const open = () => {
+    if (isOpen) return; // avoid second params navigation & push history
     const p = new URLSearchParams(searchParams);
     p.set(key, value);
     setParams(p);

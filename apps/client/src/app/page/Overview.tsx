@@ -173,9 +173,7 @@ function Overview() {
                     {note.content}
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    {dateUltraFormat(
-                      note.edited ? note.updatedAt : note.createdAt
-                    )}
+                    {dateUltraFormat(note.updatedAt)}
                   </span>
 
                   {/* options toggle */}

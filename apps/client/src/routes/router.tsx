@@ -26,7 +26,6 @@ export const AppRoutes = () => {
 
   const { setTheme } = useTheme();
   const { data: userProfiles } = useUserProfile();
-  console.log(userProfiles);
 
   const userTheme = (userProfiles?.themeMode ?? 'dark') as Theme;
 

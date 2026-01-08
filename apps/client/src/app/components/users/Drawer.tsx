@@ -16,14 +16,14 @@ export function OrderDrawer({
   onClose: () => void;
 }) {
   const sortLabel = [
-    { id: 1, label: 'new', sort: 'createdAt', order: 'desc' },
+    { id: 1, label: 'recently edited', sort: 'updatedAt', order: 'desc' },
     { id: 2, label: 'title', sort: 'title', order: 'asc' },
-    { id: 3, label: 'recently edited', sort: 'updatedAt', order: 'desc' },
+    { id: 3, label: 'new', sort: 'createdAt', order: 'desc' },
   ];
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const activeSort = searchParams.get('sort') ?? 'createdAt';
+  const activeSort = searchParams.get('sort') ?? 'updatedAt';
 
   const setOrder = (next: Record<string, string>) => {
     setSearchParams(
