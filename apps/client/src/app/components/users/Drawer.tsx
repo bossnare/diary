@@ -17,8 +17,8 @@ export function OrderDrawer({
 }) {
   const sortLabel = [
     { id: 1, label: 'recently edited', sort: 'updatedAt', order: 'desc' },
+    { id: 3, label: 'date created', sort: 'createdAt', order: 'desc' },
     { id: 2, label: 'title', sort: 'title', order: 'asc' },
-    { id: 3, label: 'new', sort: 'createdAt', order: 'desc' },
   ];
 
   const [searchParams, setSearchParams] = useSearchParams();
