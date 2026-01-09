@@ -2,7 +2,7 @@ import github from '@/assets/providers/github.svg';
 import google from '@/assets/providers/google.svg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Overlay } from '@/shared/components/Overlay';
+import { Overlay, Overla } from '@/shared/components/Overlay';
 import { Paragraphe } from '@/shared/components/Paragraphe';
 import { Spinner } from '@/shared/components/Spinner';
 import { useButtonSize } from '@/shared/hooks/use-button-size';
@@ -50,142 +50,144 @@ const LoginCard = ({
 
   return (
     <>
-      <Overlay onClick={close} open={open} className="z-99" />
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            variants={overlayVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="fixed fixed-center z-100 bg-card dark:bg-background overflow-y-auto scroll-touch w-[94%] lg:w-full min-h-1/2 md:min-h-[calc(100dvh-14rem)] p-6 rounded-xl max-w-md"
-          >
-            <div className="relative space-y-4">
-              {/* close button */}
-              <span className="absolute -right-4 -top-4">
-                <Button onClick={close} variant="ghost" size="icon-sm">
-                  <X />
-                </Button>
-              </span>
-
-              <header>
-                <h4 className="text-2xl font-semibold tracking-tight text-center">
-                  {t('auth.title.signin')}
-                </h4>
-                <Paragraphe className="text-sm text-center text-muted-foreground">
-                  {t('auth.subtitle.signin')}.
-                </Paragraphe>
-              </header>
-
-              <div className="flex flex-col justify-center gap-3 py-3 md:gap-4 lg:flex-row">
-                <span className="sr-only">Sign in with OAuth provider</span>
-                <Button
-                  onClick={() => {
-                    // use handleWait for UX (interaction, retour)
-                    handleWait(() => {
-                      setIsPending();
-                      close();
-                      AuthService.googleSign();
-                      // give a exact time for set to false loading state
-                      setTimeout(() => {
-                        setIsPendingFalse();
-                      }, 10_000);
-                    }, 250);
-                  }}
-                  variant="provider"
-                  className="rounded-full md:rounded-md"
-                  size={providerButtonSize}
-                >
-                  <img
-                    src={google}
-                    fetchPriority="high"
-                    alt="google-logo"
-                    className="size-5 md:size-4"
-                  />{' '}
-                  {t('auth.button.OAuth.with')} Google
-                </Button>
-                <Button
-                  onClick={() => {
-                    // use handleWait for UX (interaction, retour)
-                    handleWait(() => {
-                      setIsPending();
-                      close();
-                      AuthService.githubSign();
-                      // give a exact time for set to false loading state
-                      setTimeout(() => {
-                        setIsPendingFalse();
-                      }, 10_000);
-                    }, 250);
-                  }}
-                  className="rounded-full md:rounded-md"
-                  variant="provider"
-                  size={providerButtonSize}
-                >
-                  <img
-                    src={github}
-                    fetchPriority="high"
-                    alt="github-logo"
-                    className="size-5 md:size-4 invert"
-                  />{' '}
-                  {t('auth.button.OAuth.with')} GitHub
-                </Button>
-              </div>
-
-              <div className="flex items-center justify-center gap-3 py-3">
-                <span className="inline-flex w-20 border-t md:w-10 border-muted"></span>
-                <span>{t('auth.textDivide')}</span>
-                <span className="inline-flex w-20 border-t md:w-10 border-muted"></span>
-              </div>
-
-              <form action="#" className="flex flex-col items-center gap-4">
-                <Input
-                  type="email"
-                  name="email"
-                  placeholder={`${t('auth.placeholder.email')}...`}
-                  className="h-12 placeholder:text-sm md:h-10"
-                />
-                <Button
-                  variant="secondary"
-                  size={providerButtonSize}
-                  className="w-full"
-                >
-                  {t('auth.button.OAuth.withEmail')}
-                </Button>
-              </form>
-
-              {/* terms & privacy policy */}
-              <div className="pt-4 text-xs text-center text-muted-foreground text-balance">
-                <span>
-                  {t('footer.account.noAccount')}?{' '}
-                  <a href="#">
-                    {' '}
-                    <Button className="p-0" variant="link">
-                      {t('auth.button.signup')}
-                    </Button>
-                    {'. '}
-                  </a>
+      {/* <Overlay onClick={close} open={open} className="z-99" /> */}
+      <Overla open={open} close={close}>
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              variants={overlayVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="bg-card fixed fixed-center pointer-events-auto dark:bg-background overflow-y-auto scroll-touch w-full lg:w-full min-h-1/2 md:min-h-[calc(100dvh-14rem)] p-6 rounded-xl max-w-md"
+            >
+              <div className="relative space-y-4">
+                {/* close button */}
+                <span className="absolute -right-4 -top-4">
+                  <Button onClick={close} variant="ghost" size="icon-sm">
+                    <X />
+                  </Button>
                 </span>
-                <span>
-                  {t('footer.legal.agree')}{' '}
-                  <a href="#">
-                    {' '}
-                    <Button className="p-0 text-xs" variant="link">
-                      {t('footer.legal.term')}
-                    </Button>{' '}
-                  </a>{' '}
-                  {t('auth.textDivide')}{' '}
-                  <a href="#">
-                    {' '}
-                    <Button className="p-0 text-xs" variant="link">
-                      {t('footer.legal.policy')}
-                    </Button>{' '}
-                  </a>
-                </span>
+
+                <header>
+                  <h4 className="text-2xl font-semibold tracking-tight text-center">
+                    {t('auth.title.signin')}
+                  </h4>
+                  <Paragraphe className="text-sm text-center text-muted-foreground">
+                    {t('auth.subtitle.signin')}.
+                  </Paragraphe>
+                </header>
+
+                <div className="flex flex-col justify-center gap-3 py-3 md:gap-4 lg:flex-row">
+                  <span className="sr-only">Sign in with OAuth provider</span>
+                  <Button
+                    onClick={() => {
+                      // use handleWait for UX (interaction, retour)
+                      handleWait(() => {
+                        setIsPending();
+                        close();
+                        AuthService.googleSign();
+                        // give a exact time for set to false loading state
+                        setTimeout(() => {
+                          setIsPendingFalse();
+                        }, 10_000);
+                      }, 250);
+                    }}
+                    variant="provider"
+                    className="rounded-full md:rounded-md"
+                    size={providerButtonSize}
+                  >
+                    <img
+                      src={google}
+                      fetchPriority="high"
+                      alt="google-logo"
+                      className="size-5 md:size-4"
+                    />{' '}
+                    {t('auth.button.OAuth.with')} Google
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      // use handleWait for UX (interaction, retour)
+                      handleWait(() => {
+                        setIsPending();
+                        close();
+                        AuthService.githubSign();
+                        // give a exact time for set to false loading state
+                        setTimeout(() => {
+                          setIsPendingFalse();
+                        }, 10_000);
+                      }, 250);
+                    }}
+                    className="rounded-full md:rounded-md"
+                    variant="provider"
+                    size={providerButtonSize}
+                  >
+                    <img
+                      src={github}
+                      fetchPriority="high"
+                      alt="github-logo"
+                      className="size-5 md:size-4 invert"
+                    />{' '}
+                    {t('auth.button.OAuth.with')} GitHub
+                  </Button>
+                </div>
+
+                <div className="flex items-center justify-center gap-3 py-3">
+                  <span className="inline-flex w-20 border-t md:w-10 border-muted"></span>
+                  <span>{t('auth.textDivide')}</span>
+                  <span className="inline-flex w-20 border-t md:w-10 border-muted"></span>
+                </div>
+
+                <form action="#" className="flex flex-col items-center gap-4">
+                  <Input
+                    type="email"
+                    name="email"
+                    placeholder={`${t('auth.placeholder.email')}...`}
+                    className="h-12 placeholder:text-sm md:h-10"
+                  />
+                  <Button
+                    variant="secondary"
+                    size={providerButtonSize}
+                    className="w-full"
+                  >
+                    {t('auth.button.OAuth.withEmail')}
+                  </Button>
+                </form>
+
+                {/* terms & privacy policy */}
+                <div className="pt-4 text-xs text-center text-muted-foreground text-balance">
+                  <span>
+                    {t('footer.account.noAccount')}?{' '}
+                    <a href="#">
+                      {' '}
+                      <Button className="p-0" variant="link">
+                        {t('auth.button.signup')}
+                      </Button>
+                      {'. '}
+                    </a>
+                  </span>
+                  <span>
+                    {t('footer.legal.agree')}{' '}
+                    <a href="#">
+                      {' '}
+                      <Button className="p-0 text-xs" variant="link">
+                        {t('footer.legal.term')}
+                      </Button>{' '}
+                    </a>{' '}
+                    {t('auth.textDivide')}{' '}
+                    <a href="#">
+                      {' '}
+                      <Button className="p-0 text-xs" variant="link">
+                        {t('footer.legal.policy')}
+                      </Button>{' '}
+                    </a>
+                  </span>
+                </div>
               </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </Overla>
     </>
   );
 };

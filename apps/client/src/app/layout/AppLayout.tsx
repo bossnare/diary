@@ -90,7 +90,7 @@ export function AppLayout() {
 
   return (
     <>
-      <div className="relative">
+      <div className="relative overflow-hidden">
         {/* loading state on big route change */}
         <AppLoader open={appLoading} />
         {/* desktop sidebar */}
