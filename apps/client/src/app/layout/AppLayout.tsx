@@ -43,7 +43,7 @@ export function AppLayout() {
   const { isOpen: isOpenMobileSidebar, close: closeMobileSidebar } =
     useQueryToggle({ key: 'sidebar', value: 'mobile' })!;
 
-  const { isOpen: isOpenTooltip } = useQueryToggle({
+  const { isOpen: isSelectionMode } = useQueryToggle({
     key: 'select',
     value: 'selectNotes',
   })!;
@@ -119,7 +119,7 @@ export function AppLayout() {
         </div>
         {/* fab button (create note, long presse -> choice) - mobile only */}
         <AnimatePresence>
-          {!isOpenTooltip && !isOpenMobileSidebar && (
+          {!isSelectionMode && !isOpenMobileSidebar && (
             <motion.div
               variants={fabButtonVariants}
               initial="hidden"
@@ -144,7 +144,7 @@ export function AppLayout() {
         </AnimatePresence>
         {/* quick Editor */}
         {/* mobile */}
-        {isOpenTooltip ? (
+        {isSelectionMode ? (
           // on select notes card by long press on mobile device (by long press)
           <MobileNoteTooltip />
         ) : (

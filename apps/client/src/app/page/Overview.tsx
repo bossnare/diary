@@ -38,7 +38,7 @@ function Overview() {
     isOpen: isOpenNotesSortDrawer,
     close: closeNotesSortDrawer,
   } = useQueryToggle({ key: 'drawer', value: 'notesSorting' })!;
-  const { open: openTooltip, isOpen: isOpenTooltip } = useQueryToggle({
+  const { open: openSelectionMode, isOpen: isSelectionMode } = useQueryToggle({
     key: 'select',
     value: 'selectNotes',
   })!;
@@ -60,7 +60,7 @@ function Overview() {
   const handleTouchStart = (id: string) => {
     longPressRef.current = false;
     timerRef.current = window.setTimeout(() => {
-      openTooltip();
+      openSelectionMode();
       toggleSelect(id);
     }, 500);
   };
@@ -93,10 +93,11 @@ function Overview() {
 
   // auto reset selected value on selectionMode close
   useEffect(() => {
-  if (!isOpenTooltip) {
-    setSelected(new Set())
-  }
-}, [isOpenTooltip])
+    if (!isSelectionMode) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setSelected(new Set());
+    }
+  }, [isSelectionMode]);
 
   if (notes?.length < 1)
     return (
@@ -189,7 +190,7 @@ function Overview() {
                   role="button"
                   onTouchStart={() => handleTouchStart(note.id)}
                   onClick={() => {
-                    if (isOpenTooltip) toggleSelect(note.id);
+                    if (isSelectionMode) toggleSelect(note.id);
                   }}
                   onTouchEnd={handleTouchEnd}
                   onTouchMove={handleTouchMove}
@@ -207,7 +208,7 @@ function Overview() {
                   </span>
 
                   {/* options toggle - desktop */}
-                  {!isOpenTooltip && (
+                  {!isSelectionMode && (
                     <Button
                       size="icon"
                       variant="ghost"
@@ -219,8 +220,8 @@ function Overview() {
                   {/* mobile only */}
                   <div
                     className={cn(
-                      isOpenTooltip ? 'scale-100' : 'scale-0',
-                      'absolute z-2 lg: bottom-3 right-3 lg:hover:bg-muted-foreground/60 size-6 lg:size-5 bg-muted-foreground/40 rounded-full transition'
+                      isSelectionMode ? 'scale-100' : 'scale-0',
+                      'absolute z-2 bottom-3 right-3 lg:hover:bg-muted-foreground/60 size-7 lg:size-5 bg-muted-foreground/40 rounded-full transition'
                     )}
                   >
                     <div
@@ -231,7 +232,7 @@ function Overview() {
                         'size-full flex items-center justify-center rounded-full transition bg-primary'
                       )}
                     >
-                      <IconCheck className="size-4 stroke-4" />
+                      <IconCheck className="size-5 lg:size-4 stroke-4" />
                     </div>
                   </div>
                 </div>

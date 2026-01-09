@@ -7,6 +7,7 @@ import {
   text,
   uuid,
   integer,
+  varchar,
 } from 'drizzle-orm/pg-core';
 
 export const profiles = pgTable('profiles', {
@@ -45,6 +46,16 @@ export const notifications = pgTable('notifications', {
   isRead: boolean('is_read').default(false).notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
+});
+
+export const tags = pgTable('tags', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: uuid('user_id').references(() => profiles.id, {
+    onDelete: 'cascade',
+  }),
+  name: text('name').notNull(),
+  slug: varchar('slug', { length: 255 }).unique().notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
 });
 
 export const usersRelations = relations(profiles, ({ many }) => ({
