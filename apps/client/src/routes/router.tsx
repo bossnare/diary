@@ -27,7 +27,12 @@ export const AppRoutes = () => {
   const { setTheme } = useTheme();
   const { data: userProfiles } = useUserProfile();
 
-  const userTheme = (userProfiles?.themeMode ?? 'dark') as Theme;
+  localStorage.setItem('user-theme', userProfiles?.themeMode ?? '');
+  const userCacheTheme = localStorage.getItem('user-theme');
+
+  const userTheme = (userProfiles?.themeMode ??
+    userCacheTheme ??
+    'dark') as Theme;
 
   // rosolve theme from user profiles
   useEffect(() => {
