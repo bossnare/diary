@@ -165,7 +165,7 @@ function Overview() {
 
   return (
     <>
-      <div className="min-h-screen px-3 md:px-6 bg-muted dark:bg-background">
+      <div className="min-h-screen bg-muted pb-2 dark:bg-background">
         {/* <div className="relative flex flex-col w-full gap-2 p-4 rounded-lg shadow-xs md:p-3 bg-muted dark:bg-muted/60">
           <h4 className="font-bold">Complete your profile</h4>
           <div className="flex flex-col justify-center gap-3 md:items-center md:flex-row md:justify-between">
@@ -194,7 +194,7 @@ function Overview() {
         </div>
         {/* content */}
         <>
-          <header className="sticky top-0 z-20 px-1 pt-8 bg-background">
+          <header className="sticky top-0 z-20 px-4 md:px-7 pt-8 bg-background">
             {isSelectionMode ? (
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -271,7 +271,7 @@ function Overview() {
               </div>
             )}
           </header>
-          <main>
+          <main className="px-3 md:px-6">
             <div className="grid grid-cols-2 gap-3 pt-2 lg:grid-cols-4">
               {notes?.map((note) => (
                 <div
@@ -320,7 +320,7 @@ function Overview() {
                         'size-full flex items-center justify-center rounded-full transition bg-primary'
                       )}
                     >
-                      <IconCheck className="size-5 lg:size-4 stroke-3" />
+                      <IconCheck className="size-5 lg:size-4 text-foreground stroke-3" />
                     </div>
                   </div>
                 </div>
