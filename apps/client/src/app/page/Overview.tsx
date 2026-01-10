@@ -66,6 +66,10 @@ function Overview() {
     key: 'menu',
     value: 'notesSorting',
   })!;
+  const { isOpen: isOpenMobileSidebar } = useQueryToggle({
+    key: 'sidebar',
+    value: 'mobile',
+  })!;
 
   const handleClickSortingButton = !isMobile
     ? openNotesFilterMenu
@@ -329,7 +333,7 @@ function Overview() {
       {/* mobile select toollip */}
 
       <Portal>
-        {isSelectionMode && (
+        {!isOpenMobileSidebar && isSelectionMode && (
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
