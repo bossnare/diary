@@ -37,7 +37,6 @@ function Overview() {
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
   const isMobile = useIsMobile();
-  const spinnerSize = !isMobile ? 'default' : 'lg';
 
   const buttonXSize = useButtonSize({ mobile: 'icon-xl', landscape: 'icon' });
   const buttonToggleSelectAllSize = useButtonSize({
@@ -146,7 +145,7 @@ function Overview() {
   if (isPending)
     return (
       <div className="flex items-center justify-center py-10 h-100">
-        <Spinner variant="invert" size={spinnerSize} />
+        <Spinner variant="invert" />
       </div>
     );
 
