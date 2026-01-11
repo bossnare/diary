@@ -27,6 +27,7 @@ export const NoteEditor = ({
   note,
 }: NoteEditorProps) => {
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
 
   const isEdit = mode === 'edit';
   const editorMode = {
@@ -47,6 +48,7 @@ export const NoteEditor = ({
   const [title, setTitle] = useState<string | undefined>('');
   const [content, setContent] = useState<string | undefined>('');
 
+  // initial fill
   useEffect(() => {
     if (isEdit) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -55,10 +57,15 @@ export const NoteEditor = ({
     }
   }, [isEdit, note]);
 
-  const body = {
-    title,
-    content,
-  };
+  useEffect(() => {
+    // add a delay for initial any content on load...
+    setTimeout(() => {
+      if (contentAreaRef.current) {
+        contentAreaRef.current.focus();
+        setChars(contentAreaRef.current.value.length); // initial chars value
+      }
+    }, 100);
+  }, []);
 
   const autoGrow = (e: React.FormEvent<HTMLTextAreaElement>) => {
     e.currentTarget.style.height = 'auto'; // initial reset height value
@@ -69,7 +76,10 @@ export const NoteEditor = ({
     e.currentTarget.style.height = e.currentTarget.scrollHeight + 'px';
   };
 
-  const navigate = useNavigate();
+  const body = {
+    title,
+    content,
+  };
 
   const handleCreateNote = async () => {
     try {
@@ -93,10 +103,6 @@ export const NoteEditor = ({
     if (isEdit) handleUpdateNote(); // update if edit mode
     else handleCreateNote();
   };
-
-  useEffect(() => {
-    if (contentAreaRef.current) contentAreaRef.current.focus();
-  }, []);
 
   return (
     <>
@@ -174,6 +180,7 @@ export const NoteEditor = ({
                 rows={6}
                 ref={contentAreaRef}
                 value={content}
+                onFocus={autoGrowOnFocus}
                 onChange={(e) => {
                   setChars(e.target.value.length);
                   setContent(e.currentTarget.value);
