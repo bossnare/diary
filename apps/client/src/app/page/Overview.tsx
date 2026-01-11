@@ -26,6 +26,7 @@ import { motion } from 'motion/react';
 import { SelectModeNoteTooltip } from '../components/users/SelectModeNoteTooltip';
 import { Portal } from '@radix-ui/react-portal';
 import { useNavigate } from 'react-router-dom';
+import { handleWait } from '@/shared/utils/handle-wait';
 
 function Overview() {
   const navigate = useNavigate();
@@ -136,6 +137,11 @@ function Overview() {
       setSelected(new Set());
     }
   }, [isSelectionMode]);
+
+  const handleClickNote = (noteId: string) => {
+    if (isSelectionMode) toggleSelect(noteId);
+    else handleWait(() => navigate(`/note/${noteId}/edit`), 200);
+  };
 
   if (isPending)
     return (
@@ -279,19 +285,16 @@ function Overview() {
                 <div
                   role="button"
                   onTouchStart={() => handleTouchStart(note.id)}
-                  onClick={() => {
-                    if (isSelectionMode) toggleSelect(note.id);
-                    else navigate(`/note/${note.id}/edit`);
-                  }}
+                  onClick={() => handleClickNote(note.id)}
                   onTouchEnd={handleTouchEnd}
                   onTouchMove={handleTouchMove}
                   key={note.id}
                   className="relative flex flex-col gap-4 p-4 transition cursor-pointer select-none bg-card group active:scale-99 lg:active:scale-100 dark:shadow-none hover:bg-background/80 dark:hover:bg-muted active:opacity-60 dark:bg-muted/80 lg:shadow-sm rounded-2xl lg:rounded-xl"
                 >
-                  <span className="text-lg font-bold leading-none truncate md:text-base line-clamp-2 text-wrap">
+                  <span className="text-lg font-bold leading-none truncate md:text-base line-clamp-2 lg:line-clamp-1 text-wrap">
                     {note.title || 'Untitled'}
                   </span>
-                  <span className="truncate transition-colors group-active:text-foreground text-muted-foreground text-wrap md:text-sm line-clamp-4 lg:line-clamp-2">
+                  <span className="truncate transition-colors group-active:text-foreground text-muted-foreground text-wrap md:text-sm line-clamp-4 lg:line-clamp-1">
                     {note.content}
                   </span>
                   <span className="text-xs text-muted-foreground">
