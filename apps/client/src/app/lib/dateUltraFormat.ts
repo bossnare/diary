@@ -7,5 +7,5 @@ export const dateUltraFormat = (date: string) => {
   if (isYesterday(date)) {
     return 'Yesterday';
   }
-  return format(date, 'MMM d');
+  return format(date, 'MMM d, yyyy');
 };

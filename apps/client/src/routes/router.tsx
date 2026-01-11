@@ -76,7 +76,9 @@ export const AppRoutes = () => {
 
             {/* notes */}
             <Route path="/note" element={<MiniAppLayout />}>
-              <Route path="new" element={<NoteEditor />} />
+              <Route path=":id" element={<NoteEditor mode="view" />} />
+              <Route path="new" element={<NoteEditor mode="new" />} />
+              <Route path=":id/edit" element={<NoteEditor />} />
             </Route>
           </Route>
           {/* not found route */}

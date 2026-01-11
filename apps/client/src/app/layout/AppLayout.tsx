@@ -24,6 +24,7 @@ import { SquarePen } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
+import { usePannel } from '../hooks/use-pannel';
 
 export function AppLayout() {
   // store state
@@ -56,14 +57,12 @@ export function AppLayout() {
   const isDesktop = useIsDesktop(); // >= lg
 
   //  reactive main width
-  const SIDEBAR_WIDTH = isOpenPanel ? MAX_PANEL_WIDTH : MIN_PANEL_WIDTH;
+  const { pannelWidth: SIDEBAR_WIDTH, mainTransform: MAIN_DESKTOP_TRANSFORM } =
+    usePannel(isOpenPanel, MIN_PANEL_WIDTH, MAX_PANEL_WIDTH);
 
   // main transform style breakpoint
   const MAIN_TRANSFORM = !isMobile
-    ? {
-        transform: `translateX(${SIDEBAR_WIDTH}px)`,
-        width: `calc(100% - ${SIDEBAR_WIDTH}px)`,
-      }
+    ? MAIN_DESKTOP_TRANSFORM
     : {
         transform: isOpenMobileSidebar
           ? `translateX(${mobileSidebarWidth}px)`

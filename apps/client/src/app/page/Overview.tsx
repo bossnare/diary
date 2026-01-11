@@ -165,7 +165,7 @@ function Overview() {
 
   return (
     <>
-      <div className="min-h-screen bg-muted pb-2 dark:bg-background">
+      <div className="min-h-screen pb-2 bg-muted dark:bg-background">
         {/* <div className="relative flex flex-col w-full gap-2 p-4 rounded-lg shadow-xs md:p-3 bg-muted dark:bg-muted/60">
           <h4 className="font-bold">Complete your profile</h4>
           <div className="flex flex-col justify-center gap-3 md:items-center md:flex-row md:justify-between">
@@ -194,7 +194,7 @@ function Overview() {
         </div>
         {/* content */}
         <>
-          <header className="sticky top-0 z-20 px-4 md:px-7 pt-8 bg-background">
+          <header className="sticky top-0 z-20 px-4 pt-8 md:px-7 bg-background">
             {isSelectionMode ? (
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -283,7 +283,7 @@ function Overview() {
                   onTouchEnd={handleTouchEnd}
                   onTouchMove={handleTouchMove}
                   key={note.id}
-                  className="relative flex flex-col gap-4 p-4 transition cursor-pointer select-none bg-background group active:scale-99 lg:active:scale-100 dark:shadow-none hover:bg-background/80 dark:hover:bg-muted active:opacity-60 dark:bg-muted/80 lg:shadow-sm rounded-2xl lg:rounded-xl"
+                  className="relative flex flex-col gap-4 p-4 transition cursor-pointer select-none bg-card group active:scale-99 lg:active:scale-100 dark:shadow-none hover:bg-background/80 dark:hover:bg-muted active:opacity-60 dark:bg-muted/80 lg:shadow-sm rounded-2xl lg:rounded-xl"
                 >
                   <span className="text-lg font-bold leading-none truncate md:text-base line-clamp-2 text-wrap">
                     {note.title || 'Untitled'}
