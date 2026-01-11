@@ -13,12 +13,19 @@ import {
 import { useToggle } from '@/shared/hooks/use-toggle';
 import { usePannel } from '@/app/hooks/use-pannel';
 import { useIsMobile } from '@/shared/hooks/use-mobile';
+import type { NoteInterface } from '@/app/types/note.interface';
+import { dateFormatLong } from '@/app/lib/date-format';
 
 type NoteEditorProps = React.HTMLAttributes<HTMLDivElement> & {
   mode?: 'new' | 'edit' | 'view';
+  note?: NoteInterface;
 };
 
-export const NoteEditor = ({ className, mode = 'edit' }: NoteEditorProps) => {
+export const NoteEditor = ({
+  className,
+  mode = 'edit',
+  note,
+}: NoteEditorProps) => {
   const isMobile = useIsMobile();
 
   const isEdit = mode === 'edit';
@@ -37,8 +44,16 @@ export const NoteEditor = ({ className, mode = 'edit' }: NoteEditorProps) => {
 
   const contentAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const [chars, setChars] = useState(0);
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState<string | undefined>('');
+  const [content, setContent] = useState<string | undefined>('');
+
+  useEffect(() => {
+    if (isEdit) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setTitle(note?.title);
+      setContent(note?.content);
+    }
+  }, [isEdit, note]);
 
   const body = {
     title,
@@ -52,13 +67,27 @@ export const NoteEditor = ({ className, mode = 'edit' }: NoteEditorProps) => {
 
   const navigate = useNavigate();
 
-  const save = async () => {
+  const handleCreateNote = async () => {
     try {
       const res = await api.post('/notes/create', body);
       console.log(res.data);
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const handleUpdateNote = async () => {
+    try {
+      const res = await api.put(`/notes/update/${note?.id}`, body);
+      console.log(res.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleSave = () => {
+    if (isEdit) handleUpdateNote(); // update if edit mode
+    else handleCreateNote();
   };
 
   useEffect(() => {
@@ -94,9 +123,9 @@ export const NoteEditor = ({ className, mode = 'edit' }: NoteEditorProps) => {
               </button>
               <span className="text-muted-foreground">{editorState} notes</span>
               <Button
-                disabled={!content.trim()}
+                disabled={!content?.trim()}
                 onClick={() => {
-                  save();
+                  handleSave();
                   handleWait(() => navigate(-1), 200);
                 }}
                 className="font-bold select-none"
@@ -122,20 +151,14 @@ export const NoteEditor = ({ className, mode = 'edit' }: NoteEditorProps) => {
                 onBlur={(e) => {
                   if (!e.currentTarget.value.trim())
                     e.currentTarget.style.height = 'auto';
-                  setTitle(title.trim());
+                  setTitle(title?.trim());
                 }}
               ></textarea>
               <div className="left-0 pb-1 space-x-2 text-sm lg:sticky bg-background top-12 text-muted-foreground">
                 <span>
-                  {new Date().toLocaleDateString('en-US', {
-                    weekday: 'short',
-                    day: 'numeric',
-                    year: 'numeric',
-                    month: 'long',
-                    hour: 'numeric',
-                    minute: 'numeric',
-                    hour12: true,
-                  })}
+                  {isEdit
+                    ? dateFormatLong(note?.updatedAt ?? new Date())
+                    : dateFormatLong(new Date())}
                 </span>
                 <span className="w-0.5 border-l dark:border-muted"></span>{' '}
                 <span>
@@ -170,7 +193,7 @@ export const NoteEditor = ({ className, mode = 'edit' }: NoteEditorProps) => {
         {/* fixed footer for mobile only */}
         <Portal>
           <footer className="fixed inset-x-0 bottom-0 border-t md:hidden bg-background border-sidebar-border/50">
-            <div className="h-14 max-w-6xl px-4 mx-auto bg-sidebar/50"></div>
+            <div className="max-w-6xl px-4 mx-auto h-14 bg-sidebar/50"></div>
           </footer>
         </Portal>
       </motion.div>

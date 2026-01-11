@@ -1,8 +1,12 @@
+import { useUserProfile } from '@/app/api/user-profiles.api';
 import { NoteEditor } from '@/app/components/users/NoteEditor';
-import { useIsPublicRoute } from '@/shared/hooks/useIsPublicRoute';
 import { AppLayout } from '@/app/layout/AppLayout';
 import MiniAppLayout from '@/app/layout/MiniAppLayout';
+import { EditNotePage } from '@/app/page/EditNotePage';
+import { NewNotePage } from '@/app/page/NewNotePage';
+import Notification from '@/app/page/Notification';
 import Overview from '@/app/page/Overview';
+import { useTheme, type Theme } from '@/components/theme-provider';
 import { PublicLayout } from '@/public-site/layout/PublicLayout';
 import { About } from '@/public-site/page/About';
 import { Contact } from '@/public-site/page/Contact';
@@ -12,13 +16,11 @@ import { SignUp } from '@/public-site/page/Signup';
 import { HomeScreenLoader } from '@/shared/components/HomeScreenLoader';
 import { NotFound } from '@/shared/components/not-found';
 import { useAuth } from '@/shared/hooks/use-auth';
+import { useIsPublicRoute } from '@/shared/hooks/useIsPublicRoute';
+import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ProtectedRoutes } from './ProtectedRoutes';
 import { PublicRoutes } from './PublicRoutes';
-import Notification from '@/app/page/Notification';
-import { useUserProfile } from '@/app/api/user-profiles.api';
-import { useTheme, type Theme } from '@/components/theme-provider';
-import { useEffect } from 'react';
 
 export const AppRoutes = () => {
   const { pending, session } = useAuth();
@@ -27,17 +29,12 @@ export const AppRoutes = () => {
   const { setTheme } = useTheme();
   const { data: userProfiles } = useUserProfile();
 
-  localStorage.setItem('user-theme', userProfiles?.themeMode as Theme);
-  const userCacheTheme = localStorage.getItem('user-theme');
-
-  const userTheme = (userProfiles?.themeMode ??
-    userCacheTheme ??
-    'dark') as Theme;
+  const userTheme = (userProfiles?.themeMode ?? 'dark') as Theme;
 
   // rosolve theme from user profiles
   useEffect(() => {
-    if (!isPublicRoute) setTheme(userTheme);
-  }, [setTheme, isPublicRoute, userTheme]);
+    if (pending && !isPublicRoute) setTheme(userTheme);
+  }, [setTheme, isPublicRoute, userTheme, pending]);
 
   return (
     <>
@@ -77,8 +74,8 @@ export const AppRoutes = () => {
             {/* notes */}
             <Route path="/note" element={<MiniAppLayout />}>
               <Route path=":id" element={<NoteEditor mode="view" />} />
-              <Route path="new" element={<NoteEditor mode="new" />} />
-              <Route path=":id/edit" element={<NoteEditor />} />
+              <Route path="new" element={<NewNotePage />} />
+              <Route path=":id/edit" element={<EditNotePage />} />
             </Route>
           </Route>
           {/* not found route */}

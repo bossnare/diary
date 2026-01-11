@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button';
 // import { Paragraphe } from '@/shared/components/Paragraphe';
 // import { useAuth } from '@/shared/hooks/use-auth';
 // import { X } from 'lucide-react';
-import type { NoteInterface } from '@/app/types/note.interface';
 import { Spinner } from '@/shared/components/Spinner';
 import { useButtonSize } from '@/shared/hooks/use-button-size';
 import { useIsMobile } from '@/shared/hooks/use-mobile';
@@ -21,15 +20,18 @@ import { useEffect, useRef, useState } from 'react';
 import { useNote } from '../api/notes.api';
 import { OrderDrawer } from '../components/users/Drawer';
 import { EmptyEmpty as EmptyNotes } from '../components/users/Empty';
-import { dateUltraFormat } from '../lib/dateUltraFormat';
+import { dateUltraFormat } from '../lib/date-format';
 import { cn } from '../lib/utils';
 import { motion } from 'motion/react';
 import { SelectModeNoteTooltip } from '../components/users/SelectModeNoteTooltip';
 import { Portal } from '@radix-ui/react-portal';
+import { useNavigate } from 'react-router-dom';
 
 function Overview() {
+  const navigate = useNavigate();
+
   const { data, isPending, isError, error, refetch } = useNote();
-  const notes = data as NoteInterface[];
+  const notes = data ?? [];
   const buttonSize = useButtonSize({ mobile: 'icon-lg', landscape: 'icon' });
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
@@ -135,10 +137,10 @@ function Overview() {
     }
   }, [isSelectionMode]);
 
-  if (notes?.length < 1)
+  if (isPending)
     return (
-      <div className="py-4">
-        <EmptyNotes />
+      <div className="flex items-center justify-center py-10 h-100">
+        <Spinner variant="invert" size={spinnerSize} />
       </div>
     );
 
@@ -156,10 +158,10 @@ function Overview() {
       </div>
     );
 
-  if (isPending)
+  if (notes?.length < 1)
     return (
-      <div className="flex items-center justify-center py-10 h-100">
-        <Spinner variant="invert" size={spinnerSize} />
+      <div className="py-4">
+        <EmptyNotes />
       </div>
     );
 
@@ -279,6 +281,7 @@ function Overview() {
                   onTouchStart={() => handleTouchStart(note.id)}
                   onClick={() => {
                     if (isSelectionMode) toggleSelect(note.id);
+                    else navigate(`/note/${note.id}/edit`);
                   }}
                   onTouchEnd={handleTouchEnd}
                   onTouchMove={handleTouchMove}

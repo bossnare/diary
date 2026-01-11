@@ -11,11 +11,11 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
 export const Logo = ({ mono, className, size = 'lg', ...props }: Props) => {
   const dflt =
     'flex font-black font-inter leading-none tracking-tight select-none';
-  const lg = 'text-[21px] lg:text-2xl';
+  const lg = 'text-[21px] lg:text-[22px]';
   const sm = 'text-[18px] lg:text-[20px]';
   const iconSize = size === 'sm' ? 'size-5' : 'size-6';
 
-  const sz = {
+  const textSize = {
     lg,
     sm,
   };
@@ -55,7 +55,7 @@ export const Logo = ({ mono, className, size = 'lg', ...props }: Props) => {
         </span>
       )}
 
-      <span className={cn(dflt, sz[size], 'text-foreground')}>DIARY</span>
+      <span className={cn(dflt, textSize[size], 'text-foreground')}>DIARY</span>
     </div>
   );
 };

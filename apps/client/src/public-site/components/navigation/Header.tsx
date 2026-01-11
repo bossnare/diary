@@ -63,10 +63,9 @@ export const Header = () => {
                     <button
                       className={cn(
                         isActive
-                          ? 'text-foreground'
-                          : 'hover:not-focus:opacity-80 active:text-muted-foreground text-foreground/80',
-                        'relative flex justify-center font-bold',
-                        'transition-colors duration-100 ease-in'
+                          ? 'text-foreground font-bold'
+                          : 'hover:not-focus:opacity-80 active:text-muted-foreground text-foreground/80 font-medium',
+                        'relative flex justify-center transition-colors duration-100 ease-in'
                       )}
                     >
                       {l.label}
@@ -96,7 +95,7 @@ export const Header = () => {
             <Button
               onClick={() => handleWait(openLogin, 200)}
               size="sm"
-              className="hidden shadow-xs md:inline-flex bg-background text-foreground"
+              className="hidden border shadow-xs dark:border-input/50 md:inline-flex bg-background text-foreground"
               variant="ghost"
             >
               {t('auth.button.signin')}

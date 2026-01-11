@@ -20,24 +20,50 @@ export const notesRoute = new Elysia({
       data,
     };
   })
-  .get('/:id', ({ params }) => NotesService.getById(params.id))
+  .get('/:id', async ({ params, set }) => {
+    const data = await NotesService.getById(params.id);
+
+    set.status = 200;
+
+    return {
+      success: true,
+      timestamp: Date.now(),
+      data,
+    };
+  })
   .post(
     '/create',
     async ({ body, set, headers }) => {
       const token = headers.authorization?.split(' ')[1] as string;
-      const { id } = await UsersService.getUserFromToken(token);
-      const payload = {
-        ...body,
-        userId: id,
-      };
+      const { id: userId } = await UsersService.getUserFromToken(token);
 
-      const note = await NotesService.create(payload);
+      const note = await NotesService.create(body, userId);
       set.status = 201;
 
       return {
         success: true,
         timestamp: Date.now(),
         data: note,
+      };
+    },
+    {
+      body: t.Object({
+        title: t.String(),
+        content: t.String(),
+      }),
+    }
+  )
+  .put(
+    '/update/:id',
+    async ({ params, set, body }) => {
+      const data = await NotesService.update(body, params.id);
+
+      set.status = 200;
+
+      return {
+        success: true,
+        timestamp: Date.now(),
+        data,
       };
     },
     {

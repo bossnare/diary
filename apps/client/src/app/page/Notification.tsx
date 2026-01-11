@@ -6,23 +6,22 @@ import { Spinner } from '@/shared/components/Spinner';
 import { useNotification } from '@/app/api/notifications.api';
 import { ArrowDownNarrowWide, ArrowLeft } from 'lucide-react';
 import { useIsMobile } from '@/shared/hooks/use-mobile';
-import type { NotificationInterface } from '@/app/types/notification.interface';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '../lib/utils';
 import timeAgo from '../lib/timeAgo';
 
 function Notification() {
   const { data, isPending, isError, error, refetch } = useNotification();
-  const notifications = data as NotificationInterface[];
+  const notifications = data ?? [];
 
   const isMobile = useIsMobile();
   const spinnerSize = !isMobile ? 'default' : 'lg';
   const navigate = useNavigate();
 
-  if (notifications?.length < 1)
+  if (isPending)
     return (
-      <div className="flex justify-center max-w-3xl py-6 mx-auto text-muted-foreground">
-        <span className="text-center">No notification yet.</span>
+      <div className="flex items-center justify-center py-10 h-100">
+        <Spinner variant="invert" size={spinnerSize} />
       </div>
     );
 
@@ -40,10 +39,10 @@ function Notification() {
       </div>
     );
 
-  if (isPending)
+  if (notifications?.length < 1)
     return (
-      <div className="flex items-center justify-center py-10 h-100">
-        <Spinner variant="invert" size={spinnerSize} />
+      <div className="flex justify-center max-w-3xl py-6 mx-auto text-muted-foreground">
+        <span className="text-center">No notification yet.</span>
       </div>
     );
 
