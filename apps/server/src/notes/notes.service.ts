@@ -46,12 +46,29 @@ export class NotesService {
     };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} note`;
+  async findOne(id: string) {
+    const data = await this.prisma.note.findUnique({
+      where: { id },
+    });
+
+    return {
+      success: true,
+      timestamps: Date.now(),
+      data,
+    };
   }
 
-  update(id: number, updateNoteDto: UpdateNoteDto) {
-    return `This action updates a #${id} note`;
+  async update(id: string, updateNoteDto: UpdateNoteDto) {
+    const updatedNote = await this.prisma.note.update({
+      where: { id },
+      data: updateNoteDto,
+    });
+
+    return {
+      success: true,
+      timestamps: Date.now(),
+      data: updatedNote,
+    };
   }
 
   remove(id: number) {
