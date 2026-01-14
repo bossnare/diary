@@ -26,7 +26,7 @@ datasource db {
 // Model
 model Profile {
   id          String    @id @unique @default(uuid()) @db.Uuid
-  email       String?   @unique
+  email       String    @unique
   displayName String?   @map("display_name")
   avatarUrl   String?   @map("avatar_url")
   themeMode   String    @default("dark") @map("theme_mode")
@@ -60,7 +60,7 @@ model Note {
 }
 
 model Notification {
-  id        String   @id @unique @default(uuid())
+  id        String   @id @unique @default(uuid()) @db.Uuid
   type      String
   title     String
   message   String

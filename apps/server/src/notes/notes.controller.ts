@@ -34,12 +34,12 @@ export class NotesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.notesService.findOne(+id);
+    return this.notesService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateNoteDto: UpdateNoteDto) {
-    return this.notesService.update(+id, updateNoteDto);
+    return this.notesService.update(id, updateNoteDto);
   }
 
   @Delete(':id')
