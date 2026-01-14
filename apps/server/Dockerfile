@@ -12,6 +12,7 @@ RUN bun install
 # -------- Build ---------
 FROM deps AS build
 COPY . .
+
 ARG DATABASE_URL
 ENV DATABASE_URL=$DATABASE_URL 
 
@@ -32,6 +33,11 @@ COPY --from=build /app/tsconfig.build.json ./tsconfig.build.json
 COPY --from=build /app/prisma ./prisma
 
 EXPOSE 3000
-CMD [ "node", "dist/src/main.js" ]
+
+# Entrypoint
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
+CMD ["./entrypoint.sh"]
+# CMD [ "node", "dist/src/main.js" ]
 
 
