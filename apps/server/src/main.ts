@@ -68,7 +68,7 @@ async function bootstrap() {
   await app.listen(port, '0.0.0.0');
   logger.log(
     production
-      ? '🚀 Application is running on: https://memoroom-api.onrender.com ❇️.'
+      ? '🚀 Application is running on: https://api-memoroom.onrender.com ❇️.'
       : `🚀 Application is running on: http://localhost:${port}`,
   );
   console.log('✔ MODE:', process.env.NODE_ENV, '🪄  ✅');
