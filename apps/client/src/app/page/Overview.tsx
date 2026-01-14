@@ -225,8 +225,8 @@ function Overview() {
           onClose={closeDeleteConfirm}
           action={() => {
             handleDelete();
-            closeDeleteConfirm();
             closeSelectionMode();
+            closeDeleteConfirm();
           }}
         />
         <OrderDrawer
