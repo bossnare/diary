@@ -12,8 +12,8 @@ RUN bun install
 # -------- Build ---------
 FROM deps AS build
 COPY . .
-RUN bun run build
 RUN bunx prisma generate
+RUN bun run build
 
 # -------- Production ---------
 FROM node:20-alpine AS runner
@@ -29,6 +29,6 @@ COPY --from=build /app/tsconfig.build.json ./tsconfig.build.json
 COPY --from=build /app/prisma ./prisma
 
 EXPOSE 3000
-CMD [ "node", "dist/main.js" ]
+CMD [ "node", "dist/src/main.js" ]
 
 
