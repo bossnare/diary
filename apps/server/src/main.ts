@@ -11,6 +11,7 @@ import { AppModule } from './app.module.js';
 import { SupabaseAuthGuard } from './auth/guards/jwt-auth.guard.js';
 import swaggerConfig from './configs/swagger.config.js';
 import { ConfigService } from '@nestjs/config';
+import morgan from 'morgan';
 
 const logger = new Logger('Bootstrap');
 const production = process.env.NODE_ENV === 'production';
@@ -43,11 +44,12 @@ async function bootstrap() {
   );
 
   app.use(helmet()); // Helmet middleware for security headers
+  app.use(morgan('dev'));
   app.use(compression());
   app.setGlobalPrefix('api', {
     exclude: [
       { path: '', method: RequestMethod.GET },
-      { path: 'health', method: RequestMethod.GET },
+      { path: 'healthz', method: RequestMethod.GET },
       { path: 'webhooks/stripe', method: RequestMethod.POST },
     ],
   }); // Set global API prefix, exclude *root'/' *health, ...
