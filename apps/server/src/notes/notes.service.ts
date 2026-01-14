@@ -61,7 +61,7 @@ export class NotesService {
   async update(id: string, updateNoteDto: UpdateNoteDto) {
     const updatedNote = await this.prisma.note.update({
       where: { id },
-      data: updateNoteDto,
+      data: { ...updateNoteDto, edited: true, numberOfEdits: { increment: 1 } },
     });
 
     return {
