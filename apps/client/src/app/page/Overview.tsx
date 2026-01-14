@@ -226,6 +226,7 @@ function Overview() {
           action={() => {
             handleDelete();
             closeDeleteConfirm();
+            closeSelectionMode();
           }}
         />
         <OrderDrawer
