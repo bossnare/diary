@@ -18,6 +18,7 @@ export class NotesService {
 
     return {
       success: true,
+      message: "note created",
       timestamps: Date.now(),
       data: createdNote,
     };
