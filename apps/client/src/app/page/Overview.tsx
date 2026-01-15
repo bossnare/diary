@@ -16,6 +16,7 @@ import { NoteList } from '../components/users/NoteList';
 import { SelectModeNoteTooltip } from '../components/users/SelectModeNoteTooltip';
 import api from '../lib/api';
 import { cn } from '../lib/utils';
+import { IconNote } from '@tabler/icons-react';
 
 function Overview() {
   const { data, isPending, isError, error, refetch } = useNote();
@@ -121,7 +122,7 @@ function Overview() {
   const handleDelete = async () => {
     try {
       const res = await api.patch('/notes', {
-        idsToRemove: Array.from(selected),
+        idsToRemove: [...selected], // transform as Array
       });
       console.log(res.data);
     } catch (err) {
@@ -164,7 +165,13 @@ function Overview() {
   if (notes?.length < 1)
     return (
       <div className="py-4">
-        <EmptyNotes />
+        <EmptyNotes
+          icon={IconNote}
+          title="No Notes Yet"
+          description="You haven't created any notes yet. Get started by creating your first notes."
+          primaryLabel="Create Notes"
+          secondaryLabel="Paste from Clipboard"
+        />
       </div>
     );
 

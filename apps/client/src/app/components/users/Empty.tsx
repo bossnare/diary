@@ -1,4 +1,4 @@
-import { IconNote } from '@tabler/icons-react';
+import { IconFileSadFilled } from '@tabler/icons-react';
 // import { ArrowUpRightIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -11,25 +11,43 @@ import {
   EmptyTitle,
 } from '@/components/ui/empty';
 
-export function EmptyEmpty() {
+type Props = {
+  icon: React.ElementType;
+  onPrimaryAction?: () => void;
+  onSecondaryAction?: () => void;
+  title?: string;
+  description?: string;
+  primaryLabel?: string;
+  secondaryLabel?: string;
+  noAction?: boolean;
+};
+
+export function EmptyEmpty(props: Props) {
+  const Icon = props.icon;
+
   return (
     <Empty>
       <EmptyHeader>
         <EmptyMedia variant="icon">
-          <IconNote />
+          {props.icon ? <Icon /> : <IconFileSadFilled />}
         </EmptyMedia>
-        <EmptyTitle>No Notes Yet</EmptyTitle>
+        <EmptyTitle>{props.title || 'Title'}</EmptyTitle>
         <EmptyDescription>
-          You haven&apos;t created any notes yet. Get started by creating your
-          first notes.
+          {props.description || 'Description'}
         </EmptyDescription>
       </EmptyHeader>
-      <EmptyContent>
-        <div className="flex gap-2">
-          <Button>Create Notes</Button>
-          <Button variant="outline">Paste from Clipboard</Button>
-        </div>
-      </EmptyContent>
+      {!props.noAction && (
+        <EmptyContent>
+          <div className="flex gap-2">
+            <Button onClick={props.onPrimaryAction}>
+              {props.primaryLabel}{' '}
+            </Button>
+            <Button onClick={props.onSecondaryAction} variant="outline">
+              {props.secondaryLabel}{' '}
+            </Button>
+          </div>
+        </EmptyContent>
+      )}
       {/* <Button
         variant="link"
         asChild

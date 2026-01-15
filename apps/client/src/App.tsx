@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { ThemeProvider } from './components/theme-provider';
 import { AppRoutes } from './routes/router';
 import { useIsPublicRoute } from './shared/hooks/useIsPublicRoute';
+import { Toaster } from '@/components/ui/sonner';
 
 function App() {
   const isPublicRoute = useIsPublicRoute();
@@ -23,7 +24,7 @@ function App() {
       <ThemeProvider>
         <AppRoutes />
       </ThemeProvider>
-
+      <Toaster />
       {/* vercel services */}
       <Analytics />
     </QueryClientProvider>
