@@ -5,16 +5,16 @@ import { Button } from '@/components/ui/button';
 import { Spinner } from '@/shared/components/Spinner';
 import { useNotification } from '@/app/api/notifications.api';
 import { ArrowDownNarrowWide, ArrowLeft } from 'lucide-react';
-import { useIsMobile } from '@/shared/hooks/use-mobile';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '../lib/utils';
 import timeAgo from '../lib/timeAgo';
+import { EmptyEmpty as EmptyNotification } from '../components/users/Empty';
+import { IconBellZFilled } from '@tabler/icons-react';
 
 function Notification() {
   const { data, isPending, isError, error, refetch } = useNotification();
   const notifications = data ?? [];
 
-  const isMobile = useIsMobile();
   const navigate = useNavigate();
 
   if (isPending)
@@ -40,8 +40,13 @@ function Notification() {
 
   if (notifications?.length < 1)
     return (
-      <div className="flex justify-center max-w-3xl py-6 mx-auto text-muted-foreground">
-        <span className="text-center">No notification yet.</span>
+      <div className="py-5">
+        <EmptyNotification
+          icon={IconBellZFilled}
+          noAction={true}
+          title="No notifications at the moment"
+          description="You are all caught up! No new notififcation yet."
+        />
       </div>
     );
 

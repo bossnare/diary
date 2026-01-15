@@ -46,7 +46,7 @@ export function ConfirmDrawer(props: Props) {
               onClick={handleConfirm}
               size="xl"
               variant="secondary"
-              className="rounded-full font-bold text-[16px]"
+              className="rounded-full font-semibold text-[16px]"
             >
               {props.confirmText || 'confirm'}
             </Button>

@@ -15,6 +15,7 @@ import { usePannel } from '@/app/hooks/use-pannel';
 import { useIsMobile } from '@/shared/hooks/use-mobile';
 import type { NoteInterface } from '@/app/types/note.interface';
 import { dateFormatLong } from '@/app/lib/date-format';
+import { toast } from 'sonner';
 
 type NoteEditorProps = React.HTMLAttributes<HTMLDivElement> & {
   mode?: 'new' | 'edit' | 'view';
@@ -99,6 +100,7 @@ export const NoteEditor = ({
     try {
       const res = await api.post('/notes', body);
       console.log(res.data);
+      toast(res.data.message);
     } catch (e) {
       console.log(e);
     } finally {
@@ -111,6 +113,7 @@ export const NoteEditor = ({
     try {
       const res = await api.patch(`/notes/${note?.id}`, body);
       console.log(res.data);
+      toast(res.data.message);
     } catch (e) {
       console.log(e);
     } finally {
