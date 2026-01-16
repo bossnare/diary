@@ -16,6 +16,7 @@ import { useIsMobile } from '@/shared/hooks/use-mobile';
 import type { NoteInterface } from '@/app/types/note.interface';
 import { dateFormatLong } from '@/app/lib/date-format';
 import { toast } from 'sonner';
+import { Ellipsis } from 'lucide-react';
 
 type NoteEditorProps = React.HTMLAttributes<HTMLDivElement> & {
   mode?: 'new' | 'edit' | 'view';
@@ -164,7 +165,12 @@ export const NoteEditor = ({
               >
                 Cancel
               </button>
-              <span className="text-muted-foreground">{editorState} notes</span>
+              <div className="text-muted-foreground flex items-center gap-1">
+                <span>{editorState} notes</span>{' '}
+                <Button size="icon" variant="ghost">
+                  <Ellipsis />
+                </Button>
+              </div>
               <Button
                 disabled={!canSave || !isDirty}
                 onClick={() => {

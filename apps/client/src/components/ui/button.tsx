@@ -67,5 +67,6 @@ function Button({
 
 export type ButtonVariantProps = VariantProps<typeof buttonVariants>;
 export type ButtonSize = ButtonVariantProps['size'];
+export type ButtonVariant = ButtonVariantProps['variant'];
 // eslint-disable-next-line react-refresh/only-export-components
 export { Button, buttonVariants };

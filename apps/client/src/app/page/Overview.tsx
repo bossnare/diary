@@ -4,11 +4,19 @@ import { useButtonSize } from '@/shared/hooks/use-button-size';
 import { useIsMobile } from '@/shared/hooks/use-mobile';
 import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
 import { Portal } from '@radix-ui/react-portal';
+import { IconNote } from '@tabler/icons-react';
 import { useQueryClient } from '@tanstack/react-query';
-import { ArrowDownNarrowWide, ListChecks, ListRestart, X } from 'lucide-react';
+import {
+  ArrowDownNarrowWide,
+  LassoSelect,
+  ListChecks,
+  ListRestart,
+  X,
+} from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { useNote } from '../api/notes.api';
+import { ConfirmDialog } from '../components/users/ConfirmDialog';
 import { ConfirmDrawer } from '../components/users/ConfirmDrawer';
 import { OrderDrawer } from '../components/users/Drawer';
 import { EmptyEmpty as EmptyNotes } from '../components/users/Empty';
@@ -16,7 +24,7 @@ import { NoteList } from '../components/users/NoteList';
 import { SelectModeNoteTooltip } from '../components/users/SelectModeNoteTooltip';
 import api from '../lib/api';
 import { cn } from '../lib/utils';
-import { IconNote } from '@tabler/icons-react';
+import { toast } from 'sonner';
 
 function Overview() {
   const { data, isPending, isError, error, refetch } = useNote();
@@ -124,6 +132,7 @@ function Overview() {
       const res = await api.patch('/notes', {
         idsToRemove: [...selected], // transform as Array
       });
+      toast(res.data.message);
       console.log(res.data);
     } catch (err) {
       console.log(err);
@@ -180,9 +189,23 @@ function Overview() {
       <div className="min-h-screen pb-2 bg-muted dark:bg-background">
         {/* drawer - mobile only */}
         <ConfirmDrawer
+          showOn="mobile"
           title={deleteConfirmTitle}
           description={deleteConfirmDescription}
-          confirmText={deleteConfirmLabel}
+          confirmLabel={deleteConfirmLabel}
+          isOpen={isOpenDeleteConfirm}
+          onClose={closeDeleteConfirm}
+          onConfirm={() => {
+            handleDelete();
+            closeSelectionMode();
+          }}
+        />
+        {/* confirm dialog - desktop only */}
+        <ConfirmDialog
+          showOn="desktop"
+          title={deleteConfirmTitle}
+          description={deleteConfirmDescription}
+          confirmLabel={deleteConfirmLabel}
           isOpen={isOpenDeleteConfirm}
           onClose={closeDeleteConfirm}
           onConfirm={() => {
@@ -253,6 +276,13 @@ function Overview() {
                   All notes
                 </h3>
                 <div className="flex gap-4">
+                  <Button
+                    onClick={openSelectionMode}
+                    variant="ghost"
+                    size={buttonSize}
+                  >
+                    <LassoSelect />
+                  </Button>
                   <Button
                     onClick={handleRefreshNotes}
                     variant="ghost"

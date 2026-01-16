@@ -1,21 +1,24 @@
-import { Button } from '@/components/ui/button';
+import { Button, type ButtonVariant } from '@/components/ui/button';
 import {
   Drawer,
+  DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerHeader,
   DrawerTitle,
-  DrawerClose,
 } from '@/components/ui/drawer';
+import { useIsMobile } from '@/shared/hooks/use-mobile';
 
 type Props = {
   title?: string;
   description?: string;
-  cancelText?: string;
-  confirmText?: string;
+  cancelLabel?: string;
+  confirmLabel?: string;
   isOpen?: boolean;
   onClose?: () => void;
   onConfirm?: () => Promise<void> | void;
+  buttonVariant?: ButtonVariant;
+  showOn?: 'mobile' | 'desktop';
 };
 
 export function ConfirmDrawer(props: Props) {
@@ -23,6 +26,11 @@ export function ConfirmDrawer(props: Props) {
     await props.onConfirm?.();
     props.onClose?.();
   };
+
+  const isMobile = useIsMobile();
+
+  if (props.showOn === 'mobile' && !isMobile) return null;
+  if (props.showOn === 'desktop' && isMobile) return null;
 
   return (
     <Drawer open={props.isOpen} onOpenChange={props.onClose}>
@@ -39,16 +47,16 @@ export function ConfirmDrawer(props: Props) {
                 variant="ghost"
                 className="bg-input rounded-full text-[16px]"
               >
-                {props.cancelText || 'Cancel'}
+                {props.cancelLabel || 'Cancel'}
               </Button>
             </DrawerClose>
             <Button
               onClick={handleConfirm}
               size="xl"
-              variant="secondary"
+              variant={props.buttonVariant}
               className="rounded-full font-semibold text-[16px]"
             >
-              {props.confirmText || 'confirm'}
+              {props.confirmLabel || 'confirm'}
             </Button>
           </div>
         </div>
