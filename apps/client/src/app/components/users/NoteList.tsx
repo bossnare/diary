@@ -67,7 +67,7 @@ export function NoteList(props: Props) {
             onTouchEnd={handleTouchEnd}
             onTouchMove={handleTouchMove}
             className={cn(
-              isSelected(note.id) && 'bg-background/80 dark:bg-muted',
+              isSelected(note.id) && 'bg-background/80! dark:bg-muted!',
               'relative flex flex-col gap-4 p-4 transition cursor-pointer select-none bg-card group active:scale-99 lg:active:scale-100 dark:shadow-none hover:bg-background/80 dark:hover:bg-muted active:opacity-60 dark:bg-muted/80 lg:shadow-sm rounded-2xl lg:rounded-xl'
             )}
           >

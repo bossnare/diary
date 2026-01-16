@@ -42,8 +42,8 @@ model Profile {
 
 model Note {
   id            String    @id @unique @default(uuid()) @db.Uuid
-  title         String
-  content       String
+  title         String?
+  content       String?
   color         String?
   edited        Boolean   @default(false)
   published     Boolean   @default(false)

@@ -15,17 +15,17 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
-import { useNote } from '../api/notes.api';
+import { useNote } from '../hooks/use-note';
 import { ConfirmDialog } from '../components/users/ConfirmDialog';
 import { ConfirmDrawer } from '../components/users/ConfirmDrawer';
 import { OrderDrawer } from '../components/users/Drawer';
 import { EmptyEmpty as EmptyNotes } from '../components/users/Empty';
 import { NoteList } from '../components/users/NoteList';
 import { SelectModeNoteTooltip } from '../components/users/SelectModeNoteTooltip';
-import api from '../lib/api';
 import { cn } from '../lib/utils';
 import { toast } from 'sonner';
 import { useNoteServices } from '../hooks/use-note-services';
+import { useSoftDeleteMany } from '../hooks/use-note';
 
 function Overview() {
   const { data, isPending, isError, error, refetch } = useNote();
@@ -130,13 +130,16 @@ function Overview() {
   const deleteConfirmLabel =
     selected.size > 1 ? `Delete (${selected.size})` : 'Delete';
 
+  const softDeleteMany = useSoftDeleteMany();
+
   const handleDelete = async () => {
     try {
-      const res = await api.patch('/notes', {
+      const deletedNotes = await softDeleteMany.mutateAsync({
         idsToRemove: [...selected], // transform as Array
       });
-      toast(res.data.message);
-      console.log(res.data);
+
+      toast(deletedNotes.message);
+      console.log(deletedNotes);
     } catch (err) {
       console.log(err);
     }

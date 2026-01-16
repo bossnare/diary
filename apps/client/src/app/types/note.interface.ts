@@ -8,3 +8,8 @@ export interface NoteInterface {
   createdAt: string;
   updatedAt: string;
 }
+
+export type CreateNote = {
+  title: string;
+  content: string;
+};
