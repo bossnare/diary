@@ -1,22 +1,23 @@
-import api from '@/app/lib/api';
-import { cn } from '@/app/lib/utils';
-import { Button } from '@/components/ui/button';
-import { handleWait } from '@/shared/utils/handle-wait';
-import { Portal } from '@radix-ui/react-portal';
-import { motion } from 'motion/react';
-import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   MAX_TOOLTIP_WIDTH,
   MIN_TOOLTIP_WIDTH,
 } from '@/app/constants/layout.constant';
-import { useToggle } from '@/shared/hooks/use-toggle';
+import { useCreateNote } from '@/app/hooks/use-note';
 import { usePannel } from '@/app/hooks/use-pannel';
-import { useIsMobile } from '@/shared/hooks/use-mobile';
-import type { NoteInterface } from '@/app/types/note.interface';
+import api from '@/app/lib/api';
 import { dateFormatLong } from '@/app/lib/date-format';
-import { toast } from 'sonner';
+import { cn } from '@/app/lib/utils';
+import type { NoteInterface } from '@/app/types/note.interface';
+import { Button } from '@/components/ui/button';
+import { useIsMobile } from '@/shared/hooks/use-mobile';
+import { useToggle } from '@/shared/hooks/use-toggle';
+import { handleWait } from '@/shared/utils/handle-wait';
+import { Portal } from '@radix-ui/react-portal';
 import { Ellipsis } from 'lucide-react';
+import { motion } from 'motion/react';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { toast } from 'sonner';
 
 type NoteEditorProps = React.HTMLAttributes<HTMLDivElement> & {
   mode?: 'new' | 'edit' | 'view';
@@ -37,6 +38,9 @@ export const NoteEditor = ({
     content: string | undefined;
   } | null>(null);
   const [isSaving, setIsSaving] = useState(false);
+
+  // use mutation
+  const createNote = useCreateNote();
 
   const isMobile = useIsMobile();
   const navigate = useNavigate();
@@ -109,16 +113,16 @@ export const NoteEditor = ({
   };
 
   const body = {
-    title,
-    content,
+    title: title as string,
+    content: content as string,
   };
 
   const handleCreateNote = async () => {
     setIsSaving(true);
     try {
-      const res = await api.post('/notes', body);
-      console.log(res.data);
-      toast(res.data.message);
+      const noteCreated = await createNote.mutateAsync(body);
+      console.log(noteCreated.message);
+      toast(noteCreated.message);
     } catch (e) {
       console.log(e);
     } finally {
@@ -175,7 +179,7 @@ export const NoteEditor = ({
         {/* editor */}
         <div style={!isMobile ? MAIN_TRANSFORM : {}} className="flex flex-col">
           <header className="sticky top-0 left-0 bg-background">
-            <div className="flex items-center justify-between h-12 max-w-6xl px-4 mx-auto">
+            <div className="flex items-center justify-between h-12 max-w-6xl px-4 pr-0 mx-auto">
               <button
                 onClick={handleCancel}
                 className="p-0 font-semibold text-primary active:opacity-80"
