@@ -18,6 +18,7 @@ export class NotesService {
 
     return {
       success: true,
+      message: 'note created',
       timestamps: Date.now(),
       data: createdNote,
     };
@@ -31,17 +32,18 @@ export class NotesService {
     const sortField = sort ?? 'updatedAt';
     const sortOrder = order ?? 'desc';
 
-    const data = await this.prisma.note.findMany({
-      where: { userId, deleted: false },
-      orderBy: { [sortField]: sortOrder },
-    });
+    const where = { userId, deleted: false };
+    const orderBy = { [sortField]: sortOrder };
 
-    const count = data.length;
+    const data = await this.prisma.note.findMany({
+      where,
+      orderBy,
+    });
 
     return {
       success: true,
       timestamps: Date.now(),
-      count,
+      count: data.length,
       data,
     };
   }
