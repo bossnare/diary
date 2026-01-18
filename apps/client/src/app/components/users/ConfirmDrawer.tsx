@@ -37,12 +37,12 @@ export function ConfirmDrawer(props: Props) {
     <Drawer open={props.isOpen} onOpenChange={props.onClose}>
       <DrawerContent className="dark:bg-sidebar rounded-t-3xl">
         <div className="w-full max-w-md mx-auto">
-          <DrawerHeader className="space-y-3">
+          <DrawerHeader>
             <DrawerTitle>{props.title || 'Context'}</DrawerTitle>
             <DrawerDescription>{props.description}</DrawerDescription>
           </DrawerHeader>
-          <div className="pb-8 px-2 flex gap-4 justify-center [&_button]:min-w-38">
-            <DrawerFooter>
+          <DrawerFooter>
+            <div className="pb-8 px-2 flex gap-4 justify-center [&_button]:min-w-38">
               <DrawerClose asChild>
                 <Button
                   size="xl"
@@ -60,8 +60,8 @@ export function ConfirmDrawer(props: Props) {
               >
                 {props.confirmLabel || 'confirm'}
               </Button>
-            </DrawerFooter>
-          </div>
+            </div>
+          </DrawerFooter>
         </div>
       </DrawerContent>
     </Drawer>
