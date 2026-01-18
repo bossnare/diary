@@ -18,6 +18,9 @@ import { motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
+import { ConfirmDrawer } from './ConfirmDrawer';
+import { ConfirmDialog } from './ConfirmDialog';
+import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
 
 type NoteEditorProps = React.HTMLAttributes<HTMLDivElement> & {
   mode?: 'new' | 'edit' | 'view';
@@ -38,6 +41,13 @@ export const NoteEditor = ({
     content: string | undefined;
   } | null>(null);
   const [isSaving, setIsSaving] = useState(false);
+
+  // query params state
+  const {
+    open: openDirtyConfirm,
+    isOpen: isOpenDirtyConfirm,
+    close: closeDirtyConfirm,
+  } = useQueryToggle({ key: 'ui', value: 'isDirty' })!;
 
   // use mutation
   const createNote = useCreateNote();
@@ -68,7 +78,7 @@ export const NoteEditor = ({
   useEffect(() => {
     if (isNew && fromClipboard) {
       const draft = sessionStorage.getItem('draft:clipboard');
-      if (!draft?.trim()) toast('No text found in clipboard.');
+      if (!draft?.trim()) toast.info('No text found in clipboard.');
 
       if (draft) {
         setTitle(draft.split('\n')[0].slice(0, 50).trim());
@@ -166,8 +176,7 @@ export const NoteEditor = ({
 
   const handleCancel = () => {
     if (canSave && isDirty) {
-      handleSave();
-      navigate(-1);
+      openDirtyConfirm();
     } else {
       navigate(-1);
     }
@@ -178,8 +187,43 @@ export const NoteEditor = ({
     else handleCreateNote();
   };
 
+  // fix later
+  const isDirtyConfirmTitle = 'Unsaved changes';
+  const isDirtyConfirmDescription =
+    'You have unsaved changes. If you leave now, they will be lost.';
+  const isDirtyCancelLabel = 'Keep editing';
+  const isDirtyConfirmLabel = 'Discard';
+
   return (
     <>
+      {/* Confirm UI */}
+      {/* drawer - mobile only */}
+      <ConfirmDrawer
+        showOn="mobile"
+        title={isDirtyConfirmTitle}
+        description={isDirtyConfirmDescription}
+        cancelLabel={isDirtyCancelLabel}
+        confirmLabel={isDirtyConfirmLabel}
+        isOpen={isOpenDirtyConfirm}
+        onClose={closeDirtyConfirm}
+        onConfirm={async () => {
+          await navigate(-2);
+        }}
+      />
+      {/* confirm dialog - desktop only */}
+      <ConfirmDialog
+        showOn="desktop"
+        title={isDirtyConfirmTitle}
+        description={isDirtyConfirmDescription}
+        cancelLabel={isDirtyCancelLabel}
+        confirmLabel={isDirtyConfirmLabel}
+        isOpen={isOpenDirtyConfirm}
+        onClose={closeDirtyConfirm}
+        onConfirm={async () => {
+          await navigate(-2);
+        }}
+      />
+
       <motion.div
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
@@ -198,7 +242,7 @@ export const NoteEditor = ({
         {/* editor */}
         <div style={!isMobile ? MAIN_TRANSFORM : {}} className="flex flex-col">
           <header className="sticky top-0 left-0 bg-background">
-            <div className="flex items-center justify-between h-12 max-w-6xl px-4 pr-0 mx-auto">
+            <div className="flex items-center justify-between h-12 max-w-6xl px-4 pr-2 mx-auto">
               <button
                 onClick={handleCancel}
                 className="p-0 font-semibold text-primary active:opacity-80"
@@ -215,7 +259,7 @@ export const NoteEditor = ({
                 disabled={!canSave || !isDirty}
                 onClick={() => {
                   handleSave();
-                  handleWait(() => navigate(-1), 200);
+                  handleWait(() => navigate('/app'), 200);
                 }}
                 className="font-bold rounded-full select-none"
                 variant="ghost"

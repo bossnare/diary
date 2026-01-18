@@ -10,6 +10,7 @@ import { NotebookPen, FileText, Clipboard } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import { FileDropZone } from '../notes/FileDropZone';
 import { handleWait } from '@/shared/utils/handle-wait';
+import { motion, AnimatePresence } from 'motion/react';
 
 type Props = {
   title?: string;
@@ -83,47 +84,59 @@ export function OptionDrawer(props: Props) {
             <DrawerTitle>{props.title}</DrawerTitle>
           </DrawerHeader>
           <div className="pb-8">
-            {isChooseFromFile ? (
-              <div className="px-3">
-                <FileDropZone
-                  onContinue={() => {
-                    props.onClose?.(); // close drawer
-                    p.delete('action');
-                    handleWait(NoteServices.openCreateFromFile, 250);
-                  }}
-                  className="h-60"
-                />
-              </div>
-            ) : (
-              <ul className="flex flex-col gap-3 justify-center">
-                {options.map((o) => (
-                  <li>
-                    <div
-                      role="button"
-                      onClick={() =>
-                        handleWait(
-                          () => handleChooseAction(o.action as ActionKey),
-                          250
-                        )
-                      }
-                      className="w-full select-none px-4 h-16 flex items-center gap-2 rounded-md active:bg-muted dark:active:bg-background"
-                    >
-                      <span className="size-12 rounded-full bg-muted flex items-center justify-center">
-                        <o.icon />
-                      </span>
-                      <div className="flex flex-col">
-                        <span className="font-bold tracking-tight">
-                          {o.label}
+            <AnimatePresence mode="wait">
+              {isChooseFromFile ? (
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  key={'file-dropzone'}
+                  className="px-3"
+                >
+                  <FileDropZone
+                    onContinue={() => {
+                      props.onClose?.(); // close drawer
+                      p.delete('action');
+                      handleWait(NoteServices.openCreateFromFile, 250);
+                    }}
+                    className="h-60"
+                  />
+                </motion.div>
+              ) : (
+                <motion.ul
+                  exit={{ opacity: 0, x: -20 }}
+                  key="option-lists"
+                  className="flex flex-col gap-3 justify-center"
+                >
+                  {options.map((o) => (
+                    <li>
+                      <div
+                        role="button"
+                        onClick={() =>
+                          handleWait(
+                            () => handleChooseAction(o.action as ActionKey),
+                            250
+                          )
+                        }
+                        className="w-full select-none px-4 h-16 flex items-center gap-2 rounded-md active:bg-muted dark:active:bg-background"
+                      >
+                        <span className="size-12 rounded-full bg-muted flex items-center justify-center">
+                          <o.icon />
                         </span>
-                        <p className="text-sm text-muted-foreground">
-                          {o.subtitle}
-                        </p>
+                        <div className="flex flex-col">
+                          <span className="font-bold tracking-tight">
+                            {o.label}
+                          </span>
+                          <p className="text-sm text-muted-foreground">
+                            {o.subtitle}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            )}
+                    </li>
+                  ))}
+                </motion.ul>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </DrawerContent>
