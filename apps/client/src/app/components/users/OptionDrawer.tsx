@@ -63,7 +63,7 @@ export function OptionDrawer(props: Props) {
                 <li>
                   <div
                     role="button"
-                    className="w-full px-2 h-14 flex items-center gap-2 rounded-md active:bg-muted dark:active:bg-background"
+                    className="w-full px-2 h-16 flex items-center gap-2 rounded-md active:bg-muted dark:active:bg-background"
                   >
                     <span className="size-12 rounded-full bg-muted flex items-center justify-center">
                       <o.icon />

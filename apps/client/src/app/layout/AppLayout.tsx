@@ -21,9 +21,9 @@ import { useQueryClient } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { usePannel } from '../hooks/use-pannel';
 import { ButtonFab } from '../components/notes/ButtonFab';
 import { OptionDrawer } from '../components/users/OptionDrawer';
+import { usePannel } from '../hooks/use-pannel';
 
 export function AppLayout() {
   // store state
@@ -44,6 +44,15 @@ export function AppLayout() {
   const { isOpen: isSelectionMode } = useQueryToggle({
     key: 'select',
     value: 'selectNotes',
+  })!;
+
+  const {
+    isOpen: isOpenChoose,
+    close: closeChoose,
+    open: openChoose,
+  } = useQueryToggle({
+    key: 'uiState',
+    value: 'chooseOptions',
   })!;
 
   // local state
@@ -121,12 +130,16 @@ export function AppLayout() {
               exit="exit"
               className="fixed bottom-24 md:bottom-12 lg:hidden right-5"
             >
-              <ButtonFab />
+              <ButtonFab openChoose={openChoose} />
             </motion.div>
           )}
         </AnimatePresence>
         {/* Create More Options */}
-        <OptionDrawer showOn="mobile" isOpen={true} />
+        <OptionDrawer
+          showOn="mobile"
+          isOpen={isOpenChoose}
+          onClose={closeChoose}
+        />
         {/* quick Editor */}
         {/* mobile */}
         {!isSelectionMode && (
