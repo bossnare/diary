@@ -2,26 +2,25 @@ import {
   MAX_TOOLTIP_WIDTH,
   MIN_TOOLTIP_WIDTH,
 } from '@/app/constants/layout.constant';
-import { useCreateNote } from '@/app/hooks/use-note';
+import { useCreateNote, useUpdateNote } from '@/app/hooks/use-note';
 import { usePannel } from '@/app/hooks/use-pannel';
-import api from '@/app/lib/api';
 import { dateFormatLong } from '@/app/lib/date-format';
 import { cn } from '@/app/lib/utils';
-import type { NoteInterface } from '@/app/types/note.interface';
+import type { NoteInterface } from '@/app/types/note.type';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/shared/hooks/use-mobile';
+import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
 import { useToggle } from '@/shared/hooks/use-toggle';
 import { handleWait } from '@/shared/utils/handle-wait';
 import { Portal } from '@radix-ui/react-portal';
+import { AxiosError } from 'axios';
 import { Ellipsis } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
-import { ConfirmDrawer } from './ConfirmDrawer';
 import { ConfirmDialog } from './ConfirmDialog';
-import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
-import { AxiosError } from 'axios';
+import { ConfirmDrawer } from './ConfirmDrawer';
 
 type NoteEditorProps = React.HTMLAttributes<HTMLDivElement> & {
   mode?: 'new' | 'edit' | 'view';
@@ -52,6 +51,7 @@ export const NoteEditor = ({
 
   // use mutation
   const createNote = useCreateNote();
+  const updateNote = useUpdateNote();
 
   const isMobile = useIsMobile();
   const navigate = useNavigate();
@@ -142,7 +142,7 @@ export const NoteEditor = ({
     e.currentTarget.style.height = e.currentTarget.scrollHeight + 'px';
   };
 
-  const body = {
+  const bodyPayload = {
     title: title as string,
     content: content as string,
   };
@@ -150,7 +150,7 @@ export const NoteEditor = ({
   const handleCreateNote = async () => {
     setIsSaving(true);
     try {
-      const noteCreated = await createNote.mutateAsync(body);
+      const noteCreated = await createNote.mutateAsync(bodyPayload);
       console.log(noteCreated.message);
       toast(noteCreated.message);
     } catch (err) {
@@ -164,9 +164,13 @@ export const NoteEditor = ({
   const handleUpdateNote = async () => {
     setIsSaving(true);
     try {
-      const res = await api.patch(`/notes/${note?.id}`, body);
-      console.log(res.data);
-      toast(res.data.message);
+      if (!note) return;
+
+      const res = await updateNote.mutateAsync({
+        id: note.id,
+        data: bodyPayload,
+      });
+      toast(res.message);
     } catch (e) {
       console.log(e);
     } finally {

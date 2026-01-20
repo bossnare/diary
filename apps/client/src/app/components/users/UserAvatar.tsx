@@ -2,7 +2,7 @@ import { cn } from '@/app/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { getInitials } from '@/app/utils/get-name.strings';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
-import type { User } from '@supabase/supabase-js';
+import type { User as SupabaseUser } from '@supabase/supabase-js';
 import * as React from 'react';
 
 export const UserAvatar = ({
@@ -12,7 +12,7 @@ export const UserAvatar = ({
   ...props
 }: React.ComponentProps<typeof AvatarPrimitive.Root> & {
   fallback?: string;
-  user?: User | null;
+  user?: SupabaseUser | null;
 }) => {
   const username = getInitials(user?.user_metadata.name.split('(')[0]);
 

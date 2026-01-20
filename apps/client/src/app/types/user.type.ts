@@ -1,4 +1,4 @@
-import { type NoteInterface } from './note.interface';
+import { type NoteInterface } from './note.type';
 
 export interface UserInterface {
   pseudo: string;
