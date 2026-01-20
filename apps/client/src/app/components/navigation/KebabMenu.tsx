@@ -44,7 +44,10 @@ export const KebabMenu = ({ open, close, toggle }: Props) => {
       {/* trigger button */}
 
       {/* Kebab menu */}
-      <DropdownMenu onOpenChange={close} open={open}>
+      <DropdownMenu
+  open={open}
+  onOpenChange={(nextOpen) => (nextOpen ? toggle() : close())}
+>
         <DropdownMenuTrigger asChild>
           <Button
             variant="ghost"
