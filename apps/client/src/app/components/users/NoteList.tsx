@@ -1,7 +1,7 @@
 import { useLongPress } from '@/app/hooks/use-long-press';
 import { dateUltraFormat } from '@/app/lib/date-format';
 import { cn } from '@/app/lib/utils';
-import type { NoteInterface } from '@/app/types/note.interface';
+import type { NoteInterface } from '@/app/types/note.type';
 import { Button } from '@/components/ui/button';
 import { handleWait } from '@/shared/utils/handle-wait';
 import { IconCheck } from '@tabler/icons-react';

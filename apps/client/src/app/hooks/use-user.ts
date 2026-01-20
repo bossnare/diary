@@ -1,5 +1,5 @@
 import { fetcher } from '@/app/lib/fetcher';
-import type { UserInterface } from '@/app/types/user.interface';
+import type { UserInterface } from '@/app/types/user.type';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useUserProfile() {

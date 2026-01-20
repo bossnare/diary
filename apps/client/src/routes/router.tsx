@@ -1,4 +1,4 @@
-import { useUserProfile } from '@/app/api/user-profiles.api';
+import { useUserProfile } from '@/app/hooks/use-user';
 import { NoteEditor } from '@/app/components/users/NoteEditor';
 import { AppLayout } from '@/app/layout/AppLayout';
 import MiniAppLayout from '@/app/layout/MiniAppLayout';

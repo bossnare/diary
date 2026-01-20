@@ -9,7 +9,10 @@ export interface NoteInterface {
   updatedAt: string;
 }
 
-export type CreateNote = {
+export type Create = {
   title: string;
   content: string;
+  color?: string;
 };
+
+export type Update = Partial<NoteInterface>; // for softDelete, updateNote, ...

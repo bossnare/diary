@@ -1,13 +1,13 @@
+import type * as Note from '@/app/types/note.type';
 import api from '../lib/api';
-import type { NoteInterface, CreateNote } from '../types/note.interface';
 
-export const createNote = async (data: CreateNote) => {
+export const createNote = async (data: Note.Create) => {
   const res = await api.post('/notes', data);
 
   return res.data;
 };
 
-export const updateNote = async (id: string, data: NoteInterface) => {
+export const updateNote = async (id: string, data: Note.Update) => {
   const res = await api.patch(`/notes/${id}`, data);
 
   return res.data;

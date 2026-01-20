@@ -1,9 +1,9 @@
 import { fetcher } from '@/app/lib/fetcher';
-import type { NoteInterface, CreateNote } from '@/app/types/note.interface';
+import type * as Note from '@/app/types/note.type';
 
+import * as noteApi from '@/app/api/note.api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
-import * as noteApi from '@/app/api/note.api';
 
 export function useNote() {
   const [searchParams] = useSearchParams();
@@ -13,7 +13,7 @@ export function useNote() {
   params.set('sort', sort);
   params.set('order', order);
 
-  return useQuery<NoteInterface[]>({
+  return useQuery<Note.NoteInterface[]>({
     queryKey: ['notes', sort, order],
     queryFn: async () => {
       const res = await fetcher(`/notes?${params}`);
@@ -23,11 +23,23 @@ export function useNote() {
   });
 }
 
+export function useNoteId(id?: string) {
+  return useQuery<Note.NoteInterface>({
+    queryKey: ['notes', id],
+    queryFn: async () => {
+      const res = await fetcher(`/notes/${id}`);
+      return res.data; // return {.., data}
+    },
+    enabled: !!id,
+    staleTime: 0,
+  });
+}
+
 export function useCreateNote() {
   const qc = useQueryClient();
 
   const create = useMutation({
-    mutationFn: (data: CreateNote) => noteApi.createNote(data),
+    mutationFn: (data: Note.Create) => noteApi.createNote(data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['notes'] });
     },
@@ -39,8 +51,8 @@ export function useCreateNote() {
 export function useUpdateNote() {
   const qc = useQueryClient();
 
-  useMutation({
-    mutationFn: ({ id, data }: { id: string; data: NoteInterface }) =>
+  return useMutation({
+    mutationFn: ({ id, data }: { id: string; data: Note.Update }) =>
       noteApi.updateNote(id, data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['notes'] });
@@ -62,7 +74,7 @@ export function useSoftDeleteMany() {
 
 export function useNoteCache() {
   const queryClient = useQueryClient();
-  return queryClient.getQueriesData<NoteInterface[]>({
+  return queryClient.getQueriesData<Note.NoteInterface[]>({
     queryKey: ['notes'],
   });
 }

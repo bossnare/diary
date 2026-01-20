@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 // import { useAuth } from '@/shared/hooks/use-auth';
 // import { X } from 'lucide-react';
 import { Spinner } from '@/shared/components/Spinner';
-import { useNotification } from '@/app/api/notifications.api';
+import { useNotification } from '@/app/hooks/use-notification';
 import { ArrowDownNarrowWide, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '../lib/utils';
