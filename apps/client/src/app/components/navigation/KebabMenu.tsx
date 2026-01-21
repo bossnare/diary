@@ -44,8 +44,11 @@ export const KebabMenu = ({ open, close, toggle }: Props) => {
       {/* trigger button */}
 
       {/* Kebab menu */}
-      <DropdownMenu onOpenChange={close} open={open}>
-        <DropdownMenuTrigger>
+      <DropdownMenu
+  open={open}
+  onOpenChange={(nextOpen) => (nextOpen ? toggle() : close())}
+>
+        <DropdownMenuTrigger asChild>
           <Button
             variant="ghost"
             size="icon-lg"
@@ -59,7 +62,7 @@ export const KebabMenu = ({ open, close, toggle }: Props) => {
         <DropdownMenuContent
           align="end"
           sideOffset={12}
-          className="px-0 bg-transparent border-0 w-96 md:hidden"
+          className="px-0 bg-transparent border-0 w-80 md:hidden"
         >
           <motion.div
             variants={kebabMenuVariants}
