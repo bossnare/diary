@@ -33,8 +33,18 @@
   }
 
   /* for EditorContent-tiptap */
-  [contenteditable]:focus {
+  .ProseMirror {
+    min-height: 4rem
+  }
+  .ProseMirror:focus {
     outline: none;
+  }
+  .ProseMirror p.is-editor-empty:first-child:before {
+    content: attr(data-placeholder);
+    color: var(--color-muted-foreground);
+    float: left;
+    height: 0;
+    pointer-events: none
   }
 
   /* util for disable transition logic on @/components/theme-provider.tsx */

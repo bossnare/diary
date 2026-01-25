@@ -203,7 +203,9 @@ function Overview() {
 
   return (
     <>
-      <div className="min-h-screen pb-2 bg-muted dark:bg-background">
+      <div className="min-h-screen relative pb-2 bg-muted dark:bg-background">
+        {/* subtle overlay */}
+        <div className="absolute inset-0 hidden pointer-events-none dark:block bg-primary/1 z-20"></div>
         {/* drawer - mobile only */}
         <ConfirmDrawer
           showOn="mobile"
@@ -239,7 +241,7 @@ function Overview() {
         />
         {/* content */}
         <>
-          <header className="sticky top-0 z-20 px-2 pt-8 mx-2 md:px-2 md:mx-5 bg-muted dark:bg-background">
+          <header className="sticky top-0 z-16 px-2 pt-8 mx-2 md:px-2 md:mx-5 bg-muted dark:bg-background">
             {isSelectionMode ? (
               <motion.div
                 initial={{ opacity: 0 }}

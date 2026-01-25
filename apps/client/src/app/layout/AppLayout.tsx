@@ -117,7 +117,7 @@ export function AppLayout() {
         {/* main content */}
         <div
           style={MAIN_TRANSFORM}
-          className="relative transition-transform ease-in-out duration-280 will-change-transform md:duration-500"
+          className="relative transition-transform ease-in-out duration-280 will-change-transform md:duration-260"
         >
           <TopBar openSideOver={openSideOver} />
           {/* route content */}

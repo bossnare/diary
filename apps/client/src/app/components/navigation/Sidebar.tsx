@@ -45,8 +45,8 @@ export const MobileSidebar = ({
         {/* subtle overlay */}
         <div className="absolute inset-0 hidden pointer-events-none bg-primary/2 dark:block -z-1"></div>
 
-        <aside className={`relative size-full rounded-xl`}>
-          <MiniProfile className="px-4 mt-2 py-2 active:bg-muted dark:active:bg-card active:opacity-80" />
+        <aside className={`relative size-full rounded-xl py-2`}>
+          <MiniProfile className="px-4 py-2 active:bg-muted dark:active:bg-card active:opacity-80" />
 
           <div className="mx-4 mb-4 border-t border-sidebar"></div>
 
@@ -131,7 +131,7 @@ export const DesktopSidebar = ({
       style={{ width: `${width}px` }}
       {...props}
       ref={ref}
-      className="fixed inset-y-0 z-20 hidden duration-300 ease-in-out border-r transition-all md:max-w-[62px] lg:max-w-64 text-sidebar-foreground bg-sidebar md:block border-sidebar-border"
+      className="fixed inset-y-0 z-20 hidden duration-260 ease-in-out border-r transition-all md:max-w-[62px] lg:max-w-64 text-sidebar-foreground bg-sidebar md:block border-sidebar-border"
     >
       {/* subtle overlay */}
       <div className="absolute inset-0 hidden pointer-events-none bg-primary/2 dark:block -z-1"></div>
