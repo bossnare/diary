@@ -34,7 +34,7 @@ import {
   type Editor,
 } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import Placeholder from '@tiptap/extension-placeholder';
+import { Placeholder } from '@tiptap/extensions';
 
 const extensions = [StarterKit];
 
@@ -48,10 +48,11 @@ export const NoteEditor = ({
   mode = 'edit',
   note,
 }: NoteEditorProps) => {
-  const contentAreaRef = useRef<HTMLTextAreaElement | null>(null);
+  // const contentAreaRef = useRef<HTMLDivElement | null>(null);
   const [charCounts, setCharCounts] = useState(0);
   const [wordCounts, setWordCounts] = useState(0);
   const [title, setTitle] = useState<string | undefined>('');
+  const [tag, setTag] = useState<Set<string>>(new Set());
   const [content, setContent] = useState<string | undefined>('');
   const [initial, setInitial] = useState<{
     title: string | undefined;
@@ -69,10 +70,9 @@ export const NoteEditor = ({
     extensions: [
       ...extensions,
       Placeholder.configure({
-        placeholder: 'Start writing...',
+        placeholder: 'Start writing ...',
       }),
     ],
-    content: ``,
   });
 
   // query params state
@@ -374,6 +374,7 @@ export const NoteEditor = ({
             <div className="max-w-6xl px-4 pb-20 mx-auto space-y-3 font-inter lg:pb-32">
               <textarea
                 rows={1}
+                name="title"
                 className={cn(
                   writingOn.title ? 'caret-current' : 'caret-primary',
                   'w-full mt-2 text-3xl font-bold leading-10 tracking-tight transition-all resize-none selection:bg-primary field-sizing-content min-h-auto scrollbar-none placeholder:text-2xl focus:outline-0'
@@ -393,6 +394,30 @@ export const NoteEditor = ({
                   setWritingOn({ title: false });
                 }}
               ></textarea>
+              <textarea
+                rows={1}
+                name="tags"
+                className={cn(
+                  writingOn.tag ? 'caret-current' : 'caret-primary',
+                  'w-full mt-1 text-xl font-medium leading-relaxed tracking-tight transition-all resize-none selection:bg-primary field-sizing-content min-h-auto scrollbar-none placeholder:text-xl focus:outline-0'
+                )}
+                placeholder="#tags"
+                onInput={(e) => {
+                  // setTag((prev) => {
+                  //   const newSet = new Set(prev);
+                  //   return newSet.add(e.currentTarget.value.split(' '));
+                  // });
+                  autoGrow(e);
+                  // set to true the title writing state
+                  setWritingOn({ tag: true });
+                }}
+                onBlur={() => {
+                  // if (!e.currentTarget.value.trim())
+                  //   e.currentTarget.style.height = 'auto';
+                  setWritingOn({ tag: false });
+                }}
+              ></textarea>
+
               <div className="left-0 pb-1 space-x-2 text-sm lg:sticky z-9 bg-background top-12 text-muted-foreground">
                 <span>
                   {isEdit
@@ -407,8 +432,8 @@ export const NoteEditor = ({
                 <span> {wordCounts} words </span>
               </div>
               <EditorContent
-                className="z-1 leading-8 selection:bg-primary/30 placeholder:text-muted-foreground"
-                onFocus={(e) => console.log(e.currentTarget.classList)}
+                id="iditor-content"
+                className="z-1 leading-8 selection:bg-primary/30"
                 editor={editor}
               />
               {/* <textarea

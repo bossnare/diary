@@ -123,7 +123,7 @@ export function OptionDrawer(props: Props) {
                         onClick={() =>
                           handleWait(() => handleChooseAction(o.key), 250)
                         }
-                        className="flex items-center w-full h-16 gap-3 px-4 rounded-md select-none active:bg-muted dark:active:bg-background"
+                        className="flex active:text-muted-foreground hover:text-muted-foreground items-center w-full h-16 gap-3 px-4 rounded-md select-none active:bg-muted dark:active:bg-background"
                       >
                         <span className="flex items-center justify-center rounded-full size-12 bg-muted">
                           <o.icon />
