@@ -2,14 +2,14 @@ import { Button } from '@/components/ui/button';
 // import { Paragraphe } from '@/shared/components/Paragraphe';
 // import { useAuth } from '@/shared/hooks/use-auth';
 // import { X } from 'lucide-react';
-import { Spinner } from '@/shared/components/Spinner';
 import { useNotification } from '@/app/hooks/use-notification';
+import { Spinner } from '@/shared/components/Spinner';
+import { IconBellZFilled } from '@tabler/icons-react';
 import { ArrowDownNarrowWide, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { cn } from '../lib/utils';
+import { EmptyEmpty as EmptyNotification } from '../features/users/Empty';
 import timeAgo from '../lib/timeAgo';
-import { EmptyEmpty as EmptyNotification } from '../components/users/Empty';
-import { IconBellZFilled } from '@tabler/icons-react';
+import { cn } from '../lib/utils';
 
 function Notification() {
   const { data, isPending, isError, error, refetch } = useNotification();

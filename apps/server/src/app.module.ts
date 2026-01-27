@@ -7,6 +7,7 @@ import { NotificationsModule } from './notifications/notifications.module.js';
 import { PrismaModule } from './prisma/prisma.module.js';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module.js';
+import { SearchsModule } from './searchs/searchs.module.js';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AuthModule } from './auth/auth.module.js';
     ProfilesModule,
     NotesModule,
     NotificationsModule,
+    SearchsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

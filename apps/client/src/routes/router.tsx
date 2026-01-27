@@ -1,4 +1,4 @@
-import { NoteEditor } from '@/app/components/users/NoteEditor';
+import { NoteEditor } from '@/app/features/notes/components/NoteEditor';
 import { useUser } from '@/app/hooks/use-user';
 import { AppLayout } from '@/app/layout/AppLayout';
 import MiniAppLayout from '@/app/layout/MiniAppLayout';

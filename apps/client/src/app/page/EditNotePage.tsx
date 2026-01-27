@@ -1,7 +1,7 @@
-import { useParams } from 'react-router-dom';
-import { NoteEditor } from '@/app/components/users/NoteEditor';
-import { Spinner } from '@/shared/components/Spinner';
+import { NoteEditor } from '@/app/features/notes/components/NoteEditor';
 import { useNoteId } from '@/app/hooks/use-note';
+import { Spinner } from '@/shared/components/Spinner';
+import { useParams } from 'react-router-dom';
 
 export const EditNotePage = () => {
   const { id: noteId } = useParams(); // get notes id

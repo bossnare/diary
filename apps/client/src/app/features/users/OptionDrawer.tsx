@@ -6,11 +6,11 @@ import {
   DrawerTitle,
 } from '@/components/ui/drawer';
 import { useIsMobile } from '@/shared/hooks/use-mobile';
-import { SquarePen, FolderOpen, ClipboardPaste } from 'lucide-react';
-import { useSearchParams } from 'react-router-dom';
-import { FileDropZone } from '../notes/FileDropZone';
 import { handleWait } from '@/shared/utils/handle-wait';
-import { motion, AnimatePresence } from 'motion/react';
+import { ClipboardPaste, FolderOpen, SquarePen } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
+import { useSearchParams } from 'react-router-dom';
+import { FileDropZone } from '../notes/components/FileDropZone';
 
 type Props = {
   title?: string;

@@ -1,6 +1,6 @@
-import { useParams } from 'react-router-dom';
-import { UserAvatar } from '../components/users/UserAvatar';
 import { useAuth } from '@/shared/hooks/use-auth';
+import { useParams } from 'react-router-dom';
+import { UserAvatar } from '../features/users/UserAvatar';
 
 export function Profile() {
   const { username } = useParams();

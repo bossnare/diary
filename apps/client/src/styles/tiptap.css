@@ -1,11 +1,14 @@
 /* for EditorContent-tiptap */
 .tiptap {
-  @apply leading-relaxed min-h-16;
+  @apply leading-relaxed min-h-16 text-foreground;
 }
 .tiptap {
   :first-child {
     margin-top: 0;
   }
+}
+.tiptap ul {
+  margin-top: 0;
 }
 .tiptap:focus {
   outline: none;
@@ -16,9 +19,37 @@
   float: left;
   height: 0;
   pointer-events: none;
-  @apply text-sm;
+  @apply text-[16px];
+}
+.tiptap h2 {
+  @apply font-medium;
 }
 
 .tiptap p {
-  @apply text-lg leading-8 m-0;
+  @apply text-lg md:text-[16px] leading-8 m-0;
+}
+
+.tiptap ul li::marker {
+  color: var(--color-foreground);
+}
+
+.tiptap pre {
+  @apply rounded-3xl relative;
+}
+.tiptap pre code {
+  caret-shape: block;
+  caret-color: var(--color-muted-foreground);
+}
+.tiptap pre code::after {
+  content: 'copy';
+  background-color: var(--color-sidebar);
+  @apply rounded-xl p-1.5 absolute top-2 text-sm right-2 cursor-pointer;
+}
+
+.tiptap blockquote {
+  @apply border-0 relative text-muted-foreground;
+}
+.tiptap blockquote::before {
+  content: '';
+  @apply absolute left-0 bg-muted h-full w-1 rounded-full;
 }
