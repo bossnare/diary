@@ -22,7 +22,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { ButtonFab } from '../features/notes/ButtonFab';
-import { OptionDrawer } from '../features/users/OptionDrawer';
+import { OptionDrawer } from '../features/ui/OptionDrawer';
 import { usePannel } from '../hooks/use-pannel';
 
 export function AppLayout() {

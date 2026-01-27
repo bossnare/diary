@@ -1,7 +1,7 @@
 import { type Editor, useEditorState } from '@tiptap/react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/app/lib/utils';
-import { Bold, Heading, Italic, Quote, Code2 } from 'lucide-react';
+import { Bold, Heading, Italic, TextQuote, Code2 } from 'lucide-react';
 
 export const EditorToolbarButton = ({ editor }: { editor: Editor }) => {
   const editorState = useEditorState({
@@ -11,7 +11,6 @@ export const EditorToolbarButton = ({ editor }: { editor: Editor }) => {
         isBold: ctx.editor.isActive('bold') ?? false,
         isItalic: ctx.editor.isActive('italic') ?? false,
         isBlockquote: ctx.editor.isActive('blockquote') ?? false,
-
         isCodeBlock: ctx.editor.isActive('codeBlock') ?? false,
         isHeading2: ctx.editor.isActive('heading', { level: 2 }) ?? false,
       };
@@ -56,6 +55,17 @@ export const EditorToolbarButton = ({ editor }: { editor: Editor }) => {
         <span className="hidden md:inline">Italic</span>
       </Button>
       <Button
+        onClick={() => editor?.chain().focus().toggleBlockquote().run()}
+        size="lg"
+        variant="ghost"
+        className={cn(
+          editorState.isBlockquote ? 'text-primary hover:text-primary!' : ''
+        )}
+      >
+        <TextQuote className="size-6 md:size-5" />{' '}
+        <span className="hidden md:inline">Blockquote</span>
+      </Button>
+      <Button
         onClick={() => editor?.chain().focus().toggleCodeBlock().run()}
         size="lg"
         variant="ghost"
@@ -65,17 +75,6 @@ export const EditorToolbarButton = ({ editor }: { editor: Editor }) => {
       >
         <Code2 className="size-6 md:size-5" />{' '}
         <span className="hidden md:inline">Code block</span>
-      </Button>
-      <Button
-        onClick={() => editor?.chain().focus().toggleBlockquote().run()}
-        size="lg"
-        variant="ghost"
-        className={cn(
-          editorState.isBlockquote ? 'text-primary hover:text-primary!' : ''
-        )}
-      >
-        <Quote className="size-6 md:size-5" />{' '}
-        <span className="hidden md:inline">Blockquote</span>
       </Button>
     </>
   );

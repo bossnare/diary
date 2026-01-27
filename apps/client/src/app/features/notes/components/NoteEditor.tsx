@@ -22,23 +22,15 @@ import {
 } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { AxiosError } from 'axios';
-import {
-  Check,
-  ChevronLeft,
-  ChevronRight,
-  Ellipsis,
-  PanelLeftClose,
-  PanelRightClose,
-  Redo,
-  Undo,
-} from 'lucide-react';
+import { Check, ChevronLeft, Ellipsis, Redo, Undo } from 'lucide-react';
 import { motion, useInView } from 'motion/react';
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
-import { ConfirmDialog } from '../../users/ConfirmDialog';
-import { ConfirmDrawer } from '../../users/ConfirmDrawer';
+import { ConfirmDialog } from '../../ui/ConfirmDialog';
+import { ConfirmDrawer } from '../../ui/ConfirmDrawer';
 import { EditorToolbarButton } from './EditorToolbarButton';
+import { EditorToolbar } from './EditorToolbar';
 
 type NoteEditorProps = React.HTMLAttributes<HTMLDivElement> & {
   mode?: 'new' | 'edit' | 'view';
@@ -316,37 +308,12 @@ export const NoteEditor = ({
             style={{ width: TOOLBAR_WIDTH }}
             className="fixed inset-y-0 left-0 hidden md:block md:max-w-[54px] lg:max-w-54 lg:transition duration-600"
           >
-            <nav className="py-1 bg-sidebar size-full">
-              <div className="flex flex-wrap items-center justify-between gap-3 px-2">
-                <span className="hidden lg:inline-flex">
-                  <Button onClick={toggleOpenPanel} variant="ghost" size="icon">
-                    {isOpenPanel ? <PanelLeftClose /> : <PanelRightClose />}
-                  </Button>
-                </span>
-
-                <span className="flex flex-wrap gap-3">
-                  <Button
-                    onClick={handleCancel}
-                    variant="ghost"
-                    className="bg-accent/20"
-                    size="icon-lg"
-                  >
-                    <ChevronLeft />
-                  </Button>
-                  <Button
-                    className="bg-accent/20"
-                    variant="ghost"
-                    size="icon-lg"
-                  >
-                    <ChevronRight />
-                  </Button>
-                </span>
-              </div>
-              {/* divide */}
-              {isOpenPanel ? null : (
-                <div className="mx-2 my-4 border-t border-sidebar-border"></div>
-              )}
-
+            <EditorToolbar
+              isOpen={isOpenPanel}
+              toggleOpen={toggleOpenPanel}
+              onCancelEditor={handleCancel}
+              className="py-1 bg-sidebar size-full"
+            >
               {/* editor toolbar */}
               <div
                 className={cn(
@@ -356,7 +323,7 @@ export const NoteEditor = ({
               >
                 <EditorToolbarButton editor={editor} />
               </div>
-            </nav>
+            </EditorToolbar>
           </aside>
         </Portal>
         {/* editor */}
@@ -369,7 +336,7 @@ export const NoteEditor = ({
               <Button
                 onClick={handleCancel}
                 variant="ghost"
-                className="bg-accent/20 md:hidden"
+                className="md:hidden"
                 size="icon-xl"
               >
                 <ChevronLeft />
