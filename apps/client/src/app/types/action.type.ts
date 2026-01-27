@@ -1,17 +1,14 @@
 export type SelectionActionKey = 'move' | 'delete';
-export type EditorToolbarActionKey = 'bold' | 'heading' | 'italic';
 
-export type ActionLabelBase = {
+export type BaseItem = {
   label: string;
   icon: React.ElementType;
 };
 
-export type SelectionActionLabel = ActionLabelBase & {
+export type SelectionActionLabel = BaseItem & {
   key: SelectionActionKey;
 };
 
-export type EditorToolbarActionLabel = ActionLabelBase & {
-  key: EditorToolbarActionKey;
-  activeKey: 'isActiveBold' | 'isActiveItalic' | 'isActiveHeading';
-  canActivate: 'canActivateHeading' | 'canActivateItalic' | 'canActivateBold';
+export type EditorToolbarItem = BaseItem & {
+  action: () => void;
 };

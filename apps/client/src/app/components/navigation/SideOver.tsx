@@ -1,12 +1,12 @@
-import { MiniProfile } from '@/app/components/users/MiniProfile';
+import { MiniProfile } from '@/app/features/users/MiniProfile';
 import { cn } from '@/app/lib/utils';
 import { Button } from '@/components/ui/button';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { supabase } from '@/shared/services/supabase.service';
 import { X } from 'lucide-react';
 import { Overlay } from '../../../shared/components/Overlay';
 import { desctructiveLabel, sideBarLabel } from './label';
 import { SideBarTabWrapper } from './sideBarTab';
-import { ScrollArea } from '@/components/ui/scroll-area';
 
 export const SideOver = ({
   isOpen,

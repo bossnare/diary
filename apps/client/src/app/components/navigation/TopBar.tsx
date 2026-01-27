@@ -1,8 +1,8 @@
-import { UserAvatar } from '@/app/components/users/UserAvatar';
-import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
+import { UserAvatar } from '@/app/features/users/UserAvatar';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/shared/components/brand/Logo';
 import { useAuth } from '@/shared/hooks/use-auth';
+import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
 import { waitVibrate } from '@/shared/utils/vibration';
 import {
   Search,

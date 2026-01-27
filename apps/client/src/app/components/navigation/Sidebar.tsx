@@ -1,4 +1,5 @@
-import { MiniProfile } from '@/app/components/users/MiniProfile';
+import { MiniProfile } from '@/app/features/users/MiniProfile';
+import { useNoteServices } from '@/app/hooks/use-note-services';
 import { cn } from '@/app/lib/utils';
 import { useLayoutStore } from '@/app/stores/layoutStore';
 import { Button } from '@/components/ui/button';
@@ -7,11 +8,10 @@ import { Overlay } from '@/shared/components/Overlay';
 import { waitVibrate } from '@/shared/utils/vibration';
 import { PanelLeftClose, PanelLeftOpen, Plus } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
+import { FileDropZone } from '../../features/notes/components/FileDropZone';
 import { desctructiveLabel, sideBarLabel, tabLabel } from './label';
 import { NavTab } from './NavTab';
 import { SideBarTabWrapper } from './sideBarTab';
-import { useNoteServices } from '@/app/hooks/use-note-services';
-import { FileDropZone } from '../notes/FileDropZone';
 
 type SidebarProps = React.HTMLAttributes<HTMLDivElement> & {
   ref?: React.Ref<HTMLDivElement>;

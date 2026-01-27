@@ -7,26 +7,25 @@ import { IconNote } from '@tabler/icons-react';
 import { useQueryClient } from '@tanstack/react-query';
 import {
   ArrowDownNarrowWide,
+  Folder,
   LassoSelect,
   ListChecks,
   ListRestart,
-  X,
-  Folder,
   Trash,
+  X,
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
-import { useNote } from '../hooks/use-note';
-import { ConfirmDialog } from '../components/users/ConfirmDialog';
-import { ConfirmDrawer } from '../components/users/ConfirmDrawer';
-import { OrderDrawer } from '../components/users/OrderDrawer';
-import { EmptyEmpty as EmptyNotes } from '../components/users/Empty';
-import { NoteList } from '../components/users/NoteList';
-import { Toolbar } from '../components/users/Toolbar';
-import { cn } from '../lib/utils';
 import { toast } from 'sonner';
+import { ConfirmDialog } from '../features/users/ConfirmDialog';
+import { ConfirmDrawer } from '../features/users/ConfirmDrawer';
+import { EmptyEmpty as EmptyNotes } from '../features/users/Empty';
+import { NoteList } from '../features/notes/components/NoteList';
+import { OrderDrawer } from '../features/users/OrderDrawer';
+import { Toolbar } from '../features/users/Toolbar';
+import { useNote, useSoftDeleteMany } from '../hooks/use-note';
 import { useNoteServices } from '../hooks/use-note-services';
-import { useSoftDeleteMany } from '../hooks/use-note';
+import { cn } from '../lib/utils';
 
 function Overview() {
   const { data, isPending, isError, error, refetch } = useNote();

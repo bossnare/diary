@@ -8,10 +8,14 @@ export class CreateNoteDto {
   @IsNotEmpty()
   title!: string;
 
-  @ValidateIf((o) => !o.content || o.content.trim() === '')
   @IsString()
   @IsNotEmpty()
   content!: string;
+
+  @ValidateIf((o) => !o.content || o.content.trim() === '')
+  @IsString()
+  @IsNotEmpty()
+  jsonContent!: any;
 
   @IsString()
   @IsOptional()

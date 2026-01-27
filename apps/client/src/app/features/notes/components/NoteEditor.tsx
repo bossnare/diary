@@ -13,34 +13,32 @@ import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
 import { useToggle } from '@/shared/hooks/use-toggle';
 import { handleWait } from '@/shared/utils/handle-wait';
 import { Portal } from '@radix-ui/react-portal';
-import { Placeholder, CharacterCount } from '@tiptap/extensions';
+import { CharacterCount, Placeholder } from '@tiptap/extensions';
 import {
   EditorContent,
-  type JSONContent,
   useEditor,
   useEditorState,
+  type JSONContent,
 } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { AxiosError } from 'axios';
 import {
-  Bold,
+  Check,
   ChevronLeft,
   ChevronRight,
   Ellipsis,
-  Heading,
-  Italic,
   PanelLeftClose,
   PanelRightClose,
-  Undo2,
-  Redo2,
-  Check,
+  Redo,
+  Undo,
 } from 'lucide-react';
-import { motion } from 'motion/react';
-import { useEffect, useMemo, useState, type FormEvent } from 'react';
+import { motion, useInView } from 'motion/react';
+import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
-import { ConfirmDialog } from './ConfirmDialog';
-import { ConfirmDrawer } from './ConfirmDrawer';
+import { ConfirmDialog } from '../../users/ConfirmDialog';
+import { ConfirmDrawer } from '../../users/ConfirmDrawer';
+import { EditorToolbarButton } from './EditorToolbarButton';
 
 type NoteEditorProps = React.HTMLAttributes<HTMLDivElement> & {
   mode?: 'new' | 'edit' | 'view';
@@ -61,7 +59,7 @@ export const NoteEditor = ({
   const [initial, setInitial] = useState<{
     title: string | undefined;
     tag?: string;
-    content: JSONContent;
+    jsonContent: JSONContent;
   } | null>(null);
   const [writingOn, setWritingOn] = useState<Record<string, boolean>>({
     title: false,
@@ -97,8 +95,11 @@ export const NoteEditor = ({
         canRedo: ctx.editor.can().chain().redo().run() ?? false,
         isBold: ctx.editor.isActive('bold') ?? false,
         isItalic: ctx.editor.isActive('italic') ?? false,
+        isCodeBlock: ctx.editor.isActive('codeBlock') ?? false,
         isHeading2: ctx.editor.isActive('heading', { level: 2 }) ?? false,
-        editorContent: ctx.editor.getJSON(),
+        jsonContent: ctx.editor.getJSON(),
+        textContent: ctx.editor.getText(),
+        htmlContent: ctx.editor.getHTML(),
       };
     },
   });
@@ -186,8 +187,8 @@ export const NoteEditor = ({
 
     if (isEdit) {
       setTitle(note?.title);
-      setInitial({ title: note.title, content: note.content });
-      editor.commands.setContent(`${note?.content}`);
+      setInitial({ title: note.title, jsonContent: note.jsonContent });
+      editor.commands.setContent(`${note?.jsonContent}`);
     }
   }, [isEdit, note, editor]);
 
@@ -200,8 +201,8 @@ export const NoteEditor = ({
   const isDirty = useMemo(() => {
     return (
       title !== initial?.title ||
-      JSON.stringify(editorState.editorContent) !==
-        JSON.stringify(initial?.content) ||
+      JSON.stringify(editorState.jsonContent) !==
+        JSON.stringify(initial?.jsonContent) ||
       tag !== initial?.tag
     );
   }, [editorState, initial, tag, title]);
@@ -213,7 +214,8 @@ export const NoteEditor = ({
 
   const bodyPayload = {
     title: title as string,
-    content: editorState.editorContent,
+    content: editorState.textContent,
+    jsonContent: editorState.jsonContent,
   };
 
   const handleCreateNote = async () => {
@@ -269,6 +271,10 @@ export const NoteEditor = ({
     'You have unsaved changes. If you leave now, they will be lost.';
   const isDirtyCancelLabel = 'Keep editing';
   const isDirtyConfirmLabel = 'Discard';
+
+  // fix later - for title textarea
+  const titleTextareaRef = useRef(null);
+  const isInView = useInView(titleTextareaRef, { once: false, amount: 0.5 });
 
   return (
     <>
@@ -348,42 +354,7 @@ export const NoteEditor = ({
                   'flex flex-col px-1 gap-2 [&_button]:overflow-hidden [&_button]:justify-start [&_button]:gap-5 [&_button]:px-3'
                 )}
               >
-                <Button
-                  onClick={() =>
-                    editor?.chain().focus().toggleHeading({ level: 2 }).run()
-                  }
-                  className={cn(
-                    editorState.isHeading2
-                      ? 'text-primary hover:text-primary!'
-                      : ''
-                  )}
-                  size="lg"
-                  variant="ghost"
-                >
-                  <Heading className="size-5" /> Heading
-                </Button>
-                <Button
-                  onClick={() => editor?.chain().focus().toggleBold().run()}
-                  size="lg"
-                  variant="ghost"
-                  className={cn(
-                    editorState.isBold ? 'text-primary hover:text-primary!' : ''
-                  )}
-                >
-                  <Bold className="size-5" /> Bold
-                </Button>
-                <Button
-                  onClick={() => editor?.chain().focus().toggleItalic().run()}
-                  size="lg"
-                  variant="ghost"
-                  className={cn(
-                    editorState.isItalic
-                      ? 'text-primary hover:text-primary!'
-                      : ''
-                  )}
-                >
-                  <Italic className="size-5" /> Italic
-                </Button>
+                <EditorToolbarButton editor={editor} />
               </div>
             </nav>
           </aside>
@@ -431,7 +402,7 @@ export const NoteEditor = ({
                       size="icon-lg"
                       variant="ghost"
                     >
-                      <Undo2 />
+                      <Undo />
                     </Button>
                     <Button
                       onClick={() => editor?.chain().focus().redo().run()}
@@ -439,7 +410,7 @@ export const NoteEditor = ({
                       size="icon-lg"
                       variant="ghost"
                     >
-                      <Redo2 />
+                      <Redo />
                     </Button>
                   </motion.span>
                 )}
@@ -465,11 +436,15 @@ export const NoteEditor = ({
           <main className="flex-1 mt-2 md:mt-0">
             <div className="max-w-6xl px-4 pb-20 mx-auto space-y-3 font-inter lg:pb-32">
               <textarea
+                ref={titleTextareaRef}
                 rows={1}
                 name="title"
                 className={cn(
                   writingOn.title ? 'caret-current' : 'caret-primary',
-                  'w-full mt-2 text-3xl font-bold leading-10 tracking-tight transition-all resize-none selection:bg-primary/50 field-sizing-content min-h-auto scrollbar-none placeholder:text-2xl focus:outline-0'
+                  isInView
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-20 translate-y-2',
+                  'w-full mt-2 text-3xl font-bold leading-10 tracking-tight transition-all duration-350 resize-none selection:bg-primary/50 field-sizing-content min-h-auto scrollbar-none placeholder:text-2xl focus:outline-0'
                 )}
                 placeholder="Title"
                 value={title}
@@ -526,8 +501,9 @@ export const NoteEditor = ({
               </div>
               <EditorContent
                 id="iditor-content"
-                className="z-1 selection:bg-primary/30 prose prose-neutral dark:prose-invert"
+                className="z-1 selection:bg-primary/30 prose prose-neutral dark:prose-invert max-w-full"
                 editor={editor}
+                onFocus={() => console.log(editor.getText())}
               />
             </div>
           </main>
@@ -537,40 +513,7 @@ export const NoteEditor = ({
         <Portal>
           <footer className="fixed inset-x-0 bottom-0 border-t md:hidden bg-background border-sidebar-border/50">
             <div className="max-w-6xl px-4 flex items-center gap-4 mx-auto h-14 bg-sidebar/50">
-              <Button
-                onClick={() =>
-                  editor?.chain().focus().toggleHeading({ level: 2 }).run()
-                }
-                className={cn(
-                  editorState.isHeading2
-                    ? 'text-primary hover:text-primary!'
-                    : ''
-                )}
-                size="lg"
-                variant="ghost"
-              >
-                <Heading className="size-5" />
-              </Button>
-              <Button
-                onClick={() => editor?.chain().focus().toggleBold().run()}
-                size="lg"
-                variant="ghost"
-                className={cn(
-                  editorState.isBold ? 'text-primary hover:text-primary!' : ''
-                )}
-              >
-                <Bold className="size-5" />
-              </Button>
-              <Button
-                onClick={() => editor?.chain().focus().toggleItalic().run()}
-                size="lg"
-                variant="ghost"
-                className={cn(
-                  editorState.isItalic ? 'text-primary hover:text-primary!' : ''
-                )}
-              >
-                <Italic className="size-5" />
-              </Button>
+              <EditorToolbarButton editor={editor} />
             </div>
           </footer>
         </Portal>
