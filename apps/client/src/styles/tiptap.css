@@ -26,7 +26,7 @@
 }
 
 .tiptap p {
-  @apply text-lg md:text-[16px] leading-8 m-0;
+  @apply leading-8 m-0;
 }
 
 .tiptap ul li::marker {
@@ -36,8 +36,8 @@
 .tiptap pre {
   @apply rounded-3xl relative;
 }
+
 .tiptap pre code {
-  caret-shape: block;
   caret-color: var(--color-muted-foreground);
 }
 .tiptap pre code::after {

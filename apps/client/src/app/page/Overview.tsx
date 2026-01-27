@@ -17,12 +17,12 @@ import {
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import { ConfirmDialog } from '../features/users/ConfirmDialog';
-import { ConfirmDrawer } from '../features/users/ConfirmDrawer';
-import { EmptyEmpty as EmptyNotes } from '../features/users/Empty';
+import { ConfirmDialog } from '../features/ui/ConfirmDialog';
+import { ConfirmDrawer } from '../features/ui/ConfirmDrawer';
+import { EmptyEmpty as EmptyNotes } from '../features/ui/Empty';
 import { NoteList } from '../features/notes/components/NoteList';
-import { OrderDrawer } from '../features/users/OrderDrawer';
-import { Toolbar } from '../features/users/Toolbar';
+import { OrderDrawer } from '../features/ui/OrderDrawer';
+import { Toolbar } from '../features/ui/Toolbar';
 import { useNote, useSoftDeleteMany } from '../hooks/use-note';
 import { useNoteServices } from '../hooks/use-note-services';
 import { cn } from '../lib/utils';
@@ -345,7 +345,7 @@ function Overview() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed inset-x-0 bottom-0! flex items-center h-16 px-4 md:hidden bg-linear-to-b from-transparent to-sidebar/20 z-22"
+            className="fixed inset-x-0 bottom-0! flex items-center h-16 px-4 md:hidden z-22"
           >
             <Toolbar
               onAction={handleTooltipAction}

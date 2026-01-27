@@ -7,7 +7,7 @@ import { Spinner } from '@/shared/components/Spinner';
 import { IconBellZFilled } from '@tabler/icons-react';
 import { ArrowDownNarrowWide, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { EmptyEmpty as EmptyNotification } from '../features/users/Empty';
+import { EmptyEmpty as EmptyNotification } from '../features/ui/Empty';
 import timeAgo from '../lib/timeAgo';
 import { cn } from '../lib/utils';
 
