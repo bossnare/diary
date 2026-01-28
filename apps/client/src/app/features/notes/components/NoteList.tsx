@@ -51,8 +51,7 @@ export function NoteList(props: Props) {
               onTouchMove={longPress.handleTouchMove}
               onTouchCancel={longPress.handleTouchCancel}
               className={cn(
-                isSelected(note.id) && 'bg-background/80! dark:bg-muted!',
-                'relative flex flex-col font-inter gap-4 p-4 transition cursor-pointer select-none bg-card group active:scale-99 lg:active:scale-100 dark:shadow-none hover:bg-background/80 dark:hover:bg-muted active:opacity-60 dark:bg-muted/80 lg:shadow-sm rounded-2xl lg:rounded-xl'
+                isSelected(note.id) && 'bg-background/80! dark:bg-muted!'
               )}
               note={note}
             >
