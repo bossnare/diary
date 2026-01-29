@@ -66,10 +66,6 @@ export const NoteEditor = ({
         charCount: ctx.editor.storage.characterCount.characters(),
         canUndo: ctx.editor.can().chain().undo().run() ?? false,
         canRedo: ctx.editor.can().chain().redo().run() ?? false,
-        isBold: ctx.editor.isActive('bold') ?? false,
-        isItalic: ctx.editor.isActive('italic') ?? false,
-        isCodeBlock: ctx.editor.isActive('codeBlock') ?? false,
-        isHeading2: ctx.editor.isActive('heading', { level: 2 }) ?? false,
         jsonContent: ctx.editor.getJSON(),
         textContent: ctx.editor.getText(),
         htmlContent: ctx.editor.getHTML(),
@@ -83,11 +79,10 @@ export const NoteEditor = ({
   const [tag, setTag] = useState('');
   const [initial, setInitial] = useState<{
     title: string | undefined;
-    tag?: string;
+    // tag?: string;
     jsonContent: JSONContent;
   } | null>({
     title: '',
-    tag: '',
     jsonContent: editorState.jsonContent,
   });
   const [writingOn, setWritingOn] = useState<Record<string, boolean>>({
@@ -183,9 +178,9 @@ export const NoteEditor = ({
     if (!editor || !note || !isEdit) return;
 
     editor.commands.setContent(note.jsonContent);
-
     setTitle(note?.title);
-    setInitial({ title: note.title, jsonContent: note.jsonContent });
+
+    setInitial({ title: note.title, jsonContent: editor.getJSON() }); // editor.getJSON() not note.jsonContent because note.jsonContent is not fully applied on editor
   }, [isEdit, note, editor]);
 
   // transform
@@ -211,10 +206,10 @@ export const NoteEditor = ({
     return (
       title !== initial.title ||
       JSON.stringify(editorState.jsonContent) !==
-        JSON.stringify(initial.jsonContent) ||
-      tag !== initial.tag
+        JSON.stringify(initial.jsonContent)
+      // tag !== initial.tag
     );
-  }, [editorState.jsonContent, initial, tag, title]);
+  }, [editorState.jsonContent, initial, title]);
 
   const autoGrow = (e: FormEvent<HTMLTextAreaElement>) => {
     e.currentTarget.style.height = 'auto'; // initial reset height value
@@ -258,8 +253,7 @@ export const NoteEditor = ({
     }
   };
 
-  const canSave =
-    title?.trim() || tag?.trim() || editorState.textContent.trim();
+  const canSave = title?.trim() || editorState.textContent.trim(); // || tag?.trim()
 
   const handleCancel = () => {
     if (canSave && isDirty) {
