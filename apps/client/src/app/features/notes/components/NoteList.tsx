@@ -69,7 +69,6 @@ export function NoteList(props: Props) {
                   <Ellipsis />
                 </Button>
               )}
-
               <div
                 className={cn(
                   props.isSelectionMode ? 'scale-100' : 'scale-0',
