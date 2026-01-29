@@ -53,3 +53,7 @@
   content: '';
   @apply absolute left-0 bg-muted h-full w-1 rounded-full;
 }
+
+.tiptap a {
+  @apply text-chart-2 active:scale-99;
+}
