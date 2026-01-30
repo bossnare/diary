@@ -35,8 +35,8 @@ export const AppRoutes = () => {
 
   // rosolve theme from user profiles
   useEffect(() => {
-    if (pending && !isPublicRoute) setTheme(userTheme);
-  }, [setTheme, isPublicRoute, userTheme, pending]);
+    if (!isPublicRoute) setTheme(userTheme);
+  }, [setTheme, isPublicRoute, userTheme]);
 
   return (
     <>
