@@ -32,11 +32,10 @@ export class NotesService {
     const sortField = sort ?? 'updatedAt';
     const sortOrder = order ?? 'desc';
 
-    const where = { userId, deleted: false };
     const orderBy = { [sortField]: sortOrder };
 
     const data = await this.prisma.note.findMany({
-      where,
+      where: { userId, status: { in: ['draft', 'published'] } },
       orderBy,
     });
 
@@ -76,7 +75,7 @@ export class NotesService {
   async softRemoveOne(id: string) {
     await this.prisma.note.update({
       where: { id },
-      data: { deleted: true, deletedAt: new Date() },
+      data: { status: 'trashed', deletedAt: new Date() },
     });
 
     return {
@@ -95,7 +94,7 @@ export class NotesService {
     }
     const result = await this.prisma.note.updateMany({
       where: { id: { in: idsToRemove } },
-      data: { deleted: true, deletedAt: new Date() },
+      data: { status: 'trashed', deletedAt: new Date() },
     });
 
     return {
@@ -109,7 +108,7 @@ export class NotesService {
   async restoreOne(id: string) {
     await this.prisma.note.update({
       where: { id },
-      data: { deleted: false },
+      data: { status: 'draft' },
     });
 
     return {
@@ -122,7 +121,7 @@ export class NotesService {
   async restoreMany(idsToRestore: string[]) {
     const result = await this.prisma.note.updateMany({
       where: { id: { in: idsToRestore } },
-      data: { deleted: false },
+      data: { status: 'draft' },
     });
 
     return {
