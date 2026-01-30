@@ -399,14 +399,22 @@ export const NoteEditor = ({
                 title={saveButtonTitle}
                 disabled={!canSave || !isDirty}
                 onClick={() => {
-                  handleSave();
-                  handleWait(() => navigate('/app'), 200);
+                  if (isEdit) {
+                    handleSave();
+                  } else {
+                    handleSave();
+                    handleWait(() => navigate('/app'), 200);
+                  }
                 }}
                 className="font-bold rounded-full select-none"
                 variant="ghost"
                 size="icon-lg"
               >
-                {isSaving ? null : <Check />}
+                {isSaving ? (
+                  <div className="border border-muted-foreground animate-spin border-t-transparent size-4 rounded-full"></div>
+                ) : (
+                  <Check />
+                )}
               </Button>
             </div>
           </header>

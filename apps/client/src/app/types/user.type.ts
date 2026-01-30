@@ -5,6 +5,7 @@ export interface UserInterface {
   role: string;
   username: string;
   displayName: string;
+  avatarUrl: string;
   themeMode: string;
   email: string;
   id: string;
