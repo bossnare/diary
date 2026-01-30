@@ -13,10 +13,12 @@ import {
 import { AnimatePresence } from 'motion/react';
 import { useId } from 'react';
 import { KebabMenu } from './KebabMenu';
+import { useUser } from '@/app/hooks/use-user';
 
 export const TopBar = ({ openSideOver }: { openSideOver?: () => void }) => {
   const inputId = useId();
   const { user } = useAuth();
+  const { data: userData } = useUser();
 
   const { open: openMobileSidebar } = useQueryToggle({
     key: 'sidebar',
@@ -79,7 +81,7 @@ export const TopBar = ({ openSideOver }: { openSideOver?: () => void }) => {
           className="relative hidden cursor-pointer size-8 md:block active:bg-input md:hover:bg-input active:opacity-70"
         >
           <UserAvatar
-            user={user}
+            user={userData}
             className="size-full bg-input outline-offset-1 outline outline-input"
           />
           {/* badge */}

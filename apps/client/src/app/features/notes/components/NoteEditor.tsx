@@ -22,8 +22,16 @@ import {
 } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { AxiosError } from 'axios';
-import { Check, ChevronLeft, Ellipsis, Redo, Undo } from 'lucide-react';
-import { motion, useInView } from 'motion/react';
+import {
+  Check,
+  ChevronLeft,
+  Ellipsis,
+  Redo,
+  Type,
+  Undo,
+  X,
+} from 'lucide-react';
+import { AnimatePresence, motion, useInView } from 'motion/react';
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -94,6 +102,7 @@ export const NoteEditor = ({
     tag: false,
   });
   const [isSaving, setIsSaving] = useState(false);
+  const [isOpenToolbar, setIsOpenToolbar] = useState(false);
 
   // query params state
   const {
@@ -496,9 +505,27 @@ export const NoteEditor = ({
 
         {/* fixed footer for mobile only */}
         <Portal>
-          <footer className="fixed inset-x-0 bottom-0 border-t md:hidden bg-background border-sidebar-border/50">
-            <div className="flex items-center max-w-6xl gap-4 px-4 mx-auto h-14 bg-sidebar/50">
-              <EditorToolbarButton editor={editor} />
+          <footer className="fixed inset-x-0 bottom-0 md:hidden">
+            <div className="flex items-center gap-3 px-4 w-full h-14 bg-sidebar/50">
+              <Button
+                onClick={() => setIsOpenToolbar((prev) => !prev)}
+                size="icon-lg"
+                variant="ghost"
+              >
+                {isOpenToolbar ? <X /> : <Type />}
+              </Button>
+              <AnimatePresence>
+                {isOpenToolbar && (
+                  <motion.div
+                    initial={{ x: 20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: 20, opacity: 0 }}
+                    className="flex items-center gap-3"
+                  >
+                    <EditorToolbarButton editor={editor} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </footer>
         </Portal>
