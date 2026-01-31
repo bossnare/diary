@@ -1,10 +1,10 @@
-import { useAuth } from '@/shared/hooks/use-auth';
 import { useParams } from 'react-router-dom';
 import { UserAvatar } from '../features/users/UserAvatar';
+import { useUser } from '@/app/hooks/use-user';
 
 export function Profile() {
   const { username } = useParams();
-  const { user } = useAuth();
+  const { data: user } = useUser();
 
   return (
     <div className="px-4 py-8 space-y-4">

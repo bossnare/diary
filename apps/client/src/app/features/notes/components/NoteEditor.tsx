@@ -238,7 +238,7 @@ export const NoteEditor = ({
       console.log(noteCreated.message);
       toast(noteCreated.message);
     } catch (err) {
-      if (err instanceof AxiosError) toast.error(err.message);
+      if (err instanceof AxiosError) toast.error(err.response?.data?.message);
       console.log('backend error:', err);
     } finally {
       setIsSaving(false);
@@ -255,8 +255,8 @@ export const NoteEditor = ({
         data: bodyPayload,
       });
       toast(res.message);
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      if (err instanceof AxiosError) toast.error(err.message);
     } finally {
       setIsSaving(false);
     }
