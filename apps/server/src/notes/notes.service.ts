@@ -1,5 +1,5 @@
 import { PrismaService } from './../prisma/prisma.service.js';
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateNoteDto } from './dto/create-note.dto.js';
 import { UpdateNoteDto } from './dto/update-note.dto.js';
 import { NoteStatus } from '../generated/prisma/client.js';
@@ -8,21 +8,28 @@ import { NoteStatus } from '../generated/prisma/client.js';
 export class NotesService {
   constructor(private readonly prisma: PrismaService) {}
   async create(createNoteDto: CreateNoteDto, userId: string) {
-    const createdNote = await this.prisma.note.create({
-      data: {
-        ...createNoteDto,
-        user: {
-          connect: { id: userId }, // within relations
+    try {
+      const createdNote = await this.prisma.note.create({
+        data: {
+          ...createNoteDto,
+          user: {
+            connect: { id: userId }, // within relations
+          },
         },
-      },
-    });
+      });
 
-    return {
-      success: true,
-      message: 'note created',
-      timestamps: Date.now(),
-      data: createdNote,
-    };
+      return {
+        success: true,
+        message: 'note created',
+        timestamps: Date.now(),
+        data: createdNote,
+      };
+    } catch {
+      throw new HttpException(
+        'Failed to create note. Please try again.',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   async findAll(
@@ -64,16 +71,27 @@ export class NotesService {
   }
 
   async update(id: string, updateNoteDto: UpdateNoteDto) {
-    await this.prisma.note.update({
-      where: { id },
-      data: { ...updateNoteDto, edited: true, numberOfEdits: { increment: 1 } },
-    });
+    try {
+      await this.prisma.note.update({
+        where: { id },
+        data: {
+          ...updateNoteDto,
+          edited: true,
+          numberOfEdits: { increment: 1 },
+        },
+      });
 
-    return {
-      success: true,
-      message: 'notes updated',
-      timestamps: Date.now(),
-    };
+      return {
+        success: true,
+        message: 'notes updated',
+        timestamps: Date.now(),
+      };
+    } catch {
+      throw new HttpException(
+        'Failed to update note. Please try again.',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   async softRemoveOne(id: string) {
