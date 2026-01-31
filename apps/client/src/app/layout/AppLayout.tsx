@@ -24,6 +24,9 @@ import { Outlet } from 'react-router-dom';
 import { ButtonFab } from '../features/notes/ButtonFab';
 import { OptionDrawer } from '../features/ui/OptionDrawer';
 import { usePannel } from '../hooks/use-pannel';
+import { ConfirmDrawer } from '../features/ui/ConfirmDrawer';
+import { ConfirmDialog } from '../features/ui/ConfirmDialog';
+import { AuthService } from '@/shared/services/supabase.service';
 
 export function AppLayout() {
   // store state
@@ -64,6 +67,14 @@ export function AppLayout() {
     value: 'create',
   });
 
+  const {
+    open: openLogout,
+    isOpen: isOpenLogout,
+    close: closeLogout,
+  } = useQueryToggle({
+    key: 'logout',
+  });
+
   // local state
   const [mobileSidebarWidth, setMobileSidebarWidth] = useState(0);
   const mobileSidebarRef = useRef<HTMLDivElement | null>(null);
@@ -101,8 +112,38 @@ export function AppLayout() {
     setIsOpenPanel(isDesktop);
   }, [isDesktop, setIsOpenPanel]);
 
+  const logoutConfirm = {
+    title: 'Log Out ?',
+    description:
+      "Are you sure you want to log out? You'll need to log in again to access your account.",
+    cancelLabel: 'Cancel',
+    confirmLabel: 'Yes, Log Out',
+  };
+
   return (
     <>
+      {/* logout confirm */}
+      <ConfirmDrawer
+        showOn="mobile"
+        isOpen={isOpenLogout}
+        onClose={closeLogout}
+        title={logoutConfirm.title}
+        description={logoutConfirm.description}
+        cancelLabel={logoutConfirm.cancelLabel}
+        confirmLabel={logoutConfirm.confirmLabel}
+        onConfirm={AuthService.signOut}
+      />
+      <ConfirmDialog
+        showOn="desktop"
+        isOpen={isOpenLogout}
+        onClose={closeLogout}
+        title={logoutConfirm.title}
+        description={logoutConfirm.description}
+        cancelLabel={logoutConfirm.cancelLabel}
+        confirmLabel={logoutConfirm.confirmLabel}
+        onConfirm={AuthService.signOut}
+      />
+
       <div className="relative overflow-hidden">
         {/* loading state on big route change */}
         <AppLoader open={appLoading} />
@@ -112,6 +153,7 @@ export function AppLayout() {
         <MobileSidebar
           open={isOpenMobileSidebar}
           close={closeMobileSidebar}
+          openLogout={openLogout}
           ref={mobileSidebarRef}
         />{' '}
         {/* main content */}

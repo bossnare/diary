@@ -86,7 +86,7 @@ export function ErrorState({
           className="rounded-full"
           size="lg"
         >
-          Refetch
+          Try again
         </Button>
       )}
     </div>
