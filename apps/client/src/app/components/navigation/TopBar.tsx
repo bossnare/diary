@@ -4,12 +4,7 @@ import { Logo } from '@/shared/components/brand/Logo';
 import { useAuth } from '@/shared/hooks/use-auth';
 import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
 import { waitVibrate } from '@/shared/utils/vibration';
-import {
-  Search,
-  TextAlignJustify,
-  TextAlignStart,
-  TriangleAlert,
-} from 'lucide-react';
+import { Search, TextAlignJustify, TriangleAlert } from 'lucide-react';
 import { AnimatePresence } from 'motion/react';
 import { useId } from 'react';
 import { KebabMenu } from './KebabMenu';
@@ -32,7 +27,7 @@ export const TopBar = ({ openSideOver }: { openSideOver?: () => void }) => {
   } = useQueryToggle({ key: 'menu', value: 'kebab' });
 
   return (
-    <nav className="sticky inset-x-0 top-0 flex items-center justify-between gap-2 px-2 py-1 pl-1 shadow-lg h-14 z-99 md:h-14 md:px-2 bg-sidebar">
+    <nav className="sticky inset-x-0 top-0 flex items-center justify-between gap-2 px-2 py-1 pl-1 h-14 z-99 md:h-14 md:px-2 bg-sidebar">
       {/* subtle overlay */}
       <div className="absolute inset-0 hidden pointer-events-none bg-primary/2 dark:block -z-1"></div>
 
@@ -47,8 +42,7 @@ export const TopBar = ({ openSideOver }: { openSideOver?: () => void }) => {
           }}
           className="md:hidden"
         >
-          <TextAlignJustify className="hidden dark:inline-flex size-[26px]" />
-          <TextAlignStart className="dark:hidden size-[26px]" />
+          <TextAlignJustify className="size-[26px]" />
         </Button>
       </div>
 

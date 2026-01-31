@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { PrismaService } from './../prisma/prisma.service.js';
 import { Injectable } from '@nestjs/common';
 import { CreateNoteDto } from './dto/create-note.dto.js';
@@ -39,8 +38,8 @@ export class NotesService {
     const data = await this.prisma.note.findMany({
       where: {
         userId,
-        status: { in: ['DRAFT', 'PUBLISHED'] as unknown as NoteStatus[] },
-      }, // upgrade to prisma v7.3.0 to use where: {status: NoteStatus.DRAFT}
+        status: { in: [NoteStatus.DRAFT, NoteStatus.PUBLISHED] },
+      },
       orderBy,
     });
 
@@ -80,7 +79,7 @@ export class NotesService {
   async softRemoveOne(id: string) {
     await this.prisma.note.update({
       where: { id },
-      data: { status: 'TRASHED' as NoteStatus, deletedAt: new Date() },
+      data: { status: NoteStatus.TRASHED, deletedAt: new Date() },
     });
 
     return {
@@ -99,7 +98,7 @@ export class NotesService {
     }
     const result = await this.prisma.note.updateMany({
       where: { id: { in: idsToRemove } },
-      data: { status: 'TRASHED' as NoteStatus, deletedAt: new Date() },
+      data: { status: NoteStatus.TRASHED, deletedAt: new Date() },
     });
 
     return {
@@ -113,7 +112,7 @@ export class NotesService {
   async restoreOne(id: string) {
     await this.prisma.note.update({
       where: { id },
-      data: { status: 'DRAFT' as NoteStatus },
+      data: { status: NoteStatus.DRAFT },
     });
 
     return {
@@ -126,7 +125,7 @@ export class NotesService {
   async restoreMany(idsToRestore: string[]) {
     const result = await this.prisma.note.updateMany({
       where: { id: { in: idsToRestore } },
-      data: { status: 'DRAFT' as NoteStatus },
+      data: { status: NoteStatus.DRAFT },
     });
 
     return {

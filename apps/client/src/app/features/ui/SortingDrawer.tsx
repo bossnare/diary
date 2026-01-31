@@ -9,7 +9,7 @@ import { useIsMobile } from '@/shared/hooks/use-mobile';
 import { IconCheck } from '@tabler/icons-react';
 import { useSearchParams } from 'react-router-dom';
 
-export function OrderDrawer({
+export function SortingDrawer({
   isOpen,
   onClose,
   showOn,

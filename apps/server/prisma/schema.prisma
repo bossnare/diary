@@ -27,7 +27,7 @@ enum NoteStatus {
 
 // Model
 model Profile {
-  id          String    @id @unique @default(uuid()) @db.Uuid
+  id          String    @id @default(uuid()) @db.Uuid
   email       String    @unique
   username    String?   @unique
   role        UserRole  @default(USER)
@@ -44,7 +44,7 @@ model Profile {
 }
 
 model Note {
-  id            String     @id @unique @default(uuid()) @db.Uuid
+  id            String     @id @default(cuid())
   title         String?
   content       String?
   jsonContent   Json?
@@ -65,7 +65,7 @@ model Note {
 }
 
 model Notification {
-  id        String   @id @unique @default(uuid()) @db.Uuid
+  id        String   @id @default(cuid())
   type      String
   title     String
   message   String
@@ -79,7 +79,7 @@ model Notification {
 }
 
 model Tag {
-  id        String   @id @unique @default(cuid()) @db.Uuid
+  id        String   @id @default(cuid())
   name      String
   createdAt DateTime @default(now()) @map("created_at")
 

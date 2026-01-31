@@ -13,7 +13,7 @@ import { ConfirmDialog } from '../features/ui/ConfirmDialog';
 import { ConfirmDrawer } from '../features/ui/ConfirmDrawer';
 import { EmptyEmpty as EmptyNotes } from '../features/ui/Empty';
 import { NoteList } from '../features/notes/components/NoteList';
-import { OrderDrawer } from '../features/ui/OrderDrawer';
+import { SortingDrawer } from '../features/ui/SortingDrawer';
 import { ToolbarButton as SelectionModeToolbarButton } from '../features/ui/ToolbarButton';
 import { useNote, useSoftDeleteMany } from '../hooks/use-note';
 import { useNoteServices } from '../hooks/use-note-services';
@@ -222,7 +222,7 @@ function Overview() {
             closeSelectionMode();
           }}
         />
-        <OrderDrawer
+        <SortingDrawer
           showOn="mobile"
           isOpen={isOpenNoteSorting}
           onClose={closeNoteSorting}
