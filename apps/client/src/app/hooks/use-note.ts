@@ -3,6 +3,7 @@ import type * as Note from '@/app/types/note.type';
 import * as noteApi from '@/app/api/note.api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
+import type { AxiosError } from 'axios';
 
 export function useNote() {
   const [searchParams] = useSearchParams();
@@ -12,7 +13,7 @@ export function useNote() {
   params.set('sort', sort);
   params.set('order', order);
 
-  return useQuery<Note.NoteInterface[]>({
+  return useQuery<Note.NoteInterface[], AxiosError>({
     queryKey: ['notes', sort, order],
     queryFn: () => noteApi.getNotes(params),
     staleTime: 0,
@@ -20,7 +21,7 @@ export function useNote() {
 }
 
 export function useNoteId(id?: string) {
-  return useQuery<Note.NoteInterface>({
+  return useQuery<Note.NoteInterface, AxiosError>({
     queryKey: ['notes', id],
     queryFn: () => noteApi.getNoteById(id),
     enabled: !!id,

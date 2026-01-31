@@ -19,6 +19,7 @@ type Props = {
   description?: string;
   primaryLabel?: string;
   secondaryLabel?: string;
+  illustration?: string;
   noAction?: boolean;
 };
 
@@ -28,9 +29,20 @@ export function EmptyEmpty(props: Props) {
   return (
     <Empty>
       <EmptyHeader>
-        <EmptyMedia variant="icon">
-          {props.icon ? <Icon /> : <IconFileSadFilled />}
-        </EmptyMedia>
+        {props.illustration && (
+          <div>
+            <img
+              className="size-40 lg:size-35 dark:invert"
+              src={props.illustration}
+              alt={props.title}
+            />
+          </div>
+        )}
+        {!props.illustration && (
+          <EmptyMedia variant="icon">
+            {props.icon ? <Icon /> : <IconFileSadFilled />}
+          </EmptyMedia>
+        )}
         <EmptyTitle>{props.title || 'Title'}</EmptyTitle>
         <EmptyDescription>
           {props.description || 'Description'}

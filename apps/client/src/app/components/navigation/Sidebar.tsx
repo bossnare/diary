@@ -48,7 +48,7 @@ export const MobileSidebar = ({
         <aside className={`relative size-full rounded-xl py-2`}>
           <MiniProfile className="px-4 py-2 active:bg-muted dark:active:bg-card active:opacity-80" />
 
-          <div className="mx-4 mb-4 border-t border-sidebar-border"></div>
+          <div className="mx-4 mb-4 border-t border-sidebar-border dark:border-sidebar-border/50"></div>
 
           <ul className="flex flex-col font-medium">
             {/* tab label map & interact */}

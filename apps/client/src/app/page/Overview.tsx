@@ -23,9 +23,12 @@ import type {
   SelectionModeActionKey,
   SelectionModeLabel,
 } from '@/app/types/label.type';
+import { ErrorState } from '../components/ErrorState';
+import empty_note from '@/assets/empty_note.svg';
 
 function Overview() {
   const { data, isPending, isError, error, refetch } = useNote();
+  console.log(error);
   const notes = data ?? [];
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const isAllSelected = selected.size === notes.map((n) => n.id).length;
@@ -160,24 +163,13 @@ function Overview() {
       </div>
     );
 
-  if (isError)
-    return (
-      <div className="flex flex-col items-center max-w-lg gap-4 py-10 mx-auto lg:py-20">
-        <span className="text-center">{error.message}</span>
-        <Button
-          onClick={async () => refetch()}
-          className="rounded-full"
-          size="lg"
-        >
-          Refetch
-        </Button>
-      </div>
-    );
+  if (isError) return <ErrorState error={error} onRetry={refetch} />;
 
   if (notes?.length < 1)
     return (
       <div className="py-4">
         <EmptyNotes
+          illustration={empty_note}
           icon={IconNote}
           title="No Notes Yet"
           description="You haven't created any notes yet. Get started by creating your first notes."
