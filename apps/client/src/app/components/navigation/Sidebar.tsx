@@ -6,12 +6,12 @@ import { Button } from '@/components/ui/button';
 import { Logo } from '@/shared/components/brand/Logo';
 import { Overlay } from '@/shared/components/Overlay';
 import { waitVibrate } from '@/shared/utils/vibration';
-import { PanelLeftClose, PanelLeftOpen, Plus } from 'lucide-react';
+import { PanelLeftClose, PanelLeftOpen, Plus, PowerOff } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { FileDropZone } from '../../features/notes/components/FileDropZone';
-import { desctructiveLabel, sideBarLabel, tabLabel } from './label';
+import { tabLabel } from './label';
 import { NavTab } from './NavTab';
-import { SideBarTabWrapper } from './sideBarTab';
+import { handleWait } from '@/shared/utils/handle-wait';
 
 type SidebarProps = React.HTMLAttributes<HTMLDivElement> & {
   ref?: React.Ref<HTMLDivElement>;
@@ -20,9 +20,14 @@ type SidebarProps = React.HTMLAttributes<HTMLDivElement> & {
 export const MobileSidebar = ({
   open,
   close,
+  openLogout,
   ref,
   ...props
-}: SidebarProps & { open?: boolean; close: () => void }) => {
+}: SidebarProps & {
+  open?: boolean;
+  close: () => void;
+  openLogout: () => void;
+}) => {
   return (
     <>
       {/* overlay */}
@@ -77,40 +82,22 @@ export const MobileSidebar = ({
                 </NavLink>
               </li>
             ))}
-
-            {sideBarLabel.map((s) => (
-              <>
-                {
-                  <li key={s.id}>
-                    <NavLink to={s.route}>
-                      {({ isActive }) => (
-                        <button
-                          onClick={close}
-                          className={cn(
-                            isActive
-                              ? 'font-bold text-sidebar-foreground'
-                              : 'font-normal text-sidebar-foreground/90',
-                            'text-xl flex gap-5 px-6 py-3 dark:active:bg-card  items-center w-full active:bg-muted'
-                          )}
-                        >
-                          <s.icon /> {s.label}
-                        </button>
-                      )}
-                    </NavLink>
-                  </li>
-                }
-              </>
-            ))}
-            <>
-              {desctructiveLabel.map((s) => (
-                <li key={s.label}>
-                  <SideBarTabWrapper isDanger={true}>
-                    <s.icon className="size-5" /> {s.label}
-                  </SideBarTabWrapper>
-                </li>
-              ))}
-            </>
           </ul>
+
+          {/* logout */}
+          <div className="absolute bottom-2 w-full left-0">
+            <button
+              onClick={() => {
+                close();
+                handleWait(openLogout, 240);
+              }}
+              className={cn(
+                'font-semibold text-xl flex gap-5 px-6 py-3 dark:active:bg-card  items-center w-full active:bg-muted'
+              )}
+            >
+              <PowerOff /> Log out
+            </button>
+          </div>
         </aside>
       </div>
     </>

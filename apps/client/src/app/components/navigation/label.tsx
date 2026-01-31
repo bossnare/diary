@@ -1,7 +1,5 @@
 import {
   Archive,
-  KeyRound,
-  Palette,
   PowerOff,
   Settings,
   Trash2,
@@ -45,18 +43,6 @@ const sideBarLabel = [
     label: 'Settings',
     icon: Settings,
     route: '/app/settings',
-  },
-  {
-    id: 2,
-    label: 'Appearance',
-    icon: Palette,
-    route: '/app/appearance',
-  },
-  {
-    id: 3,
-    label: 'Authentication',
-    icon: KeyRound,
-    route: '/app/authentication',
   },
   {
     id: 4,
