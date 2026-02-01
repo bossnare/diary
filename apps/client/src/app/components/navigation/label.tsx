@@ -19,21 +19,25 @@ const kebabMenuLabel = [
     id: 1,
     label: 'Workspace settings',
     icon: Settings,
+    href: '/app/settings/workspace',
   },
   {
     id: 2,
     label: 'Account settings',
     icon: UserCog,
+    href: '/app/settings/account',
   },
   {
     id: 3,
     label: 'Archives',
     icon: Archive,
+    href: '/app/archives',
   },
   {
     id: 4,
     label: 'Trash',
     icon: Trash2,
+    href: '/note/trash',
   },
 ];
 

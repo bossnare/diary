@@ -362,8 +362,10 @@ export const NoteEditor = ({
               >
                 <ChevronLeft />
               </Button>
-              <div className="flex items-center gap-1 text-muted-foreground">
-                <span>{editorModeState} notes</span>{' '}
+              <div className="flex items-center gap-1">
+                <span className="text-muted-foreground">
+                  {editorModeState} notes
+                </span>{' '}
                 <Button size="icon-lg" variant="ghost" className="md:hidden">
                   <Ellipsis />
                 </Button>

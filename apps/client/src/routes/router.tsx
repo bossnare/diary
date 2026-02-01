@@ -23,6 +23,7 @@ import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ProtectedRoutes } from './ProtectedRoutes';
 import { PublicRoutes } from './PublicRoutes';
+import { NoteTrashPage } from '@/app/page/NoteTrashPage';
 
 export const AppRoutes = () => {
   const { pending, session } = useAuth();
@@ -68,6 +69,9 @@ export const AppRoutes = () => {
               <Route path=":id" element={<NoteEditor mode="view" />} />
               <Route path="new" element={<NewNotePage />} />
               <Route path=":id/edit" element={<EditNotePage />} />
+            </Route>
+            <Route path="/note" element={<AppLayout />}>
+              <Route path="trash" element={<NoteTrashPage />} />
             </Route>
 
             {/* profile */}

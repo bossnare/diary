@@ -28,7 +28,6 @@ import empty_note from '@/assets/empty_note.svg';
 
 function Overview() {
   const { data, isPending, isError, error, refetch } = useNote();
-  console.log(error);
   const notes = data ?? [];
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const isAllSelected = selected.size === notes.map((n) => n.id).length;

@@ -20,6 +20,14 @@ export function useNote() {
   });
 }
 
+export const useNoteTrash = () => {
+  return useQuery<Note.NoteInterface[], AxiosError>({
+    queryKey: ['notes-trash'],
+    queryFn: () => noteApi.getAllNotesTrash(),
+    staleTime: 0,
+  });
+};
+
 export function useNoteId(id?: string) {
   return useQuery<Note.NoteInterface, AxiosError>({
     queryKey: ['notes', id],

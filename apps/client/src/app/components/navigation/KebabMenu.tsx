@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useIsDesktop } from '@/shared/hooks/use-desktop';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   open?: boolean;
@@ -21,6 +22,8 @@ export const KebabMenu = ({ open, close, toggle }: Props) => {
   // const kebabMenuRef = useRef<HTMLDivElement | null>(null);
   // const triggerRef = useRef<HTMLButtonElement | null>(null);
   const isDesktop = useIsDesktop();
+
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   const handleClickOutside = (e: MouseEvent) => {
@@ -73,7 +76,12 @@ export const KebabMenu = ({ open, close, toggle }: Props) => {
               {kebabMenuLabel.map((m) => (
                 <li key={m.id}>
                   <button
-                    onClick={() => handleWait(() => close(), 230)}
+                    onClick={() => {
+                      handleWait(() => {
+                        close();
+                        navigate(m.href);
+                      }, 230);
+                    }}
                     className="flex items-center w-full h-12 gap-3 px-4 text-foreground/90 active:bg-muted dark:active:bg-muted-foreground/30 active:opacity-70"
                   >
                     <m.icon className="size-5" /> {m.label}
