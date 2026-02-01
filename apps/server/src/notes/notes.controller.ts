@@ -32,6 +32,11 @@ export class NotesController {
     return this.notesService.findAll(user.id, sort, order);
   }
 
+  @Get('trash')
+  getTrash(@User() user: UserEntity) {
+    return this.notesService.getTrash(user.id);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.notesService.findOne(id);
