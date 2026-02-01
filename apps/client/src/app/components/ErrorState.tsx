@@ -1,6 +1,9 @@
 import { Button } from '@/components/ui/button';
 import { AxiosError } from 'axios';
 import network_error from '@/assets/network_error.svg';
+import internal_server from '@/assets/internal_server_error.svg';
+import default_error from '@/assets/default_error.svg';
+import api_404 from '@/assets/api_404.svg';
 
 type NormalizedError = {
   mark: string;
@@ -8,11 +11,18 @@ type NormalizedError = {
   message: string;
 };
 
+const errorStateImage: Record<string, string> = {
+  network: network_error,
+  notFound: api_404,
+  server: internal_server,
+  default: default_error,
+};
+
 const normalizeError = (error: unknown): NormalizedError => {
   if (error instanceof AxiosError) {
     if (!error.response)
       return {
-        mark: 'net_err',
+        mark: 'network',
         title: 'Network error',
         message: 'Please check your internet connection.',
       };
@@ -21,7 +31,7 @@ const normalizeError = (error: unknown): NormalizedError => {
 
     if (status === 404)
       return {
-        mark: 'not_found',
+        mark: 'notFound',
         title: 'Nothing here yet',
         message: "We couldn't find what you're looking for right now.",
       };
@@ -71,10 +81,10 @@ export function ErrorState({
 
   return (
     <div className="flex flex-col items-center max-w-lg px-4 gap-4 py-10 mx-auto lg:py-20">
-      {mark === 'net_err' && (
+      {mark && Object.keys(errorStateImage).includes(mark) && (
         <img
-          className="size-40 lg:size-35 dark:invert"
-          src={network_error}
+          className="size-40 lg:size-38 dark:invert"
+          src={errorStateImage[mark]}
           alt={title}
         />
       )}

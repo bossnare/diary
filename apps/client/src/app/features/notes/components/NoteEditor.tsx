@@ -520,7 +520,7 @@ export const NoteEditor = ({
                     initial={{ x: 20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     exit={{ x: 20, opacity: 0 }}
-                    className="flex items-center gap-3"
+                    className="flex items-center gap-2"
                   >
                     <EditorToolbarButton editor={editor} />
                   </motion.div>
