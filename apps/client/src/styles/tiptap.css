@@ -42,8 +42,7 @@
 }
 .tiptap pre code::after {
   content: 'copy';
-  background-color: var(--color-sidebar);
-  @apply rounded-xl p-1.5 absolute top-2 text-sm right-2 cursor-pointer;
+  @apply rounded-xl p-1.5 bg-sidebar text-foreground absolute top-2 text-sm right-2 cursor-pointer;
 }
 
 .tiptap blockquote {

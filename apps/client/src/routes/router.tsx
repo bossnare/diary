@@ -16,7 +16,7 @@ import { Contact } from '@/public-site/page/Contact';
 import { Home } from '@/public-site/page/Home';
 import { Pricing } from '@/public-site/page/Pricing';
 import { HomeScreenLoader } from '@/shared/components/HomeScreenLoader';
-import { NotFound } from '@/shared/components/not-found';
+import { NotFound } from '@/shared/components/NotFound';
 import { useAuth } from '@/shared/hooks/use-auth';
 import { useIsPublicRoute } from '@/shared/hooks/useIsPublicRoute';
 import { useEffect } from 'react';

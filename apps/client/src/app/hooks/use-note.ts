@@ -15,7 +15,7 @@ export function useNote() {
 
   return useQuery<Note.NoteInterface[], AxiosError>({
     queryKey: ['notes', sort, order],
-    queryFn: () => noteApi.getNotes(params),
+    queryFn: () => noteApi.getAllNotes(params),
     staleTime: 0,
   });
 }
