@@ -178,4 +178,21 @@ export class NotesService {
       timestamps: Date.now(),
     };
   }
+
+  async getTrash(userId: string) {
+    const trashed = await this.prisma.note.findMany({
+      where: {
+        userId,
+        status: NoteStatus.TRASHED,
+      },
+      orderBy: { updatedAt: 'desc' },
+    });
+
+    return {
+      success: true,
+      count: trashed.length,
+      data: trashed,
+      timestamps: Date.now(),
+    };
+  }
 }
