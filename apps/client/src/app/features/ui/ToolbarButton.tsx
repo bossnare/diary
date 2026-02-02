@@ -33,7 +33,7 @@ export function ToolbarButton({ onAction, disabled, labelItems }: Props) {
           variant="ghost"
         >
           <t.icon className="size-6 md:size-4" />
-          <span className="font-normal text-sm">{t.label}</span>
+          <span className="text-sm font-normal">{t.label}</span>
         </Button>
       ))}
     </>

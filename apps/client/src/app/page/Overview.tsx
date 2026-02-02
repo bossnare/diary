@@ -182,9 +182,9 @@ function Overview() {
 
   return (
     <>
-      <div className="min-h-screen relative pb-2 bg-muted dark:bg-background">
+      <div className="relative min-h-screen pb-2 bg-muted dark:bg-background">
         {/* subtle overlay */}
-        <div className="absolute inset-0 hidden pointer-events-none dark:block bg-primary/2 z-20"></div>
+        <div className="absolute inset-0 z-20 hidden pointer-events-none dark:block bg-primary/2"></div>
         {/* drawer - mobile only */}
         <ConfirmDrawer
           showOn="mobile"
@@ -220,7 +220,7 @@ function Overview() {
         />
         {/* content */}
         <>
-          <header className="sticky top-0 z-16 px-2 pt-8 mx-2 md:px-2 md:mx-5 bg-muted dark:bg-background">
+          <header className="sticky top-0 px-2 pt-8 mx-2 z-16 md:px-2 md:mx-5 bg-muted dark:bg-background">
             {isSelectionMode ? (
               <motion.div
                 initial={{ opacity: 0 }}
@@ -238,17 +238,17 @@ function Overview() {
                     <X />
                   </Button>
                   {/* desktop only */}
-                  <span className="hidden font-inter font-medium md:inline-flex">
-                    {selected.size} selected
+                  <span className="hidden font-medium font-inter md:inline-flex">
+                    {selected.size} items selected
                   </span>
                 </div>
                 {/* mobile only */}
                 <span className="text-xl font-medium md:hidden">
-                  {selected.size} selected
+                  {selected.size} items selected
                 </span>
 
                 {/* toolbar */}
-                <div className="justify-end hidden md:flex gap-2 grow">
+                <div className="justify-end hidden gap-2 md:flex grow">
                   <SelectionModeToolbarButton
                     onAction={handleSelectionModeAction}
                     disabled={!isHasSellected}

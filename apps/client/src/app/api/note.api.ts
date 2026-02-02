@@ -48,12 +48,22 @@ export const softDeleteMany = async (data: Record<string, string[]>) => {
   return res.data;
 };
 
+export const restoreMany = async (data: Record<string, string[]>) => {
+  const res = await api.patch('/notes/restore', data);
+
+  return res.data;
+};
+
 export const deleteNote = async (id: string) => {
   const res = await api.delete(`/notes/${id}`);
 
   return res.data;
 };
-// export const deleteManyNote = (dataId: string[]) =>
-//   api.delete('/notes', {
-//     ids: dataId,
-//   });
+
+export const deleteMany = async (idsToRemove: string[]) => {
+  const res = await api.delete('/notes', {
+    data: { idsToRemove },
+  });
+
+  return res.data;
+};
