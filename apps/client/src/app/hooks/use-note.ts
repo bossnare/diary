@@ -74,6 +74,28 @@ export function useSoftDeleteMany() {
   });
 }
 
+export function useRestoreMany() {
+  const qc = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: Record<string, string[]>) => noteApi.restoreMany(data),
+    onSuccess: () => {
+      qc.refetchQueries({ queryKey: ['notes-trash'] });
+    },
+  });
+}
+
+export function useDeleteMany() {
+  const qc = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: string[]) => noteApi.deleteMany(data),
+    onSuccess: () => {
+      qc.refetchQueries({ queryKey: ['notes-trash'] });
+    },
+  });
+}
+
 export function useNoteCache() {
   const queryClient = useQueryClient();
   return queryClient.getQueriesData<Note.NoteInterface[]>({

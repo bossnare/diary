@@ -80,7 +80,7 @@ export const NoteCard = ({
       >
         {note.content}
       </span>
-      <div className="text-xs text-muted-foreground flex flex-col gap-2">
+      <div className="text-[13px] text-muted-foreground flex flex-col gap-2">
         <span>
           {isTrash && 'Trashed:'} {dateUltraFormat(note[config.dateField])}
         </span>
@@ -88,8 +88,8 @@ export const NoteCard = ({
           <>
             {daysLeft > 0 ? (
               <span>
-                Permanantly deleted in{' '}
-                <span className={`${daysLeftColor}`}>{daysLeft} jrs</span>
+                Deleting in{' '}
+                <span className={`${daysLeftColor}`}>{daysLeft} days</span>
               </span>
             ) : (
               <span>

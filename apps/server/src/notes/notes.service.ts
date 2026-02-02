@@ -96,7 +96,7 @@ export class NotesService {
 
   async softRemoveOne(id: string) {
     await this.prisma.note.update({
-      where: { id },
+      where: { id, status: { in: [NoteStatus.DRAFT, NoteStatus.PUBLISHED] } },
       data: { status: NoteStatus.TRASHED, deletedAt: new Date() },
     });
 
@@ -108,20 +108,17 @@ export class NotesService {
   }
 
   async softRemoveMany(idsToRemove: string[]) {
-    if (!idsToRemove.length) {
-      return {
-        message: 'No id to remove!',
-        idsToRemove: idsToRemove.length,
-      };
-    }
     const result = await this.prisma.note.updateMany({
-      where: { id: { in: idsToRemove } },
+      where: {
+        id: { in: idsToRemove },
+        status: { in: [NoteStatus.DRAFT, NoteStatus.PUBLISHED] },
+      },
       data: { status: NoteStatus.TRASHED, deletedAt: new Date() },
     });
 
     return {
       success: true,
-      message: 'Notes moved to trash',
+      message: `${result.count} Notes moved to trash`,
       count: result.count,
       timestamps: Date.now(),
     };
@@ -129,8 +126,8 @@ export class NotesService {
 
   async restoreOne(id: string) {
     await this.prisma.note.update({
-      where: { id },
-      data: { status: NoteStatus.DRAFT },
+      where: { id, status: NoteStatus.TRASHED },
+      data: { status: NoteStatus.DRAFT, deletedAt: null },
     });
 
     return {
@@ -142,13 +139,13 @@ export class NotesService {
 
   async restoreMany(idsToRestore: string[]) {
     const result = await this.prisma.note.updateMany({
-      where: { id: { in: idsToRestore } },
-      data: { status: NoteStatus.DRAFT },
+      where: { id: { in: idsToRestore }, status: NoteStatus.TRASHED },
+      data: { status: NoteStatus.DRAFT, deletedAt: null },
     });
 
     return {
       success: true,
-      message: 'Notes restored',
+      message: `${result.count} Notes restored`,
       count: result.count,
       timestamps: Date.now(),
     };
@@ -156,7 +153,7 @@ export class NotesService {
 
   async removeOne(id: string) {
     await this.prisma.note.delete({
-      where: { id },
+      where: { id, status: NoteStatus.TRASHED },
     });
 
     return {
@@ -168,12 +165,12 @@ export class NotesService {
 
   async removeMany(idsToRemove: string[]) {
     const result = await this.prisma.note.deleteMany({
-      where: { id: { in: idsToRemove } },
+      where: { id: { in: idsToRemove }, status: NoteStatus.TRASHED },
     });
 
     return {
       success: true,
-      message: 'Note permanently deleted',
+      message: `${result.count} Note permanently deleted`,
       count: result.count,
       timestamps: Date.now(),
     };
@@ -185,7 +182,7 @@ export class NotesService {
         userId,
         status: NoteStatus.TRASHED,
       },
-      orderBy: { updatedAt: 'desc' },
+      orderBy: { deletedAt: 'desc' },
     });
 
     return {

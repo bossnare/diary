@@ -20,7 +20,7 @@ import { fabButtonVariants } from '@/shared/motions/motion.variant';
 import { useQueryClient } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { ButtonFab } from '../features/notes/ButtonFab';
 import { OptionDrawer } from '../features/ui/OptionDrawer';
 import { usePannel } from '../hooks/use-pannel';
@@ -75,11 +75,18 @@ export function AppLayout() {
     key: 'logout',
   });
 
+  const { isOpen: isSelectionModeTrash } = useQueryToggle({
+    key: 'selection',
+    value: 'trash',
+  });
+
   // local state
   const [mobileSidebarWidth, setMobileSidebarWidth] = useState(0);
   const mobileSidebarRef = useRef<HTMLDivElement | null>(null);
   const isMobile = useIsMobile();
   const isDesktop = useIsDesktop(); // >= lg
+
+  const { pathname } = useLocation();
 
   //  reactive main width
   const { pannelWidth: SIDEBAR_WIDTH, mainTransform: MAIN_DESKTOP_TRANSFORM } =
@@ -175,17 +182,19 @@ export function AppLayout() {
         </div>
         {/* fab button (create note, long presse -> choice) - mobile only */}
         <AnimatePresence>
-          {!isSelectionMode && !isOpenMobileSidebar && (
-            <motion.div
-              variants={fabButtonVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              className="fixed bottom-24 md:bottom-12 lg:hidden right-5"
-            >
-              <ButtonFab openCreateOptions={openCreateOptions} />
-            </motion.div>
-          )}
+          {!isSelectionMode &&
+            !isOpenMobileSidebar &&
+            pathname !== '/note/trash' && (
+              <motion.div
+                variants={fabButtonVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="fixed bottom-24 md:bottom-12 lg:hidden right-5"
+              >
+                <ButtonFab openCreateOptions={openCreateOptions} />
+              </motion.div>
+            )}
         </AnimatePresence>
         {/* Create More Options */}
         <OptionDrawer
@@ -195,7 +204,7 @@ export function AppLayout() {
         />
         {/* quick Editor */}
         {/* mobile */}
-        {!isSelectionMode && (
+        {!isSelectionMode && !isSelectionModeTrash && (
           <BottomBar
             openMobileSidebar={isOpenMobileSidebar}
             mobileSidebarWidth={mobileSidebarWidth}
