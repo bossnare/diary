@@ -8,6 +8,7 @@ export interface NoteInterface {
   edited: boolean;
   numberOfEdits: number;
   userId: string;
+  deletedAt: string;
   createdAt: string;
   updatedAt: string;
 }

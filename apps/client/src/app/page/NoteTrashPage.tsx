@@ -6,9 +6,8 @@ import { ErrorState } from '../components/ErrorState';
 import { EmptyEmpty as EmptyTrash } from '../features/ui/Empty';
 
 export function NoteTrashPage() {
-  const { data: notes, isPending, isError, error, refetch } = useNoteTrash();
-  const trash = notes ?? [];
-  console.log(notes);
+  const { data, isPending, isError, error, refetch } = useNoteTrash();
+  const trash = data?.data ?? [];
 
   if (isPending)
     return (
@@ -32,8 +31,15 @@ export function NoteTrashPage() {
     );
 
   return (
-    <main className="px-3 pt-4 md:px-6 bg-muted dark:bg-transparent min-h-screen w-full">
-      <NoteList notes={trash} />
-    </main>
+    <div className="px-3 md:px-6">
+      <header className="pt-8 pb-2">
+        <h3 className="text-2xl font-medium tracking-tight scroll-m-20">
+          Trash ({data.count})
+        </h3>
+      </header>
+      <main className="bg-muted dark:bg-transparent min-h-screen w-full">
+        <NoteList variant="trash" notes={trash} />
+      </main>
+    </div>
   );
 }

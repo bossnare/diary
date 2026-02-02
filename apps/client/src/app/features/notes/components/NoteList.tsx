@@ -7,7 +7,7 @@ import { IconCheck } from '@tabler/icons-react';
 import { Ellipsis } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
-import { NoteCard } from './NoteCard';
+import { NoteCard, type NoteCardVariant } from './NoteCard';
 
 type Props = {
   isSelectionMode?: boolean;
@@ -15,9 +15,12 @@ type Props = {
   selected?: Set<string>;
   openSelectionMode?: () => void;
   toggleSelect?: (id: string) => void;
+  variant?: NoteCardVariant;
 };
 
 export function NoteList(props: Props) {
+  const variant = props.variant ?? 'default';
+
   const navigate = useNavigate();
   const longPress = useLongPress({
     onLongPress: (id: string) => {
@@ -30,8 +33,13 @@ export function NoteList(props: Props) {
   const isSelected = (notesId: string) => props?.selected?.has(notesId);
 
   const handleClickNote = (noteId: string) => {
-    if (props.isSelectionMode) props?.toggleSelect?.(noteId);
-    else handleWait(() => navigate(`/note/${noteId}/edit`), 250);
+    if (variant !== 'default') {
+      if (props.isSelectionMode) props?.toggleSelect?.(noteId);
+      else handleWait(() => navigate(`/note/${noteId}`), 250);
+    } else {
+      if (props.isSelectionMode) props?.toggleSelect?.(noteId);
+      else handleWait(() => navigate(`/note/${noteId}/edit`), 250);
+    }
   };
 
   return (
@@ -44,6 +52,7 @@ export function NoteList(props: Props) {
             key={note.id}
           >
             <NoteCard
+              variant={variant}
               role="button"
               onTouchStart={() => longPress.handleTouchStart(note.id)}
               onClick={() => handleClickNote(note.id)}
@@ -57,7 +66,7 @@ export function NoteList(props: Props) {
               note={note}
             >
               {/* options toggle - desktop */}
-              {!props.isSelectionMode && (
+              {!props.isSelectionMode && variant === 'default' && (
                 <Button
                   onClick={(e) => {
                     e.stopPropagation();

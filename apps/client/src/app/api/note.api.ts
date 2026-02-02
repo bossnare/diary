@@ -8,8 +8,7 @@ export const getAllNotes = async (params?: URLSearchParams) => {
 };
 
 export const getAllNotesTrash = async () => {
-  const res = await fetcher(`/notes/trash`);
-  return res.data; // return {.., data}
+  return await fetcher(`/notes/trash`);
 };
 
 export const getNoteById = async (id?: string) => {

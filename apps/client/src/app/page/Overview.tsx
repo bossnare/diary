@@ -238,7 +238,7 @@ function Overview() {
                     <X />
                   </Button>
                   {/* desktop only */}
-                  <span className="hidden font-medium md:inline-flex">
+                  <span className="hidden font-inter font-medium md:inline-flex">
                     {selected.size} selected
                   </span>
                 </div>

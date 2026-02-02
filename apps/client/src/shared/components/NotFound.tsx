@@ -17,7 +17,11 @@ export const NotFound = () => {
       <div className="text-center">
         <span className="font-bold">{pathname}</span> is not found !
       </div>
-      <Button size="lg" onClick={() => handleWait(() => navigate('/app'), 200)}>
+      <Button
+        className="font-semibold"
+        size="lg"
+        onClick={() => handleWait(() => navigate('/app'), 200)}
+      >
         Return to Dashboard
       </Button>
     </div>
