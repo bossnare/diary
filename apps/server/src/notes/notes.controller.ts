@@ -57,8 +57,18 @@ export class NotesController {
     return this.notesService.softRemoveMany(body.idsToRemove);
   }
 
+  @Patch('restore')
+  restoreMany(@Body() body: { idsToRestore: string[] }) {
+    return this.notesService.restoreMany(body.idsToRestore);
+  }
+
   @Delete(':id')
   removeOne(@Param('id') id: string) {
     return this.notesService.removeOne(id);
+  }
+
+  @Delete('')
+  removeMany(@Body() body: { idsToRemove: string[] }) {
+    return this.notesService.removeMany(body.idsToRemove);
   }
 }
