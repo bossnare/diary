@@ -1,4 +1,3 @@
-import { NoteEditor } from '@/app/features/notes/components/NoteEditor';
 import { useUser } from '@/app/hooks/use-user';
 import { AppLayout } from '@/app/layout/AppLayout';
 import MiniAppLayout from '@/app/layout/MiniAppLayout';
@@ -24,6 +23,7 @@ import { Route, Routes } from 'react-router-dom';
 import { ProtectedRoutes } from './ProtectedRoutes';
 import { PublicRoutes } from './PublicRoutes';
 import { NoteTrashPage } from '@/app/page/NoteTrashPage';
+import { NotePreviewPage } from '@/app/page/NotePreviewPage';
 
 export const AppRoutes = () => {
   const { pending, session } = useAuth();
@@ -66,9 +66,9 @@ export const AppRoutes = () => {
 
             {/* notes */}
             <Route path="/note" element={<MiniAppLayout />}>
-              <Route path=":id" element={<NoteEditor mode="view" />} />
               <Route path="new" element={<NewNotePage />} />
               <Route path=":id/edit" element={<EditNotePage />} />
+              <Route path=":id" element={<NotePreviewPage />} />
             </Route>
             <Route path="/note" element={<AppLayout />}>
               <Route path="trash" element={<NoteTrashPage />} />

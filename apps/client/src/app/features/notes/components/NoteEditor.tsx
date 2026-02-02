@@ -42,7 +42,7 @@ import { EditorToolbar } from './EditorToolbar';
 import { useIsDesktop } from '@/shared/hooks/use-desktop';
 
 type NoteEditorProps = React.HTMLAttributes<HTMLDivElement> & {
-  mode?: 'new' | 'edit' | 'view';
+  mode?: 'new' | 'edit' | 'preview';
   note?: NoteInterface;
 };
 
@@ -100,7 +100,9 @@ export const NoteEditor = ({
   const [focusedOn, setFocusedOn] = useState<Record<string, boolean>>({
     title: false,
     tag: false,
+    content: false,
   });
+  const [isEditable, setIsEditable] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isOpenToolbar, setIsOpenToolbar] = useState(false);
 
@@ -122,18 +124,20 @@ export const NoteEditor = ({
 
   const isEdit = mode === 'edit';
   const isNew = mode === 'new';
+  const isPreview = mode === 'preview';
+
   const fromClipboard = params.get('source') === 'clipboard';
   const fromFile = params.get('source') === 'file';
 
   const editorMode = {
     new: 'New',
     edit: 'Edit',
-    view: 'View',
+    preview: 'View',
   };
   const saveMode = {
     new: 'Create note',
     edit: 'Save changes',
-    view: 'Read note',
+    preview: 'Read note',
   };
 
   const editorModeState = editorMode[mode];
@@ -191,6 +195,19 @@ export const NoteEditor = ({
 
     setInitial({ title: note.title, jsonContent: editor.getJSON() }); // editor.getJSON() not note.jsonContent because note.jsonContent is not fully applied on editor
   }, [isEdit, note, editor]);
+
+  // initial fill
+  useEffect(() => {
+    if (!editor || !note || !isPreview) return;
+
+    editor.commands.setContent(note.jsonContent);
+    setTitle(note?.title);
+
+    setInitial({ title: note.title, jsonContent: editor.getJSON() }); // editor.getJSON() not note.jsonContent because note.jsonContent is not fully applied on editor
+    // disable editor
+    setIsEditable(false);
+    editor.setEditable(false);
+  }, [note, editor, isPreview]);
 
   // transform
   const {
@@ -379,7 +396,7 @@ export const NoteEditor = ({
                 >
                   <Ellipsis />
                 </Button>
-                {focusedOn.title || focusedOn.tag ? null : (
+                {!focusedOn.content ? null : (
                   <motion.span
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -436,6 +453,7 @@ export const NoteEditor = ({
               <textarea
                 ref={titleTextareaRef}
                 rows={1}
+                disabled={!isEditable}
                 name="title"
                 className={cn(
                   writingOn.title ? 'caret-current' : 'caret-primary',
@@ -462,6 +480,7 @@ export const NoteEditor = ({
               ></textarea>
               <textarea
                 rows={1}
+                disabled={!isEditable}
                 name="tag"
                 className={cn(
                   writingOn.tag
@@ -500,6 +519,8 @@ export const NoteEditor = ({
               <EditorContent
                 className="max-w-full prose z-1 selection:bg-primary/30 prose-neutral dark:prose-invert"
                 editor={editor}
+                onFocus={() => setFocusedOn({ content: true })}
+                onBlur={() => setFocusedOn({ content: false })}
               />
             </div>
           </main>

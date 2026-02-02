@@ -1,10 +1,66 @@
 import { dateUltraFormat } from '@/app/lib/date-format';
 import { cn } from '@/app/lib/utils';
 import type { NoteInterface } from '@/app/types/note.type';
+import { addDays, differenceInDays } from 'date-fns';
 
-type Props = React.HTMLAttributes<HTMLDivElement> & { note: NoteInterface };
+export type NoteCardVariant = 'default' | 'trash' | 'archived';
 
-export const NoteCard = ({ className, children, note, ...props }: Props) => {
+type Props = React.HTMLAttributes<HTMLDivElement> & {
+  note: NoteInterface;
+  variant?: NoteCardVariant;
+};
+
+export const NoteCard = ({
+  className,
+  children,
+  note,
+  variant = 'default',
+  ...props
+}: Props) => {
+  const isTrash = variant === 'trash';
+  const cardVariantMap: Record<
+    NoteCardVariant,
+    {
+      readonly: boolean;
+      showActions: boolean;
+      dateField: 'updatedAt' | 'deletedAt';
+    }
+  > = {
+    default: {
+      readonly: false,
+      showActions: true,
+      dateField: 'updatedAt',
+    },
+    trash: {
+      readonly: true,
+      showActions: false,
+      dateField: 'deletedAt',
+    },
+    archived: {
+      readonly: true,
+      showActions: false,
+      dateField: 'updatedAt',
+    },
+  };
+
+  const config = cardVariantMap[variant];
+
+  const lineClampContent = {
+    default: 'line-clamp-4 lg:line-clamp-1',
+    trash: 'line-clamp-2 lg:line-clamp-1',
+    archived: 'line-clamp-3 lg:line-clamp-1',
+  };
+
+  const TRASH_DAY = 30; // jours
+  const expiresAt = addDays(new Date(note.deletedAt), TRASH_DAY);
+  const daysLeft = differenceInDays(expiresAt, new Date());
+  const daysLeftColor =
+    daysLeft <= 3
+      ? 'text-destructive'
+      : daysLeft <= 10
+        ? 'text-[#FFB302]'
+        : 'text-chart-2';
+
   return (
     <div
       className={cn(
@@ -13,15 +69,36 @@ export const NoteCard = ({ className, children, note, ...props }: Props) => {
       )}
       {...props}
     >
-      <span className="text-lg w-[90%] font-bold leading-none truncate md:text-base line-clamp-2 lg:line-clamp-1 text-wrap">
+      <span className="text-lg w-[90%] pb-px font-bold leading-none truncate md:text-base line-clamp-2 lg:line-clamp-1 text-wrap">
         {note.title || 'Untitled'}
       </span>
-      <span className="truncate transition-colors group-active:text-foreground text-muted-foreground text-wrap md:text-sm line-clamp-4 lg:line-clamp-1">
+      <span
+        className={cn(
+          'truncate transition-colors group-active:text-foreground text-muted-foreground text-wrap md:text-sm',
+          lineClampContent[variant]
+        )}
+      >
         {note.content}
       </span>
-      <span className="text-xs text-muted-foreground">
-        {dateUltraFormat(note.updatedAt)}
-      </span>
+      <div className="text-xs text-muted-foreground flex flex-col gap-2">
+        <span>
+          {isTrash && 'Trashed:'} {dateUltraFormat(note[config.dateField])}
+        </span>
+        {isTrash && (
+          <>
+            {daysLeft > 0 ? (
+              <span>
+                Permanantly deleted in{' '}
+                <span className={`${daysLeftColor}`}>{daysLeft} jrs</span>
+              </span>
+            ) : (
+              <span>
+                Deleting <span className={`${daysLeftColor}`}>today</span>
+              </span>
+            )}
+          </>
+        )}
+      </div>
 
       {children}
     </div>

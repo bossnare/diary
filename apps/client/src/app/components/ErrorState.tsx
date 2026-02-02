@@ -62,7 +62,7 @@ const normalizeError = (error: unknown): NormalizedError => {
     };
   }
 
-  //   fallback error
+  // fallback error
   return {
     mark: 'fallback',
     title: 'Unexpected error',
@@ -83,7 +83,7 @@ export function ErrorState({
     <div className="flex flex-col items-center max-w-lg px-4 gap-4 py-10 mx-auto lg:py-20">
       {mark && Object.keys(errorStateImage).includes(mark) && (
         <img
-          className="size-40 lg:size-38 dark:invert"
+          className="size-40 dark:invert"
           src={errorStateImage[mark]}
           alt={title}
         />
@@ -93,7 +93,7 @@ export function ErrorState({
       {onRetry && (
         <Button
           onClick={async () => onRetry()}
-          className="rounded-full"
+          className="rounded-full font-semibold"
           size="lg"
         >
           Try again

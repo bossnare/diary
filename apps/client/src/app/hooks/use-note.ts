@@ -21,7 +21,7 @@ export function useNote() {
 }
 
 export const useNoteTrash = () => {
-  return useQuery<Note.NoteInterface[], AxiosError>({
+  return useQuery<{ count: number; data: Note.NoteInterface[] }, AxiosError>({
     queryKey: ['notes-trash'],
     queryFn: () => noteApi.getAllNotesTrash(),
     staleTime: 0,
