@@ -353,14 +353,16 @@ export const NoteEditor = ({
               className="py-1 bg-sidebar size-full"
             >
               {/* editor toolbar */}
-              <div
-                className={cn(
-                  isOpenPanel ? 'py-6' : 'py-0',
-                  'flex flex-col px-1 gap-2 [&_button]:overflow-hidden [&_button]:justify-start [&_button]:gap-5 [&_button]:px-3'
-                )}
-              >
-                <EditorToolbarButton editor={editor} />
-              </div>
+              {!isPreview && (
+                <div
+                  className={cn(
+                    isOpenPanel ? 'py-6' : 'py-0',
+                    'flex flex-col px-1 gap-2 [&_button]:overflow-hidden [&_button]:justify-start [&_button]:gap-5 [&_button]:px-3'
+                  )}
+                >
+                  <EditorToolbarButton editor={editor} />
+                </div>
+              )}
             </EditorToolbar>
           </aside>
         </Portal>
@@ -396,7 +398,7 @@ export const NoteEditor = ({
                 >
                   <Ellipsis />
                 </Button>
-                {!focusedOn.content ? null : (
+                {focusedOn.title || focusedOn.tag ? null : (
                   <motion.span
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -528,29 +530,31 @@ export const NoteEditor = ({
 
         {/* fixed footer for mobile only */}
         <Portal>
-          <footer className="fixed inset-x-0 bottom-0 md:hidden">
-            <div className="flex items-center gap-3 px-4 w-full h-14 bg-sidebar/50">
-              <Button
-                onClick={() => setIsOpenToolbar((prev) => !prev)}
-                size="icon-lg"
-                variant="ghost"
-              >
-                {isOpenToolbar ? <X /> : <Type />}
-              </Button>
-              <AnimatePresence>
-                {isOpenToolbar && (
-                  <motion.div
-                    initial={{ x: 20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: 20, opacity: 0 }}
-                    className="flex items-center gap-2"
-                  >
-                    <EditorToolbarButton editor={editor} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </footer>
+          {!isPreview && (
+            <footer className="fixed inset-x-0 bottom-0 md:hidden">
+              <div className="flex items-center gap-3 px-4 w-full h-14 bg-sidebar/50">
+                <Button
+                  onClick={() => setIsOpenToolbar((prev) => !prev)}
+                  size="icon-lg"
+                  variant="ghost"
+                >
+                  {isOpenToolbar ? <X /> : <Type />}
+                </Button>
+                <AnimatePresence>
+                  {isOpenToolbar && (
+                    <motion.div
+                      initial={{ x: 20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      exit={{ x: 20, opacity: 0 }}
+                      className="flex items-center gap-2"
+                    >
+                      <EditorToolbarButton editor={editor} />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </footer>
+          )}
         </Portal>
       </motion.div>
     </>

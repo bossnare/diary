@@ -31,13 +31,13 @@ export function NoteTrashPage() {
     );
 
   return (
-    <div className="px-3 md:px-6">
+    <div className="px-3 md:px-6 pb-2 bg-muted dark:bg-transparent">
       <header className="pt-8 pb-2">
         <h3 className="text-2xl font-medium tracking-tight scroll-m-20">
           Trash ({data.count})
         </h3>
       </header>
-      <main className="bg-muted dark:bg-transparent min-h-screen w-full">
+      <main className="min-h-screen w-full">
         <NoteList variant="trash" notes={trash} />
       </main>
     </div>
