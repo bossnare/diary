@@ -23,7 +23,7 @@ export const createNote = async (data: Note.Create) => {
 };
 
 export const updateNote = async (id: string, data: Note.Update) => {
-  const res = await api.patch(`/notes/${id}`, data);
+  const res = await api.patch(`/notes/${id}/edit`, data);
 
   return res.data;
 };

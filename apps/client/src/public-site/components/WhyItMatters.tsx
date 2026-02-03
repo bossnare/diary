@@ -23,7 +23,7 @@ function Card({ title, content, Icon }: Props) {
       className="p-4 space-y-4 transition-transform duration-100 ease-in-out border rounded-md hover:shadow-sm lg:duration-300 will-change-transform active:-translate-y-2 lg:hover:-translate-y-3 border-input bg-background/80 dark:bg-card/20"
     >
       <header className="space-y-3">
-        {Icon ? <Icon sr-only /> : null}
+        {Icon ? <Icon aria-hidden="true" /> : null}
         <h3 className="space-y-3 text-xl font-semibold tracking-tight md:text-lg scroll-m-20">
           {title}
         </h3>

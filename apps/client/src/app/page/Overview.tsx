@@ -5,7 +5,7 @@ import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
 import { Portal } from '@radix-ui/react-portal';
 import { IconNote } from '@tabler/icons-react';
 import { useQueryClient } from '@tanstack/react-query';
-import { Folder, ListChecks, Trash, X } from 'lucide-react';
+import { FolderSymlink, ListChecks, Lock, Pin, Trash, X } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -109,8 +109,18 @@ function Overview() {
   // toolbar label
   const selectionModeLabelItem: SelectionModeLabel[] = [
     {
+      label: 'Lock',
+      icon: Lock,
+      key: 'move',
+    },
+    {
       label: 'Move to',
-      icon: Folder,
+      icon: FolderSymlink,
+      key: 'move',
+    },
+    {
+      label: 'Pin',
+      icon: Pin,
       key: 'move',
     },
     {
