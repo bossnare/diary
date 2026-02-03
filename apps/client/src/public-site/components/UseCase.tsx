@@ -23,7 +23,7 @@ function Card({ title, content, Icon }: Props) {
       className="p-4 space-y-4 transition-all duration-100 ease-in-out border rounded-md card hover:shadow-sm lg:duration-300 will-change-transform active:brightness-105 lg:hover:brightness-98 dark:lg:hover:brightness-130 dark:border-input/30 bg-background dark:bg-card/50"
     >
       <header className="flex flex-col items-center gap-3 md:flex-row">
-        {Icon ? <Icon sr-only /> : null}
+        {Icon ? <Icon aria-hidden="true" /> : null}
         <h3 className="space-y-3 text-xl font-semibold tracking-tight md:text-lg scroll-m-20">
           {title}
         </h3>
@@ -73,7 +73,12 @@ export const UseCase = () => {
       {/* cards */}
       <div className="flex max-w-6xl mx-auto gap-4 mt-10 flex-col md:flex-row [&_.card]:md:min-h-28 flex-wrap md:justify-center md:items-center w-full md:*:w-[calc(100%/2-1rem)]">
         {cardContents.map((c) => (
-          <Card title={c.title} content={c.content} Icon={c.icon} />
+          <Card
+            key={c.title}
+            title={c.title}
+            content={c.content}
+            Icon={c.icon}
+          />
         ))}
       </div>
     </section>

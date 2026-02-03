@@ -221,10 +221,10 @@ export const NoteEditor = ({
     usePannel(isOpenPanel, MIN_TOOLBAR_WIDTH, MAX_TOOLBAR_WIDTH);
 
   // auto-collapse
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    isDesktop ? setIsOpenPanel() : setIsOpenPanelFalse();
-  }, [isDesktop, setIsOpenPanel, setIsOpenPanelFalse]);
+  // useEffect(() => {
+  //   // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+  //   isDesktop ? setIsOpenPanel() : setIsOpenPanelFalse();
+  // }, [isDesktop, setIsOpenPanel, setIsOpenPanelFalse]);
 
   const isDirty = useMemo(() => {
     if (!initial) return false;
@@ -398,7 +398,7 @@ export const NoteEditor = ({
                 >
                   <Ellipsis />
                 </Button>
-                {focusedOn.title || focusedOn.tag ? null : (
+                {isPreview || focusedOn.title || focusedOn.tag ? null : (
                   <motion.span
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}

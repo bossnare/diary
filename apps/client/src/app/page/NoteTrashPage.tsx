@@ -6,8 +6,8 @@ import { ErrorState } from '../components/ErrorState';
 import { EmptyEmpty as EmptyTrash } from '../features/ui/Empty';
 import { Button } from '@/components/ui/button';
 import { ListCheck, RotateCcw, Trash, X } from 'lucide-react';
-import { useRef, useState } from 'react';
-import { motion, useInView } from 'motion/react';
+import { useState } from 'react';
+import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
 import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
 import { useButtonSize } from '@/shared/hooks/use-button-size';
@@ -16,6 +16,7 @@ import { ToolbarButton as SelectionModeToolbarButton } from '../features/ui/Tool
 import { ConfirmDialog } from '../features/ui/ConfirmDialog';
 import { ConfirmDrawer } from '../features/ui/ConfirmDrawer';
 import { toast } from 'sonner';
+import { useReveal } from '@/shared/hooks/use-reveal';
 
 export function NoteTrashPage() {
   const { data, isPending, isError, error, refetch } = useNoteTrash();
@@ -25,8 +26,16 @@ export function NoteTrashPage() {
   const restoreMany = useRestoreMany();
   const deleteMany = useDeleteMany();
 
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, amount: 0.4 });
+  // motion
+  const { ref, isInView } = useReveal<HTMLParagraphElement>({
+    once: false,
+    amount: 0.9,
+  });
+  const { ref: itemsCountRef, isInView: isItemsCountView } =
+    useReveal<HTMLSpanElement>({
+      once: false,
+      amount: 0.9,
+    });
 
   const buttonXSize = useButtonSize({ mobile: 'icon-xl', landscape: 'icon' });
   const selectionModeLabelItem: {
@@ -204,14 +213,27 @@ export function NoteTrashPage() {
             )}
           </div>
 
+          <span
+            className={cn(
+              isItemsCountView
+                ? 'opacity-0 translate-y-2'
+                : 'opacity-100 translate-y-0',
+              'text-foreground/80 transition md:hidden'
+            )}
+          >
+            {isAllSelected ? 'All' : selected.size} items selected
+          </span>
+
           {/* desktop toolbar */}
-          <div className="justify-end hidden gap-2 md:flex grow">
-            <SelectionModeToolbarButton
-              onAction={handleSelectionModeAction}
-              disabled={!isHasSellected}
-              labelItems={selectionModeLabelItem}
-            />
-          </div>
+          {isSelectionMode && (
+            <div className="justify-end hidden gap-2 md:flex grow">
+              <SelectionModeToolbarButton
+                onAction={handleSelectionModeAction}
+                disabled={!isHasSellected}
+                labelItems={selectionModeLabelItem}
+              />
+            </div>
+          )}
 
           <div>
             {isSelectionMode ? (
@@ -244,22 +266,25 @@ export function NoteTrashPage() {
           </div>
         </header>
         {isSelectionMode ? (
-          <span className="block px-2 py-3 text-2xl text-foreground/80 md:hidden">
+          <span
+            ref={itemsCountRef}
+            className="block px-2 py-3 text-2xl text-foreground/80 md:hidden"
+          >
             {isAllSelected ? 'All' : selected.size} items selected
           </span>
         ) : (
-          <p
+          <span
             ref={ref}
             className={cn(
               isInView
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-10 translate-y-2',
-              'w-full py-2 text-sm text-muted-foreground transition duration-600'
+              'w-full py-2 text-sm text-muted-foreground transition block duration-600'
             )}
           >
             Notes moved to trash are kept for 30 days before being permanently
             deleted.
-          </p>
+          </span>
         )}
         <main className="w-full min-h-screen">
           <NoteList
