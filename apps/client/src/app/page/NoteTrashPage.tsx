@@ -6,8 +6,8 @@ import { ErrorState } from '../components/ErrorState';
 import { EmptyEmpty as EmptyTrash } from '../features/ui/Empty';
 import { Button } from '@/components/ui/button';
 import { ListCheck, RotateCcw, Trash, X } from 'lucide-react';
-import { useRef, useState } from 'react';
-import { motion, useInView } from 'motion/react';
+import { useState } from 'react';
+import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
 import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
 import { useButtonSize } from '@/shared/hooks/use-button-size';
@@ -16,6 +16,7 @@ import { ToolbarButton as SelectionModeToolbarButton } from '../features/ui/Tool
 import { ConfirmDialog } from '../features/ui/ConfirmDialog';
 import { ConfirmDrawer } from '../features/ui/ConfirmDrawer';
 import { toast } from 'sonner';
+import { useReveal } from '@/shared/hooks/use-reveal';
 
 export function NoteTrashPage() {
   const { data, isPending, isError, error, refetch } = useNoteTrash();
@@ -25,8 +26,11 @@ export function NoteTrashPage() {
   const restoreMany = useRestoreMany();
   const deleteMany = useDeleteMany();
 
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, amount: 0.4 });
+  // motion
+  const { ref, isInView } = useReveal<HTMLParagraphElement>({
+    once: false,
+    amount: 0.9,
+  });
 
   const buttonXSize = useButtonSize({ mobile: 'icon-xl', landscape: 'icon' });
   const selectionModeLabelItem: {

@@ -73,7 +73,12 @@ export const UseCase = () => {
       {/* cards */}
       <div className="flex max-w-6xl mx-auto gap-4 mt-10 flex-col md:flex-row [&_.card]:md:min-h-28 flex-wrap md:justify-center md:items-center w-full md:*:w-[calc(100%/2-1rem)]">
         {cardContents.map((c) => (
-          <Card title={c.title} content={c.content} Icon={c.icon} />
+          <Card
+            key={c.title}
+            title={c.title}
+            content={c.content}
+            Icon={c.icon}
+          />
         ))}
       </div>
     </section>

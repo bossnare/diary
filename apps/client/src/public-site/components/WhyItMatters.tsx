@@ -66,7 +66,12 @@ export const WhyItMatters = () => {
       {/* cards */}
       <div className="flex max-w-6xl mx-auto gap-4 mt-10 flex-col md:flex-row flex-wrap md:justify-center md:items-stretch w-full md:*:w-[calc(100%/3-1rem)]">
         {cardContents.map((c) => (
-          <Card title={c.title} content={c.content} Icon={c.icon} />
+          <Card
+            key={c.title}
+            title={c.title}
+            content={c.content}
+            Icon={c.icon}
+          />
         ))}
       </div>
     </section>

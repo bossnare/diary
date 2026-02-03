@@ -71,6 +71,7 @@ export function HowItWorks() {
         {cardContents.map((c, i) => (
           <>
             <Card
+              key={c.title}
               title={c.title}
               content={c.content}
               number={i + 1}
