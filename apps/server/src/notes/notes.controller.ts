@@ -42,12 +42,12 @@ export class NotesController {
     return this.notesService.findOne(id);
   }
 
-  @Patch(':id')
+  @Patch(':id/edit')
   update(@Param('id') id: string, @Body() updateNoteDto: UpdateNoteDto) {
     return this.notesService.update(id, updateNoteDto);
   }
 
-  @Patch(':id')
+  @Patch(':id/soft-remove')
   softRemoveOne(@Param('id') id: string) {
     return this.notesService.softRemoveOne(id);
   }
