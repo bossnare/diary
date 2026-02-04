@@ -27,14 +27,14 @@ export function NoteTrashPage() {
   const deleteMany = useDeleteMany();
 
   // motion
-  const { ref, isInView } = useReveal<HTMLParagraphElement>({
+  const { ref, isInView } = useReveal<HTMLDivElement>({
     once: false,
-    amount: 0.9,
+    amount: 0.1,
   });
   const { ref: itemsCountRef, isInView: isItemsCountView } =
-    useReveal<HTMLSpanElement>({
+    useReveal<HTMLDivElement>({
       once: false,
-      amount: 0.9,
+      amount: 0.1,
     });
 
   const buttonXSize = useButtonSize({ mobile: 'icon-xl', landscape: 'icon' });
@@ -104,7 +104,9 @@ export function NoteTrashPage() {
       console.log(err);
     }
   };
+
   const handleRestore = async () => {
+    closeSelectionMode();
     try {
       const restoredNotes = await restoreMany.mutateAsync({
         idsToRestore: [...selected],
@@ -115,7 +117,7 @@ export function NoteTrashPage() {
     }
   };
 
-  const handleSelectionModeAction = (key: 'move' | 'delete') => {
+  const handleSelectionModeAction = (key: 'move' | 'delete' | 'pin') => {
     switch (key) {
       case 'move':
         handleRestore();
@@ -132,8 +134,8 @@ export function NoteTrashPage() {
       : 'Remove this note permanently';
   const deleteConfirmDescription =
     selected.size > 1
-      ? `These notes will be permanently removed and cannot be recovered. This action will erase them from trash forever. Are you sure want to continue?`
-      : `This note will be permanently removed and cannot be recovered. This action will erase this from trash forever. Are you sure want to continue?`;
+      ? `These notes will be permanently removed and cannot be recovered. Are you sure want to continue?`
+      : `This note will be permanently removed and cannot be recovered. Are you sure want to continue?`;
   const deleteConfirmLabel =
     selected.size > 1 ? `Remove (${selected.size})` : 'Remove';
 
@@ -213,16 +215,18 @@ export function NoteTrashPage() {
             )}
           </div>
 
-          <span
-            className={cn(
-              isItemsCountView
-                ? 'opacity-0 translate-y-2'
-                : 'opacity-100 translate-y-0',
-              'text-foreground/80 transition md:hidden'
-            )}
-          >
-            {isAllSelected ? 'All' : selected.size} items selected
-          </span>
+          {isSelectionMode && (
+            <div
+              className={cn(
+                isItemsCountView
+                  ? 'opacity-0 translate-y-2'
+                  : 'opacity-100 translate-y-0',
+                'text-foreground/80 transition md:hidden'
+              )}
+            >
+              {isAllSelected ? 'All' : selected.size} items selected
+            </div>
+          )}
 
           {/* desktop toolbar */}
           {isSelectionMode && (
@@ -273,18 +277,18 @@ export function NoteTrashPage() {
             {isAllSelected ? 'All' : selected.size} items selected
           </span>
         ) : (
-          <span
+          <div
             ref={ref}
             className={cn(
               isInView
                 ? 'opacity-100 translate-y-0'
-                : 'opacity-10 translate-y-2',
-              'w-full py-2 text-sm text-muted-foreground transition block duration-600'
+                : 'opacity-80 translate-y-2',
+              'w-full py-2 text-sm text-muted-foreground transition duration-600'
             )}
           >
             Notes moved to trash are kept for 30 days before being permanently
             deleted.
-          </span>
+          </div>
         )}
         <main className="w-full min-h-screen">
           <NoteList

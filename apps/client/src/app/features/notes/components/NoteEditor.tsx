@@ -255,7 +255,8 @@ export const NoteEditor = ({
       console.log(noteCreated.message);
       toast(noteCreated.message);
     } catch (err) {
-      if (err instanceof AxiosError) toast.error(err.response?.data?.message);
+      if (err instanceof AxiosError)
+        toast.error(err.response?.data?.message || 'Something went wrong');
       console.log('backend error:', err);
     } finally {
       setIsSaving(false);
@@ -273,7 +274,8 @@ export const NoteEditor = ({
       });
       toast(res.message);
     } catch (err) {
-      if (err instanceof AxiosError) toast.error(err.message);
+      if (err instanceof AxiosError)
+        toast.error(err.response?.data.message || 'Something went wrong');
     } finally {
       setIsSaving(false);
     }

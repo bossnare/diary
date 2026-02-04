@@ -61,7 +61,7 @@ export function NoteList(props: Props) {
               onTouchCancel={longPress.handleTouchCancel}
               className={cn(
                 isSelected(note.id) && 'bg-background/80! dark:bg-muted!',
-                'h-full!'
+                'h-full! overflow-hidden'
               )}
               note={note}
             >

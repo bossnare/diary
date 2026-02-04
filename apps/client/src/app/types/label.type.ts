@@ -1,4 +1,4 @@
-export type SelectionModeActionKey = 'move' | 'delete';
+export type SelectionModeActionKey = 'move' | 'delete' | 'pin';
 
 export type BaseItem = {
   label: string;

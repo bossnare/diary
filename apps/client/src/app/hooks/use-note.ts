@@ -62,6 +62,18 @@ export function useUpdateNote() {
   });
 }
 
+export function useUpdateManyNote() {
+  const qc = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ ids, data }: { ids: string[]; data: Note.Update }) =>
+      noteApi.updateMany(ids, data),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['notes'] });
+    },
+  });
+}
+
 export function useSoftDeleteMany() {
   const qc = useQueryClient();
 
