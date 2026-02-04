@@ -1,5 +1,5 @@
 import { PrismaService } from './../prisma/prisma.service.js';
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateNoteDto } from './dto/create-note.dto.js';
 import { UpdateNoteDto } from './dto/update-note.dto.js';
 import { NoteStatus } from '../generated/prisma/client.js';
@@ -8,28 +8,21 @@ import { NoteStatus } from '../generated/prisma/client.js';
 export class NotesService {
   constructor(private readonly prisma: PrismaService) {}
   async create(createNoteDto: CreateNoteDto, userId: string) {
-    try {
-      const createdNote = await this.prisma.note.create({
-        data: {
-          ...createNoteDto,
-          user: {
-            connect: { id: userId }, // within relations
-          },
+    const createdNote = await this.prisma.note.create({
+      data: {
+        ...createNoteDto,
+        user: {
+          connect: { id: userId }, // within relations
         },
-      });
+      },
+    });
 
-      return {
-        success: true,
-        message: 'note created',
-        timestamps: Date.now(),
-        data: createdNote,
-      };
-    } catch {
-      throw new HttpException(
-        'Failed to create note. Please try again.',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
+    return {
+      success: true,
+      message: 'note created',
+      timestamps: Date.now(),
+      data: createdNote,
+    };
   }
 
   async findAll(
@@ -58,9 +51,9 @@ export class NotesService {
     };
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, userId: string) {
     const data = await this.prisma.note.findUnique({
-      where: { id },
+      where: { id, userId },
     });
 
     return {
@@ -70,33 +63,51 @@ export class NotesService {
     };
   }
 
-  async update(id: string, updateNoteDto: UpdateNoteDto) {
-    try {
-      await this.prisma.note.update({
-        where: { id },
-        data: {
-          ...updateNoteDto,
-          edited: true,
-          numberOfEdits: { increment: 1 },
-        },
-      });
+  async update(id: string, updateNoteDto: UpdateNoteDto, userId: string) {
+    await this.prisma.note.update({
+      where: { id, userId },
+      data: {
+        ...updateNoteDto,
+        edited: true,
+        numberOfEdits: { increment: 1 },
+      },
+    });
 
-      return {
-        success: true,
-        message: 'notes updated',
-        timestamps: Date.now(),
-      };
-    } catch {
-      throw new HttpException(
-        'Failed to update note. Please try again.',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
+    return {
+      success: true,
+      message: 'note updated',
+      timestamps: Date.now(),
+    };
   }
 
-  async softRemoveOne(id: string) {
+  async updateMany(
+    idsToUpdate: string[],
+    updateNoteDto: UpdateNoteDto,
+    userId: string,
+  ) {
+    await this.prisma.note.updateMany({
+      where: { id: { in: idsToUpdate }, userId },
+      data: {
+        ...updateNoteDto,
+        edited: true,
+        numberOfEdits: { increment: 1 },
+      },
+    });
+
+    return {
+      success: true,
+      message: 'note updated',
+      timestamps: Date.now(),
+    };
+  }
+
+  async softRemoveOne(id: string, userId: string) {
     await this.prisma.note.update({
-      where: { id, status: { in: [NoteStatus.DRAFT, NoteStatus.PUBLISHED] } },
+      where: {
+        id,
+        status: { in: [NoteStatus.DRAFT, NoteStatus.PUBLISHED] },
+        userId,
+      },
       data: { status: NoteStatus.TRASHED, deletedAt: new Date() },
     });
 
@@ -107,14 +118,17 @@ export class NotesService {
     };
   }
 
-  async softRemoveMany(idsToRemove: string[]) {
+  async softRemoveMany(idsToRemove: string[], userId: string) {
     const result = await this.prisma.note.updateMany({
       where: {
         id: { in: idsToRemove },
         status: { in: [NoteStatus.DRAFT, NoteStatus.PUBLISHED] },
+        userId,
       },
       data: { status: NoteStatus.TRASHED, deletedAt: new Date() },
     });
+
+    if (!result.count) throw new NotFoundException('Notes not found');
 
     return {
       success: true,
@@ -124,9 +138,9 @@ export class NotesService {
     };
   }
 
-  async restoreOne(id: string) {
+  async restoreOne(id: string, userId: string) {
     await this.prisma.note.update({
-      where: { id, status: NoteStatus.TRASHED },
+      where: { id, status: NoteStatus.TRASHED, userId },
       data: { status: NoteStatus.DRAFT, deletedAt: null },
     });
 
@@ -137,11 +151,13 @@ export class NotesService {
     };
   }
 
-  async restoreMany(idsToRestore: string[]) {
+  async restoreMany(idsToRestore: string[], userId: string) {
     const result = await this.prisma.note.updateMany({
-      where: { id: { in: idsToRestore }, status: NoteStatus.TRASHED },
+      where: { id: { in: idsToRestore }, status: NoteStatus.TRASHED, userId },
       data: { status: NoteStatus.DRAFT, deletedAt: null },
     });
+
+    if (!result.count) throw new NotFoundException('Notes not found');
 
     return {
       success: true,
@@ -151,9 +167,9 @@ export class NotesService {
     };
   }
 
-  async removeOne(id: string) {
+  async removeOne(id: string, userId: string) {
     await this.prisma.note.delete({
-      where: { id, status: NoteStatus.TRASHED },
+      where: { id, status: NoteStatus.TRASHED, userId },
     });
 
     return {
@@ -163,10 +179,12 @@ export class NotesService {
     };
   }
 
-  async removeMany(idsToRemove: string[]) {
+  async removeMany(idsToRemove: string[], userId: string) {
     const result = await this.prisma.note.deleteMany({
-      where: { id: { in: idsToRemove }, status: NoteStatus.TRASHED },
+      where: { id: { in: idsToRemove }, status: NoteStatus.TRASHED, userId },
     });
+
+    if (!result.count) throw new NotFoundException('Notes not found');
 
     return {
       success: true,

@@ -2,6 +2,7 @@ import { dateUltraFormat } from '@/app/lib/date-format';
 import { cn } from '@/app/lib/utils';
 import type { NoteInterface } from '@/app/types/note.type';
 import { addDays, differenceInDays } from 'date-fns';
+import { Pin } from 'lucide-react';
 
 export type NoteCardVariant = 'default' | 'trash' | 'archived';
 
@@ -80,10 +81,17 @@ export const NoteCard = ({
       >
         {note.content}
       </span>
-      <div className="text-[13px] text-muted-foreground flex flex-col gap-2">
-        <span>
+      {/* metadata */}
+      <div className="text-[13px] mt-auto text-muted-foreground flex flex-col gap-2">
+        <span className="flex items-center gap-2">
           {isTrash && 'Trashed:'} {dateUltraFormat(note[config.dateField])}
+          {variant == 'default' && note.pinned && (
+            <span className="inline-flex text-chart-2">
+              <Pin className="size-3 rotate-40" />
+            </span>
+          )}
         </span>
+
         {isTrash && (
           <>
             {daysLeft > 0 ? (

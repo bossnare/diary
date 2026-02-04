@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { useButtonSize } from '@/shared/hooks/use-button-size';
 import type React from 'react';
 
-export type ActionKey = 'move' | 'delete';
+export type ActionKey = 'move' | 'delete' | 'pin';
 
 type ActionLabel = {
   label: string;
@@ -33,7 +33,7 @@ export function ToolbarButton({ onAction, disabled, labelItems }: Props) {
           variant="ghost"
         >
           <t.icon className="size-6 md:size-4" />
-          <span className="text-sm font-normal">{t.label}</span>
+          <span className="text-xs font-normal md:text-sm">{t.label}</span>
         </Button>
       ))}
     </>

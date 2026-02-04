@@ -1,3 +1,8 @@
+import type {
+  SelectionModeActionKey,
+  SelectionModeLabel,
+} from '@/app/types/label.type';
+import empty_note from '@/assets/empty_note.svg';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/shared/components/Spinner';
 import { useButtonSize } from '@/shared/hooks/use-button-size';
@@ -9,22 +14,21 @@ import { FolderSymlink, ListChecks, Lock, Pin, Trash, X } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
+import { ErrorState } from '../components/ErrorState';
+import { NoteList } from '../features/notes/components/NoteList';
 import { ConfirmDialog } from '../features/ui/ConfirmDialog';
 import { ConfirmDrawer } from '../features/ui/ConfirmDrawer';
 import { EmptyEmpty as EmptyNotes } from '../features/ui/Empty';
-import { NoteList } from '../features/notes/components/NoteList';
+import { OverviewToolbar } from '../features/ui/OverviewToolbar';
 import { SortingDrawer } from '../features/ui/SortingDrawer';
 import { ToolbarButton as SelectionModeToolbarButton } from '../features/ui/ToolbarButton';
-import { useNote, useSoftDeleteMany } from '../hooks/use-note';
+import {
+  useNote,
+  useSoftDeleteMany,
+  useUpdateManyNote,
+} from '../hooks/use-note';
 import { useNoteServices } from '../hooks/use-note-services';
 import { cn } from '../lib/utils';
-import { OverviewToolbar } from '../features/ui/OverviewToolbar';
-import type {
-  SelectionModeActionKey,
-  SelectionModeLabel,
-} from '@/app/types/label.type';
-import { ErrorState } from '../components/ErrorState';
-import empty_note from '@/assets/empty_note.svg';
 
 function Overview() {
   const { data, isPending, isError, error, refetch } = useNote();
@@ -121,7 +125,7 @@ function Overview() {
     {
       label: 'Pin',
       icon: Pin,
-      key: 'move',
+      key: 'pin',
     },
     {
       label: 'Delete',
@@ -140,6 +144,7 @@ function Overview() {
     selected.size > 1 ? `Delete (${selected.size})` : 'Delete';
 
   const softDeleteMany = useSoftDeleteMany();
+  const updateMany = useUpdateManyNote();
 
   const handleDelete = async () => {
     try {
@@ -154,6 +159,20 @@ function Overview() {
     }
   };
 
+  const handlePin = async () => {
+    closeSelectionMode();
+
+    try {
+      const pinnedNotes = await updateMany.mutateAsync({
+        ids: [...selected],
+        data: { pinned: true },
+      });
+      toast.success(pinnedNotes.message);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleSelectionModeAction = (actionKey: SelectionModeActionKey) => {
     switch (actionKey) {
       case 'move':
@@ -161,6 +180,9 @@ function Overview() {
         break;
       case 'delete':
         openDeleteConfirm();
+        break;
+      case 'pin':
+        handlePin();
         break;
     }
   };
@@ -182,7 +204,7 @@ function Overview() {
           icon={IconNote}
           title="No Notes Yet"
           description="You haven't created any notes yet. Get started by creating your first notes."
-          primaryLabel="Create Notes"
+          primaryLabel="Create Note"
           secondaryLabel="Paste from Clipboard"
           onPrimaryAction={openNewNote}
           onSecondaryAction={pasteFromClipboard}
