@@ -87,7 +87,7 @@ export const NoteCard = ({
           {isTrash && 'Trashed:'} {dateUltraFormat(note[config.dateField])}
           {variant == 'default' && note.pinned && (
             <span className="inline-flex text-chart-2">
-              <Pin className="rotate-0 size-4" />
+              <Pin className="size-3 rotate-40" />
             </span>
           )}
         </span>
