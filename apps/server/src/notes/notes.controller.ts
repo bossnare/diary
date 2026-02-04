@@ -38,37 +38,58 @@ export class NotesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.notesService.findOne(id);
+  findOne(@User() user: UserEntity, @Param('id') id: string) {
+    return this.notesService.findOne(id, user.id);
   }
 
-  @Patch(':id/edit')
-  update(@Param('id') id: string, @Body() updateNoteDto: UpdateNoteDto) {
-    return this.notesService.update(id, updateNoteDto);
+  @Patch(':id/update')
+  update(
+    @User() user: UserEntity,
+    @Param('id') id: string,
+    @Body() updateNoteDto: UpdateNoteDto,
+  ) {
+    return this.notesService.update(id, updateNoteDto, user.id);
+  }
+
+  @Patch('update-many')
+  updateMany(
+    @User() user: UserEntity,
+    @Body() body: { ids: string[]; data: UpdateNoteDto },
+  ) {
+    return this.notesService.updateMany(body.ids, body.data, user.id);
   }
 
   @Patch(':id/soft-remove')
-  softRemoveOne(@Param('id') id: string) {
-    return this.notesService.softRemoveOne(id);
+  softRemoveOne(@User() user: UserEntity, @Param('id') id: string) {
+    return this.notesService.softRemoveOne(id, user.id);
   }
 
   @Patch('')
-  softRemoveMany(@Body() body: { idsToRemove: string[] }) {
-    return this.notesService.softRemoveMany(body.idsToRemove);
+  softRemoveMany(
+    @User() user: UserEntity,
+    @Body() body: { idsToRemove: string[] },
+  ) {
+    return this.notesService.softRemoveMany(body.idsToRemove, user.id);
   }
 
   @Patch('restore')
-  restoreMany(@Body() body: { idsToRestore: string[] }) {
-    return this.notesService.restoreMany(body.idsToRestore);
+  restoreMany(
+    @User() user: UserEntity,
+    @Body() body: { idsToRestore: string[] },
+  ) {
+    return this.notesService.restoreMany(body.idsToRestore, user.id);
   }
 
   @Delete(':id')
-  removeOne(@Param('id') id: string) {
-    return this.notesService.removeOne(id);
+  removeOne(@User() user: UserEntity, @Param('id') id: string) {
+    return this.notesService.removeOne(id, user.id);
   }
 
   @Delete('')
-  removeMany(@Body() body: { idsToRemove: string[] }) {
-    return this.notesService.removeMany(body.idsToRemove);
+  removeMany(
+    @User() user: UserEntity,
+    @Body() body: { idsToRemove: string[] },
+  ) {
+    return this.notesService.removeMany(body.idsToRemove, user.id);
   }
 }
