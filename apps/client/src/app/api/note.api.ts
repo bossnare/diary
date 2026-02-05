@@ -22,14 +22,25 @@ export const createNote = async (data: Note.Create) => {
   return res.data;
 };
 
+// for note content, title, tag
 export const updateNote = async (id: string, data: Note.Update) => {
   const res = await api.patch(`/notes/${id}/update`, data);
 
   return res.data;
 };
 
+// for note content, title, tag
 export const updateMany = async (dataId: string[], data: Note.Update) => {
   const res = await api.patch('/notes/update-many', {
+    ids: dataId,
+    data: data,
+  });
+
+  return res.data;
+};
+
+export const bulkPinned = async (dataId: string[], data: Note.Update) => {
+  const res = await api.patch('/notes/bulk/pinned', {
     ids: dataId,
     data: data,
   });

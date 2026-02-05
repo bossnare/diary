@@ -86,6 +86,17 @@ export function NoteTrashPage() {
     });
   };
 
+  const handleSelectAll = (allNotesId: string[]) => {
+    setSelected(() => new Set(allNotesId));
+  };
+
+  const handleClearAllTrash = async () => {
+    handleSelectAll(trash.map((n) => n.id)); // silent select all notes by id
+
+    //  show ui confirm
+    openDeleteConfirm();
+  };
+
   const toggleSelectAll = (allNotesId: string[]) => {
     setSelected((prev) => {
       const isAllSelected = prev.size === allNotesId.length;
@@ -193,7 +204,7 @@ export function NoteTrashPage() {
         {/* subtle overlay */}
         <div className="absolute inset-0 z-20 hidden pointer-events-none dark:block bg-primary/2"></div>
 
-        <header className="sticky top-0 z-10 flex items-center justify-between gap-10 pt-8 pb-2 pr-2 bg-muted dark:bg-background">
+        <header className="sticky top-0 z-10 flex items-center justify-between gap-6 pt-8 pb-2 pr-2 md:gap-10 bg-muted dark:bg-background">
           <div className="flex items-center gap-2">
             {isSelectionMode ? (
               <Button
@@ -228,6 +239,16 @@ export function NoteTrashPage() {
             </div>
           )}
 
+          {!isSelectionMode && (
+            <Button
+              onClick={handleClearAllTrash}
+              size="lg"
+              className="ml-auto rounded-full"
+            >
+              Clear all
+            </Button>
+          )}
+
           {/* desktop toolbar */}
           {isSelectionMode && (
             <div className="justify-end hidden gap-2 md:flex grow">
@@ -260,7 +281,12 @@ export function NoteTrashPage() {
               </div>
             ) : (
               <Button
-                onClick={openSelectionMode}
+                onClick={() => {
+                  // clean up selected id before
+                  setSelected(new Set());
+                  // open selection
+                  openSelectionMode();
+                }}
                 size="icon-lg"
                 variant="ghost"
               >
@@ -297,6 +323,7 @@ export function NoteTrashPage() {
             isSelectionMode={isSelectionMode}
             selected={selected}
             toggleSelect={toggleSelect}
+            openSelectionMode={openSelectionMode}
           />
         </main>
       </div>

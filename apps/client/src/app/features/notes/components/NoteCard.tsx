@@ -75,7 +75,7 @@ export const NoteCard = ({
       </span>
       <span
         className={cn(
-          'truncate transition-colors group-active:text-foreground text-muted-foreground text-wrap md:text-sm',
+          'truncate transition-colors group-active:text-foreground text-foreground/80 text-wrap md:text-sm',
           lineClampContent[variant]
         )}
       >

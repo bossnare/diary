@@ -346,7 +346,7 @@ export const NoteEditor = ({
         <Portal>
           <aside
             style={{ width: TOOLBAR_WIDTH }}
-            className="fixed inset-y-0 left-0 hidden md:block md:max-w-[54px] lg:max-w-54 lg:transition duration-600"
+            className="fixed inset-y-0 left-0 hidden md:block md:max-w-[54px] lg:max-w-54 lg:transition duration-600 border border-sidebar-border dark:border-0"
           >
             <EditorToolbar
               isOpen={isOpenPanel}
@@ -443,7 +443,7 @@ export const NoteEditor = ({
                 size="icon-lg"
               >
                 {isSaving ? (
-                  <div className="border border-muted-foreground animate-spin border-t-transparent size-4 rounded-full"></div>
+                  <div className="border rounded-full border-muted-foreground animate-spin border-t-transparent size-4"></div>
                 ) : (
                   <Check />
                 )}
@@ -534,7 +534,7 @@ export const NoteEditor = ({
         <Portal>
           {!isPreview && (
             <footer className="fixed inset-x-0 bottom-0 md:hidden">
-              <div className="flex items-center gap-3 px-4 w-full h-14 bg-sidebar/50">
+              <div className="flex items-center w-full gap-3 px-4 h-14 bg-sidebar/50">
                 <Button
                   onClick={() => setIsOpenToolbar((prev) => !prev)}
                   size="icon-lg"

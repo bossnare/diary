@@ -62,12 +62,12 @@ export function useUpdateNote() {
   });
 }
 
-export function useUpdateManyNote() {
+export function useBulkPinned() {
   const qc = useQueryClient();
 
   return useMutation({
     mutationFn: ({ ids, data }: { ids: string[]; data: Note.Update }) =>
-      noteApi.updateMany(ids, data),
+      noteApi.bulkPinned(ids, data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['notes'] });
     },
