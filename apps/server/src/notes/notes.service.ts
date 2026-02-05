@@ -84,12 +84,14 @@ export class NotesService {
     updateNoteDto: UpdateNoteDto,
     userId: string,
   ) {
-    await this.prisma.note.updateMany({
+    const result = await this.prisma.note.updateMany({
       where: { id: { in: idsToUpdate }, userId },
       data: {
         ...updateNoteDto,
       },
     });
+
+    if (!result.count) throw new NotFoundException('Notes not found');
 
     return {
       success: true,
