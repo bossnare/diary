@@ -2,11 +2,12 @@ import { useParams } from 'react-router-dom';
 import { useNoteId } from '../hooks/use-note';
 import { NoteEditor } from '../features/notes/components/NoteEditor';
 import { Spinner } from '@/shared/components/Spinner';
+import { ErrorState } from '../components/ErrorState';
 
 export function NotePreviewPage() {
   const { id: noteId } = useParams(); // get notes id
 
-  const { data: note, isPending, isError, error } = useNoteId(noteId);
+  const { data: note, isPending, isError, error, refetch } = useNoteId(noteId);
 
   if (isPending)
     return (
@@ -15,7 +16,7 @@ export function NotePreviewPage() {
       </div>
     );
 
-  if (isError) return <div className="text-center">{error.message}</div>;
+  if (isError) return <ErrorState error={error} onRetry={refetch} />;
 
   return <NoteEditor note={note} mode="preview" />;
 }

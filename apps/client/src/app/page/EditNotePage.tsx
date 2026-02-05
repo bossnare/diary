@@ -2,11 +2,13 @@ import { NoteEditor } from '@/app/features/notes/components/NoteEditor';
 import { useNoteId } from '@/app/hooks/use-note';
 import { Spinner } from '@/shared/components/Spinner';
 import { useParams } from 'react-router-dom';
+import { ErrorState } from '../components/ErrorState';
+import { NotFoundData } from '../components/NotFoundData';
 
 export const EditNotePage = () => {
   const { id: noteId } = useParams(); // get notes id
 
-  const { data, isPending, isError, error } = useNoteId(noteId);
+  const { data, isPending, isError, error, refetch } = useNoteId(noteId);
 
   if (isPending)
     return (
@@ -15,7 +17,9 @@ export const EditNotePage = () => {
       </div>
     );
 
-  if (isError) return <div className="text-center">{error.message}</div>;
+  if (isError) return <ErrorState error={error} onRetry={refetch} />;
+
+  if (!data) return <NotFoundData />;
 
   return <NoteEditor note={data} />;
 };
