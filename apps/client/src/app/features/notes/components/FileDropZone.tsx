@@ -105,7 +105,7 @@ export const FileDropZone = ({ className, onContinue, ...props }: Props) => {
           }}
           className={cn(
             isDrag ? 'border-2 border-primary' : 'border-muted-foreground',
-            'flex cursor-pointer flex-col hover:bg-input/40 active:opacity-60 items-center justify-center gap-3 p-2 rounded-3xl h-full bg-input/60'
+            'flex cursor-pointer flex-col hover:bg-muted-foreground/12 dark:hover:bg-input/40 active:opacity-60 items-center justify-center gap-3 p-2 rounded-3xl h-full bg-muted-foreground/20 dark:bg-input/60'
           )}
         >
           <FolderOpen className="size-8 md:size-5" />

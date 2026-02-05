@@ -22,11 +22,7 @@ import { EmptyEmpty as EmptyNotes } from '../features/ui/Empty';
 import { OverviewToolbar } from '../features/ui/OverviewToolbar';
 import { SortingDrawer } from '../features/ui/SortingDrawer';
 import { ToolbarButton as SelectionModeToolbarButton } from '../features/ui/ToolbarButton';
-import {
-  useNote,
-  useSoftDeleteMany,
-  useUpdateManyNote,
-} from '../hooks/use-note';
+import { useNote, useSoftDeleteMany, useBulkPinned } from '../hooks/use-note';
 import { useNoteServices } from '../hooks/use-note-services';
 import { cn } from '../lib/utils';
 
@@ -144,7 +140,7 @@ function Overview() {
     selected.size > 1 ? `Delete (${selected.size})` : 'Delete';
 
   const softDeleteMany = useSoftDeleteMany();
-  const updateMany = useUpdateManyNote();
+  const bulkPinned = useBulkPinned();
 
   const handleDelete = async () => {
     try {
@@ -163,7 +159,7 @@ function Overview() {
     closeSelectionMode();
 
     try {
-      const pinnedNotes = await updateMany.mutateAsync({
+      const pinnedNotes = await bulkPinned.mutateAsync({
         ids: [...selected],
         data: { pinned: true },
       });
