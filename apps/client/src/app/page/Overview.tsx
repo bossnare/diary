@@ -32,6 +32,9 @@ function Overview() {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const isAllSelected = selected.size === notes.map((n) => n.id).length;
   const isHasSellected = selected.size > 0;
+  const selectedNotes = notes.filter((n) => selected.has(n.id));
+  const allPinned =
+    selectedNotes.length > 0 && selectedNotes.every((n) => n.pinned);
 
   const buttonXSize = useButtonSize({ mobile: 'icon-xl', landscape: 'icon' });
   const buttonToggleSelectAllSize = useButtonSize({
@@ -119,7 +122,7 @@ function Overview() {
       key: 'move',
     },
     {
-      label: 'Pin',
+      label: allPinned ? 'Unpin' : 'Pin',
       icon: Pin,
       key: 'pin',
     },
@@ -155,15 +158,15 @@ function Overview() {
     }
   };
 
-  const handlePin = async () => {
+  const togglePin = async () => {
     closeSelectionMode();
 
     try {
-      const pinnedNotes = await bulkPinned.mutateAsync({
+      await bulkPinned.mutateAsync({
         ids: [...selected],
-        data: { pinned: true },
+        data: { pinned: !allPinned },
       });
-      toast.success(pinnedNotes.message);
+      toast.success(allPinned ? "Unpinned successfully" : "Pinned successfully");
     } catch (err) {
       console.log(err);
     }
@@ -178,7 +181,7 @@ function Overview() {
         openDeleteConfirm();
         break;
       case 'pin':
-        handlePin();
+        togglePin();
         break;
     }
   };
