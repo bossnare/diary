@@ -51,12 +51,12 @@ export class NotesController {
     return this.notesService.update(id, updateNoteDto, user.id);
   }
 
-  @Patch('update-many')
-  updateMany(
+  @Patch('bulk/pinned')
+  updatePinnedForNotes(
     @User() user: UserEntity,
     @Body() body: { ids: string[]; data: UpdateNoteDto },
   ) {
-    return this.notesService.updateMany(body.ids, body.data, user.id);
+    return this.notesService.updatePinnedForNotes(body.ids, body.data, user.id);
   }
 
   @Patch(':id/soft-remove')

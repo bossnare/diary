@@ -33,14 +33,12 @@ export class NotesService {
     const sortField = sort ?? 'updatedAt';
     const sortOrder = order ?? 'desc';
 
-    const orderBy = { [sortField]: sortOrder };
-
     const data = await this.prisma.note.findMany({
       where: {
         userId,
         status: { in: [NoteStatus.DRAFT, NoteStatus.PUBLISHED] },
       },
-      orderBy,
+      orderBy: [{ pinned: 'desc' }, { [sortField]: sortOrder }],
     });
 
     return {
@@ -70,6 +68,7 @@ export class NotesService {
         ...updateNoteDto,
         edited: true,
         numberOfEdits: { increment: 1 },
+        updatedAt: new Date(),
       },
     });
 
@@ -80,7 +79,7 @@ export class NotesService {
     };
   }
 
-  async updateMany(
+  async updatePinnedForNotes(
     idsToUpdate: string[],
     updateNoteDto: UpdateNoteDto,
     userId: string,
@@ -89,8 +88,6 @@ export class NotesService {
       where: { id: { in: idsToUpdate }, userId },
       data: {
         ...updateNoteDto,
-        edited: true,
-        numberOfEdits: { increment: 1 },
       },
     });
 
