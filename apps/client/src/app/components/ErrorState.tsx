@@ -80,7 +80,7 @@ export function ErrorState({
   const { mark, title, message } = normalizeError(error);
 
   return (
-    <div className="flex flex-col items-center max-w-lg px-4 gap-4 py-10 mx-auto lg:py-20">
+    <div className="flex flex-col items-center max-w-lg gap-4 px-4 py-10 mx-auto lg:py-20">
       {mark && Object.keys(errorStateImage).includes(mark) && (
         <img
           className="size-40 dark:invert"
@@ -88,12 +88,12 @@ export function ErrorState({
           alt={title}
         />
       )}
-      <h3 className="text-center font-semibold">{title}</h3>
-      <p className="text-muted-foreground lg:text-sm text-center">{message}</p>
+      <h3 className="font-semibold text-center">{title}</h3>
+      <p className="text-center text-muted-foreground lg:text-sm">{message}</p>
       {onRetry && (
         <Button
           onClick={async () => onRetry()}
-          className="rounded-full font-semibold"
+          className="font-semibold rounded-full"
           size="lg"
         >
           Try again
