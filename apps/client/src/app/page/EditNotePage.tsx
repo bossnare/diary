@@ -19,7 +19,7 @@ export const EditNotePage = () => {
 
   if (isError) return <ErrorState error={error} onRetry={refetch} />;
 
-  if (!data) return <NotFoundData />;
+  if (!data || Object.keys(data).length === 0) return <NotFoundData />;
 
   return <NoteEditor note={data} />;
 };
