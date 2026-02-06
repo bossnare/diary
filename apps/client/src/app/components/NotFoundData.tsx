@@ -17,12 +17,12 @@ export const NotFoundData = () => {
         <div className="flex flex-col items-center w-full gap-2 mt-4">
           <Button
             onClick={() => navigate('/app', { replace: true })}
-            className="relative overflow-hidden w-full border-2 font-bold rounded-full md:w-1/2 border-foreground!"
+            className="relative overflow-hidden w-full border-2 font-bold rounded-full md:w-1/2 border-foreground/80"
             variant="outline"
             size="xl"
           >
             Back to home
-            <div className="absolute inset-0 bg-primary/10"></div>
+            <div className="absolute inset-0 bg-primary/20 font-bold"></div>
           </Button>
           <Button
             onClick={() => navigate(-1) || navigate('/app', { replace: true })}

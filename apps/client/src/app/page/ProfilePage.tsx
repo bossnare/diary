@@ -3,6 +3,8 @@ import { UserAvatar } from '../features/users/UserAvatar';
 import { useUserProfile } from '@/app/hooks/use-user';
 import { ErrorState } from '../components/ErrorState';
 import { Spinner } from '@/shared/components/Spinner';
+import { ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export function ProfilePage() {
   const { username } = useParams();
@@ -22,7 +24,19 @@ export function ProfilePage() {
       </div>
     );
 
-  if (isError) return <ErrorState error={error} onRetry={refetch} />;
+  if (isError)
+    return (
+      <div>
+        <header>
+          <nav className="py-2 px-2">
+            <Button size="icon-lg" variant="ghost">
+              <ArrowLeft />
+            </Button>
+          </nav>
+        </header>
+        <ErrorState error={error} onRetry={refetch} />
+      </div>
+    );
 
   return (
     <div className="px-4 py-8 space-y-4">

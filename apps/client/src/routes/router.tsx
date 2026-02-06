@@ -55,6 +55,12 @@ export const AppRoutes = () => {
               <Route path="contact" element={<Contact />} />
             </Route>
           </Route>
+
+          {/* profile */}
+          <Route path="/:username" element={<MiniAppLayout />}>
+            <Route index element={<ProfilePage />} />
+          </Route>
+
           {/* protected */}
           <Route element={<ProtectedRoutes session={session} />}>
             <Route path="/app" element={<AppLayout />}>
@@ -72,11 +78,6 @@ export const AppRoutes = () => {
             </Route>
             <Route path="/note" element={<AppLayout />}>
               <Route path="trash" element={<NoteTrashPage />} />
-            </Route>
-
-            {/* profile */}
-            <Route path="/:username" element={<MiniAppLayout />}>
-              <Route index element={<ProfilePage />} />
             </Route>
           </Route>
           {/* not found route */}
