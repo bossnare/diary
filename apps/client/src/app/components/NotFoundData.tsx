@@ -16,7 +16,7 @@ export const NotFoundData = () => {
         </p>
         <div className="flex flex-col items-center w-full gap-2 mt-4">
           <Button
-            onClick={() => navigate('/app')}
+            onClick={() => navigate('/app', { replace: true })}
             className="relative overflow-hidden w-full border-2 font-bold rounded-full md:w-1/2 border-foreground!"
             variant="outline"
             size="xl"
@@ -25,7 +25,7 @@ export const NotFoundData = () => {
             <div className="absolute inset-0 bg-primary/10"></div>
           </Button>
           <Button
-            onClick={() => navigate(-1) || navigate('/app')}
+            onClick={() => navigate(-1) || navigate('/app', { replace: true })}
             className="w-full font-bold rounded-full md:w-1/3"
             variant="ghost"
             size="xl"

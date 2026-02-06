@@ -5,7 +5,7 @@ import { EditNotePage } from '@/app/page/EditNotePage';
 import { NewNotePage } from '@/app/page/NewNotePage';
 import Notification from '@/app/page/Notification';
 import Overview from '@/app/page/Overview';
-import { Profile } from '@/app/page/Profile';
+import { ProfilePage } from '@/app/page/ProfilePage';
 import { Search } from '@/app/page/Search';
 import { Tag } from '@/app/page/Tag';
 import { useTheme, type Theme } from '@/components/theme-provider';
@@ -76,7 +76,7 @@ export const AppRoutes = () => {
 
             {/* profile */}
             <Route path="/:username" element={<MiniAppLayout />}>
-              <Route index element={<Profile />} />
+              <Route index element={<ProfilePage />} />
             </Route>
           </Route>
           {/* not found route */}
