@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { useButtonSize } from '@/shared/hooks/use-button-size';
+import { handleWait } from '@/shared/utils/handle-wait';
 import type React from 'react';
 
 export type ActionKey = 'move' | 'delete' | 'pin';
@@ -26,7 +27,7 @@ export function ToolbarButton({ onAction, disabled, labelItems }: Props) {
           key={t.key}
           disabled={disabled}
           onClick={() => {
-            onAction?.(t.key);
+            handleWait(() => onAction?.(t.key), 200);
           }}
           className="inline-flex gap-1 hover:bg-transparent! active:opacity-50 dark:lg:active:bg-accent/40! lg:active:bg-muted-foreground/40! hover:not-focus:opacity-70 md:gap-2 flex-col md:flex-row"
           size={buttonSize}
