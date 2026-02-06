@@ -56,8 +56,8 @@ export function useUpdateNote() {
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: Note.Update }) =>
       noteApi.updateNote(id, data),
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['notes'] });
+    onSuccess: (data, { id }) => {
+      qc.invalidateQueries({ queryKey: ['notes', id] }, data);
     },
   });
 }

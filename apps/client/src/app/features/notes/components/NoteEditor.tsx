@@ -11,7 +11,6 @@ import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/shared/hooks/use-mobile';
 import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
 import { useToggle } from '@/shared/hooks/use-toggle';
-import { handleWait } from '@/shared/utils/handle-wait';
 import { Portal } from '@radix-ui/react-portal';
 import { CharacterCount, Placeholder } from '@tiptap/extensions';
 import {
@@ -40,6 +39,7 @@ import { ConfirmDrawer } from '../../ui/ConfirmDrawer';
 import { EditorToolbarButton } from './EditorToolbarButton';
 import { EditorToolbar } from './EditorToolbar';
 import { useIsDesktop } from '@/shared/hooks/use-desktop';
+import { useAutoSave } from '@/app/hooks/use-auto-save';
 
 type NoteEditorProps = React.HTMLAttributes<HTMLDivElement> & {
   mode?: 'new' | 'edit' | 'preview';
@@ -252,7 +252,7 @@ export const NoteEditor = ({
     setIsSaving(true);
     try {
       const noteCreated = await createNote.mutateAsync(bodyPayload);
-      console.log(noteCreated.message);
+      navigate(`/note/${noteCreated.data.id}/edit`, { replace: true });
       toast(noteCreated.message);
     } catch (err) {
       if (err instanceof AxiosError)
@@ -296,6 +296,13 @@ export const NoteEditor = ({
       handleUpdateNote(); // update if edit mode
     else handleCreateNote();
   };
+
+  const enableAutoSave = isEdit && isDirty && !focusedOn.content;
+
+  const autoSaveStatus = useAutoSave(enableAutoSave, {
+    id: note?.id as string,
+    data: bodyPayload,
+  });
 
   // fix later
   const isDirtyConfirmTitle = 'Unsaved changes';
@@ -431,19 +438,12 @@ export const NoteEditor = ({
                 <Button
                   title={saveButtonTitle}
                   disabled={!canSave || !isDirty}
-                  onClick={() => {
-                    if (isEdit) {
-                      handleSave();
-                    } else {
-                      handleSave();
-                      handleWait(() => navigate('/app'), 200);
-                    }
-                  }}
+                  onClick={handleSave}
                   className="font-bold rounded-full select-none"
                   variant="ghost"
                   size="icon-lg"
                 >
-                  {isSaving ? (
+                  {isSaving || autoSaveStatus === 'saving' ? (
                     <div className="border rounded-full border-muted-foreground animate-spin border-t-transparent size-4"></div>
                   ) : (
                     <Check />
