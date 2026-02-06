@@ -1,6 +1,7 @@
 import type { UserInterface } from '@/app/types/user.type';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import * as userApi from '@/app/api/user.api';
+import type { AxiosError } from 'axios';
 
 export function useUser() {
   return useQuery<UserInterface>({
@@ -10,7 +11,7 @@ export function useUser() {
 }
 
 export function useUserProfile(username?: string) {
-  return useQuery<UserInterface>({
+  return useQuery<UserInterface, AxiosError>({
     queryKey: ['user-profile'],
     queryFn: () => userApi.getUserProfile(username),
     enabled: !!username,

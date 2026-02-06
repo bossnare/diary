@@ -148,7 +148,7 @@ const LoginCard = ({
                   <Button
                     variant="secondary"
                     size={providerButtonSize}
-                    className="w-full"
+                    className="w-full font-semibold"
                   >
                     {t('auth.button.OAuth.withEmail')}
                   </Button>

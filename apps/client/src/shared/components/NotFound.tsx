@@ -20,7 +20,9 @@ export const NotFound = () => {
       <Button
         className="font-semibold"
         size="lg"
-        onClick={() => handleWait(() => navigate('/app'), 200)}
+        onClick={() =>
+          handleWait(() => navigate('/app', { replace: true }), 200)
+        }
       >
         Return to Dashboard
       </Button>

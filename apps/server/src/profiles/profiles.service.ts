@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProfileDto } from './dto/create-profile.dto.js';
 import { UpdateProfileDto } from './dto/update-profile.dto.js';
 import { PrismaService } from '../prisma/prisma.service.js';
@@ -14,10 +14,12 @@ export class ProfilesService {
     return `This action returns all profiles`;
   }
 
-  async findMe(userId: string) {
+  async findById(userId: string) {
     const data = await this.prisma.profile.findUnique({
       where: { id: userId },
     });
+
+    if (!data) throw new NotFoundException('User not found!');
 
     return {
       success: true,
@@ -26,8 +28,18 @@ export class ProfilesService {
     };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} profile`;
+  async findByUsername(username: string) {
+    const data = await this.prisma.profile.findUnique({
+      where: { username },
+    });
+
+    if (!data) throw new NotFoundException('User not found!');
+
+    return {
+      success: true,
+      timestamps: Date.now(),
+      data,
+    };
   }
 
   update(id: number, updateProfileDto: UpdateProfileDto) {
