@@ -22,8 +22,8 @@ import { EmptyEmpty as EmptyNotes } from '../features/ui/Empty';
 import { OverviewToolbar } from '../features/ui/OverviewToolbar';
 import { SortingDrawer } from '../features/ui/SortingDrawer';
 import { ToolbarButton as SelectionModeToolbarButton } from '../features/ui/ToolbarButton';
-import { useNote, useSoftDeleteMany, useBulkPinned } from '../hooks/use-note';
-import { useNoteServices } from '../hooks/use-note-services';
+import { useBulkPinned, useNote, useSoftDeleteMany } from '../hooks/use-note';
+import { useNoteServices } from '../hooks/use-note-service';
 import { cn } from '../lib/utils';
 
 function Overview() {
@@ -166,7 +166,9 @@ function Overview() {
         ids: [...selected],
         data: { pinned: !allPinned },
       });
-      toast.success(allPinned ? "Unpinned successfully" : "Pinned successfully");
+      toast.success(
+        allPinned ? 'Unpinned successfully' : 'Pinned successfully'
+      );
     } catch (err) {
       console.log(err);
     }

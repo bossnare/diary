@@ -7,6 +7,8 @@ import { X } from 'lucide-react';
 import { Overlay } from '../../../shared/components/Overlay';
 import { desctructiveLabel, sideBarLabel } from './label';
 import { SideBarTabWrapper } from './sideBarTab';
+import { useProfileServices } from '@/app/hooks/use-profile-service';
+import { handleWait } from '@/shared/utils/handle-wait';
 
 export const SideOver = ({
   isOpen,
@@ -15,6 +17,8 @@ export const SideOver = ({
   isOpen?: boolean;
   close?: () => void;
 }) => {
+  const { openProfile } = useProfileServices();
+
   return (
     <>
       <Overlay
@@ -30,7 +34,13 @@ export const SideOver = ({
           )}
         >
           <div className="flex items-start">
-            <MiniProfile className="cursor-pointer grow hover:bg-muted active:opacity-60" />
+            <MiniProfile
+              onClick={() => {
+                close?.();
+                handleWait(openProfile, 240);
+              }}
+              className="cursor-pointer grow hover:bg-muted active:opacity-60"
+            />
             <span className="ml-auto shrink-0">
               <Button size="icon" variant="ghost" onClick={close}>
                 <X />
