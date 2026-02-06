@@ -28,13 +28,13 @@ export class ProfilesController {
   }
 
   @Get('me')
-  findMe(@User() user: UserEntity) {
-    return this.profilesService.findMe(user.id);
+  findById(@User() user: UserEntity) {
+    return this.profilesService.findById(user.id);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.profilesService.findOne(+id);
+  @Get(':username')
+  findByUsername(@Param('username') username: string) {
+    return this.profilesService.findByUsername(username);
   }
 
   @Patch(':id')
