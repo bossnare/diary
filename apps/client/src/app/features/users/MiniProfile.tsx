@@ -4,11 +4,14 @@ import { useUser } from '@/app/hooks/use-user';
 
 type Props = React.HTMLAttributes<HTMLDivElement>;
 
-export const MiniProfile = ({ className }: Props) => {
+export const MiniProfile = ({ className, ...props }: Props) => {
   const { data: user } = useUser();
 
   return (
-    <div className={cn('flex items-center select-none gap-3 mb-4', className)}>
+    <div
+      {...props}
+      className={cn('flex items-center select-none gap-3 mb-4', className)}
+    >
       <UserAvatar user={user} />
       <div className="flex flex-col -space-y-1 overflow-hidden">
         <span className="text-lg font-bold tracking-tight truncate md:text-base line-clamp-1">

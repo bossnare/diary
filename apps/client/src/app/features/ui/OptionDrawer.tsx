@@ -1,4 +1,4 @@
-import { useNoteServices } from '@/app/hooks/use-note-services';
+import { useNoteServices } from '@/app/hooks/use-note-service';
 import {
   Drawer,
   DrawerContent,

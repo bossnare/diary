@@ -1,5 +1,5 @@
 import { useLongPress } from '@/app/hooks/use-long-press';
-import { useNoteServices } from '@/app/hooks/use-note-services';
+import { useNoteServices } from '@/app/hooks/use-note-service';
 import { Button } from '@/components/ui/button';
 import { waitVibrate } from '@/shared/utils/vibration';
 import { SquarePen } from 'lucide-react';

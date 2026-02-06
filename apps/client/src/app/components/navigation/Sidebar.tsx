@@ -1,17 +1,18 @@
 import { MiniProfile } from '@/app/features/users/MiniProfile';
-import { useNoteServices } from '@/app/hooks/use-note-services';
+import { useNoteServices } from '@/app/hooks/use-note-service';
 import { cn } from '@/app/lib/utils';
 import { useLayoutStore } from '@/app/stores/layoutStore';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/shared/components/brand/Logo';
 import { Overlay } from '@/shared/components/Overlay';
+import { handleWait } from '@/shared/utils/handle-wait';
 import { waitVibrate } from '@/shared/utils/vibration';
 import { PanelLeftClose, PanelLeftOpen, Plus, PowerOff } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { FileDropZone } from '../../features/notes/components/FileDropZone';
 import { tabLabel } from './label';
 import { NavTab } from './NavTab';
-import { handleWait } from '@/shared/utils/handle-wait';
+import { useProfileServices } from '@/app/hooks/use-profile-service';
 
 type SidebarProps = React.HTMLAttributes<HTMLDivElement> & {
   ref?: React.Ref<HTMLDivElement>;
@@ -28,6 +29,8 @@ export const MobileSidebar = ({
   close: () => void;
   openLogout: () => void;
 }) => {
+  const { openProfile } = useProfileServices();
+
   return (
     <>
       {/* overlay */}
@@ -51,7 +54,13 @@ export const MobileSidebar = ({
         <div className="absolute inset-0 hidden pointer-events-none bg-primary/2 dark:block -z-1"></div>
 
         <aside className={`relative size-full rounded-xl py-2`}>
-          <MiniProfile className="px-4 py-2 active:bg-muted dark:active:bg-card active:opacity-80" />
+          <MiniProfile
+            onClick={() => {
+              close?.();
+              handleWait(openProfile, 240);
+            }}
+            className="px-4 py-2 active:bg-muted dark:active:bg-card active:opacity-80"
+          />
 
           <div className="mx-4 mb-4 border-t border-sidebar-border dark:border-sidebar-border/50"></div>
 
