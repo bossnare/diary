@@ -39,6 +39,16 @@ export function OverviewToolbar(props: Props) {
         <ListRestart />
       </Button>
 
+      {/* mobile button only */}
+      <Button
+        onClick={props.toggleOpenNoteSorting}
+        variant="ghost"
+        className="transition-colors! md:hidden"
+        size={buttonSize}
+      >
+        <ArrowDownNarrowWide />
+      </Button>
+
       <DropdownMenu
         open={props.isOpenNoteSorting}
         onOpenChange={(nextOpen) =>
@@ -48,7 +58,7 @@ export function OverviewToolbar(props: Props) {
         <DropdownMenuTrigger asChild>
           <Button
             variant="ghost"
-            className="transition-colors!"
+            className="transition-colors! hidden md:inline-flex"
             size={buttonSize}
           >
             <ArrowDownNarrowWide />

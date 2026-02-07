@@ -445,7 +445,7 @@ export const NoteEditor = ({
           {/* edit content */}
           <main className="flex-1 mt-2 md:mt-0">
             <div className="max-w-6xl px-4 pb-20 mx-auto space-y-3 font-inter lg:pb-32">
-              <div className="left-0 pb-1 space-x-2 text-sm lg:sticky z-9 bg-background top-12 pt-4 text-muted-foreground">
+              <div className="left-0 pb-1 space-x-2 text-sm lg:sticky z-9 bg-background top-12 pt-2 text-muted-foreground">
                 <span>
                   {isEdit
                     ? dateFormatLong(note?.updatedAt ?? new Date())
