@@ -172,8 +172,8 @@ export const DesktopSidebar = ({
               onClick={openNewNote}
               title={isOpenPanel ? 'create new note' : ''}
               size="lg"
-              variant="secondary"
-              className="hidden w-full font-semibold lg:inline-flex"
+              variant="ghost"
+              className="hidden overflow-hidden w-full font-semibold lg:inline-flex"
             >
               <Plus className="size-5" />
               {isOpenPanel ? 'Create new note' : null}
