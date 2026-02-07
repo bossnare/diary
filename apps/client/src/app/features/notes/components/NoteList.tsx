@@ -43,13 +43,15 @@ export function NoteList(props: Props) {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-3 pt-2 lg:grid-cols-3 xl:grid-cols-4">
+    // grid grid-cols-2 auto-rows-[80px] lg:grid-cols-3 xl:grid-cols-4
+    <div className="columns-2 lg:columns-3 xl:columns-4 gap-3 pt-2 ">
       <AnimatePresence>
         {props.notes?.map((note) => (
           <motion.div
             exit={{ opacity: 0, scale: 0 }}
             transition={{ duration: 0.05 }}
             key={note.id}
+            className="break-inside-avoid mb-3"
           >
             <NoteCard
               variant={variant}
