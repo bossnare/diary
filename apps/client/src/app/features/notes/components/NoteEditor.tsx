@@ -25,11 +25,12 @@ import {
   Check,
   ChevronLeft,
   Ellipsis,
-  Redo,
+  Redo2,
   Type,
-  Undo,
+  Undo2,
   X,
 } from 'lucide-react';
+import { ArrowUUpRightIcon, ArrowUUpLeftIcon } from '@phosphor-icons/react';
 import { AnimatePresence, motion, useInView } from 'motion/react';
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -297,7 +298,7 @@ export const NoteEditor = ({
     else handleCreateNote();
   };
 
-  const enableAutoSave = isEdit && isDirty && !focusedOn.content;
+  const enableAutoSave = isEdit && isDirty;
 
   const autoSaveStatus = useAutoSave(enableAutoSave, {
     id: note?.id as string,
@@ -381,7 +382,7 @@ export const NoteEditor = ({
           className="flex flex-col lg:transition-transform lg:duration-600"
         >
           <header className="sticky top-0 left-0 z-10 bg-background">
-            <div className="flex items-center justify-between h-12 max-w-6xl px-2 pr-2 mx-auto md:px-4">
+            <div className="flex items-center justify-between gap-10 h-12 max-w-6xl px-2 pr-2 mx-auto md:px-4">
               <Button
                 onClick={handleCancel}
                 variant="ghost"
@@ -390,23 +391,15 @@ export const NoteEditor = ({
               >
                 <ChevronLeft />
               </Button>
-              <div className="flex items-center gap-1">
-                <span className="text-muted-foreground">
-                  {editorModeState} notes
-                </span>{' '}
-                <Button size="icon-lg" variant="ghost" className="md:hidden">
-                  <Ellipsis />
-                </Button>
-              </div>
 
-              <div className="space-x-2">
-                <Button
+              <div className="ml-auto">
+                {/* <Button
                   size="icon-lg"
                   variant="ghost"
                   className="hidden md:inline-flex"
                 >
                   <Ellipsis />
-                </Button>
+                </Button> */}
                 {isPreview || focusedOn.title || focusedOn.tag ? null : (
                   <motion.span
                     initial={{ opacity: 0, scale: 0 }}
@@ -420,7 +413,7 @@ export const NoteEditor = ({
                       size="icon-lg"
                       variant="ghost"
                     >
-                      <Undo />
+                      <Undo2 />
                     </Button>
                     <Button
                       onClick={() => editor?.chain().focus().redo().run()}
@@ -428,7 +421,7 @@ export const NoteEditor = ({
                       size="icon-lg"
                       variant="ghost"
                     >
-                      <Redo />
+                      <Redo2 />
                     </Button>
                   </motion.span>
                 )}
@@ -439,15 +432,11 @@ export const NoteEditor = ({
                   title={saveButtonTitle}
                   disabled={!canSave || !isDirty}
                   onClick={handleSave}
-                  className="font-bold rounded-full select-none"
+                  className="font-bold text-chart-2 w-14 rounded-full select-none"
                   variant="ghost"
                   size="icon-lg"
                 >
-                  {isSaving || autoSaveStatus === 'saving' ? (
-                    <div className="border rounded-full border-muted-foreground animate-spin border-t-transparent size-4"></div>
-                  ) : (
-                    <Check />
-                  )}
+                  {isSaving || autoSaveStatus === 'saving' ? '...' : 'Save'}
                 </Button>
               )}
             </div>
@@ -456,6 +445,20 @@ export const NoteEditor = ({
           {/* edit content */}
           <main className="flex-1 mt-2 md:mt-0">
             <div className="max-w-6xl px-4 pb-20 mx-auto space-y-3 font-inter lg:pb-32">
+              <div className="left-0 pb-1 space-x-2 text-sm lg:sticky z-9 bg-background top-12 pt-4 text-muted-foreground">
+                <span>
+                  {isEdit
+                    ? dateFormatLong(note?.updatedAt ?? new Date())
+                    : dateFormatLong(new Date())}
+                </span>
+                <span className="w-0.5 border-l dark:border-muted"></span>
+                <span>{editorState.charCount} characters</span>
+                <span className="w-0.5 border-l dark:border-muted"></span>
+                <span> {editorState.wordCount} words </span>
+                <span className="inline-flex py-0.5 px-2 bg-chart-2 rounded-sm text-xs text-foreground">
+                  {editorModeState}
+                </span>
+              </div>
               <textarea
                 ref={titleTextareaRef}
                 rows={1}
@@ -511,17 +514,6 @@ export const NoteEditor = ({
                 }}
               ></textarea>
 
-              <div className="left-0 pb-1 space-x-2 text-sm lg:sticky z-9 bg-background top-12 text-muted-foreground">
-                <span>
-                  {isEdit
-                    ? dateFormatLong(note?.updatedAt ?? new Date())
-                    : dateFormatLong(new Date())}
-                </span>
-                <span className="w-0.5 border-l dark:border-muted"></span>
-                <span>{editorState.charCount} characters</span>
-                <span className="w-0.5 border-l dark:border-muted"></span>
-                <span> {editorState.wordCount} words </span>
-              </div>
               <EditorContent
                 className="max-w-full prose z-1 selection:bg-primary/30 prose-neutral dark:prose-invert"
                 editor={editor}
