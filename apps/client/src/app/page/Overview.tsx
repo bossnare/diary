@@ -51,9 +51,9 @@ function Overview() {
 
   // sorting query drawer params state - mobile only
   const {
-    open: openNoteSorting,
     isOpen: isOpenNoteSorting,
     close: closeNoteSorting,
+    toggle: toggleOpenNoteSorting,
   } = useQueryToggle({ key: 'sorting', value: 'noteSorting' });
   // selection query params state
   const {
@@ -311,9 +311,11 @@ function Overview() {
                   All notes
                 </h3>
                 <OverviewToolbar
-                  openNoteSorting={openNoteSorting}
+                  toggleOpenNoteSorting={toggleOpenNoteSorting}
                   openSelectionMode={openSelectionMode}
                   handleRefreshNotes={handleRefreshNotes}
+                  isOpenNoteSorting={isOpenNoteSorting}
+                  closeNoteSorting={closeNoteSorting}
                 />
               </div>
             )}

@@ -47,7 +47,7 @@ export const NoteCard = ({
   const config = cardVariantMap[variant];
 
   const lineClampContent = {
-    default: 'line-clamp-4 lg:line-clamp-1',
+    default: 'line-clamp-5 lg:line-clamp-1',
     trash: 'line-clamp-2 lg:line-clamp-1',
     archived: 'line-clamp-3 lg:line-clamp-1',
   };
@@ -70,7 +70,7 @@ export const NoteCard = ({
       )}
       {...props}
     >
-      <span className="text-lg w-[90%] pb-px font-bold leading-none truncate md:text-base line-clamp-2 lg:line-clamp-1 text-wrap">
+      <span className="text-lg w-[90%] font-bold truncate md:text-base line-clamp-1 text-wrap">
         {note.title || 'Untitled'}
       </span>
       <span
