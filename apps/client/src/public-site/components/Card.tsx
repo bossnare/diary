@@ -11,6 +11,7 @@ import { AuthService } from '@/shared/services/supabase.service';
 import { handleWait } from '@/shared/utils/handle-wait';
 import { X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
+import { useActionState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const LoadingCard = ({ open }: { open?: boolean }) => {
@@ -47,6 +48,24 @@ const LoginCard = ({
     mobile: 'xl',
   });
   const { t } = useTranslation();
+
+  // sign with otp action
+  const siteUrl = import.meta.env.VITE_SITE_URL;
+  async function loginWithOtp(previousState: any, formData: FormData) {
+    const email = formData.get('email') as string;
+
+    if (!email) {
+      return { success: false, message: 'Please fill email field.' };
+    }
+
+    await AuthService.signInWithOtp(email, `${siteUrl}/`);
+    return { success: true, message: 'Magic link sent. Check your email.' };
+  }
+
+  const [state, formAction, isPending] = useActionState(loginWithOtp, {
+    success: false,
+    message: '',
+  });
 
   return (
     <>
@@ -138,20 +157,47 @@ const LoginCard = ({
                   <span className="inline-flex w-20 border-t md:w-10 border-sidebar"></span>
                 </div>
 
-                <form action="#" className="flex flex-col items-center gap-4">
+                <form
+                  action={formAction}
+                  className="flex flex-col items-center gap-4"
+                >
                   <Input
+                    disabled={isPending}
                     type="email"
                     name="email"
+                    required
                     placeholder={`${t('auth.placeholder.email')}...`}
                     className="h-12 placeholder:text-sm md:h-10"
                   />
                   <Button
+                    disabled={isPending}
                     variant="secondary"
                     size={providerButtonSize}
                     className="w-full font-semibold"
                   >
-                    {t('auth.button.OAuth.withEmail')}
+                    {isPending ? (
+                      <Spinner
+                        size="sm"
+                        className="border-secondary-foreground"
+                      />
+                    ) : (
+                      t('auth.button.OAuth.withEmail')
+                    )}
                   </Button>
+
+                  {isPending || !open ? null : (
+                    <>
+                      {state.success ? (
+                        <div className="text-sm text-green-600">
+                          {state.message}
+                        </div>
+                      ) : (
+                        <div className="text-sm text-destructive">
+                          {state.message}
+                        </div>
+                      )}
+                    </>
+                  )}
                 </form>
 
                 {/* terms & privacy policy */}
