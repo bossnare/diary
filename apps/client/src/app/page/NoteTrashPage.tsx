@@ -200,7 +200,7 @@ export function NoteTrashPage() {
           closeSelectionMode();
         }}
       />
-      <div className="relative px-3 pb-2 md:px-6 bg-muted dark:bg-background">
+      <div className="relative px-3 pb-2 md:px-6 bg-muted dark:bg-background max-w-dvw ">
         {/* subtle overlay */}
         <div className="absolute inset-0 z-20 hidden pointer-events-none dark:block bg-primary/2"></div>
 
