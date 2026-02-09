@@ -6,7 +6,7 @@ import { ErrorState } from '../components/ErrorState';
 import { EmptyEmpty as EmptyTrash } from '../features/ui/Empty';
 import { Button } from '@/components/ui/button';
 import { ListCheck, RotateCcw, Trash, X } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
 import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
@@ -149,6 +149,14 @@ export function NoteTrashPage() {
       : `This note will be permanently removed and cannot be recovered. Are you sure want to continue?`;
   const deleteConfirmLabel =
     selected.size > 1 ? `Remove (${selected.size})` : 'Remove';
+
+  // auto clear selected value on selectionMode close
+  useEffect(() => {
+    if (!isSelectionMode) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setSelected(new Set());
+    }
+  }, [isSelectionMode]);
 
   if (isPending)
     return (
