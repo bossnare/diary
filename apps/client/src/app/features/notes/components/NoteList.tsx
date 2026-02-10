@@ -8,12 +8,13 @@ import { Ellipsis } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 import { NoteCard, type NoteCardVariant } from './NoteCard';
+import type { SelectionMode } from '@/app/hooks/use-selection-manager';
 
 type Props = {
   isSelectionMode?: boolean;
   notes?: NoteInterface[];
   selected?: Set<string>;
-  openSelectionMode?: () => void;
+  openSelectionMode?: (mode?: SelectionMode) => void;
   toggleSelect?: (id: string) => void;
   variant?: NoteCardVariant;
 };
