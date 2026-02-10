@@ -12,7 +12,6 @@ import { IconNote } from '@tabler/icons-react';
 import { useQueryClient } from '@tanstack/react-query';
 import { FolderSymlink, ListChecks, Lock, Pin, Trash, X } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { ErrorState } from '../components/ErrorState';
 import { NoteList } from '../features/notes/components/NoteList';
@@ -24,15 +23,21 @@ import { SortingDrawer } from '../features/ui/SortingDrawer';
 import { ToolbarButton as SelectionModeToolbarButton } from '../features/ui/ToolbarButton';
 import { useBulkPinned, useNote, useSoftDeleteMany } from '../hooks/use-note';
 import { useNoteServices } from '../hooks/use-note-service';
+import { useSelectionManager } from '../hooks/use-selection-manager';
 import { cn } from '../lib/utils';
 
 function Overview() {
   const { data, isPending, isError, error, refetch } = useNote();
   const notes = data ?? [];
-  const [selected, setSelected] = useState<Set<string>>(new Set());
-  const isAllSelected = selected.size === notes.map((n) => n.id).length;
-  const isHasSellected = selected.size > 0;
-  const selectedNotes = notes.filter((n) => selected.has(n.id));
+
+  const selection = useSelectionManager({
+    queryKey: 'selectNotes',
+    initialMode: 'multiple',
+  });
+
+  const allNoteIds = notes?.map((n) => n.id);
+  const isAllSelected = selection.count === allNoteIds.length;
+  const selectedNotes = notes.filter((n) => selection.selected.has(n.id));
   const allPinned =
     selectedNotes.length > 0 && selectedNotes.every((n) => n.pinned);
 
@@ -55,15 +60,6 @@ function Overview() {
     close: closeNoteSorting,
     toggle: toggleOpenNoteSorting,
   } = useQueryToggle({ key: 'sorting', value: 'noteSorting' });
-  // selection query params state
-  const {
-    open: openSelectionMode,
-    isOpen: isSelectionMode,
-    close: closeSelectionMode,
-  } = useQueryToggle({
-    key: 'select',
-    value: 'notes',
-  });
 
   const { isOpen: isOpenMobileSidebar } = useQueryToggle({
     key: 'sidebar',
@@ -78,34 +74,6 @@ function Overview() {
     key: 'ui',
     value: 'deleteNote',
   });
-
-  // auto clear selected value on selectionMode close
-  useEffect(() => {
-    if (!isSelectionMode) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setSelected(new Set());
-    }
-  }, [isSelectionMode]);
-
-  const toggleSelect = (notesId: string) => {
-    setSelected((prev) => {
-      const next = new Set(prev);
-
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      next.has(notesId) ? next.delete(notesId) : next.add(notesId);
-      return next;
-    });
-  };
-
-  const toggleSelectAll = (allNotesId: string[]) => {
-    setSelected((prev) => {
-      const isAllSelected = prev.size === allNotesId.length;
-      if (isAllSelected) {
-        return new Set(); // clear all
-      }
-      return new Set(allNotesId); // set all
-    });
-  };
 
   const { openNewNote, pasteFromClipboard } = useNoteServices();
 
@@ -134,13 +102,13 @@ function Overview() {
   ];
 
   const deleteConfirmTitle =
-    selected.size > 1 ? `Delete notes?` : 'Delete this note?';
+    selection.count > 1 ? `Delete notes?` : 'Delete this note?';
   const deleteConfirmDescription =
-    selected.size > 1
+    selection.count > 1
       ? `These notes will no longer appear in your notes. You can undo this action`
       : `This notes will no longer appear in your notes. You can undo this action`;
   const deleteConfirmLabel =
-    selected.size > 1 ? `Delete (${selected.size})` : 'Delete';
+    selection.count > 1 ? `Delete (${selection.count})` : 'Delete';
 
   const softDeleteMany = useSoftDeleteMany();
   const bulkPinned = useBulkPinned();
@@ -148,7 +116,7 @@ function Overview() {
   const handleDelete = async () => {
     try {
       const deletedNotes = await softDeleteMany.mutateAsync({
-        idsToRemove: [...selected], // transform as Array
+        idsToRemove: selection.selectedArray,
       });
 
       toast(deletedNotes.message);
@@ -159,11 +127,11 @@ function Overview() {
   };
 
   const togglePin = async () => {
-    closeSelectionMode();
+    selection.closeSelection();
 
     try {
       await bulkPinned.mutateAsync({
-        ids: [...selected],
+        ids: selection.selectedArray,
         data: { pinned: !allPinned },
       });
       toast.success(
@@ -229,7 +197,7 @@ function Overview() {
           buttonVariant={'secondary'}
           onConfirm={() => {
             handleDelete();
-            closeSelectionMode();
+            selection.closeSelection();
           }}
         />
         {/* confirm dialog - desktop only */}
@@ -243,7 +211,7 @@ function Overview() {
           buttonVariant={'secondary'}
           onConfirm={() => {
             handleDelete();
-            closeSelectionMode();
+            selection.closeSelection();
           }}
         />
         <SortingDrawer
@@ -254,7 +222,7 @@ function Overview() {
         {/* content */}
         <>
           <header className="sticky top-0 px-2 pt-8 mx-2 z-16 md:px-2 md:mx-5 bg-muted dark:bg-background">
-            {isSelectionMode ? (
+            {selection.isSelectionMode ? (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -264,7 +232,7 @@ function Overview() {
                 {/* skip and info on select notes */}
                 <div className="flex items-center gap-1">
                   <Button
-                    onClick={closeSelectionMode}
+                    onClick={selection.closeSelection}
                     size={buttonXSize}
                     variant="ghost"
                   >
@@ -272,19 +240,19 @@ function Overview() {
                   </Button>
                   {/* desktop only */}
                   <span className="hidden font-medium font-inter md:inline-flex">
-                    {selected.size} items selected
+                    {selection.count} items selected
                   </span>
                 </div>
                 {/* mobile only */}
                 <span className="text-xl font-medium md:hidden">
-                  {selected.size} items selected
+                  {selection.count} items selected
                 </span>
 
                 {/* toolbar */}
                 <div className="justify-end hidden gap-2 md:flex grow">
                   <SelectionModeToolbarButton
                     onAction={handleSelectionModeAction}
-                    disabled={!isHasSellected}
+                    disabled={!selection.isHasSelected}
                     labelItems={selectionModeLabelItem}
                   />
                 </div>
@@ -295,7 +263,7 @@ function Overview() {
                     {isAllSelected ? 'Unselect all' : 'Select all'}
                   </span>
                   <Button
-                    onClick={() => toggleSelectAll(notes?.map((n) => n.id))}
+                    onClick={() => selection.toggleSelectAll(allNoteIds)}
                     size={buttonToggleSelectAllSize}
                     variant="ghost"
                   >
@@ -312,7 +280,9 @@ function Overview() {
                 </h3>
                 <OverviewToolbar
                   toggleOpenNoteSorting={toggleOpenNoteSorting}
-                  openSelectionMode={openSelectionMode}
+                  openSelectionMode={() =>
+                    selection.openSelectionMode('multiple')
+                  }
                   handleRefreshNotes={handleRefreshNotes}
                   isOpenNoteSorting={isOpenNoteSorting}
                   closeNoteSorting={closeNoteSorting}
@@ -322,11 +292,11 @@ function Overview() {
           </header>
           <main className="px-3 md:px-6">
             <NoteList
-              selected={selected}
-              isSelectionMode={isSelectionMode}
+              selected={selection.selected}
+              isSelectionMode={selection.isSelectionMode}
               notes={notes}
-              toggleSelect={toggleSelect}
-              openSelectionMode={openSelectionMode}
+              toggleSelect={selection.toggleSelect}
+              openSelectionMode={() => selection.openSelectionMode('multiple')}
             />
           </main>
         </>
@@ -334,7 +304,7 @@ function Overview() {
 
       {/* mobile select toollip */}
       <Portal>
-        {!isOpenMobileSidebar && isSelectionMode && (
+        {!isOpenMobileSidebar && selection.isSelectionMode && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -344,7 +314,7 @@ function Overview() {
             <div className="flex justify-between w-full">
               <SelectionModeToolbarButton
                 onAction={handleSelectionModeAction}
-                disabled={!isHasSellected}
+                disabled={!selection.isHasSelected}
                 labelItems={selectionModeLabelItem}
               />
             </div>

@@ -9,9 +9,10 @@ import { kebabMenuVariants } from '@/shared/motions/motion.variant';
 import { LassoSelect, ArrowDownNarrowWide, ListRestart } from 'lucide-react';
 import { motion } from 'motion/react';
 import { SortingButton } from './SortingButton';
+import type { SelectionMode } from '@/app/hooks/use-selection-manager';
 
 type Props = {
-  openSelectionMode: () => void;
+  openSelectionMode: (mode?: SelectionMode) => void;
   handleRefreshNotes: () => void;
   toggleOpenNoteSorting: () => void;
   isOpenNoteSorting: boolean;
@@ -24,7 +25,7 @@ export function OverviewToolbar(props: Props) {
   return (
     <div className="flex gap-4">
       <Button
-        onClick={props.openSelectionMode}
+        onClick={() => props.openSelectionMode()}
         variant="ghost"
         size={buttonSize}
       >
