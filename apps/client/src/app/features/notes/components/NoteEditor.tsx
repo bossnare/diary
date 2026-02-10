@@ -30,7 +30,6 @@ import {
   Undo2,
   X,
 } from 'lucide-react';
-import { ArrowUUpRightIcon, ArrowUUpLeftIcon } from '@phosphor-icons/react';
 import { AnimatePresence, motion, useInView } from 'motion/react';
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';

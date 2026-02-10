@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import * as Note from '@/app/types/note.type';
-import { useUpdateNote } from './use-note';
+import * as NoteApi from '@/app/api/note.api';
 
 export const useAutoSave = (
   enabled: boolean,
   body: { id: string; data: Note.Update },
   delay: number = 800
 ) => {
-  const updateNote = useUpdateNote();
   const [status, setStatus] = useState<'idle' | 'saving' | 'saved'>('idle');
 
   useEffect(() => {
@@ -20,7 +19,7 @@ export const useAutoSave = (
 
     const handler = setTimeout(async () => {
       try {
-        await updateNote.mutateAsync(body);
+        await NoteApi.updateNote(body.id, body.data);
         setStatus('saved');
       } finally {
         setStatus('idle');
@@ -28,7 +27,7 @@ export const useAutoSave = (
     }, delay);
 
     return () => clearTimeout(handler);
-  }, [delay, body, updateNote, enabled]);
+  }, [delay, body, enabled]);
 
   return status;
 };
