@@ -8,7 +8,6 @@ import { Ellipsis } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 import { NoteCard, type NoteCardVariant } from './NoteCard';
-import Masonry from 'react-layout-masonry';
 
 type Props = {
   isSelectionMode?: boolean;
@@ -44,18 +43,14 @@ export function NoteList(props: Props) {
   };
 
   return (
-    // grid grid-cols-2 auto-rows-[80px] lg:grid-cols-3 xl:grid-cols-4
-    <Masonry
-      columns={{ 640: 2, 768: 2, 1024: 3, 1280: 4 }}
-      gap={12}
-      className="pt-2"
-    >
-      <AnimatePresence>
+    <div className="grid grid-cols-2 gap-3 pt-2 lg:grid-cols-3 xl:grid-cols-4">
+      <AnimatePresence mode="popLayout">
         {props.notes?.map((note) => (
           <motion.div
-            exit={{ opacity: 0, scale: 0 }}
-            transition={{ duration: 0.05 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.2 }}
             key={note.id}
+            layout
           >
             <NoteCard
               variant={variant}
@@ -105,6 +100,6 @@ export function NoteList(props: Props) {
           </motion.div>
         ))}
       </AnimatePresence>
-    </Masonry>
+    </div>
   );
 }
