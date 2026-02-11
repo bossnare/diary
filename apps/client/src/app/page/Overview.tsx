@@ -30,6 +30,7 @@ import { useSelectionManager } from '../hooks/use-selection-manager';
 import { cn } from '../lib/utils';
 import { RecentNotes } from '../features/notes/components/RecentNotes';
 import { PinnedNotes } from '../features/notes/components/PinnedNotes';
+import { useUser } from '../hooks/use-user';
 
 function Overview() {
   const { data: homeNotes, isError, error, refetch, isPending } = useHomeNote();
@@ -38,7 +39,8 @@ function Overview() {
     pinned: [],
     // meta: {},
   };
-  // const { total: totalCount, recent: recentCount, pinned: pinnedCount } = meta;
+
+  const {data: user} = useUser()
 
   const selection = useSelectionManager<string>({
     queryKey: 'selectNotes',
@@ -232,6 +234,7 @@ function Overview() {
         />
         {/* content */}
         <>
+          <span className="px-4 pt-1 block text-sm text-muted-foreground">Hi, {user?.displayName.split(' ')[0]}</span>
           <header className="sticky top-0 px-2 pt-8 mx-2 z-16 md:px-2 md:mx-5 bg-muted dark:bg-background">
             {selection.isSelectionMode ? (
               <motion.div
@@ -250,7 +253,7 @@ function Overview() {
                     <X />
                   </Button>
                   {/* desktop only */}
-                  <span className="hidden font-medium font-inter md:inline-flex">
+                  <span className="hidden font-inter md:inline-flex">
                     {selection.count} items selected
                   </span>
                 </div>

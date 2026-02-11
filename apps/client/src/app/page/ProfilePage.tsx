@@ -45,11 +45,11 @@ export function ProfilePage() {
         fallback={profile?.username}
         className="mx-auto size-30"
       />
-      <p className="text-3xl font-medium text-center">
+      <p className="text-2xl font-medium text-center">
         Hello{' '}
         <span className="font-bold">{profile?.displayName || 'You'} !</span>
       </p>
-      <div className="max-w-4xl mx-auto h-80 rounded-2xl bg-muted"></div>
+      <div className="max-w-4xl mx-auto h-80 rounded-2xl bg-card"></div>
     </div>
   );
 }

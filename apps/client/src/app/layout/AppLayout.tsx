@@ -76,8 +76,8 @@ export function AppLayout() {
   });
 
   const { isOpen: isSelectionModeTrash } = useQueryToggle({
-    key: 'selection',
-    value: 'trash',
+    key: 'selectTrash',
+    value: '1',
   });
 
   // local state
