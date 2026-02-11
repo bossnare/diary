@@ -6,7 +6,6 @@ import { ErrorState } from '../components/ErrorState';
 import { EmptyEmpty as EmptyTrash } from '../features/ui/Empty';
 import { Button } from '@/components/ui/button';
 import { ListCheck, RotateCcw, Trash, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
 import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
@@ -17,10 +16,16 @@ import { ConfirmDialog } from '../features/ui/ConfirmDialog';
 import { ConfirmDrawer } from '../features/ui/ConfirmDrawer';
 import { toast } from 'sonner';
 import { useReveal } from '@/shared/hooks/use-reveal';
+import { useSelectionManager } from '@/app/hooks/use-selection-manager';
 
 export function NoteTrashPage() {
   const { data, isPending, isError, error, refetch } = useNoteTrash();
   const trash = data?.data ?? [];
+
+  const selection = useSelectionManager({
+    queryKey: 'selectTrash',
+    initialMode: 'none',
+  });
 
   // api
   const restoreMany = useRestoreMany();
@@ -55,12 +60,6 @@ export function NoteTrashPage() {
     },
   ];
 
-  const {
-    isOpen: isSelectionMode,
-    open: openSelectionMode,
-    close: closeSelectionMode,
-  } = useQueryToggle({ key: 'selection', value: 'trash' });
-
   const { isOpen: isOpenMobileSidebar } = useQueryToggle({
     key: 'sidebar',
     value: 'mobile',
@@ -72,44 +71,24 @@ export function NoteTrashPage() {
     close: closeDeleteConfirm,
   } = useQueryToggle({ key: 'confirm', value: 'deletetrash' });
 
-  const [selected, setSelected] = useState<Set<string>>(new Set());
-  const isAllSelected = selected.size === trash.map((n) => n.id).length;
-  const isHasSellected = selected.size > 0;
+  const isAllSelected = selection.count === trash.map((n) => n.id).length;
 
-  const toggleSelect = (notesId: string) => {
-    setSelected((prev) => {
-      const next = new Set(prev);
+  // const handleSelectAll = (allNotesId: string[]) => {
+  //   setSelected(() => new Set(allNotesId));
+  // };
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      next.has(notesId) ? next.delete(notesId) : next.add(notesId);
-      return next;
-    });
-  };
+  // const handleClearAllTrash = async () => {
+  //   handleSelectAll(trash.map((n) => n.id)); // silent select all notes by id
 
-  const handleSelectAll = (allNotesId: string[]) => {
-    setSelected(() => new Set(allNotesId));
-  };
-
-  const handleClearAllTrash = async () => {
-    handleSelectAll(trash.map((n) => n.id)); // silent select all notes by id
-
-    //  show ui confirm
-    openDeleteConfirm();
-  };
-
-  const toggleSelectAll = (allNotesId: string[]) => {
-    setSelected((prev) => {
-      const isAllSelected = prev.size === allNotesId.length;
-      if (isAllSelected) {
-        return new Set(); // clear all
-      }
-      return new Set(allNotesId); // set all
-    });
-  };
+  //   //  show ui confirm
+  //   openDeleteConfirm();
+  // };
 
   const handleRemove = async () => {
     try {
-      const deletedNotes = await deleteMany.mutateAsync([...selected]);
+      const deletedNotes = await deleteMany.mutateAsync(
+        selection.selectedArray
+      );
       toast(deletedNotes.message);
     } catch (err) {
       console.log(err);
@@ -117,10 +96,10 @@ export function NoteTrashPage() {
   };
 
   const handleRestore = async () => {
-    closeSelectionMode();
+    selection.closeSelection();
     try {
       const restoredNotes = await restoreMany.mutateAsync({
-        idsToRestore: [...selected],
+        idsToRestore: selection.selectedArray,
       });
       toast(restoredNotes.message);
     } catch (err) {
@@ -140,23 +119,15 @@ export function NoteTrashPage() {
   };
 
   const deleteConfirmTitle =
-    selected.size > 1
+    selection.count > 1
       ? `Remove notes permanently`
       : 'Remove this note permanently';
   const deleteConfirmDescription =
-    selected.size > 1
+    selection.count > 1
       ? `These notes will be permanently removed and cannot be recovered. Are you sure want to continue?`
       : `This note will be permanently removed and cannot be recovered. Are you sure want to continue?`;
   const deleteConfirmLabel =
-    selected.size > 1 ? `Remove (${selected.size})` : 'Remove';
-
-  // auto clear selected value on selectionMode close
-  useEffect(() => {
-    if (!isSelectionMode) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setSelected(new Set());
-    }
-  }, [isSelectionMode]);
+    selection.count > 1 ? `Remove (${selection.count})` : 'Remove';
 
   if (isPending)
     return (
@@ -191,7 +162,7 @@ export function NoteTrashPage() {
         buttonVariant={'destructive'}
         onConfirm={() => {
           handleRemove();
-          closeSelectionMode();
+          selection.closeSelection();
         }}
       />
       {/* confirm dialog - desktop only */}
@@ -205,7 +176,7 @@ export function NoteTrashPage() {
         buttonVariant={'destructive'}
         onConfirm={() => {
           handleRemove();
-          closeSelectionMode();
+          selection.closeSelection();
         }}
       />
       <div className="relative px-3 pb-2 md:px-6 bg-muted dark:bg-background max-w-dvw ">
@@ -214,10 +185,10 @@ export function NoteTrashPage() {
 
         <header className="sticky top-0 z-10 flex items-center justify-between gap-6 pt-8 pb-2 pr-2 md:gap-10 bg-muted dark:bg-background">
           <div className="flex items-center gap-2">
-            {isSelectionMode ? (
+            {selection.isSelectionMode ? (
               <Button
                 size={buttonXSize}
-                onClick={closeSelectionMode}
+                onClick={selection.closeSelection}
                 variant="ghost"
               >
                 <X />
@@ -227,14 +198,15 @@ export function NoteTrashPage() {
                 Trash ({data.count})
               </h3>
             )}
-            {isSelectionMode && (
+            {selection.isSelectionMode && (
               <span className="hidden text-foreground/80 md:block">
-                {isAllSelected ? 'All' : selected.size} items selected
+                {isAllSelected ? `All(${selection.count})` : selection.count}{' '}
+                items selected
               </span>
             )}
           </div>
 
-          {isSelectionMode && (
+          {selection.isSelectionMode && (
             <div
               className={cn(
                 isItemsCountView
@@ -243,13 +215,14 @@ export function NoteTrashPage() {
                 'text-foreground/80 transition md:hidden'
               )}
             >
-              {isAllSelected ? 'All' : selected.size} items selected
+              {isAllSelected ? `All(${selection.count})` : selection.count}{' '}
+              items selected
             </div>
           )}
 
-          {!isSelectionMode && (
+          {!selection.isSelectionMode && (
             <Button
-              onClick={handleClearAllTrash}
+              // onClick={handleClearAllTrash}
               size="lg"
               className="ml-auto rounded-full"
             >
@@ -258,20 +231,22 @@ export function NoteTrashPage() {
           )}
 
           {/* desktop toolbar */}
-          {isSelectionMode && (
+          {selection.isSelectionMode && (
             <div className="justify-end hidden gap-2 md:flex grow">
               <SelectionModeToolbarButton
                 onAction={handleSelectionModeAction}
-                disabled={!isHasSellected}
+                disabled={!selection.isHasSelected}
                 labelItems={selectionModeLabelItem}
               />
             </div>
           )}
 
           <div>
-            {isSelectionMode ? (
+            {selection.isSelectionMode ? (
               <div
-                onClick={() => toggleSelectAll(trash.map((n) => n.id))}
+                onClick={() =>
+                  selection.toggleSelectAll(trash.map((n) => n.id))
+                }
                 role="button"
                 className={cn(
                   isAllSelected ? 'border-transparent' : 'border-foreground',
@@ -291,9 +266,9 @@ export function NoteTrashPage() {
               <Button
                 onClick={() => {
                   // clean up selected id before
-                  setSelected(new Set());
+                  // setSelected(new Set());
                   // open selection
-                  openSelectionMode();
+                  selection.openSelectionMode();
                 }}
                 size="icon-lg"
                 variant="ghost"
@@ -303,12 +278,13 @@ export function NoteTrashPage() {
             )}
           </div>
         </header>
-        {isSelectionMode ? (
+        {selection.isSelectionMode ? (
           <span
             ref={itemsCountRef}
             className="block px-2 py-3 text-2xl text-foreground/80 md:hidden"
           >
-            {isAllSelected ? 'All' : selected.size} items selected
+            {isAllSelected ? `All(${selection.count})` : selection.count} items
+            selected
           </span>
         ) : (
           <div
@@ -325,20 +301,13 @@ export function NoteTrashPage() {
           </div>
         )}
         <main className="w-full min-h-screen">
-          <NoteList
-            variant="trash"
-            notes={trash}
-            isSelectionMode={isSelectionMode}
-            selected={selected}
-            toggleSelect={toggleSelect}
-            openSelectionMode={openSelectionMode}
-          />
+          <NoteList variant="trash" notes={trash} selection={selection} />
         </main>
       </div>
 
       {/* mobile toolbar */}
       <Portal>
-        {!isOpenMobileSidebar && isSelectionMode && (
+        {!isOpenMobileSidebar && selection.isSelectionMode && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -348,7 +317,7 @@ export function NoteTrashPage() {
             <div className="flex justify-center w-full gap-2">
               <SelectionModeToolbarButton
                 onAction={handleSelectionModeAction}
-                disabled={!isHasSellected}
+                disabled={!selection.isHasSelected}
                 labelItems={selectionModeLabelItem}
               />
             </div>

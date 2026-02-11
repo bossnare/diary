@@ -70,7 +70,7 @@ export const NoteCard = ({
       )}
       {...props}
     >
-      <span className="text-lg w-[90%] font-bold truncate md:text-base line-clamp-1 text-wrap">
+      <span className="w-[90%] font-bold truncate line-clamp-1 text-wrap">
         {note.title || 'Untitled'}
       </span>
       <span

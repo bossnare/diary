@@ -34,7 +34,7 @@ export function useHomeNote() {
     },
     AxiosError
   >({
-    queryKey: ['home-notes', limit],
+    queryKey: ['notes', limit],
     queryFn: () => noteApi.getHomeNotes(params),
     staleTime: 0,
   });
@@ -63,7 +63,7 @@ export function useCreateNote() {
   const create = useMutation({
     mutationFn: (data: Note.Create) => noteApi.createNote(data),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['notes'] });
+      qc.invalidateQueries({ queryKey: ['notes'],  });
     },
   });
 
