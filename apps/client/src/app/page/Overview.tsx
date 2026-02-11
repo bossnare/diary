@@ -298,7 +298,7 @@ function Overview() {
               </div>
             )}
           </header>
-          <main className="flex flex-col gap-8 px-3 pt-3 md:px-6">
+          <main className="flex flex-col gap-10 px-3 pt-3 md:px-6">
             <PinnedNotes selection={selection} data={pinned} />
             <RecentNotes selection={selection} data={recent} />
           </main>
