@@ -49,6 +49,47 @@ export class NotesService {
     };
   }
 
+  async getHomeNotes(userId: string, limit: number) {
+    const LIMIT = limit ?? 8;
+
+    const [recent, pinned] = await Promise.all([
+      this.prisma.note.findMany({
+        where: {
+          userId,
+          status: { in: [NoteStatus.DRAFT, NoteStatus.PUBLISHED] },
+        },
+        orderBy: { updatedAt: 'desc' },
+        take: LIMIT,
+      }),
+
+      this.prisma.note.findMany({
+        where: {
+          userId,
+          pinned: true,
+          status: { in: [NoteStatus.DRAFT, NoteStatus.PUBLISHED] },
+        },
+        orderBy: { updatedAt: 'desc' },
+        take: LIMIT,
+      }),
+    ]);
+
+    const totalCount = recent.length + pinned.length;
+
+    return {
+      success: true,
+      timestamps: Date.now(),
+      data: {
+        recent,
+        pinned,
+        meta: {
+          total: totalCount,
+          recent: recent.length,
+          pinned: pinned.length,
+        },
+      },
+    };
+  }
+
   async findOne(id: string, userId: string) {
     const data = await this.prisma.note.findUnique({
       where: { id, userId },

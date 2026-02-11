@@ -32,6 +32,11 @@ export class NotesController {
     return this.notesService.findAll(user.id, sort, order);
   }
 
+  @Get('home')
+  findHomeNotes(@User() user: UserEntity, @Query('limit') limit: number) {
+    return this.notesService.getHomeNotes(user.id, limit);
+  }
+
   @Get('trash')
   getTrash(@User() user: UserEntity) {
     return this.notesService.getTrash(user.id);
