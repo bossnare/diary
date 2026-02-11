@@ -8,37 +8,32 @@ import { Ellipsis } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 import { NoteCard, type NoteCardVariant } from './NoteCard';
-import type { SelectionMode } from '@/app/hooks/use-selection-manager';
+import type { SelectionManager } from '@/app/hooks/use-selection-manager';
 
 type Props = {
-  isSelectionMode?: boolean;
+  selection?: SelectionManager;
   notes?: NoteInterface[];
-  selected?: Set<string>;
-  openSelectionMode?: (mode?: SelectionMode) => void;
-  toggleSelect?: (id: string) => void;
   variant?: NoteCardVariant;
 };
 
-export function NoteList(props: Props) {
-  const variant = props.variant ?? 'default';
-
+export function NoteList({ selection, notes, variant }: Props) {
   const navigate = useNavigate();
   const longPress = useLongPress({
     onLongPress: (id: string) => {
-      props?.openSelectionMode?.();
-      props?.toggleSelect?.(id);
+      selection?.openSelectionMode?.();
+      selection?.toggleSelect?.(id);
     },
   });
 
   // for select a notes card on mobile
-  const isSelected = (notesId: string) => props?.selected?.has(notesId);
+  const isSelected = (notesId: string) => selection?.selected?.has(notesId);
 
   const handleClickNote = (noteId: string) => {
     if (variant !== 'default') {
-      if (props.isSelectionMode) props?.toggleSelect?.(noteId);
+      if (selection?.isSelectionMode) selection?.toggleSelect?.(noteId);
       else handleWait(() => navigate(`/note/${noteId}`), 250);
     } else {
-      if (props.isSelectionMode) props?.toggleSelect?.(noteId);
+      if (selection?.isSelectionMode) selection?.toggleSelect?.(noteId);
       else handleWait(() => navigate(`/note/${noteId}/edit`), 250);
     }
   };
@@ -46,15 +41,15 @@ export function NoteList(props: Props) {
   return (
     <div className="grid grid-cols-2 gap-3 pt-2 lg:grid-cols-3 xl:grid-cols-4">
       <AnimatePresence mode="popLayout">
-        {props.notes?.map((note) => (
+        {notes?.map((note) => (
           <motion.div
             exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.1 }}
             key={note.id}
             layout
           >
             <NoteCard
-              variant={variant}
+              variant={variant ?? 'default'}
               role="button"
               onTouchStart={() => longPress.handleTouchStart(note.id)}
               onClick={() => handleClickNote(note.id)}
@@ -68,7 +63,7 @@ export function NoteList(props: Props) {
               note={note}
             >
               {/* options toggle - desktop */}
-              {!props.isSelectionMode && variant === 'default' && (
+              {!selection?.isSelectionMode && variant === 'default' && (
                 <Button
                   onClick={(e) => {
                     e.stopPropagation();
@@ -82,7 +77,7 @@ export function NoteList(props: Props) {
               )}
               <div
                 className={cn(
-                  props.isSelectionMode ? 'scale-100' : 'scale-0',
+                  selection?.isSelectionMode ? 'scale-100' : 'scale-0',
                   'absolute z-2 bottom-3 right-3 lg:hover:bg-muted-foreground/60 size-7 lg:size-5 bg-muted-foreground/40 rounded-full transition'
                 )}
               >

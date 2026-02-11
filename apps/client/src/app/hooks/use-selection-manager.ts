@@ -8,7 +8,9 @@ export type useSelectionManagerOptions = {
 };
 
 // usage sync by useQueryToggle (query ui driven state)
-export function useSelectionManager(options: useSelectionManagerOptions) {
+export function useSelectionManager<T extends string | number = string>(
+  options: useSelectionManagerOptions
+) {
   const { initialMode = 'none', queryKey } = options;
 
   const query = useQueryToggle({
@@ -17,7 +19,7 @@ export function useSelectionManager(options: useSelectionManagerOptions) {
   });
 
   const [mode, setMode] = useState<SelectionMode>(initialMode);
-  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [selected, setSelected] = useState<Set<T>>(new Set());
   const count = selected.size;
 
   // auto clear selected when selection mode by quey params isOpen
@@ -42,7 +44,7 @@ export function useSelectionManager(options: useSelectionManagerOptions) {
   }, [query]);
 
   const toggleSelectAll = useCallback(
-    (allIds: string[]) => {
+    (allIds: T[]) => {
       console.log(mode);
 
       if (mode === 'multiple') {
@@ -59,7 +61,7 @@ export function useSelectionManager(options: useSelectionManagerOptions) {
   );
 
   const toggleSelect = useCallback(
-    (id: string) => {
+    (id: T) => {
       setSelected((prev) => {
         const next = new Set(prev);
         if (mode === 'single') {
@@ -100,3 +102,7 @@ export function useSelectionManager(options: useSelectionManagerOptions) {
     clear,
   } as const;
 }
+
+export type SelectionManager<T extends string | number = string> = ReturnType<
+  typeof useSelectionManager<T>
+>;
