@@ -57,6 +57,7 @@ export class NotesService {
         where: {
           userId,
           status: { in: [NoteStatus.DRAFT, NoteStatus.PUBLISHED] },
+          pinned: false, // recent without pinned
         },
         orderBy: { updatedAt: 'desc' },
         take: LIMIT,

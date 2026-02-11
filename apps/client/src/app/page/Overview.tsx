@@ -39,15 +39,13 @@ function Overview() {
     // meta: {},
   };
   // const { total: totalCount, recent: recentCount, pinned: pinnedCount } = meta;
-  const pinnedIds = new Set(pinned.map((p) => p.id));
-  const recentWithoutPinned = recent.filter((r) => !pinnedIds.has(r.id));
 
   const selection = useSelectionManager<string>({
     queryKey: 'selectNotes',
     initialMode: 'none',
   });
 
-  const all = [...recentWithoutPinned, ...pinned];
+  const all = [...recent, ...pinned];
   const allNoteIds = all.map((n) => n.id);
   const isAllSelected = selection.count === allNoteIds.length;
   const selectedNotes = all.filter((n) => selection.selected.has(n.id));
@@ -302,7 +300,7 @@ function Overview() {
           </header>
           <main className="flex flex-col gap-8 px-3 pt-3 md:px-6">
             <PinnedNotes selection={selection} data={pinned} />
-            <RecentNotes selection={selection} data={recentWithoutPinned} />
+            <RecentNotes selection={selection} data={recent} />
           </main>
         </>
       </div>

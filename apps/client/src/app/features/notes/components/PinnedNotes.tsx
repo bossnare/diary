@@ -18,7 +18,7 @@ export function PinnedNotes({ selection, data }: Props) {
         </div>
       </header>
       <main>
-        <NoteList selection={selection} notes={data} />
+        <NoteList variant="default" selection={selection} notes={data} />
       </main>
     </section>
   );
