@@ -20,6 +20,26 @@ export function useNote() {
   });
 }
 
+export function useHomeNote() {
+  const [searchParams] = useSearchParams();
+  const limit = searchParams.get('limit') ?? 8;
+  const params = new URLSearchParams();
+  params.set('limit', String(limit));
+
+  return useQuery<
+    {
+      pinned: Note.NoteInterface[];
+      recent: Note.NoteInterface[];
+      meta: { total: number; recent: number; pinned: number };
+    },
+    AxiosError
+  >({
+    queryKey: ['home-notes', limit],
+    queryFn: () => noteApi.getHomeNotes(params),
+    staleTime: 0,
+  });
+}
+
 export const useNoteTrash = () => {
   return useQuery<{ count: number; data: Note.NoteInterface[] }, AxiosError>({
     queryKey: ['notes-trash'],

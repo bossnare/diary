@@ -14,30 +14,41 @@ import { FolderSymlink, ListChecks, Lock, Pin, Trash, X } from 'lucide-react';
 import { motion } from 'motion/react';
 import { toast } from 'sonner';
 import { ErrorState } from '../components/ErrorState';
-import { NoteList } from '../features/notes/components/NoteList';
 import { ConfirmDialog } from '../features/ui/ConfirmDialog';
 import { ConfirmDrawer } from '../features/ui/ConfirmDrawer';
 import { EmptyEmpty as EmptyNotes } from '../features/ui/Empty';
 import { OverviewToolbar } from '../features/ui/OverviewToolbar';
 import { SortingDrawer } from '../features/ui/SortingDrawer';
 import { ToolbarButton as SelectionModeToolbarButton } from '../features/ui/ToolbarButton';
-import { useBulkPinned, useNote, useSoftDeleteMany } from '../hooks/use-note';
+import {
+  useBulkPinned,
+  useHomeNote,
+  useSoftDeleteMany,
+} from '../hooks/use-note';
 import { useNoteServices } from '../hooks/use-note-service';
 import { useSelectionManager } from '../hooks/use-selection-manager';
 import { cn } from '../lib/utils';
+import { RecentNotes } from '../features/notes/components/RecentNotes';
+import { PinnedNotes } from '../features/notes/components/PinnedNotes';
 
 function Overview() {
-  const { data, isPending, isError, error, refetch } = useNote();
-  const notes = data ?? [];
+  const { data: homeNotes, isError, error, refetch, isPending } = useHomeNote();
+  const { recent, pinned } = homeNotes ?? {
+    recent: [],
+    pinned: [],
+    // meta: {},
+  };
+  // const { total: totalCount, recent: recentCount, pinned: pinnedCount } = meta;
 
-  const selection = useSelectionManager({
+  const selection = useSelectionManager<string>({
     queryKey: 'selectNotes',
-    initialMode: 'multiple',
+    initialMode: 'none',
   });
 
-  const allNoteIds = notes?.map((n) => n.id);
+  const all = [...recent, ...pinned];
+  const allNoteIds = all.map((n) => n.id);
   const isAllSelected = selection.count === allNoteIds.length;
-  const selectedNotes = notes.filter((n) => selection.selected.has(n.id));
+  const selectedNotes = all.filter((n) => selection.selected.has(n.id));
   const allPinned =
     selectedNotes.length > 0 && selectedNotes.every((n) => n.pinned);
 
@@ -165,7 +176,7 @@ function Overview() {
 
   if (isError) return <ErrorState error={error} onRetry={refetch} />;
 
-  if (notes?.length < 1)
+  if (all?.length < 1)
     return (
       <div className="py-4">
         <EmptyNotes
@@ -274,10 +285,7 @@ function Overview() {
                 </div>
               </motion.div>
             ) : (
-              <div className="flex items-center justify-between">
-                <h3 className="text-2xl font-medium tracking-tight scroll-m-20">
-                  All notes
-                </h3>
+              <div className="flex items-center justify-end">
                 <OverviewToolbar
                   toggleOpenNoteSorting={toggleOpenNoteSorting}
                   openSelectionMode={() =>
@@ -290,14 +298,9 @@ function Overview() {
               </div>
             )}
           </header>
-          <main className="px-3 md:px-6">
-            <NoteList
-              selected={selection.selected}
-              isSelectionMode={selection.isSelectionMode}
-              notes={notes}
-              toggleSelect={selection.toggleSelect}
-              openSelectionMode={() => selection.openSelectionMode('multiple')}
-            />
+          <main className="flex flex-col gap-8 px-3 pt-3 md:px-6">
+            <PinnedNotes selection={selection} data={pinned} />
+            <RecentNotes selection={selection} data={recent} />
           </main>
         </>
       </div>

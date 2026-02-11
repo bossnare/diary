@@ -45,8 +45,8 @@ export function AppLayout() {
     useQueryToggle({ key: 'sidebar', value: 'mobile' });
 
   const { isOpen: isSelectionMode } = useQueryToggle({
-    key: 'select',
-    value: 'notes',
+    key: 'selectNotes',
+    value: '1',
   });
 
   const {

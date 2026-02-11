@@ -7,6 +7,11 @@ export const getAllNotes = async (params?: URLSearchParams) => {
   return res.data; // return {.., data}
 };
 
+export const getHomeNotes = async (params?: URLSearchParams) => {
+  const res = await fetcher(`/notes/home?${params}`);
+  return res.data; // return {.., data}
+};
+
 export const getAllNotesTrash = async () => {
   return await fetcher(`/notes/trash`);
 };
