@@ -250,7 +250,7 @@ function Overview() {
                     <X />
                   </Button>
                   {/* desktop only */}
-                  <span className="hidden font-medium font-inter md:inline-flex">
+                  <span className="hidden font-inter md:inline-flex">
                     {selection.count} items selected
                   </span>
                 </div>

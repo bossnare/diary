@@ -65,7 +65,7 @@ export const NoteCard = ({
   return (
     <div
       className={cn(
-        'relative flex flex-col font-inter gap-4 p-4 transition cursor-pointer select-none bg-background group active:scale-99 lg:active:scale-100 dark:shadow-none hover:bg-background/80 dark:hover:bg-muted active:opacity-60 dark:bg-muted/80 lg:shadow-sm rounded-2xl lg:rounded-xl',
+        'relative flex flex-col font-inter gap-4 p-4 transition cursor-pointer select-none bg-card group active:scale-99 lg:active:scale-100 dark:shadow-none hover:bg-background/80 dark:hover:bg-muted active:opacity-60 lg:shadow-sm rounded-2xl lg:rounded-xl',
         className
       )}
       {...props}

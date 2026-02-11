@@ -7,6 +7,7 @@ export interface NoteInterface {
   jsonContent: JSONContent;
   edited: boolean;
   pinned: boolean;
+  color: string;
   numberOfEdits: number;
   status: string;
   userId: string;

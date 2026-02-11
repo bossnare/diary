@@ -57,11 +57,17 @@ export function NoteList({ selection, notes, variant }: Props) {
               onTouchMove={longPress.handleTouchMove}
               onTouchCancel={longPress.handleTouchCancel}
               className={cn(
-                isSelected(note.id) && 'bg-background/80! dark:bg-muted!',
+                isSelected(note.id) && 'bg-card/80! dark:bg-muted!',
                 'h-full! overflow-hidden'
               )}
               note={note}
             >
+              {!selection?.isSelectionMode && variant === 'default' && (
+                <span
+                  className="absolute -top-1 -right-1 rounded-full size-4"
+                  style={{ backgroundColor: note.color }}
+                ></span>
+              )}
               {/* options toggle - desktop */}
               {!selection?.isSelectionMode && variant === 'default' && (
                 <Button
