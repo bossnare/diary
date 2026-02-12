@@ -64,7 +64,7 @@ export function NoteList({ selection, notes, variant }: Props) {
             >
               {!selection?.isSelectionMode && variant === 'default' && (
                 <span
-                  className="absolute -top-1 -right-1 rounded-full size-4"
+                  className="absolute -top-1 -right-1 rounded-full size-4 shadow-lg"
                   style={{ backgroundColor: note.color }}
                 ></span>
               )}
