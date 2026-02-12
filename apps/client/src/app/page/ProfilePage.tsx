@@ -3,10 +3,13 @@ import { UserAvatar } from '../features/users/UserAvatar';
 import { useUserProfile } from '@/app/hooks/use-user';
 import { ErrorState } from '../components/ErrorState';
 import { Spinner } from '@/shared/components/Spinner';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Link } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useState } from 'react';
 
 export function ProfilePage() {
+  const [isCopyingLink, setIsCopyingLink] = useState(false);
+
   const { username } = useParams();
   const {
     data: profile,
@@ -15,7 +18,15 @@ export function ProfilePage() {
     refetch,
     isPending,
   } = useUserProfile(username);
-  console.log(profile);
+  const link = `${import.meta.env.VITE_SITE_URL}/${profile?.username}`;
+
+  const handleCopyLink = () => {
+    setIsCopyingLink(true);
+    navigator.clipboard.writeText(link);
+    setTimeout(() => {
+      setIsCopyingLink(false);
+    }, 800);
+  };
 
   if (isPending)
     return (
@@ -28,7 +39,7 @@ export function ProfilePage() {
     return (
       <div>
         <header>
-          <nav className="py-2 px-2">
+          <nav className="px-2 py-2">
             <Button size="icon-lg" variant="ghost">
               <ArrowLeft />
             </Button>
@@ -39,17 +50,40 @@ export function ProfilePage() {
     );
 
   return (
-    <div className="px-4 py-8 space-y-4">
-      <UserAvatar
-        user={profile}
-        fallback={profile?.username}
-        className="mx-auto size-30"
-      />
-      <p className="text-2xl font-medium text-center">
-        Hello{' '}
-        <span className="font-bold">{profile?.displayName || 'You'} !</span>
-      </p>
-      <div className="max-w-4xl mx-auto h-80 rounded-2xl bg-card"></div>
+    <div className="relative max-w-4xl px-4 py-8 mx-auto space-y-4">
+      <div className="absolute inset-x-0 top-0 h-24 bg-muted/20"></div>
+
+      <div className="flex flex-col items-center gap-4 lg:flex-row">
+        <UserAvatar
+          user={profile}
+          fallback={profile?.username}
+          className="border outline-4 size-28 lg:size-36 outline-background border-foreground/80"
+        />
+        <div className="flex flex-col gap-3 lg:flex-row lg:justify-between lg:pt-10 grow">
+          <p className="text-2xl font-bold text-center lg:text-3xl">
+            {profile?.displayName || 'You'}
+          </p>
+          <Button
+            disabled={isCopyingLink}
+            onClick={handleCopyLink}
+            variant="outline"
+          >
+            <Link /> {isCopyingLink ? 'Copying ...' : 'Copy link'}
+          </Button>
+        </div>
+      </div>
+
+      <div className="flex flex-col items-center gap-4 p-4 mx-auto h-80 rounded-2xl">
+        <div className="flex items-center justify-center w-full gap-8 p-3 border rounded-lg border-border">
+          <div>
+            <span className="text-xl font-bold">14.2K</span> Followers
+          </div>
+          <span className="block h-full border-l border-border"></span>
+          <div>
+            <span className="text-xl font-bold">12</span> Notes
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

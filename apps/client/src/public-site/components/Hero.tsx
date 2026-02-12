@@ -26,7 +26,7 @@ function Hero() {
       <div className="absolute rounded-full brightness-120 -left-5 -top-2 lg:left-12 lg:top-6 bg-primary h-70 w-50 lg:h-90 lg:w-90 -z-1"></div>
       <div className="absolute right-0 rounded-full bg-primary bottom-10 size-60 lg:size-80 -z-1"></div>
       <div className="absolute left-0 rounded-full bg-chart-2 top-20 size-30 lg:size-60 -z-1"></div>
-      <div className="absolute rigth-0 rounded-full bg-chart-2 -bottom-20 size-40 lg:size-50 -z-1"></div>
+      <div className="absolute rounded-full rigth-0 bg-chart-2 -bottom-20 size-40 lg:size-50 -z-1"></div>
 
       {/* grainy noise */}
       <span className="absolute z-11 opacity-20 mix-blend-overlay size-full bg-[url('./assets/noise.svg')]"></span>
@@ -77,7 +77,7 @@ function Hero() {
             <Button
               onClick={() => handleWait(openLogin, 300)}
               size="xl"
-              className="w-auto font-bold rounded-full md:order-2"
+              className="w-auto font-bold border rounded-full border-primary md:order-2"
             >
               {t('hero.primaryButton')}
             </Button>
