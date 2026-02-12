@@ -51,7 +51,7 @@ export function ProfilePage() {
 
   return (
     <div className="relative max-w-4xl px-4 py-8 mx-auto space-y-4">
-      <div className="absolute inset-x-0 top-0 h-24 bg-muted/20"></div>
+      <div className="absolute inset-x-0 top-0 h-24 bg-muted/40"></div>
 
       <div className="flex flex-col items-center gap-4 lg:flex-row">
         <UserAvatar
@@ -74,7 +74,7 @@ export function ProfilePage() {
       </div>
 
       <div className="flex flex-col items-center gap-4 p-4 mx-auto h-80 rounded-2xl">
-        <div className="flex items-center justify-center w-full gap-8 p-3 border rounded-lg border-border">
+        <div className="flex items-center justify-center w-full gap-8 p-3 border rounded-lg bg-muted/30 dark:bg-transparent border-border">
           <div>
             <span className="text-xl font-bold">14.2K</span> Followers
           </div>
