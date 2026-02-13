@@ -94,7 +94,7 @@ export const MobileSidebar = ({
           </ul>
 
           {/* logout */}
-          <div className="absolute bottom-2 w-full left-0">
+          <div className="absolute left-0 w-full bottom-2">
             <button
               onClick={() => {
                 close();
@@ -166,17 +166,19 @@ export const DesktopSidebar = ({
           <FileDropZone className="h-60" onContinue={openCreateFromFile} />
         </div>
 
-        <div className="absolute inset-x-0 flex flex-col items-center gap-2 px-3 pb-2 bottom-2 bg-linear-to-b from-transparent via-zinc-950/20 to-zinc-950/10 dark:to-zinc-950/80 min-h-15">
+        <div className="absolute inset-x-0 flex flex-col items-center gap-2 px-3 pb-2 bottom-2 bg-linear-to-b from-transparent dark:via-zinc-950/20 dark:to-zinc-950/80 min-h-15">
           <div className="w-full active:bg-muted">
             <Button
               onClick={openNewNote}
-              title={isOpenPanel ? 'create new note' : ''}
+              title={isOpenPanel ? '' : 'create new note'}
               size="lg"
               variant="ghost"
-              className="hidden overflow-hidden w-full font-semibold lg:inline-flex"
+              className="hidden w-full gap-6 overflow-hidden font-semibold lg:inline-flex"
             >
-              <Plus className="size-5" />
-              {isOpenPanel ? 'Create new note' : null}
+              <span className="p-1 rounded-full bg-secondary text-secondary-foreground">
+                <Plus className="size-4" />
+              </span>
+              {isOpenPanel ? 'New note' : null}
             </Button>
           </div>
         </div>
