@@ -10,7 +10,16 @@ import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
 import { Portal } from '@radix-ui/react-portal';
 import { IconNote } from '@tabler/icons-react';
 import { useQueryClient } from '@tanstack/react-query';
-import { FolderSymlink, ListChecks, Lock, Pin, Trash, X } from 'lucide-react';
+import {
+  Check,
+  FolderSymlink,
+  ListChecks,
+  Lock,
+  Pin,
+  Plus,
+  Trash,
+  X,
+} from 'lucide-react';
 import { motion } from 'motion/react';
 import { toast } from 'sonner';
 import { ErrorState } from '../components/ErrorState';
@@ -166,34 +175,112 @@ function Overview() {
     }
   };
 
-  if (isPending)
-    return (
-      <div className="flex items-center justify-center py-10 h-100">
-        <Spinner />
-      </div>
-    );
+  const RenderNote = () => {
+    if (isPending)
+      return (
+        <div className="flex items-center justify-center py-10 h-100">
+          <Spinner />
+        </div>
+      );
 
-  if (isError) return <ErrorState error={error} onRetry={refetch} />;
+    if (isError) return <ErrorState error={error} onRetry={refetch} />;
 
-  if (all?.length < 1)
+    if (all?.length < 1)
+      return (
+        <div className="py-4">
+          <EmptyNotes
+            illustration={empty_note}
+            icon={IconNote}
+            title="No Notes Yet"
+            description="You haven't created any notes yet. Get started by creating your first notes."
+            primaryLabel="Create Note"
+            secondaryLabel="Paste from Clipboard"
+            onPrimaryAction={openNewNote}
+            onSecondaryAction={pasteFromClipboard}
+          />
+        </div>
+      );
+
     return (
-      <div className="py-4">
-        <EmptyNotes
-          illustration={empty_note}
-          icon={IconNote}
-          title="No Notes Yet"
-          description="You haven't created any notes yet. Get started by creating your first notes."
-          primaryLabel="Create Note"
-          secondaryLabel="Paste from Clipboard"
-          onPrimaryAction={openNewNote}
-          onSecondaryAction={pasteFromClipboard}
-        />
-      </div>
+      <>
+        <nav className="sticky top-0 pt-6 mx-2 z-16 md:px-5 bg-muted dark:bg-background">
+          {selection.isSelectionMode ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="flex items-center justify-between pb-2 lg:gap-10"
+            >
+              {/* cancel and info on select notes */}
+              <div className="flex items-center gap-1">
+                <Button
+                  onClick={selection.closeSelection}
+                  size={buttonXSize}
+                  variant="ghost"
+                >
+                  <X />
+                </Button>
+                {/* desktop only */}
+                <span className="hidden font-inter md:inline-flex">
+                  {selection.count} items selected
+                </span>
+              </div>
+              {/* mobile only */}
+              <span className="text-xl font-medium md:hidden">
+                {selection.count} items selected
+              </span>
+
+              {/* toolbar */}
+              <div className="justify-end hidden gap-2 md:flex grow">
+                <SelectionModeToolbarButton
+                  onAction={handleSelectionModeAction}
+                  disabled={!selection.isHasSelected}
+                  labelItems={selectionModeLabelItem}
+                />
+              </div>
+
+              {/* toggle select all button */}
+              <div className="flex items-center gap-2">
+                <span className="hidden text-sm lg:inline-flex">
+                  {isAllSelected ? 'Unselect all' : 'Select all'}
+                </span>
+                <Button
+                  onClick={() => selection.toggleSelectAll(allNoteIds)}
+                  size={buttonToggleSelectAllSize}
+                  variant="ghost"
+                >
+                  <ListChecks
+                    className={cn(isAllSelected ? 'text-chart-2' : '')}
+                  />
+                </Button>
+              </div>
+            </motion.div>
+          ) : (
+            <div className="flex items-center justify-end">
+              <OverviewToolbar
+                toggleOpenNoteSorting={toggleOpenNoteSorting}
+                openSelectionMode={() =>
+                  selection.openSelectionMode('multiple')
+                }
+                handleRefreshNotes={handleRefreshNotes}
+                isOpenNoteSorting={isOpenNoteSorting}
+                closeNoteSorting={closeNoteSorting}
+              />
+            </div>
+          )}
+        </nav>
+
+        <div className="flex flex-col gap-10 px-3 pt-3 pb-4 md:px-6">
+          <PinnedNotes selection={selection} data={pinned} />
+          <RecentNotes selection={selection} data={recent} />
+        </div>
+      </>
     );
+  };
 
   return (
     <>
-      <div className="relative min-h-screen pb-2 bg-muted dark:bg-background">
+      <div className="relative min-h-screen bg-muted dark:bg-background">
         {/* subtle overlay */}
         <div className="absolute inset-0 z-20 hidden pointer-events-none dark:block bg-primary/2"></div>
         {/* drawer - mobile only */}
@@ -231,75 +318,45 @@ function Overview() {
         />
         {/* content */}
         <>
-          <header className="sticky top-0 px-2 pt-8 mx-2 z-16 md:px-2 md:mx-5 bg-muted dark:bg-background">
-            {selection.isSelectionMode ? (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="flex items-center justify-between pb-2 lg:gap-10"
-              >
-                {/* skip and info on select notes */}
-                <div className="flex items-center gap-1">
-                  <Button
-                    onClick={selection.closeSelection}
-                    size={buttonXSize}
-                    variant="ghost"
-                  >
-                    <X />
-                  </Button>
-                  {/* desktop only */}
-                  <span className="hidden font-inter md:inline-flex">
-                    {selection.count} items selected
-                  </span>
-                </div>
-                {/* mobile only */}
-                <span className="text-xl font-medium md:hidden">
-                  {selection.count} items selected
-                </span>
+          <main className="flex">
+            <div className="grow">
+              <RenderNote />
+            </div>
 
-                {/* toolbar */}
-                <div className="justify-end hidden gap-2 md:flex grow">
-                  <SelectionModeToolbarButton
-                    onAction={handleSelectionModeAction}
-                    disabled={!selection.isHasSelected}
-                    labelItems={selectionModeLabelItem}
-                  />
-                </div>
-
-                {/* toggle select all button */}
-                <div className="flex items-center gap-2">
-                  <span className="hidden text-sm lg:inline-flex">
-                    {isAllSelected ? 'Unselect all' : 'Select all'}
-                  </span>
-                  <Button
-                    onClick={() => selection.toggleSelectAll(allNoteIds)}
-                    size={buttonToggleSelectAllSize}
-                    variant="ghost"
-                  >
-                    <ListChecks
-                      className={cn(isAllSelected ? 'text-chart-2' : '')}
-                    />
+            <div className="sticky inset-y-0 top-0! flex-col hidden gap-2 p-3 bg-sidebar lg:flex shrink-0 w-80">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xl font-medium">Task</h3>
+                  <Button className="bg-background hover:bg-background! shadow-sm hover:text-foreground/80! text-foreground">
+                    <Plus className="size-4" /> Add task
                   </Button>
                 </div>
-              </motion.div>
-            ) : (
-              <div className="flex items-center justify-end">
-                <OverviewToolbar
-                  toggleOpenNoteSorting={toggleOpenNoteSorting}
-                  openSelectionMode={() =>
-                    selection.openSelectionMode('multiple')
-                  }
-                  handleRefreshNotes={handleRefreshNotes}
-                  isOpenNoteSorting={isOpenNoteSorting}
-                  closeNoteSorting={closeNoteSorting}
-                />
+                <div className="shadow-xs min-h-40 rounded-xl max-h-50 bg-background">
+                  <ul className="flex flex-col overflow-hidden">
+                    <li className="px-4 py-3">
+                      <label
+                        htmlFor="task"
+                        className="flex items-center gap-4 cursor-pointer"
+                      >
+                        <span className="flex items-center justify-center border rounded-md active:scale-98 size-5 border-border">
+                          <Check className="size-4 text-primary" />
+                        </span>
+                        <span className="font-medium">
+                          Delete all messy code
+                        </span>
+                      </label>
+                      <input
+                        id="task"
+                        hidden
+                        type="checkbox"
+                        name="task"
+                        value="task"
+                      />
+                    </li>
+                  </ul>
+                </div>
               </div>
-            )}
-          </header>
-          <main className="flex flex-col gap-10 px-3 pt-3 md:px-6">
-            <PinnedNotes selection={selection} data={pinned} />
-            <RecentNotes selection={selection} data={recent} />
+            </div>
           </main>
         </>
       </div>

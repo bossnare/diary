@@ -39,7 +39,7 @@ export function NoteList({ selection, notes, variant }: Props) {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-3 pt-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 pt-2">
       <AnimatePresence mode="popLayout">
         {notes?.map((note) => (
           <motion.div
@@ -62,12 +62,6 @@ export function NoteList({ selection, notes, variant }: Props) {
               )}
               note={note}
             >
-              {!selection?.isSelectionMode && variant === 'default' && (
-                <span
-                  className="absolute -top-1 -right-1 rounded-full size-4 shadow-lg"
-                  style={{ backgroundColor: note.color }}
-                ></span>
-              )}
               {/* options toggle - desktop */}
               {!selection?.isSelectionMode && variant === 'default' && (
                 <Button
