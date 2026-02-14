@@ -134,3 +134,6 @@ export function useNoteCache() {
     queryKey: ['notes'],
   });
 }
+
+
+export type UseHomeNoteReturn = ReturnType<typeof useHomeNote>
