@@ -2,13 +2,10 @@ import type {
   SelectionModeActionKey,
   SelectionModeLabel,
 } from '@/app/types/label.type';
-import empty_note from '@/assets/empty_note.svg';
 import { Button } from '@/components/ui/button';
-import { Spinner } from '@/shared/components/Spinner';
 import { useButtonSize } from '@/shared/hooks/use-button-size';
 import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
 import { Portal } from '@radix-ui/react-portal';
-import { IconNote } from '@tabler/icons-react';
 import { useQueryClient } from '@tanstack/react-query';
 import {
   Check,
@@ -22,10 +19,8 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { toast } from 'sonner';
-import { ErrorState } from '../components/ErrorState';
 import { ConfirmDialog } from '../features/ui/ConfirmDialog';
 import { ConfirmDrawer } from '../features/ui/ConfirmDrawer';
-import { EmptyEmpty as EmptyNotes } from '../features/ui/Empty';
 import { OverviewToolbar } from '../features/ui/OverviewToolbar';
 import { SortingDrawer } from '../features/ui/SortingDrawer';
 import { ToolbarButton as SelectionModeToolbarButton } from '../features/ui/ToolbarButton';
@@ -34,18 +29,17 @@ import {
   useHomeNote,
   useSoftDeleteMany,
 } from '../hooks/use-note';
-import { useNoteServices } from '../hooks/use-note-service';
 import { useSelectionManager } from '../hooks/use-selection-manager';
 import { cn } from '../lib/utils';
 import { RecentNotes } from '../features/notes/components/RecentNotes';
 import { PinnedNotes } from '../features/notes/components/PinnedNotes';
+import { NotePanel } from '../features/notes/components/NotePanel';
 
 function Overview() {
-  const { data: homeNotes, isError, error, refetch, isPending } = useHomeNote();
-  const { recent, pinned } = homeNotes ?? {
+  const useHomeNoteApi = useHomeNote();
+  const { recent, pinned } = useHomeNoteApi.data ?? {
     recent: [],
     pinned: [],
-    // meta: {},
   };
 
   const selection = useSelectionManager<string>({
@@ -93,8 +87,6 @@ function Overview() {
     key: 'ui',
     value: 'deleteNote',
   });
-
-  const { openNewNote, pasteFromClipboard } = useNoteServices();
 
   // toolbar label
   const selectionModeLabelItem: SelectionModeLabel[] = [
@@ -175,109 +167,6 @@ function Overview() {
     }
   };
 
-  const RenderNote = () => {
-    if (isPending)
-      return (
-        <div className="flex items-center justify-center py-10 h-100">
-          <Spinner />
-        </div>
-      );
-
-    if (isError) return <ErrorState error={error} onRetry={refetch} />;
-
-    if (all?.length < 1)
-      return (
-        <div className="py-4">
-          <EmptyNotes
-            illustration={empty_note}
-            icon={IconNote}
-            title="No Notes Yet"
-            description="You haven't created any notes yet. Get started by creating your first notes."
-            primaryLabel="Create Note"
-            secondaryLabel="Paste from Clipboard"
-            onPrimaryAction={openNewNote}
-            onSecondaryAction={pasteFromClipboard}
-          />
-        </div>
-      );
-
-    return (
-      <>
-        <nav className="sticky top-0 pt-6 mx-2 z-16 md:px-5 bg-muted dark:bg-background">
-          {selection.isSelectionMode ? (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="flex items-center justify-between pb-2 lg:gap-10"
-            >
-              {/* cancel and info on select notes */}
-              <div className="flex items-center gap-1">
-                <Button
-                  onClick={selection.closeSelection}
-                  size={buttonXSize}
-                  variant="ghost"
-                >
-                  <X />
-                </Button>
-                {/* desktop only */}
-                <span className="hidden font-inter md:inline-flex">
-                  {selection.count} items selected
-                </span>
-              </div>
-              {/* mobile only */}
-              <span className="text-xl font-medium md:hidden">
-                {selection.count} items selected
-              </span>
-
-              {/* toolbar */}
-              <div className="justify-end hidden gap-2 md:flex grow">
-                <SelectionModeToolbarButton
-                  onAction={handleSelectionModeAction}
-                  disabled={!selection.isHasSelected}
-                  labelItems={selectionModeLabelItem}
-                />
-              </div>
-
-              {/* toggle select all button */}
-              <div className="flex items-center gap-2">
-                <span className="hidden text-sm lg:inline-flex">
-                  {isAllSelected ? 'Unselect all' : 'Select all'}
-                </span>
-                <Button
-                  onClick={() => selection.toggleSelectAll(allNoteIds)}
-                  size={buttonToggleSelectAllSize}
-                  variant="ghost"
-                >
-                  <ListChecks
-                    className={cn(isAllSelected ? 'text-chart-2' : '')}
-                  />
-                </Button>
-              </div>
-            </motion.div>
-          ) : (
-            <div className="flex items-center justify-end">
-              <OverviewToolbar
-                toggleOpenNoteSorting={toggleOpenNoteSorting}
-                openSelectionMode={() =>
-                  selection.openSelectionMode('multiple')
-                }
-                handleRefreshNotes={handleRefreshNotes}
-                isOpenNoteSorting={isOpenNoteSorting}
-                closeNoteSorting={closeNoteSorting}
-              />
-            </div>
-          )}
-        </nav>
-
-        <div className="flex flex-col gap-10 px-3 pt-3 pb-4 md:px-6">
-          <PinnedNotes selection={selection} data={pinned} />
-          <RecentNotes selection={selection} data={recent} />
-        </div>
-      </>
-    );
-  };
-
   return (
     <>
       <div className="relative min-h-screen bg-muted dark:bg-background">
@@ -320,7 +209,79 @@ function Overview() {
         <>
           <main className="flex">
             <div className="grow">
-              <RenderNote />
+              <NotePanel allData={all} api={useHomeNoteApi}>
+                <nav className="sticky top-0 pt-6 mx-2 z-16 md:px-2 bg-muted dark:bg-background">
+                  {selection.isSelectionMode ? (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="flex items-center justify-between pb-2 lg:gap-10"
+                    >
+                      {/* cancel and info on select notes */}
+                      <div className="flex items-center gap-1">
+                        <Button
+                          onClick={selection.closeSelection}
+                          size={buttonXSize}
+                          variant="ghost"
+                        >
+                          <X />
+                        </Button>
+                        {/* desktop only */}
+                        <span className="hidden font-inter md:inline-flex">
+                          {selection.count} items selected
+                        </span>
+                      </div>
+                      {/* mobile only */}
+                      <span className="text-xl font-medium md:hidden">
+                        {selection.count} items selected
+                      </span>
+
+                      {/* toolbar */}
+                      <div className="justify-end hidden gap-2 md:flex grow">
+                        <SelectionModeToolbarButton
+                          onAction={handleSelectionModeAction}
+                          disabled={!selection.isHasSelected}
+                          labelItems={selectionModeLabelItem}
+                        />
+                      </div>
+
+                      {/* toggle select all button */}
+                      <div className="flex items-center gap-2">
+                        <span className="hidden text-sm lg:inline-flex">
+                          {isAllSelected ? 'Unselect all' : 'Select all'}
+                        </span>
+                        <Button
+                          onClick={() => selection.toggleSelectAll(allNoteIds)}
+                          size={buttonToggleSelectAllSize}
+                          variant="ghost"
+                        >
+                          <ListChecks
+                            className={cn(isAllSelected ? 'text-chart-2' : '')}
+                          />
+                        </Button>
+                      </div>
+                    </motion.div>
+                  ) : (
+                    <div className="flex items-center justify-end">
+                      <OverviewToolbar
+                        toggleOpenNoteSorting={toggleOpenNoteSorting}
+                        openSelectionMode={() =>
+                          selection.openSelectionMode('multiple')
+                        }
+                        handleRefreshNotes={handleRefreshNotes}
+                        isOpenNoteSorting={isOpenNoteSorting}
+                        closeNoteSorting={closeNoteSorting}
+                      />
+                    </div>
+                  )}
+                </nav>
+                {/* NoteList per categorie */}
+                <div className="flex flex-col gap-10 px-3 lg:px-5 pt-3 pb-4 md:px-6">
+                  <PinnedNotes selection={selection} data={pinned} />
+                  <RecentNotes selection={selection} data={recent} />
+                </div>
+              </NotePanel>
             </div>
 
             <div className="sticky inset-y-0 top-0! flex-col hidden gap-2 p-3 bg-sidebar lg:flex shrink-0 w-80">
