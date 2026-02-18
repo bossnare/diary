@@ -167,13 +167,13 @@ export const DesktopSidebar = ({
         </div>
 
         <div className="absolute inset-x-0 flex flex-col items-center gap-2 px-3 pb-2 bottom-2 bg-linear-to-b from-transparent dark:via-zinc-950/20 dark:to-zinc-950/80 min-h-15">
-          <div className="w-full active:bg-muted">
+          <div className="w-full flex justify-center active:bg-muted">
             <Button
               onClick={openNewNote}
               title={isOpenPanel ? '' : 'create new note'}
               size="lg"
               variant="ghost"
-              className="hidden w-full gap-6 overflow-hidden font-semibold lg:inline-flex"
+              className="hidden w-full gap-6 overflow-hidden font-semibold lg:inline-flex justify-center"
             >
               <span className="p-1 rounded-full bg-secondary text-secondary-foreground">
                 <Plus className="size-4" />
