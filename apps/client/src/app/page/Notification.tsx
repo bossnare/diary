@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { EmptyEmpty as EmptyNotification } from '../features/ui/Empty';
 import timeAgo from '../lib/timeAgo';
 import { cn } from '../lib/utils';
+import { Scrolllayout } from '../layout/ScrollLayout';
 
 function Notification() {
   const { data, isPending, isError, error, refetch } = useNotification();
@@ -40,14 +41,16 @@ function Notification() {
 
   if (notifications?.length < 1)
     return (
-      <div className="py-5">
-        <EmptyNotification
-          noAction
-          icon={IconBellZFilled}
-          title="No notifications at the moment"
-          description="You are all caught up! No new notififcation yet."
-        />
-      </div>
+      <Scrolllayout>
+        <div className="py-5">
+          <EmptyNotification
+            noAction
+            icon={IconBellZFilled}
+            title="No notifications at the moment"
+            description="You are all caught up! No new notififcation yet."
+          />
+        </div>
+      </Scrolllayout>
     );
 
   return (

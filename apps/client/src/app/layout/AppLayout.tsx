@@ -12,7 +12,6 @@ import {
   MIN_PANEL_WIDTH,
 } from '@/app/constants/layout.constant';
 import { useLayoutStore } from '@/app/stores/layoutStore';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { useIsDesktop } from '@/shared/hooks/use-desktop';
 import { useIsMobile } from '@/shared/hooks/use-mobile';
 import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
@@ -171,13 +170,11 @@ export function AppLayout() {
           <TopBar openSideOver={openSideOver} />
           {/* route content */}
           <PullToRefreshWrapper onRefresh={async () => handleRefreshNotes()}>
-            <ScrollArea className="h-[calc(100dvh-120px)] scroll-smooth md:h-[calc(100dvh-56px)] scroll-touch overscroll-contain">
-              <main className="pb-[60px] lg:pb-10 min-h-full">
-                <Outlet />
-              </main>
-              {/* subtle overlay */}
-              <div className="absolute inset-0 hidden pointer-events-none dark:block bg-primary/1 -z-1"></div>
-            </ScrollArea>
+            <main className="h-screen">
+              <Outlet />
+            </main>
+            {/* subtle overlay */}
+            <div className="absolute inset-0 hidden pointer-events-none dark:block bg-primary/1 -z-1"></div>
           </PullToRefreshWrapper>
         </div>
         {/* fab button (create note, long presse -> choice) - mobile only */}

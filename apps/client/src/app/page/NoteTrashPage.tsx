@@ -17,6 +17,7 @@ import { ConfirmDrawer } from '../features/ui/ConfirmDrawer';
 import { toast } from 'sonner';
 import { useReveal } from '@/shared/hooks/use-reveal';
 import { useSelectionManager } from '@/app/hooks/use-selection-manager';
+import { Scrolllayout } from '../layout/ScrollLayout';
 
 export function NoteTrashPage() {
   const { data, isPending, isError, error, refetch } = useNoteTrash();
@@ -151,7 +152,7 @@ export function NoteTrashPage() {
     );
 
   return (
-    <>
+    <Scrolllayout>
       <ConfirmDrawer
         showOn="mobile"
         title={deleteConfirmTitle}
@@ -324,6 +325,6 @@ export function NoteTrashPage() {
           </motion.div>
         )}
       </Portal>
-    </>
+    </Scrolllayout>
   );
 }
