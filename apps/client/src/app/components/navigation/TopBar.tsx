@@ -27,7 +27,7 @@ export const TopBar = ({ openSideOver }: { openSideOver?: () => void }) => {
   } = useQueryToggle({ key: 'menu', value: 'kebab' });
 
   return (
-    <nav className="sticky inset-x-0 top-0 flex items-center justify-between gap-2 px-2 py-1 pl-1 h-14 z-99 md:h-14 md:px-2 bg-sidebar">
+    <nav className="sticky inset-x-0 top-0 flex items-center justify-between gap-2 px-2 py-1 pl-1 lg:border-b lg:border-border dark:lg:border-0 h-14 z-99 md:h-14 md:px-2 bg-sidebar">
       {/* subtle overlay */}
       <div className="absolute inset-0 hidden pointer-events-none bg-primary/2 dark:block -z-1"></div>
 

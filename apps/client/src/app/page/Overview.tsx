@@ -34,6 +34,7 @@ import { cn } from '../lib/utils';
 import { RecentNotes } from '../features/notes/components/RecentNotes';
 import { PinnedNotes } from '../features/notes/components/PinnedNotes';
 import { NotePanel } from '../features/notes/components/NotePanel';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 function Overview() {
   const useHomeNoteApi = useHomeNote();
@@ -170,8 +171,10 @@ function Overview() {
   const fakeLists = [
     'Delete fake code a lot',
     'Keep going the messy code',
+    'Back to back-office',
     'Adjust the layout',
     'Add some new animation',
+    'Back to back-office',
   ];
 
   return (
@@ -215,7 +218,7 @@ function Overview() {
         {/* content */}
         <>
           <main className="flex">
-            <div className="grow">
+            <ScrollArea className="grow h-[calc(100dvh-120px)] md:h-[calc(100dvh-56px)]">
               <NotePanel allData={all} api={useHomeNoteApi}>
                 <nav className="sticky top-0 pt-6 mx-2 z-16 md:px-2 bg-muted dark:bg-background">
                   {selection.isSelectionMode ? (
@@ -284,28 +287,28 @@ function Overview() {
                   )}
                 </nav>
                 {/* NoteList per categorie */}
-                <div className="flex flex-col gap-10 px-3 pt-3 pb-4 lg:px-5 md:px-6">
+                <div className="flex flex-col gap-10 px-3 pt-3 pb-30 lg:px-5 md:px-6">
                   <PinnedNotes selection={selection} data={pinned} />
                   <RecentNotes selection={selection} data={recent} />
                 </div>
               </NotePanel>
-            </div>
+            </ScrollArea>
 
-            <div className="sticky top-0 right-0 flex-col hidden gap-2 p-3 h-dvh bg-sidebar lg:flex shrink-0 w-80">
+            <ScrollArea className="h-[calc(100dvh-56px)] flex-col hidden p-3 border-l border-border dark:border-0 bg-sidebar lg:flex shrink-0 w-80">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <h3 className="text-xl font-medium">Task</h3>
-                  <Button className="bg-background hover:bg-background! shadow-sm hover:text-foreground/80! text-foreground">
+                  <Button className="bg-primary/30 hover:bg-primary/20! shadow-sm hover:text-foreground/80! text-foreground">
                     <Plus className="size-4" /> Add task
                   </Button>
                 </div>
-                <div className="overflow-y-auto shadow-xs min-h-50 rounded-xl max-h-60 bg-background">
+                <ScrollArea className="shadow-xs h-50 rounded-xl bg-background">
                   <ul className="flex flex-col">
                     {fakeLists.map((list, i) => (
                       <li key={i}>
                         <label
                           htmlFor="task"
-                          className="flex items-center gap-4 px-4 py-3 transition cursor-pointer select-none hover:bg-[#4C367E] active:opacity-50"
+                          className="flex items-center gap-4 px-4 py-3 transition cursor-pointer select-none hover:bg-primary/10 active:opacity-50"
                         >
                           <span className="overflow-hidden border rounded-sm active:scale-98 size-[1.3rem] border-border">
                             <span className="flex items-center justify-center text-white size-full bg-primary">
@@ -324,9 +327,9 @@ function Overview() {
                       </li>
                     ))}
                   </ul>
-                </div>
+                </ScrollArea>
               </div>
-            </div>
+            </ScrollArea>
           </main>
         </>
       </div>

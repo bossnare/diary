@@ -6,7 +6,13 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useButtonSize } from '@/shared/hooks/use-button-size';
 import { kebabMenuVariants } from '@/shared/motions/motion.variant';
-import { LassoSelect, ArrowDownNarrowWide, ListRestart } from 'lucide-react';
+import {
+  LassoSelect,
+  ArrowDownNarrowWide,
+  ListRestart,
+  LayoutList,
+  LayoutGrid,
+} from 'lucide-react';
 import { motion } from 'motion/react';
 import { SortingButton } from './SortingButton';
 import type { SelectionMode } from '@/app/hooks/use-selection-manager';
@@ -26,6 +32,12 @@ export function OverviewToolbar(props: Props) {
 
   return (
     <div className="flex gap-4">
+      <Button variant="ghost" size={buttonSize}>
+        <LayoutList />
+      </Button>
+      <Button variant="ghost" size={buttonSize}>
+        <LayoutGrid />
+      </Button>
       <Button
         onClick={() => props.openSelectionMode()}
         variant="ghost"
@@ -61,16 +73,16 @@ export function OverviewToolbar(props: Props) {
           <DropdownMenuContent
             align="end"
             sideOffset={0}
-            className="px-0 bg-transparent border-0 w-60 hidden md:block"
+            className="hidden px-0 bg-transparent border-0 w-60 md:block"
           >
             <motion.div
               variants={kebabMenuVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="w-full py-2 px-2 overflow-hidden rounded-lg shadow-xl bg-background dark:bg-sidebar"
+              className="w-full px-2 py-2 overflow-hidden rounded-lg shadow-xl bg-background dark:bg-sidebar"
             >
-              <span className="text-xs text-muted-foreground px-2">
+              <span className="px-2 text-xs text-muted-foreground">
                 Sort notes
               </span>
               <SortingButton />
