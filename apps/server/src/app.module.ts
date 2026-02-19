@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module.js';
 import { SearchsModule } from './searchs/searchs.module.js';
 import { ScheduleModule } from '@nestjs/schedule';
 import { JobsModule } from './jobs/jobs.module.js';
+import { TasksModule } from './tasks/tasks.module.js';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { JobsModule } from './jobs/jobs.module.js';
     NotesModule,
     NotificationsModule,
     SearchsModule,
+    TasksModule,
   ],
   controllers: [AppController],
   providers: [AppService],
