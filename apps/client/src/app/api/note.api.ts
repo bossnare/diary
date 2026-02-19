@@ -1,3 +1,5 @@
+// these api ready made for React query fn
+
 import type * as Note from '@/app/types/note.type';
 import api from '../lib/api';
 import { fetcher } from '../lib/fetcher';
