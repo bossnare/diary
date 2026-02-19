@@ -163,10 +163,10 @@ export const DesktopSidebar = ({
             'mt-4 transition overflow-hidden rounded-3xl bg-background/20'
           )}
         >
-          <FileDropZone className="h-60" onContinue={openCreateFromFile} />
+          <FileDropZone className="h-54" onContinue={openCreateFromFile} />
         </div>
 
-        <div className="absolute inset-x-0 flex flex-col items-center gap-2 px-3 pb-2 bottom-2 bg-linear-to-b from-transparent dark:via-zinc-950/20 dark:to-zinc-950/80 min-h-15">
+        <div className="absolute inset-x-0 flex flex-col items-center gap-2 px-3 pb-4 bottom-0 bg-linear-to-b from-transparent dark:via-zinc-950/20 dark:to-zinc-950/80 min-h-15">
           <div className="w-full flex justify-center active:bg-muted">
             <Button
               onClick={openNewNote}

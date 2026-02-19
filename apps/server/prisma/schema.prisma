@@ -25,6 +25,12 @@ enum NoteStatus {
   TRASHED   @map("trashed")
 }
 
+enum TaskStatus {
+  PENDING     @map("pending")
+  COMPLETED   @map("completed")
+  IN_PROGRESS @map("in_progress")
+}
+
 // Model
 model Profile {
   id          String    @id @default(uuid()) @db.Uuid
@@ -38,6 +44,7 @@ model Profile {
   updatedAt   DateTime? @updatedAt() @map("updated_at")
 
   note         Note[]
+  task         Task[]
   notification Notification[]
 
   @@map("profiles")
@@ -64,6 +71,19 @@ model Note {
   user Profile @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("notes")
+}
+
+model Task {
+  id        String     @id @default(cuid())
+  title     String
+  status    TaskStatus @default(PENDING)
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime?  @updatedAt() @map("updated_at")
+  userId    String     @map("user_id") @db.Uuid
+
+  user Profile @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("tasks")
 }
 
 model Notification {
