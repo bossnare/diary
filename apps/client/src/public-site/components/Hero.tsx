@@ -59,7 +59,7 @@ function Hero() {
           animate={mounted ? 'visible' : ''}
           exit="exit"
           transition={{
-            duration: 0.9,
+            duration: 1.2,
             ease: 'easeOut',
           }}
           className="z-20 flex flex-col items-center justify-center max-w-3xl gap-6 px-4 md:px-0 pb-30 sm:pb-0"

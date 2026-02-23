@@ -63,7 +63,7 @@ export function useCreateNote() {
   const create = useMutation({
     mutationFn: (data: Note.Create) => noteApi.createNote(data),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['notes'],  });
+      qc.invalidateQueries({ queryKey: ['notes'] });
     },
   });
 
@@ -135,5 +135,4 @@ export function useNoteCache() {
   });
 }
 
-
-export type UseHomeNoteReturn = ReturnType<typeof useHomeNote>
+export type UseHomeNoteReturn = ReturnType<typeof useHomeNote>;

@@ -1,4 +1,5 @@
-import { useTask } from '@/app/hooks/use-task';
+import { useTask, useCreateTask } from '@/app/hooks/use-task';
+import { cn } from '@/app/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -13,11 +14,25 @@ export const TaskList = () => {
     setFalse: closeAddTask,
   } = useToggle();
 
+  const createTask = useCreateTask();
+
   const { data, isError, isPending, refetch } = useTask();
   const tasks = data ?? [];
 
-  const addTaskAction = () => {
-    return;
+  const completedTasks = tasks.filter((t) => t.status === 'COMPLETED');
+  const pendingTasks = tasks.filter((t) => t.status === 'PENDING');
+  const inProgressTasks = tasks.filter((t) => t.status === 'IN_PROGRESS');
+
+  const handleCreateTask = (form: FormData) => {
+    const task = form.get('newTask') as string;
+
+    const body = {
+      title: task,
+    };
+
+    if (!task || !task.trim()) return;
+
+    createTask.mutateAsync(body);
   };
 
   const resolveStatus = () => {
@@ -28,37 +43,62 @@ export const TaskList = () => {
     return 'data';
   };
 
-  const renderData = {
+  const renderUIState = {
     isPending: (
-      <div className="flex items-center justify-center size-full">
-        <Spinner />
+      <div className="flex items-center justify-center pt-10 size-full">
+        <Spinner size="sm" />
       </div>
     ),
     isError: (
-      <div className="flex flex-col items-center justify-center size-full">
-        An error occured. Please try again.
+      <div className="flex flex-col items-center justify-center gap-3 pt-10 size-full">
+        <span className="block text-center">
+          An error occured. Please try again.
+        </span>
         <Button onClick={async () => refetch()}>Try again</Button>
       </div>
     ),
     isEmpty: (
-      <div className="flex items-center justify-center px-6 text-muted-foreground">
-        Task is empty, start create a task now.
+      <div className="items-center justify-center px-6 pt-10 text-muted-foreground">
+        <span className="block text-center">
+          Task empty, start to create a task now.
+        </span>
       </div>
     ),
     data: (
-      <ul className="flex flex-col">
-        {tasks.map((task) => (
+      <ul>
+        {completedTasks.map((task) => (
           <li key={task.id}>
             <label
               htmlFor="task"
-              className="flex items-center gap-4 px-4 py-3 transition cursor-pointer select-none hover:bg-primary/16 active:opacity-50"
+              className="flex flex-wrap items-center gap-4 px-4 py-3 transition cursor-pointer select-none hover:bg-primary/16 active:opacity-50"
             >
-              <span className="overflow-hidden border rounded-sm active:scale-98 size-[1.3rem] border-border">
-                <span className="flex items-center justify-center text-white size-full bg-primary">
-                  <Check className="size-4" />
+              <span
+                className={cn(
+                  task.status === 'COMPLETED'
+                    ? 'border-primary'
+                    : 'border-foreground/70',
+                  'overflow-hidden shrink-0 border rounded-full active:scale-98 size-[1.4rem]'
+                )}
+              >
+                <span
+                  className={cn(
+                    task.status !== 'COMPLETED' ? 'size-0' : 'size-full',
+                    'flex items-center justify-center text-white transition bg-primary'
+                  )}
+                >
+                  <Check className="size-4 stroke-4" />
                 </span>
               </span>
-              <span className="font-medium">{task.title}</span>
+              <span
+                className={cn(
+                  task.status === 'COMPLETED'
+                    ? 'line-through text-muted-foreground'
+                    : '',
+                  'font-medium truncate flex-1'
+                )}
+              >
+                {task.title}
+              </span>
             </label>
             <input id="task" hidden type="checkbox" name="task" value="task" />
           </li>
@@ -72,6 +112,7 @@ export const TaskList = () => {
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-medium">Task</h3>
         <Button
+          disabled={isAddTask}
           onClick={openAddTask}
           className="bg-primary/30 hover:bg-primary/20! shadow-sm hover:text-foreground/80! text-foreground"
         >
@@ -81,24 +122,24 @@ export const TaskList = () => {
 
       {/* add task */}
       {isAddTask && (
-        <form action={addTaskAction} className="flex flex-wrap gap-2">
+        <form action={handleCreateTask} className="flex flex-wrap gap-2">
           <Input
             type="text"
             name="newTask"
             placeholder="Try write task name/title ..."
-            className="mx-1"
+            className="mx-1 focus:bg-background! focus-visible:border-primary! focus-visible:ring-primary/50"
           />
           <div className="flex justify-end flex-1 gap-2">
-            <Button>Create</Button>
-            <Button variant="outline" onClick={closeAddTask}>
+            <Button type="button" variant="outline" onClick={closeAddTask}>
               Cancel
             </Button>
+            <Button>Create</Button>
           </div>
         </form>
       )}
 
-      <ScrollArea className="overflow-hidden shadow-xs group h-50 rounded-xl bg-background">
-        {renderData[resolveStatus()]}
+      <ScrollArea className="overflow-hidden shadow-xs group h-60 rounded-xl bg-background">
+        {renderUIState[resolveStatus()]}
 
         <div className="absolute transition scale-0 right-1 top-1 group-hover:scale-100">
           <Button size="icon" variant="ghost">

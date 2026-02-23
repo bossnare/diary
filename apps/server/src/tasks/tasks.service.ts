@@ -28,6 +28,7 @@ export class TasksService {
   async findAll(userId: string) {
     const tasks = await this.prisma.task.findMany({
       where: { userId },
+      orderBy: { updatedAt: 'desc' },
     });
 
     return {

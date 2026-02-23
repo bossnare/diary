@@ -5,3 +5,7 @@ export interface TaskInterface {
   updatedAt: string;
   createdAt: string;
 }
+
+export type Create = {
+  title: string;
+};

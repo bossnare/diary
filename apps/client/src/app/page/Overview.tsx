@@ -277,8 +277,10 @@ function Overview() {
               </NotePanel>
             </ScrollArea>
             {/* right panel for task, more options */}
-            <ScrollArea className="h-[calc(100dvh-56px)] flex-col hidden p-3 border-l border-border dark:border-0 bg-sidebar lg:flex shrink-0 w-80">
-              <TaskList />
+            <ScrollArea className="h-[calc(100dvh-56px)] hidden border-l border-border dark:border-0 bg-sidebar lg:flex shrink-0 w-80">
+              <div className="p-3">
+                <TaskList />
+              </div>
               {/* suble overlay - black */}
               <div className="absolute inset-x-0 bottom-0 bg-linear-to-b from-transparent dark:via-zinc-950/20 dark:to-zinc-950/80 h-15"></div>
             </ScrollArea>
