@@ -59,7 +59,7 @@ export const NoteCard = ({
     daysLeft <= 3
       ? 'text-destructive'
       : daysLeft <= 10
-        ? 'text-[#FFB302]'
+        ? 'text-[#FFB302]' // yellow color
         : 'text-chart-2';
 
   return (

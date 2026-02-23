@@ -1,12 +1,23 @@
 import * as taskApi from '@/app/api/task.api';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
-import type { TaskInterface } from '@/app/types/task.type';
+import * as Task from '@/app/types/task.type';
 
 export function useTask() {
-  return useQuery<TaskInterface[], AxiosError>({
+  return useQuery<Task.TaskInterface[], AxiosError>({
     queryKey: ['tasks'],
     queryFn: () => taskApi.findAll(),
     staleTime: 0,
+  });
+}
+
+export function useCreateTask() {
+  const qc = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: Task.Create) => taskApi.createNote(data),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['tasks'] });
+    },
   });
 }
