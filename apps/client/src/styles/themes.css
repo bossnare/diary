@@ -14,7 +14,7 @@
   --primary-hover: oklch(0.4359 0.1535 286.01); /* hover: #4E3DA0 */
 
   /* --primary: oklch(0.5628 0.183457 254.7); */
-  --primary-foreground: oklch(0.9592 0.0093 252.86);
+  --primary-foreground: oklch(1 0 0);
   /* --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0); */
   --secondary: oklch(0.205 0 0);
