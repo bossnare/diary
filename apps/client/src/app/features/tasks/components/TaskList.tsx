@@ -66,7 +66,7 @@ export const TaskList = () => {
     ),
     data: (
       <ul>
-        {completedTasks.map((task) => (
+        {tasks.map((task) => (
           <li key={task.id}>
             <label
               htmlFor="task"
