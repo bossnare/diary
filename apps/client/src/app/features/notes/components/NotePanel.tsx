@@ -1,5 +1,4 @@
 import { Spinner } from '@/shared/components/Spinner';
-import { AndroidSpinner } from '@/shared/components/AndroidSpinner';
 import type { UseHomeNoteReturn } from '@/app/hooks/use-note';
 import { ErrorState } from '@/app/components/ErrorState';
 import { useNoteServices } from '@/app/hooks/use-note-service';
@@ -20,7 +19,7 @@ export const NotePanel = ({ children, api, allData }: Props) => {
   if (api.isPending)
     return (
       <div className="flex items-center justify-center py-10 h-100">
-        <AndroidSpinner />
+        <Spinner />
       </div>
     );
 
