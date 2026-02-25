@@ -26,6 +26,7 @@ import { usePannel } from '../hooks/use-pannel';
 import { ConfirmDrawer } from '../features/ui/ConfirmDrawer';
 import { ConfirmDialog } from '../features/ui/ConfirmDialog';
 import { AuthService } from '@/shared/services/supabase.service';
+import { OptionDialog } from '../features/ui/OptionDialog';
 
 export function AppLayout() {
   // store state
@@ -167,7 +168,10 @@ export function AppLayout() {
           style={MAIN_TRANSFORM}
           className="relative transition-transform ease-in-out duration-280 will-change-transform md:duration-260"
         >
-          <TopBar openSideOver={openSideOver} />
+          <TopBar
+            openSideOver={openSideOver}
+            openCreateOptions={openCreateOptions}
+          />
           {/* route content */}
           <PullToRefreshWrapper onRefresh={async () => handleRefreshNotes()}>
             <main className="h-screen">
@@ -196,6 +200,11 @@ export function AppLayout() {
         {/* Create More Options */}
         <OptionDrawer
           showOn="mobile"
+          isOpen={isOpenCreateOptions}
+          onClose={closeCreateOptions}
+        />
+        <OptionDialog
+          showOn="desktop"
           isOpen={isOpenCreateOptions}
           onClose={closeCreateOptions}
         />

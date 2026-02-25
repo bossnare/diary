@@ -4,13 +4,19 @@ import { Logo } from '@/shared/components/brand/Logo';
 import { useAuth } from '@/shared/hooks/use-auth';
 import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
 import { waitVibrate } from '@/shared/utils/vibration';
-import { Search, TextAlignJustify, TriangleAlert } from 'lucide-react';
+import { Plus, Search, TextAlignJustify, TriangleAlert } from 'lucide-react';
 import { AnimatePresence } from 'motion/react';
 import { useId } from 'react';
 import { KebabMenu } from './KebabMenu';
 import { useUser } from '@/app/hooks/use-user';
 
-export const TopBar = ({ openSideOver }: { openSideOver?: () => void }) => {
+export const TopBar = ({
+  openSideOver,
+  openCreateOptions,
+}: {
+  openSideOver?: () => void;
+  openCreateOptions: () => void;
+}) => {
   const inputId = useId();
   const { user } = useAuth();
   const { data: userData } = useUser();
@@ -64,10 +70,14 @@ export const TopBar = ({ openSideOver }: { openSideOver?: () => void }) => {
       </div>
 
       <div className="flex items-center justify-end gap-3 md:gap-4 md:grow">
-        {/* <Button size="icon-lg" variant="ghost" className="relative">
-          <BellIcon />
-          <span className="absolute p-1 rounded-full top-1 size-2 right-0.5 bg-destructive"></span>
-        </Button> */}
+        <Button
+          onClick={openCreateOptions}
+          size="icon-lg"
+          variant="ghost"
+          className="relative hidden lg:inline-flex"
+        >
+          <Plus />
+        </Button>
         <div
           role="button"
           onClick={openSideOver}

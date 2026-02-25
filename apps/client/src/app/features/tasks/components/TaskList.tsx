@@ -77,7 +77,7 @@ export const TaskList = () => {
                   task.status === 'COMPLETED'
                     ? 'border-primary'
                     : 'border-foreground/70',
-                  'overflow-hidden shrink-0 border rounded-full active:scale-98 size-[1.4rem]'
+                  'overflow-hidden shrink-0 border rounded-full active:scale-98 size-[1.3rem]'
                 )}
               >
                 <span
