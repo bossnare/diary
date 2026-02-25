@@ -79,7 +79,7 @@ export const CreateOption = ({ onClose }: { onClose?: () => void }) => {
               params.delete('action');
               handleWait(NoteServices.openCreateFromFile, 200);
             }}
-            className="h-58 w-[92%] mx-auto"
+            className="h-58 lg:h-56 w-[92%] mx-auto"
           />
         </motion.div>
       ) : (
@@ -94,10 +94,10 @@ export const CreateOption = ({ onClose }: { onClose?: () => void }) => {
               <div
                 role="button"
                 onClick={() => handleWait(() => handleChooseAction(o.key), 250)}
-                className="flex active:text-muted-foreground hover:text-muted-foreground items-center w-full h-16 gap-3 px-4 rounded-md select-none active:bg-muted dark:active:bg-background"
+                className="flex active:text-muted-foreground hover:text-muted-foreground items-center w-full h-16 gap-3 px-4 lg:px-0 rounded-md select-none active:bg-muted dark:active:bg-background"
               >
-                <span className="flex items-center justify-center rounded-full size-12 bg-muted">
-                  <o.icon />
+                <span className="flex items-center justify-center rounded-full size-12 lg:size-10 bg-muted">
+                  <o.icon className="lg:size-5" />
                 </span>
                 <div className="flex flex-col">
                   <span className="font-bold tracking-tight">{o.label}</span>

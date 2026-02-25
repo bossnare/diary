@@ -203,7 +203,7 @@ function Overview() {
           <main className="flex">
             <ScrollArea className="grow h-[calc(100dvh-120px)] md:h-[calc(100dvh-56px)]">
               <NotePanel allData={all} api={useHomeNoteApi}>
-                <nav className="sticky top-0 pt-6 mx-2 z-16 md:px-2 bg-muted dark:bg-background">
+                <nav className="sticky top-0 pt-6 mx-2 z-16 md:px-6 bg-muted dark:bg-background">
                   {selection.isSelectionMode ? (
                     <motion.div
                       initial={{ opacity: 0 }}
@@ -270,7 +270,7 @@ function Overview() {
                   )}
                 </nav>
                 {/* NoteList per categorie */}
-                <div className="flex flex-col gap-10 px-3 pt-3 pb-30 lg:px-5 md:px-6">
+                <div className="flex flex-col gap-10 px-3 pt-3 pb-30 lg:px-9 md:px-6">
                   <PinnedNotes selection={selection} data={pinned} />
                   <RecentNotes selection={selection} data={recent} />
                 </div>

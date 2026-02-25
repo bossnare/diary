@@ -22,7 +22,7 @@ export function OptionDialog(props: Props) {
   if (props.showOn === 'desktop' && isMobile) return null;
 
   return (
-    <Dialog open={props.isOpen} onOpenChnage={props.onClose}>
+    <Dialog open={props.isOpen} onOpenChange={props.onClose}>
       <DialogContent className="sm:max-w-sm">
         <DialogHeader>
           <DialogTitle>Create note</DialogTitle>

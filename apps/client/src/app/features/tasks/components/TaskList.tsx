@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Spinner } from '@/shared/components/Spinner';
 import { useToggle } from '@/shared/hooks/use-toggle';
-import { Plus, Check, Maximize2 } from 'lucide-react';
+import { Check, Maximize2, CirclePlus } from 'lucide-react';
 
 export const TaskList = () => {
   const {
@@ -94,7 +94,7 @@ export const TaskList = () => {
                   task.status === 'COMPLETED'
                     ? 'line-through text-muted-foreground'
                     : '',
-                  'font-medium truncate flex-1'
+                  'font-medium truncate flex-1 text-sm'
                 )}
               >
                 {task.title}
@@ -110,13 +110,13 @@ export const TaskList = () => {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <h3 className="text-xl font-medium">Task</h3>
+        <h3 className="text-lg font-medium">Tasks</h3>
         <Button
           disabled={isAddTask}
           onClick={openAddTask}
           className="bg-primary/30 hover:bg-primary/20! shadow-sm hover:text-foreground/80! text-foreground"
         >
-          <Plus className="size-4" /> Add task
+          <CirclePlus className="size-4" /> Add task
         </Button>
       </div>
 
@@ -138,7 +138,7 @@ export const TaskList = () => {
         </form>
       )}
 
-      <ScrollArea className="overflow-hidden shadow-xs group h-60 rounded-xl bg-background">
+      <ScrollArea className="overflow-hidden shadow-xs group h-56 rounded-xl bg-background">
         {renderUIState[resolveStatus()]}
 
         <div className="absolute transition scale-0 right-1 top-1 group-hover:scale-100">
