@@ -105,13 +105,14 @@ export const FileDropZone = ({ className, onContinue, ...props }: Props) => {
           }}
           className={cn(
             isDrag ? 'border-2 border-primary' : 'border-muted-foreground',
-            'flex cursor-pointer flex-col hover:bg-muted-foreground/12 dark:hover:bg-input/40 active:opacity-60 items-center justify-center gap-3 p-2 rounded-3xl h-full bg-muted-foreground/16 dark:bg-input/60'
+            'flex select-none cursor-pointer flex-col hover:bg-muted-foreground/12 dark:hover:bg-input/40 active:opacity-60 items-center justify-center gap-3 p-2 rounded-3xl h-full bg-muted-foreground/16 dark:bg-input/60'
           )}
         >
           <CloudUpload className="size-8 md:size-5 text-primary" />
-          <span className="px-10 text-sm text-center select-none text-muted-foreground text-balance">
-            Drag or click your text file to create a new note.
-          </span>
+          <p className="text-center font-medium">Add a new note</p>
+          <p className="px-10 text-sm text-center text-muted-foreground text-balance">
+            Drag or tap to upload
+          </p>
 
           <input
             ref={inputFileRef}
