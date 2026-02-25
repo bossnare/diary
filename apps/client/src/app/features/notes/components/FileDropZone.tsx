@@ -1,7 +1,7 @@
 import { cn } from '@/app/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useButtonSize } from '@/shared/hooks/use-button-size';
-import { FileText, FolderOpen } from 'lucide-react';
+import { FileText, CloudUpload } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -105,13 +105,14 @@ export const FileDropZone = ({ className, onContinue, ...props }: Props) => {
           }}
           className={cn(
             isDrag ? 'border-2 border-primary' : 'border-muted-foreground',
-            'flex cursor-pointer flex-col hover:bg-muted-foreground/12 dark:hover:bg-input/40 active:opacity-60 items-center justify-center gap-3 p-2 rounded-3xl h-full bg-muted-foreground/16 dark:bg-input/60'
+            'flex select-none cursor-pointer flex-col hover:bg-muted-foreground/12 dark:hover:bg-input/40 active:opacity-60 items-center justify-center gap-2 p-2 rounded-3xl h-full bg-muted-foreground/16 dark:bg-input/60'
           )}
         >
-          <FolderOpen className="size-8 md:size-5" />
-          <span className="px-10 text-sm text-center select-none text-muted-foreground text-balance">
-            Drag or click your text file to create a new note.
-          </span>
+          <CloudUpload className="size-8 md:size-5 text-primary" />
+          <p className="text-center font-medium">Import text file</p>
+          <p className="px-6 text-sm text-center text-muted-foreground text-balance">
+            Drag or tap to copy its content into a note
+          </p>
 
           <input
             ref={inputFileRef}
