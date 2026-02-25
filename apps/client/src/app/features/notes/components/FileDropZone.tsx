@@ -109,7 +109,7 @@ export const FileDropZone = ({ className, onContinue, ...props }: Props) => {
           )}
         >
           <CloudUpload className="size-8 md:size-5 text-primary" />
-          <p className="text-center font-medium">Import text file</p>
+          <p className="text-center font-medium lg:text-sm">Import text file</p>
           <p className="px-6 text-sm text-center text-muted-foreground text-balance">
             Drag or tap to copy its content into a note
           </p>

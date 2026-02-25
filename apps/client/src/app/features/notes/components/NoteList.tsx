@@ -70,7 +70,7 @@ export function NoteList({ selection, notes, variant }: Props) {
                   }}
                   size="icon"
                   variant="ghost"
-                  className="absolute hidden scale-0 z-2 top-1.5 right-2 group-hover:scale-100 lg:inline-flex"
+                  className="absolute hover:shadow-sm hidden scale-0 z-2 top-1.5 right-2 group-hover:scale-100 lg:inline-flex"
                 >
                   <Ellipsis />
                 </Button>
