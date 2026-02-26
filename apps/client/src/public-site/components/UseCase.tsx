@@ -20,10 +20,10 @@ function Card({ title, content, Icon }: Props) {
         visible: { opacity: 1, y: 0 },
       }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
-      className="p-4 space-y-4 transition-all duration-100 ease-in-out border rounded-md card hover:shadow-sm lg:duration-300 will-change-transform active:brightness-105 lg:hover:brightness-98 dark:lg:hover:brightness-130 dark:border-input/30 bg-background dark:bg-card/50"
+      className="p-4 space-y-4 min-h-34 group transition-all duration-100 ease-in-out border rounded-md hover:shadow-sm lg:duration-300 will-change-transform active:brightness-105 lg:hover:brightness-98 dark:lg:hover:brightness-130 dark:border-input/30 bg-background dark:bg-card/50"
     >
       <header className="flex flex-col items-center gap-3 md:flex-row">
-        {Icon ? <Icon aria-hidden="true" /> : null}
+        {Icon ? <div className="size-10 bg-muted flex justify-center items-center rounded-full text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground"><Icon aria-hidden="true" /></div> : null}
         <h3 className="space-y-3 text-xl font-semibold tracking-tight md:text-lg scroll-m-20">
           {title}
         </h3>

@@ -21,17 +21,18 @@ function Card({ className, title, content, number }: Props) {
       }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
       className={cn(
-        'p-4 space-y-4 transition-transform duration-100 ease-in-out border rounded-md border-input dark:border-0 hover:shadow-sm lg:duration-300 will-change-transform active:translate-x-4 bg-card dark:bg-card/40',
+        'p-4 space-y-4 group transition-transform duration-100 ease-in-out border rounded-md border-input dark:border-0 hover:shadow-sm lg:duration-300 will-change-transform active:translate-x-4 bg-card dark:bg-card/40',
         className
       )}
     >
       <header className="flex flex-col gap-3 md:gap-2 md:flex-row md:items-center">
-        <div className="number flex items-center justify-center rounded-full border border-primary bg-primary dark:bg-primary/80 size-8 md:size-7">
-          <span className="font-black tracking-tight text-primary-foreground">
+        <div className="number relative flex items-center justify-center size-10 md:size-8">
+          <span className="font-black text-3xl md:text-xl tracking-tight text-primary group-hover:-translate-y-2 transition-transform duaration-600">
             0{number}
           </span>
+          <span className="absolute inset-x-0 bottom-0 h-1 bg-primary/80"></span>
         </div>
-        <h3 className="text-xl font-semibold tracking-tight md:text-lg scroll-m-20">
+        <h3 className="text-lg font-semibold tracking-tight scroll-m-20">
           {title}
         </h3>
       </header>
