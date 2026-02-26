@@ -22,7 +22,7 @@ export function ProfilePage() {
 
   const link = `${import.meta.env.VITE_SITE_URL}/${profile?.username}`;
 
-  const handleBack = () => () => navigate(-1) || navigate('/app');
+  const handleBack = () => navigate(-1) || navigate('/app');
 
   const handleCopyLink = () => {
     setIsCopyingLink(true);
@@ -43,11 +43,12 @@ export function ProfilePage() {
     return (
       <div>
         <header>
-          <nav className="px-2 py-2">
-            <Button onClick={handleBack} size="icon-lg" variant="ghost">
-              <ArrowLeft />
-            </Button>
-          </nav>
+           <nav className="pr-2 h-12">
+          <Button onClick={handleBack} size="icon-xl" variant="ghost"                 className="h-full! w-14! rounded-none pr-2!"
+>
+            <ChevronLeft />
+          </Button>
+        </nav>
         </header>
         <ErrorState error={error} onRetry={refetch} />
       </div>
@@ -56,8 +57,9 @@ export function ProfilePage() {
   return (
     <>
       <header className="sticky z-10 bg-background top-0 inset-x-0">
-        <nav className="px-2 py-2">
-          <Button onClick={handleBack} size="icon-xl" variant="ghost">
+        <nav className="pr-2 h-12">
+          <Button onClick={handleBack} size="icon-xl" variant="ghost"                 className="h-full! w-14! rounded-none pr-2!"
+>
             <ChevronLeft />
           </Button>
         </nav>

@@ -381,11 +381,11 @@ export const NoteEditor = ({
           className="flex flex-col lg:transition-transform lg:duration-600"
         >
           <header className="sticky top-0 left-0 z-10 bg-background">
-            <div className="flex items-center justify-between gap-10 h-12 max-w-6xl px-2 pr-2 mx-auto md:px-4">
+            <div className="flex items-center justify-between gap-10 h-12 max-w-6xl px-0 pr-2 mx-auto md:px-4">
               <Button
                 onClick={handleCancel}
                 variant="ghost"
-                className="md:hidden"
+                className="md:hidden h-full! w-14! rounded-none"
                 size="icon-xl"
               >
                 <ChevronLeft />

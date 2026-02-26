@@ -114,7 +114,7 @@ export const TaskList = () => {
         <Button
           disabled={isAddTask}
           onClick={openAddTask}
-          className="bg-primary/30 hover:bg-primary/20! shadow-sm hover:text-foreground/80! text-foreground"
+          className="shadow-sm"
         >
           <CirclePlus className="size-4" /> Add task
         </Button>
