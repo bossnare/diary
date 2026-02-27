@@ -15,7 +15,19 @@ export function useCreateTask() {
   const qc = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: Task.Create) => taskApi.createNote(data),
+    mutationFn: (data: Task.Create) => taskApi.createTask(data),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['tasks'] });
+    },
+  });
+}
+
+export function useUpdateToggle() {
+  const qc = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, data }: { id: string; data: Task.UpdateToggle }) =>
+      taskApi.updateToggle(id, data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['tasks'] });
     },

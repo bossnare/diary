@@ -43,10 +43,10 @@ export class TasksService {
     return `This action returns a #${id} task`;
   }
 
-  async updateComplete(id: string) {
+  async updateToggle(id: string, userId: string, status: TaskStatus) {
     await this.prisma.task.update({
-      where: { id },
-      data: { status: TaskStatus.COMPLETED },
+      where: { id, userId },
+      data: { status },
     });
 
     return {

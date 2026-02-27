@@ -171,11 +171,11 @@ export const DesktopSidebar = ({
             <Button
               onClick={openNewNote}
               title={isOpenPanel ? '' : 'create new note'}
-              size="lg"
+              size="xl"
               variant="ghost"
-              className="justify-center hidden w-full gap-6 overflow-hidden font-semibold lg:inline-flex"
+              className="justify-center hidden w-full gap-6 overflow-hidden font-semibold rounded-full group lg:inline-flex"
             >
-              <span className="p-1 rounded-full bg-secondary text-secondary-foreground">
+              <span className="p-1 transition-colors duration-300 rounded-full bg-secondary text-secondary-foreground group-hover:bg-primary group-hover:text-primary-foreground">
                 <Plus className="size-4" />
               </span>
               {isOpenPanel ? 'New note' : null}
