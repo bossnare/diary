@@ -6,6 +6,6 @@ export interface TaskInterface {
   createdAt: string;
 }
 
-export type Create = {
-  title: string;
-};
+export type Create = Pick<TaskInterface, 'title'>;
+
+export type UpdateToggle = Pick<TaskInterface, 'status'>;

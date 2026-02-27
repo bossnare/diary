@@ -27,7 +27,7 @@ export const Tab = ({
           className="shrink-0 md:size-[22px] size-7"
         />
       )}
-      <span className="hidden lg:block">{label}</span>
+      <span className="hidden lg:block lg:text-[15px]">{label}</span>
       {/* underline */}
       {isActive && (
         <span className="absolute w-1/4 h-1.5 rounded-full md:hidden bottom-0 bg-sidebar-foreground"></span>

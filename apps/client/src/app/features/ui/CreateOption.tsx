@@ -1,9 +1,9 @@
 import { handleWait } from '@/shared/utils/handle-wait';
 import { ClipboardPaste, FolderOpen, SquarePen } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useSearchParams } from 'react-router-dom';
 import { FileDropZone } from '../notes/components/FileDropZone';
 import { useNoteServices } from '@/app/hooks/use-note-service';
+import {useQueryToggle} from '@/shared/hooks/use-query-toggle'
 
 type ActionKey = 'empty' | 'fromFile' | 'fromClipboard';
 type ActionLabel = {
@@ -15,10 +15,7 @@ type ActionLabel = {
 
 export const CreateOption = ({ onClose }: { onClose?: () => void }) => {
   const NoteServices = useNoteServices();
-
-  const [params, setParams] = useSearchParams();
-  const isChooseFromFile = params.get('action') === 'fromFile';
-  const p = new URLSearchParams(window.location.search);
+  const {isOpen: isOpenFromFile,open: openFromFile, close: closeFromFile} = useQueryToggle({key: 'action', value: 'fromFile'})
 
   const options: ActionLabel[] = [
     {
@@ -43,16 +40,15 @@ export const CreateOption = ({ onClose }: { onClose?: () => void }) => {
 
   const actionMaps = {
     empty: () => {
-      NoteServices.openNewNote();
       onClose?.(); // close drawer
+      NoteServices.openNewNote();
     },
     fromFile: () => {
-      p.set('action', 'fromFile');
-      setParams(p);
+     openFromFile()
     },
     fromClipboard: () => {
-      NoteServices.pasteFromClipboard();
       onClose?.(); // close drawer
+      NoteServices.pasteFromClipboard();
     },
   };
 
@@ -64,7 +60,7 @@ export const CreateOption = ({ onClose }: { onClose?: () => void }) => {
 
   return (
     <AnimatePresence mode="wait">
-      {isChooseFromFile ? (
+      {isOpenFromFile ? (
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -76,8 +72,8 @@ export const CreateOption = ({ onClose }: { onClose?: () => void }) => {
           <FileDropZone
             onContinue={() => {
               onClose?.(); // close drawer
-              params.delete('action');
-              handleWait(NoteServices.openCreateFromFile, 200);
+                            NoteServices.openCreateFromFile()
+              closeFromFile() // close query state from file if continue to copy the file content to new note
             }}
             className="h-58 lg:h-56 w-[92%] mx-auto"
           />

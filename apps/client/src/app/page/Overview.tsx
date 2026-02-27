@@ -26,7 +26,7 @@ import { RecentNotes } from '../features/notes/components/RecentNotes';
 import { PinnedNotes } from '../features/notes/components/PinnedNotes';
 import { NotePanel } from '../features/notes/components/NotePanel';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { TaskList } from '../features/tasks/components/TaskList';
+import { TaskWrap } from '../features/tasks/components/TaskWrap';
 
 function Overview() {
   const useHomeNoteApi = useHomeNote();
@@ -277,12 +277,12 @@ function Overview() {
               </NotePanel>
             </ScrollArea>
             {/* right panel for task, more options */}
-            <ScrollArea className="h-[calc(100dvh-56px)] hidden border-l border-border dark:border-0 bg-sidebar lg:flex shrink-0 w-80">
+            <ScrollArea className="h-[calc(100dvh-56px)] hidden border-l border-border dark:border-sidebar-border/50 bg-sidebar lg:flex shrink-0 w-80">
               <div className="p-3">
-                <TaskList />
+                <TaskWrap />
               </div>
               {/* suble overlay - black */}
-              <div className="absolute inset-x-0 bottom-0 bg-linear-to-b from-transparent dark:via-zinc-950/20 dark:to-zinc-950/80 h-15"></div>
+              <div className="absolute inset-x-0 bottom-0 bg-linear-to-b pointer-events-none from-transparent dark:via-zinc-950/20 dark:to-zinc-950/80 h-15"></div>
             </ScrollArea>
           </main>
         </>
