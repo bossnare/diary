@@ -24,7 +24,7 @@ export function ButtonFab({
       onTouchEnd={longPress.handleTouchEnd}
       onTouchMove={longPress.handleTouchMove}
       onTouchCancel={longPress.handleTouchCancel}
-      className="text-white rounded-full shadow-lg size-15 lg:size-14"
+      className="text-white rounded-full shadow-xl size-15 lg:size-14"
     >
       <SquarePen className="size-7 lg:size-6" />
     </Button>
