@@ -302,7 +302,12 @@ export function NoteTrashPage() {
           </div>
         )}
         <main className="w-full min-h-screen">
-          <NoteList variant="trash" notes={trash} selection={selection} />
+          <NoteList
+            variant="trash"
+            notes={trash}
+            selection={selection}
+            className="grid grid-cols-2 gap-3 lg:gird-cols-3 xl:grid-cols-4"
+          />
         </main>
       </div>
 

@@ -62,15 +62,15 @@ export const KebabMenu = ({ open, close, toggle }: Props) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="end"
-          sideOffset={12}
-          className="px-0 bg-transparent border-0 w-80 md:hidden"
+          sideOffset={-36}
+          className="px-0 border-0 rounded-lg shadow-xl bg-background dark:bg-sidebar w-76 md:hidden"
         >
           <motion.div
             variants={kebabMenuVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="w-full py-2 overflow-hidden rounded-lg shadow-xl bg-background dark:bg-sidebar"
+            className="w-full py-2 overflow-hidden"
           >
             <ul className="flex flex-col gap">
               {kebabMenuLabel.map((m) => (

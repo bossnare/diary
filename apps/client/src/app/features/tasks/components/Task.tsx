@@ -6,7 +6,7 @@ import { Check, Ellipsis, Trash2 } from 'lucide-react';
 export function Task({ task }: { task: TaskInterface }) {
   const updateToggleStatus = useUpdateToggle();
 
-  const handleToggle = async () => {
+  const handleToggle = () => {
     const newStatus = task.status === 'COMPLETED' ? 'PENDING' : 'COMPLETED';
 
     updateToggleStatus.mutateAsync({
