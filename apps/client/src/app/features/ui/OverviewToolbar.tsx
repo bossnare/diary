@@ -73,14 +73,14 @@ export function OverviewToolbar(props: Props) {
           <DropdownMenuContent
             align="end"
             sideOffset={0}
-            className="hidden px-0 bg-transparent border-0 w-60 md:block"
+            className="hidden px-0 border-0 rounded-lg shadow-xl w-60 md:block bg-background dark:bg-sidebar"
           >
             <motion.div
               variants={kebabMenuVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="w-full px-2 py-2 overflow-hidden rounded-lg shadow-xl bg-background dark:bg-sidebar"
+              className="w-full px-2 py-2 overflow-hidden"
             >
               <span className="px-2 text-xs text-muted-foreground">
                 Sort notes

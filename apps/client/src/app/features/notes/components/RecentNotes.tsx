@@ -20,7 +20,12 @@ export function RecentNotes({ selection, data }: Props) {
         </div>
       </header>
       <main>
-        <NoteList variant="default" selection={selection} notes={data} />
+        <NoteList
+          variant="default"
+          selection={selection}
+          notes={data}
+          className="grid grid-cols-2 gap-3"
+        />
       </main>
     </section>
   );

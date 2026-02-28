@@ -12,7 +12,7 @@ export function PinnedNotes({ selection, data }: Props) {
   return (
     <section className="bg-muted dark:bg-background">
       <header className="px-1 pb-2">
-        <div className="flex gap-2 items-center text-foreground/80">
+        <div className="flex items-center gap-2 text-foreground/80">
           <Pin className="size-4" />
           <h3 className="font-medium tracking-tight scroll-m-20">
             Pinned notes ({data.length})
@@ -20,7 +20,12 @@ export function PinnedNotes({ selection, data }: Props) {
         </div>
       </header>
       <main>
-        <NoteList variant="default" selection={selection} notes={data} />
+        <NoteList
+          variant="default"
+          selection={selection}
+          notes={data}
+          className="grid grid-cols-2 gap-3"
+        />
       </main>
     </section>
   );

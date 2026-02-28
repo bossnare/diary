@@ -282,7 +282,7 @@ function Overview() {
                 <TaskWrap />
               </div>
               {/* suble overlay - black */}
-              <div className="absolute inset-x-0 bottom-0 bg-linear-to-b pointer-events-none from-transparent dark:via-zinc-950/20 dark:to-zinc-950/80 h-15"></div>
+              <div className="absolute inset-x-0 bottom-0 pointer-events-none bg-linear-to-b from-transparent dark:via-zinc-950/20 dark:to-zinc-950/80 h-15"></div>
             </ScrollArea>
           </main>
         </>

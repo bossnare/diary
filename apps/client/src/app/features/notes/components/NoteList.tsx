@@ -10,13 +10,13 @@ import { useNavigate } from 'react-router-dom';
 import { NoteCard, type NoteCardVariant } from './NoteCard';
 import type { SelectionManager } from '@/app/hooks/use-selection-manager';
 
-type Props = {
+type Props = React.HTMLAttributes<HTMLDivElement> & {
   selection?: SelectionManager;
   notes?: NoteInterface[];
   variant?: NoteCardVariant;
 };
 
-export function NoteList({ selection, notes, variant }: Props) {
+export function NoteList({ selection, notes, variant, className }: Props) {
   const navigate = useNavigate();
   const longPress = useLongPress({
     onLongPress: (id: string) => {
@@ -39,7 +39,7 @@ export function NoteList({ selection, notes, variant }: Props) {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-3 pt-2">
+    <div className={cn('pt-2', className)}>
       <AnimatePresence mode="popLayout">
         {notes?.map((note) => (
           <motion.div
