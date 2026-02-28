@@ -2,34 +2,43 @@ import { useUpdateToggle } from '@/app/hooks/use-task';
 import type { TaskInterface } from '@/app/types/task.type';
 import { Button } from '@/components/ui/button';
 import { Check, Ellipsis, Trash2 } from 'lucide-react';
+import { useState } from 'react';
 
 export function Task({ task }: { task: TaskInterface }) {
+  const [checked, setChecked] = useState(task.status === 'COMPLETED');
   const updateToggleStatus = useUpdateToggle();
 
   const handleToggle = () => {
-    const newStatus = task.status === 'COMPLETED' ? 'PENDING' : 'COMPLETED';
+    const newChecked = !checked;
 
-    updateToggleStatus.mutateAsync({
-      id: task.id,
-      data: { status: newStatus },
-    });
+    setChecked((prev) => {
+      const next = !prev;
+
+      updateToggleStatus.mutateAsync({
+        id: task.id,
+        data: { status: newChecked ? 'COMPLETED' : 'PENDING' },
+      });
+
+      return next;
+    }); // update UI instant
   };
 
   return (
     <>
       <label
-        htmlFor="task"
+        htmlFor={task.id}
         className="relative flex flex-wrap items-center gap-4 px-4 py-3 transition cursor-pointer select-none group/item hover:bg-primary/16 active:opacity-50"
       >
         <input
-          checked={task.status === 'COMPLETED'}
+          id={task.id}
+          checked={checked}
           type="checkbox"
           onChange={handleToggle}
           className="sr-only peer"
         />
 
-        <span className="peer-checked:border-0 border-foreground/70 overflow-hidden shrink-0 border rounded-full active:scale-98 size-[1.3rem]">
-          <span className="flex items-center justify-center text-white transition size-0 peer-checked:size-full peer-checked:bg-primary">
+        <span className="peer-checked:border-0 border-foreground/70 overflow-hidden shrink-0 border rounded-full active:scale-98 size-[1.3rem] *:size-0 peer-checked:*:size-full peer-checked:*:bg-primary">
+          <span className="flex items-center justify-center text-white transition">
             <Check className="size-4 stroke-4" />
           </span>
         </span>
