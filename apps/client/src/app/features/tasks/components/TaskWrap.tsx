@@ -6,6 +6,7 @@ import { Spinner } from '@/shared/components/Spinner';
 import { Maximize2 } from 'lucide-react';
 import { CreateTask } from './CreateTask';
 import { TaskList } from './TaskList';
+import { toast } from 'sonner';
 
 export const TaskWrap = () => {
   const createTask = useCreateTask();
@@ -26,7 +27,11 @@ export const TaskWrap = () => {
 
     if (!task || !task.trim()) return;
 
-    createTask.mutateAsync(body);
+    try {
+      createTask.mutateAsync(body);
+    } catch {
+      toast.error('Error when creating a task');
+    }
   };
 
   const resolveStatus = () => {
@@ -58,9 +63,7 @@ export const TaskWrap = () => {
         </span>
       </div>
     ),
-    data: (
-      null
-    ),
+    data: null,
   };
 
   return (

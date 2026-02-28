@@ -62,7 +62,7 @@ export const KebabMenu = ({ open, close, toggle }: Props) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="end"
-          sideOffset={-36}
+          sideOffset={12}
           className="px-0 border-0 rounded-lg shadow-xl bg-background dark:bg-sidebar w-76 md:hidden"
         >
           <motion.div
