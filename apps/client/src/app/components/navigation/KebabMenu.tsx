@@ -1,16 +1,10 @@
 import { Button } from '@/components/ui/button';
-import { kebabMenuVariants } from '@/shared/motions/motion.variant';
 import { handleWait } from '@/shared/utils/handle-wait';
 import { Ellipsis } from 'lucide-react';
-import { motion } from 'motion/react';
 import { kebabMenuLabel } from './label';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { useIsDesktop } from '@/shared/hooks/use-desktop';
 import { useNavigate } from 'react-router-dom';
+import { DropDown as DropDownKebabMenu } from '@/app/features/ui/DropDown';
 
 type Props = {
   open?: boolean;
@@ -47,11 +41,15 @@ export const KebabMenu = ({ open, close, toggle }: Props) => {
       {/* trigger button */}
 
       {/* Kebab menu */}
-      <DropdownMenu
-        open={open}
-        onOpenChange={(nextOpen) => (nextOpen ? toggle() : close())}
-      >
-        <DropdownMenuTrigger asChild>
+      <DropDownKebabMenu
+        controlled
+        align="end"
+        sideOffset={12}
+        showOn="mobile"
+        className="bg-background dark:bg-sidebar"
+        toggleOpen={toggle}
+        isOpen={open}
+        trigger={
           <Button
             variant="ghost"
             size="icon-lg"
@@ -59,39 +57,26 @@ export const KebabMenu = ({ open, close, toggle }: Props) => {
           >
             <Ellipsis />
           </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent
-          align="end"
-          sideOffset={12}
-          className="px-0 border-0 rounded-lg shadow-xl bg-background dark:bg-sidebar w-76 md:hidden"
-        >
-          <motion.div
-            variants={kebabMenuVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="w-full py-2 overflow-hidden"
-          >
-            <ul className="flex flex-col gap">
-              {kebabMenuLabel.map((m) => (
-                <li key={m.id}>
-                  <button
-                    onClick={() => {
-                      handleWait(() => {
-                        close();
-                        navigate(m.href);
-                      }, 230);
-                    }}
-                    className="flex items-center w-full h-12 gap-3 px-4 text-foreground/90 active:bg-muted dark:active:bg-muted-foreground/30 active:opacity-70"
-                  >
-                    <m.icon className="size-5" /> {m.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        </DropdownMenuContent>
-      </DropdownMenu>
+        }
+      >
+        <ul className="flex flex-col gap">
+          {kebabMenuLabel.map((m) => (
+            <li key={m.id}>
+              <button
+                onClick={() => {
+                  handleWait(() => {
+                    close();
+                    navigate(m.href);
+                  }, 230);
+                }}
+                className="flex items-center w-full h-12 gap-3 px-4 text-foreground/90 active:bg-muted dark:active:bg-muted-foreground/30 active:opacity-70"
+              >
+                <m.icon className="size-5" /> {m.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </DropDownKebabMenu>
       {/* {!isOpenMobileSidebar && open && (
         
       )} */}

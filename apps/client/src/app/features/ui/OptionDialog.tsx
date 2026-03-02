@@ -23,7 +23,7 @@ export function OptionDialog(props: Props) {
 
   return (
     <Dialog open={props.isOpen} onOpenChange={props.onClose}>
-      <DialogContent className="sm:max-w-sm">
+      <DialogContent className="sm:max-w-sm dark:bg-sidebar">
         <DialogHeader>
           <DialogTitle>Create note</DialogTitle>
           {/* <DialogDescription>

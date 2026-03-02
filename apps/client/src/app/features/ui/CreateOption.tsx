@@ -3,7 +3,7 @@ import { ClipboardPaste, FolderOpen, SquarePen } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { FileDropZone } from '../notes/components/FileDropZone';
 import { useNoteServices } from '@/app/hooks/use-note-service';
-import {useQueryToggle} from '@/shared/hooks/use-query-toggle'
+import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
 
 type ActionKey = 'empty' | 'fromFile' | 'fromClipboard';
 type ActionLabel = {
@@ -15,7 +15,11 @@ type ActionLabel = {
 
 export const CreateOption = ({ onClose }: { onClose?: () => void }) => {
   const NoteServices = useNoteServices();
-  const {isOpen: isOpenFromFile,open: openFromFile, close: closeFromFile} = useQueryToggle({key: 'action', value: 'fromFile'})
+  const {
+    isOpen: isOpenFromFile,
+    open: openFromFile,
+    close: closeFromFile,
+  } = useQueryToggle({ key: 'action', value: 'fromFile' });
 
   const options: ActionLabel[] = [
     {
@@ -44,7 +48,7 @@ export const CreateOption = ({ onClose }: { onClose?: () => void }) => {
       NoteServices.openNewNote();
     },
     fromFile: () => {
-     openFromFile()
+      openFromFile();
     },
     fromClipboard: () => {
       onClose?.(); // close drawer
@@ -72,8 +76,8 @@ export const CreateOption = ({ onClose }: { onClose?: () => void }) => {
           <FileDropZone
             onContinue={() => {
               onClose?.(); // close drawer
-                            NoteServices.openCreateFromFile()
-              closeFromFile() // close query state from file if continue to copy the file content to new note
+              NoteServices.openCreateFromFile();
+              closeFromFile(); // close query state from file if continue to copy the file content to new note
             }}
             className="h-58 lg:h-56 w-[92%] mx-auto"
           />
@@ -90,7 +94,7 @@ export const CreateOption = ({ onClose }: { onClose?: () => void }) => {
               <div
                 role="button"
                 onClick={() => handleWait(() => handleChooseAction(o.key), 250)}
-                className="flex active:text-muted-foreground hover:text-muted-foreground items-center w-full h-16 gap-3 px-4 lg:px-0 rounded-md select-none active:bg-muted dark:active:bg-background"
+                className="flex active:text-muted-foreground items-center w-full h-16 gap-3 px-4 lg:px-0 rounded-md select-none hover:bg-muted dark:hover:bg-background"
               >
                 <span className="flex items-center justify-center rounded-full size-12 lg:size-10 bg-muted">
                   <o.icon className="lg:size-5" />
