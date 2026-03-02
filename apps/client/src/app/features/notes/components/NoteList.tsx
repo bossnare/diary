@@ -9,12 +9,39 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 import { NoteCard, type NoteCardVariant } from './NoteCard';
 import type { SelectionManager } from '@/app/hooks/use-selection-manager';
+import { DropDown as DropDownNoteCard } from '../../ui/DropDown';
+import { ToolbarButton as NoteCardToolbarButton } from '../../ui/ToolbarButton';
+import type { SelectionModeLabel } from '@/app/types/label.type';
+import { FolderSymlink, Lock, Pin, Trash } from 'lucide-react';
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
   selection?: SelectionManager;
   notes?: NoteInterface[];
   variant?: NoteCardVariant;
 };
+
+const selectionModeLabelItem: SelectionModeLabel[] = [
+  {
+    label: 'Lock',
+    icon: Lock,
+    key: 'move',
+  },
+  {
+    label: 'Move to',
+    icon: FolderSymlink,
+    key: 'move',
+  },
+  {
+    label: 'Pin',
+    icon: Pin,
+    key: 'pin',
+  },
+  {
+    label: 'Delete',
+    icon: Trash,
+    key: 'delete',
+  },
+];
 
 export function NoteList({ selection, notes, variant, className }: Props) {
   const navigate = useNavigate();
@@ -64,17 +91,33 @@ export function NoteList({ selection, notes, variant, className }: Props) {
             >
               {/* options toggle - desktop */}
               {!selection?.isSelectionMode && variant === 'default' && (
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                  size="icon"
-                  variant="ghost"
-                  className="absolute hover:shadow-sm hidden scale-0 z-2 top-1.5 right-2 group-hover:scale-100 lg:inline-flex"
+                <DropDownNoteCard
+                  align="end"
+                  showOn="desktop"
+                  className="w-50"
+                  trigger={
+                    <Button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                      size="icon"
+                      variant="ghost"
+                      className="absolute hover:shadow-sm hidden scale-0 z-2 top-1.5 right-2 group-hover:scale-100 lg:inline-flex"
+                    >
+                      <Ellipsis />
+                    </Button>
+                  }
                 >
-                  <Ellipsis />
-                </Button>
+                  <div className="flex flex-col justify-end gap-1 w-full [&_button]:justify-start">
+                    <NoteCardToolbarButton
+                      onAction={() => null}
+                      disabled={!note.id}
+                      labelItems={selectionModeLabelItem}
+                    />
+                  </div>
+                </DropDownNoteCard>
               )}
+
               <div
                 className={cn(
                   selection?.isSelectionMode ? 'scale-100' : 'scale-0',

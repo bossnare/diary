@@ -3,9 +3,10 @@ import { UserAvatar } from '../features/users/UserAvatar';
 import { useUserProfile } from '@/app/hooks/use-user';
 import { ErrorState } from '../components/ErrorState';
 import { Spinner } from '@/shared/components/Spinner';
-import { ArrowLeft, ChevronLeft, Link } from 'lucide-react';
+import { ChevronLeft, Link } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 export function ProfilePage() {
   const [isCopyingLink, setIsCopyingLink] = useState(false);
@@ -29,6 +30,7 @@ export function ProfilePage() {
     setTimeout(() => {
       setIsCopyingLink(false);
       navigator.clipboard.writeText(link);
+      toast.success('Link copied!');
     }, 800);
   };
 
@@ -43,12 +45,16 @@ export function ProfilePage() {
     return (
       <div>
         <header>
-           <nav className="pr-2 h-12">
-          <Button onClick={handleBack} size="icon-xl" variant="ghost"                 className="h-full! w-14! rounded-none pr-2!"
->
-            <ChevronLeft />
-          </Button>
-        </nav>
+          <nav className="pr-2 h-12">
+            <Button
+              onClick={handleBack}
+              size="icon-xl"
+              variant="ghost"
+              className="h-full! w-14! rounded-none pr-2!"
+            >
+              <ChevronLeft />
+            </Button>
+          </nav>
         </header>
         <ErrorState error={error} onRetry={refetch} />
       </div>
@@ -58,8 +64,12 @@ export function ProfilePage() {
     <>
       <header className="sticky z-10 bg-background top-0 inset-x-0">
         <nav className="pr-2 h-12">
-          <Button onClick={handleBack} size="icon-xl" variant="ghost"                 className="h-full! w-14! rounded-none pr-2!"
->
+          <Button
+            onClick={handleBack}
+            size="icon-xl"
+            variant="ghost"
+            className="h-full! w-14! rounded-xl pr-2!"
+          >
             <ChevronLeft />
           </Button>
         </nav>
