@@ -1,5 +1,5 @@
 import { AppLoader } from '@/app/components/AppLoader';
-import { BottomBar } from '@/app/components/navigation/BottomBar';
+import { BottomBar } from '@/app/components/navigation/TabBar';
 import {
   DesktopSidebar,
   MobileSidebar,
