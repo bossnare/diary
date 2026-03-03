@@ -92,9 +92,11 @@ export function NoteList({ selection, notes, variant, className }: Props) {
               {/* options toggle - desktop */}
               {!selection?.isSelectionMode && variant === 'default' && (
                 <DropDownNoteCard
+                  onClick={(e) => e.stopPropagation()}
+                  sideOffset={12}
                   align="end"
                   showOn="desktop"
-                  className="w-50"
+                  className="w-50 px-2"
                   trigger={
                     <Button
                       onClick={(e) => {
