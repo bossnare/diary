@@ -72,9 +72,15 @@ export const TaskWrap = () => {
 
       <Tabs defaultValue="all">
         <TabsList variant="line" className="w-full group">
-          <TabsTrigger value="all">All</TabsTrigger>
-          <TabsTrigger value="pending">Pending</TabsTrigger>
-          <TabsTrigger value="completed">Completed</TabsTrigger>
+          <TabsTrigger value="all" className="lg:hover:bg-muted">
+            All
+          </TabsTrigger>
+          <TabsTrigger value="pending" className="lg:hover:bg-muted">
+            Pending
+          </TabsTrigger>
+          <TabsTrigger value="completed" className="lg:hover:bg-muted">
+            Completed
+          </TabsTrigger>
           {/* maximize - minimize button */}
           <div className="transition scale-0 group-hover:scale-100">
             <Button size="icon" variant="ghost">

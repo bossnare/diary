@@ -7,7 +7,16 @@ import { useButtonSize } from '@/shared/hooks/use-button-size';
 import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
 import { Portal } from '@radix-ui/react-portal';
 import { useQueryClient } from '@tanstack/react-query';
-import { FolderSymlink, ListChecks, Lock, Pin, Trash, X } from 'lucide-react';
+import {
+  ChevronRight,
+  FolderSymlink,
+  ListChecks,
+  Lock,
+  Pin,
+  Trash,
+  UsersRound,
+  X,
+} from 'lucide-react';
 import { motion } from 'motion/react';
 import { toast } from 'sonner';
 import { ConfirmDialog } from '../features/ui/ConfirmDialog';
@@ -27,6 +36,7 @@ import { PinnedNotes } from '../features/notes/components/PinnedNotes';
 import { NotePanel } from '../features/notes/components/NotePanel';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { TaskWrap } from '../features/tasks/components/TaskWrap';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 function Overview() {
   const useHomeNoteApi = useHomeNote();
@@ -281,8 +291,30 @@ function Overview() {
               <div className="p-3">
                 <TaskWrap />
               </div>
-              {/* suble overlay - black */}
-              <div className="absolute inset-x-0 bottom-0 pointer-events-none bg-linear-to-b from-transparent dark:via-zinc-950/20 dark:to-zinc-950/80 h-15"></div>
+              {/* contribution teams */}
+              <div className="absolute inset-x-0 bottom-0 h-16 py-2 border-t border-border dark:border-t-sidebar-border bg-muted/50">
+                <div className="flex h-full gap-3 px-2 py-4 mx-2">
+                  <div className="flex items-center gap-2">
+                    <UsersRound className="size-5" />
+                    <span className="font-medium">Teams</span>
+                  </div>
+                  <div className="flex items-center ml-auto -space-x-3 group">
+                    {Array.from({ length: 4 }).map((_, i) => (
+                      <Avatar className="border-2 border-primary" key={i}>
+                        <AvatarImage />
+                        <AvatarFallback>{i}</AvatarFallback>
+                      </Avatar>
+                    ))}
+                    <Button
+                      className="ml-4 transition opacity-0 size-0 duration-400 group-hover:size-8 group-hover:opacity-100"
+                      variant="ghost"
+                      size="icon"
+                    >
+                      <ChevronRight />
+                    </Button>
+                  </div>
+                </div>
+              </div>
             </ScrollArea>
           </main>
         </>
