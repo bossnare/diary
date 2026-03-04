@@ -210,7 +210,8 @@ function Overview() {
         />
         {/* content */}
         <>
-          <main className="flex">
+          {/* add overflow-hidden avoiding scrollbar jumpscare on the layout */}
+          <main className="flex overflow-hidden">
             <ScrollArea className="grow h-[calc(100dvh-120px)] md:h-[calc(100dvh-56px)]">
               <NotePanel allData={all} api={useHomeNoteApi}>
                 <nav className="sticky top-0 pt-6 mx-2 z-16 md:px-6 bg-muted dark:bg-background">
@@ -300,7 +301,10 @@ function Overview() {
                   </div>
                   <div className="flex items-center ml-auto -space-x-3 group">
                     {Array.from({ length: 4 }).map((_, i) => (
-                      <Avatar className="border-2 border-primary" key={i}>
+                      <Avatar
+                        className="border-2 dark:border-accent shadow-xl"
+                        key={i}
+                      >
                         <AvatarImage />
                         <AvatarFallback>{i}</AvatarFallback>
                       </Avatar>
