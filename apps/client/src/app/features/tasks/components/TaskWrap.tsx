@@ -92,7 +92,7 @@ export const TaskWrap = () => {
         {resolveStatus() !== 'data' ? (
           <div>{renderUIState[resolveStatus()]}</div>
         ) : (
-          <ScrollArea className="h-56 overflow-hidden shadow-xs group rounded-xl bg-background">
+          <ScrollArea className="h-56 overflow-hidden shadow-md group rounded-xl bg-background">
             <TabsContent value="all">
               <TaskList tasks={tasks} />
             </TabsContent>
