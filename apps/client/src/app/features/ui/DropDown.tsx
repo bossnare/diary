@@ -5,9 +5,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useIsMobile } from '@/shared/hooks/use-mobile';
-import { kebabMenuVariants } from '@/shared/motions/motion.variant';
-import { motion } from 'motion/react';
+import { dropdownMenuVariants } from '@/shared/motions/motion.variant';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
+import { motion } from 'motion/react';
 
 type Props = {
   toggleOpen?: () => void;
@@ -48,7 +48,7 @@ export function DropDown({
         className={cn('px-0 border-0 rounded-lg shadow-xl w-76', className)}
       >
         <motion.div
-          variants={kebabMenuVariants}
+          variants={dropdownMenuVariants}
           initial="hidden"
           animate="visible"
           exit="exit"

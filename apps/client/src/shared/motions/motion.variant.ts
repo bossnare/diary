@@ -22,7 +22,7 @@ export const lineVariants = {
   exit: { opacity: 0, x: -10 },
 };
 
-export const kebabMenuVariants = {
+export const dropdownMenuVariants = {
   hidden: { opacity: 0, y: -10, scale: 0.9, x: 20 },
   visible: { opacity: 1, y: 0, scale: 1, x: 0 },
   exit: { opacity: 0, y: -10, scale: 0.9, x: 20 },
