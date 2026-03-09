@@ -1,14 +1,11 @@
-import { fetcher } from '@/app/lib/fetcher';
+import * as notificationApi from '@/app/features/notifications/services/api/notification.api';
 import type { NotificationInterface } from '@/app/types/notification.type';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useNotification() {
   return useQuery<NotificationInterface[]>({
     queryKey: ['notifications'],
-    queryFn: async () => {
-      const res = await fetcher('/notifications');
-      return res.data; // return {.., data}
-    },
+    queryFn: () => notificationApi.findAll(),
   });
 }
 

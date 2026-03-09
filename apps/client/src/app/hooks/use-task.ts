@@ -1,4 +1,4 @@
-import * as taskApi from '@/app/api/task.api';
+import * as taskApi from '@/app/features/tasks/services/api/task.api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
 import * as Task from '@/app/types/task.type';
