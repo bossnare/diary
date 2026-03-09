@@ -1,22 +1,22 @@
+import type { SelectionMode } from '@/app/hooks/use-selection-manager';
 import { Button } from '@/components/ui/button';
 import {
-  DropdownMenuContent,
   DropdownMenu,
+  DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useButtonSize } from '@/shared/hooks/use-button-size';
-import { kebabMenuVariants } from '@/shared/motions/motion.variant';
+import { useIsMobile } from '@/shared/hooks/use-mobile';
+import { dropdownMenuVariants } from '@/shared/motions/motion.variant';
 import {
-  LassoSelect,
   ArrowDownNarrowWide,
-  ListRestart,
-  LayoutList,
+  LassoSelect,
   LayoutGrid,
+  LayoutList,
+  ListRestart,
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { SortingButton } from './SortingButton';
-import type { SelectionMode } from '@/app/hooks/use-selection-manager';
-import { useIsMobile } from '@/shared/hooks/use-mobile';
 
 type Props = {
   openSelectionMode: (mode?: SelectionMode) => void;
@@ -76,7 +76,7 @@ export function OverviewToolbar(props: Props) {
             className="hidden px-0 border-0 rounded-lg shadow-xl w-60 md:block bg-background dark:bg-sidebar"
           >
             <motion.div
-              variants={kebabMenuVariants}
+              variants={dropdownMenuVariants}
               initial="hidden"
               animate="visible"
               exit="exit"

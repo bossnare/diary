@@ -1,4 +1,4 @@
-import { fetcher } from '../lib/fetcher';
+import { fetcher } from '../../../../lib/fetcher';
 
 export const getUser = async () => {
   const res = await fetcher('/profiles/me');

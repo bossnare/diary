@@ -1,6 +1,6 @@
 import type * as Note from '@/app/types/note.type';
 
-import * as noteApi from '@/app/api/note.api';
+import * as noteApi from '@/app/features/notes/services/api/note.api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import type { AxiosError } from 'axios';

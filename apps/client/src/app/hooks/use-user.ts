@@ -1,6 +1,6 @@
+import * as userApi from '@/app/features/users/services/api/user.api';
 import type { UserInterface } from '@/app/types/user.type';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import * as userApi from '@/app/api/user.api';
 import type { AxiosError } from 'axios';
 
 export function useUser() {

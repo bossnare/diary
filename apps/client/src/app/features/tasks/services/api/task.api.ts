@@ -1,5 +1,5 @@
-import api from '../lib/api';
-import { fetcher } from '../lib/fetcher';
+import api from '@/app/lib/api';
+import { fetcher } from '@/app/lib/fetcher';
 import * as Task from '@/app/types/task.type';
 
 export const findAll = async () => {

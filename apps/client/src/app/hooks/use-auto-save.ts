@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as Note from '@/app/types/note.type';
-import * as NoteApi from '@/app/api/note.api';
+import * as NoteApi from '@/app/features/notes/services/api/note.api';
 
 export const useAutoSave = (
   enabled: boolean,
