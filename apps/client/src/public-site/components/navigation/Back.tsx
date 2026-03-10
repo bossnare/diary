@@ -29,7 +29,7 @@ export const Back = ({ className, fallbackRoute = '/', ...props }: Props) => {
       >
         <ArrowLeft />
       </Button>
-      <span className={cn(dflt, 'text-foreground text-2xl md:text-xl')}>
+      <span className={cn(dflt, 'text-foreground text-xl md:text-xl')}>
         {t(`routes.${cleanPathname}`)}
       </span>
     </div>

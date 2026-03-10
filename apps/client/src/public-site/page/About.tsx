@@ -5,14 +5,14 @@ export const About = () => {
       className="max-w-5xl px-6 pt-20 pb-30 mx-auto space-y-4 font-medium [&_section]:pb-4 prose divide-y dark:prose-invert md:px-0"
     >
       <section>
-        <h3>About Diary</h3>
+        <h2>About Storink</h2>
         <p>
-          <b className="font-semibold text-inter text-foreground">Diary</b> is a
-          simple application designed to help people{' '}
+          <b className="font-semibold text-inter text-foreground">Storink</b> is
+          a simple application designed to help people{' '}
           <b className="font-semibold text-inter text-foreground">
             write, organize, and share their thoughts, history.
           </b>{' '}
-          It allows users to create personal notes or diary entries, keep them{' '}
+          It allows users to create personal notes or Storink entries, keep them{' '}
           <b className="font-semibold text-inter text-foreground">private</b>,
           or{' '}
           <b className="font-semibold text-inter text-foreground">
@@ -21,7 +21,7 @@ export const About = () => {
           for others in the community to read
         </p>
         <p>
-          The goal of Diary is to provide a{' '}
+          The goal of Storink is to provide a{' '}
           <b className="font-semibold text-inter text-foreground">
             calm and simple space
           </b>{' '}
@@ -31,7 +31,7 @@ export const About = () => {
       </section>
 
       <section>
-        <h3>What You Can Do</h3>
+        <h2>What You Can Do</h2>
         <ul>
           <li>
             <p>
@@ -77,9 +77,9 @@ export const About = () => {
       </section>
 
       <section>
-        <h3>Our Vision</h3>
+        <h2>Our Vision</h2>
         <p>
-          Diary aims to create a
+          Storink aims to create a
           <b className="font-semibold text-inter text-foreground">
             digital space for ideas and reflections.
           </b>
@@ -93,8 +93,8 @@ export const About = () => {
       </section>
 
       <section>
-        <h3>Our Principles</h3>
-        <p>Diary is built around a few simple priciples: </p>
+        <h2>Our Principles</h2>
+        <p>Storink is built around a few simple priciples: </p>
         <ul>
           <li>
             <p>
@@ -124,9 +124,9 @@ export const About = () => {
       </section>
 
       <section>
-        <h3>Community</h3>
+        <h2>Community</h2>
         <p>
-          Diary encourages a community where people can{' '}
+          Storink encourages a community where people can{' '}
           <b className="font-semibold text-inter text-foreground">
             share experiences, ideas, and reflections.
           </b>

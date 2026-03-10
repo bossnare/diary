@@ -64,15 +64,15 @@
         "mg": "Malagasy"
     },
     "hero": {
-        "title": "Andao mba hanana loha faharoa",
-        "subtitle": "Alamina ny hevitra, zaraina ny fahalalana, ary miara-mitombo.",
+        "title": "Toerana iray hoan'ny tantaranao",
+        "subtitle": "Alamina ny hevitra, zaraina ny fahalalana sy tantara, ary miara-mitombo.",
         "secondButton": "Ny fomba fiasany",
         "primaryButton": "Hanomboka Hanoratra"
     },
     "section": {
         "whyItMatters": {
             "title": "Toerana natao hisainana, fa tsy hanoratana fotsiny",
-            "subtitle": "Manorata malalaka. Alamina ny hevitra. Zarao amin'ny tanjona mazava.",
+            "subtitle": "Manorata malalaka. Alamina ny hevitra sy tantara. Zarao amin'ny tanjona mazava.",
             "card1": {
                 "title": "Misambotra hevitra haingana",
                 "description": "Soraty avy hatrany ny eritreritrao, tsy misy sakana. Ny hevitra no zava-dehibe fa tsy ny fitaovana."

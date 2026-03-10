@@ -96,7 +96,7 @@ export const Footer = ({
         {/* footer copyright - meta */}
         <div className="space-x-2 text-center">
           <span>&copy; {new Date().getFullYear()}</span>
-          <span className="font-medium tracking-tighter">Diary .</span>
+          <span className="font-medium tracking-tighter">Storink .</span>
           <span>{t('footer.meta.copy')}.</span>
           <span>Madagascar {'- Antananarivo'}.</span>
           <span> {t('footer.meta.build')}</span>

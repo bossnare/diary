@@ -64,15 +64,15 @@
         }
     },
     "hero": {
-        "title": "Create Your Second Brain",
-        "subtitle": "Organize ideas, share knowledge, and grow together.",
+        "title": "A Home For Your Stories",
+        "subtitle": "Organize ideas, share knowledge & story, and grow together.",
         "secondButton": "Learn how it works",
         "primaryButton": "Start writing"
     },
     "section": {
         "whyItMatters": {
             "title": "A space built for thinking, not just typing",
-            "subtitle": "Write freely. Organize ideas. Share knowledge with purpose.",
+            "subtitle": "Write freely. Organize ideas. Share knowledge and story with purpose.",
             "card1": {
                 "title": "Capture Ideas Fast",
                 "description": "Write notes instantly, without friction. Focus on thoughts, not tools."

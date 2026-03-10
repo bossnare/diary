@@ -5,8 +5,8 @@ export const pwaPlugin = VitePWA({
   registerType: 'autoUpdate',
   includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
   manifest: {
-    name: 'Diary',
-    short_name: 'Diary',
+    name: 'Storink',
+    short_name: 'Storink',
     description: 'A simple notes app to use everyday life.',
     theme_color: '#000000',
     start_url: '/',
