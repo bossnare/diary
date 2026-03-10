@@ -2,7 +2,7 @@ export const About = () => {
   return (
     <div
       id="about"
-      className="max-w-5xl px-6 pt-20 pb-40 mx-auto space-y-4 font-medium [&_section]:pb-4 prose divide-y dark:prose-invert md:px-0"
+      className="max-w-5xl px-6 pt-20 pb-30 mx-auto space-y-4 font-medium [&_section]:pb-4 prose divide-y dark:prose-invert md:px-0"
     >
       <section>
         <h3>About Diary</h3>
@@ -36,7 +36,7 @@ export const About = () => {
           <li>
             <p>
               <b className="font-semibold text-inter text-foreground">
-                Write Notes
+                Write Notes{' '}
               </b>
               - capture ideas, thoughts, or daily experiences
             </p>
@@ -44,7 +44,7 @@ export const About = () => {
           <li>
             <p>
               <b className="font-semibold text-inter text-foreground">
-                Organize Your Thoughts
+                Organize Your Thoughts{' '}
               </b>
               - capture ideas, thoughts, or daily experiences
             </p>
@@ -52,7 +52,7 @@ export const About = () => {
           <li>
             <p>
               <b className="font-semibold text-inter text-foreground">
-                Keep Notes Private
+                Keep Notes Private{' '}
               </b>
               - capture ideas, thoughts, or daily experiences
             </p>
@@ -60,7 +60,7 @@ export const About = () => {
           <li>
             <p>
               <b className="font-semibold text-inter text-foreground">
-                Publish to the Community
+                Publish to the Community{' '}
               </b>
               - capture ideas, thoughts, or daily experiences
             </p>
@@ -68,7 +68,7 @@ export const About = () => {
           <li>
             <p>
               <b className="font-semibold text-inter text-foreground">
-                Discover Stories
+                Discover Stories{' '}
               </b>
               - capture ideas, thoughts, or daily experiences
             </p>
@@ -99,7 +99,7 @@ export const About = () => {
           <li>
             <p>
               <b className="font-semibold text-inter text-foreground">
-                Simplicity
+                Simplicity{' '}
               </b>
               - capture ideas, thoughts, or daily experiences
             </p>
@@ -107,7 +107,7 @@ export const About = () => {
           <li>
             <p>
               <b className="font-semibold text-inter text-foreground">
-                Privacy
+                Privacy{' '}
               </b>
               - capture ideas, thoughts, or daily experiences
             </p>
@@ -115,7 +115,7 @@ export const About = () => {
           <li>
             <p>
               <b className="font-semibold text-inter text-foreground">
-                Freedom to Share
+                Freedom to Share{' '}
               </b>
               - you decide whether your notes stay private or become public
             </p>
