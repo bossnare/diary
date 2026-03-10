@@ -64,15 +64,15 @@
         }
     },
     "hero": {
-        "title": "Créez votre second cerveau",
-        "subtitle": "Organisez vos idées, partagez vos connaissances et évoluez ensemble.",
+        "title": "Un foyer pour votre histoire",
+        "subtitle": "Organisez vos idées, partagez vos connaissances & histoires et évoluez ensemble.",
         "secondButton": "Comment ça fonctionne",
         "primaryButton": "Commencer à écrire"
     },
     "section": {
         "whyItMatters": {
             "title": "Un espace conçu pour réfléchir, pas seulement écrire",
-            "subtitle": "Écrivez librement. Organisez vos idées. Partagez avec intention.",
+            "subtitle": "Écrivez librement. Organisez vos idées et histoires. Partagez avec intention.",
             "card1": {
                 "title": "Capturer des idées rapidement",
                 "description": "Notez instantanément, sans friction. Concentrez-vous sur vos pensées, pas sur les outils."

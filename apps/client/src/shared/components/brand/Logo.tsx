@@ -53,7 +53,9 @@ export const Logo = ({ mono, className, size = 'lg', ...props }: Props) => {
         </span>
       )}
 
-      <span className={cn(dflt, textSize[size], 'text-foreground')}>DIARY</span>
+      <span className={cn(dflt, textSize[size], 'text-foreground')}>
+        Storink
+      </span>
     </div>
   );
 };
