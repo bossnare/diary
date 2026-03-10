@@ -167,7 +167,7 @@ const LoginCard = ({
                     name="email"
                     required
                     placeholder={`${t('auth.placeholder.email')}...`}
-                    className="h-12 placeholder:text-sm md:h-10"
+                    className="h-12 placeholder:text-sm md:h-10 focus-visible:border-primary! focus-visible:ring-primary/50"
                   />
                   <Button
                     disabled={isPending}

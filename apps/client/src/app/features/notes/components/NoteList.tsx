@@ -1,18 +1,17 @@
 import { useLongPress } from '@/app/hooks/use-long-press';
+import type { SelectionManager } from '@/app/hooks/use-selection-manager';
 import { cn } from '@/app/lib/utils';
+import type { NoteToolbarItem, NoteActionKey } from '@/app/types/label.type';
 import type { NoteInterface } from '@/app/types/note.type';
 import { Button } from '@/components/ui/button';
 import { handleWait } from '@/shared/utils/handle-wait';
 import { IconCheck } from '@tabler/icons-react';
-import { Ellipsis } from 'lucide-react';
+import { Ellipsis, FolderSymlink, Lock, Pin, Trash } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
-import { NoteCard, type NoteCardVariant } from './NoteCard';
-import type { SelectionManager } from '@/app/hooks/use-selection-manager';
 import { DropDown as DropDownNoteCard } from '../../ui/DropDown';
 import { ToolbarButton as NoteCardToolbarButton } from '../../ui/ToolbarButton';
-import type { SelectionModeLabel } from '@/app/types/label.type';
-import { FolderSymlink, Lock, Pin, Trash } from 'lucide-react';
+import { NoteCard, type NoteCardVariant } from './NoteCard';
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
   selection?: SelectionManager;
@@ -20,7 +19,7 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
   variant?: NoteCardVariant;
 };
 
-const selectionModeLabelItem: SelectionModeLabel[] = [
+const NoteToolbarItemItem: NoteToolbarItem[] = [
   {
     label: 'Lock',
     icon: Lock,
@@ -111,10 +110,10 @@ export function NoteList({ selection, notes, variant, className }: Props) {
                   }
                 >
                   <div className="flex flex-col justify-end gap-1 w-full [&_button]:justify-start">
-                    <NoteCardToolbarButton
+                    <NoteCardToolbarButton<NoteActionKey>
                       onAction={() => null}
                       disabled={!note.id}
-                      labelItems={selectionModeLabelItem}
+                      labelItems={NoteToolbarItemItem}
                     />
                   </div>
                 </DropDownNoteCard>
