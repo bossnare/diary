@@ -3,21 +3,26 @@ import { useButtonSize } from '@/shared/hooks/use-button-size';
 import { handleWait } from '@/shared/utils/handle-wait';
 import type React from 'react';
 
-export type ActionKey = 'move' | 'delete' | 'pin';
+// usage example for key type
+// export type ActionKey = 'move' | 'delete' | 'pin';
 
-type ActionLabel = {
+type ActionLabel<T extends string> = {
   label: string;
   icon: React.ElementType;
-  key: ActionKey;
+  key: T;
 };
 
-type Props = React.HTMLAttributes<HTMLDivElement> & {
+type Props<T extends string> = React.HTMLAttributes<HTMLDivElement> & {
   disabled?: boolean;
-  onAction?: (actionKey: ActionKey) => void;
-  labelItems?: ActionLabel[];
+  onAction?: (actionKey: T) => void;
+  labelItems?: ActionLabel<T>[];
 };
 
-export function ToolbarButton({ onAction, disabled, labelItems }: Props) {
+export function ToolbarButton<T extends string>({
+  onAction,
+  disabled,
+  labelItems,
+}: Props<T>) {
   const buttonSize = useButtonSize({ mobile: 'lg', landscape: 'default' });
 
   return (

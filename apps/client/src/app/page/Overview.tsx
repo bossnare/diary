@@ -1,8 +1,7 @@
-import type {
-  SelectionModeActionKey,
-  SelectionModeLabel,
-} from '@/app/types/label.type';
+import type { NoteActionKey, NoteToolbarItem } from '@/app/types/label.type';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { useButtonSize } from '@/shared/hooks/use-button-size';
 import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
 import { Portal } from '@radix-ui/react-portal';
@@ -19,6 +18,10 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { toast } from 'sonner';
+import { NotePanel } from '../features/notes/components/NotePanel';
+import { PinnedNotes } from '../features/notes/components/PinnedNotes';
+import { RecentNotes } from '../features/notes/components/RecentNotes';
+import { TaskWrap } from '../features/tasks/components/TaskWrap';
 import { ConfirmDialog } from '../features/ui/ConfirmDialog';
 import { ConfirmDrawer } from '../features/ui/ConfirmDrawer';
 import { OverviewToolbar } from '../features/ui/OverviewToolbar';
@@ -31,12 +34,6 @@ import {
 } from '../hooks/use-note';
 import { useSelectionManager } from '../hooks/use-selection-manager';
 import { cn } from '../lib/utils';
-import { RecentNotes } from '../features/notes/components/RecentNotes';
-import { PinnedNotes } from '../features/notes/components/PinnedNotes';
-import { NotePanel } from '../features/notes/components/NotePanel';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { TaskWrap } from '../features/tasks/components/TaskWrap';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 function Overview() {
   const useHomeNoteApi = useHomeNote();
@@ -92,11 +89,11 @@ function Overview() {
   });
 
   // toolbar label
-  const selectionModeLabelItem: SelectionModeLabel[] = [
+  const NoteToolbarItemItem: NoteToolbarItem[] = [
     {
       label: 'Lock',
       icon: Lock,
-      key: 'move',
+      key: 'lock',
     },
     {
       label: 'Move to',
@@ -156,7 +153,7 @@ function Overview() {
     }
   };
 
-  const handleSelectionModeAction = (actionKey: SelectionModeActionKey) => {
+  const handleSelectionModeAction = (actionKey: NoteActionKey) => {
     switch (actionKey) {
       case 'move':
         console.log('move');
@@ -167,6 +164,8 @@ function Overview() {
       case 'pin':
         togglePin();
         break;
+      case 'lock':
+        return;
     }
   };
 
@@ -243,10 +242,10 @@ function Overview() {
 
                       {/* toolbar */}
                       <div className="justify-end hidden gap-2 md:flex grow">
-                        <SelectionModeToolbarButton
+                        <SelectionModeToolbarButton<NoteActionKey>
                           onAction={handleSelectionModeAction}
                           disabled={!selection.isHasSelected}
-                          labelItems={selectionModeLabelItem}
+                          labelItems={NoteToolbarItemItem}
                         />
                       </div>
 
@@ -334,10 +333,10 @@ function Overview() {
             className="fixed inset-x-0 bottom-0! flex items-center h-16 px-4 md:hidden z-22"
           >
             <div className="flex justify-between w-full">
-              <SelectionModeToolbarButton
+              <SelectionModeToolbarButton<NoteActionKey>
                 onAction={handleSelectionModeAction}
                 disabled={!selection.isHasSelected}
-                labelItems={selectionModeLabelItem}
+                labelItems={NoteToolbarItemItem}
               />
             </div>
           </motion.div>

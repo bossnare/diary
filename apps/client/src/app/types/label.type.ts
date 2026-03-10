@@ -1,12 +1,12 @@
-export type SelectionModeActionKey = 'move' | 'delete' | 'pin';
+export type NoteActionKey = 'move' | 'delete' | 'pin' | 'lock';
 
 export type BaseItem = {
   label: string;
   icon: React.ElementType;
 };
 
-export type SelectionModeLabel = BaseItem & {
-  key: SelectionModeActionKey;
+export type NoteToolbarItem = BaseItem & {
+  key: NoteActionKey;
 };
 
 export type EditorToolbarItem = BaseItem & {

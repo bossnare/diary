@@ -1,23 +1,23 @@
-import { IconCheck, IconTrash } from '@tabler/icons-react';
-import { NoteList } from '../features/notes/components/NoteList';
-import { useNoteTrash, useRestoreMany, useDeleteMany } from '../hooks/use-note';
-import { Spinner } from '@/shared/components/Spinner';
-import { ErrorState } from '../components/ErrorState';
-import { EmptyEmpty as EmptyTrash } from '../features/ui/Empty';
+import { useSelectionManager } from '@/app/hooks/use-selection-manager';
 import { Button } from '@/components/ui/button';
+import { Spinner } from '@/shared/components/Spinner';
+import { useButtonSize } from '@/shared/hooks/use-button-size';
+import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
+import { useReveal } from '@/shared/hooks/use-reveal';
+import { Portal } from '@radix-ui/react-portal';
+import { IconCheck, IconTrash } from '@tabler/icons-react';
 import { ListCheck, RotateCcw, Trash, X } from 'lucide-react';
 import { motion } from 'motion/react';
-import { cn } from '../lib/utils';
-import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
-import { useButtonSize } from '@/shared/hooks/use-button-size';
-import { Portal } from '@radix-ui/react-portal';
-import { ToolbarButton as SelectionModeToolbarButton } from '../features/ui/ToolbarButton';
+import { toast } from 'sonner';
+import { ErrorState } from '../components/ErrorState';
+import { NoteList } from '../features/notes/components/NoteList';
 import { ConfirmDialog } from '../features/ui/ConfirmDialog';
 import { ConfirmDrawer } from '../features/ui/ConfirmDrawer';
-import { toast } from 'sonner';
-import { useReveal } from '@/shared/hooks/use-reveal';
-import { useSelectionManager } from '@/app/hooks/use-selection-manager';
+import { EmptyEmpty as EmptyTrash } from '../features/ui/Empty';
+import { ToolbarButton as SelectionModeToolbarButton } from '../features/ui/ToolbarButton';
+import { useDeleteMany, useNoteTrash, useRestoreMany } from '../hooks/use-note';
 import { Scrolllayout } from '../layout/ScrollLayout';
+import { cn } from '../lib/utils';
 
 export function NoteTrashPage() {
   const { data, isPending, isError, error, refetch } = useNoteTrash();
@@ -44,7 +44,7 @@ export function NoteTrashPage() {
     });
 
   const buttonXSize = useButtonSize({ mobile: 'icon-xl', landscape: 'icon' });
-  const selectionModeLabelItem: {
+  const NoteToolbarItemItem: {
     label: string;
     icon: React.ElementType;
     key: 'delete' | 'move';
@@ -237,7 +237,7 @@ export function NoteTrashPage() {
               <SelectionModeToolbarButton
                 onAction={handleSelectionModeAction}
                 disabled={!selection.isHasSelected}
-                labelItems={selectionModeLabelItem}
+                labelItems={NoteToolbarItemItem}
               />
             </div>
           )}
@@ -324,7 +324,7 @@ export function NoteTrashPage() {
               <SelectionModeToolbarButton
                 onAction={handleSelectionModeAction}
                 disabled={!selection.isHasSelected}
-                labelItems={selectionModeLabelItem}
+                labelItems={NoteToolbarItemItem}
               />
             </div>
           </motion.div>
