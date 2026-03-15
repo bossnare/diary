@@ -1,4 +1,4 @@
-# DIARY
+# Diary
 
 Small app to create notes online, share ideas
 

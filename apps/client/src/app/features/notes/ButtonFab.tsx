@@ -1,5 +1,5 @@
 import { useLongPress } from '@/app/hooks/use-long-press';
-import { useNoteServices } from '@/app/hooks/use-note-service';
+import { useNoteActions } from '@/app/hooks/use-note-action';
 import { Button } from '@/components/ui/button';
 import { waitVibrate } from '@/shared/utils/vibration';
 import { SquarePen } from 'lucide-react';
@@ -9,7 +9,7 @@ export function ButtonFab({
 }: {
   openCreateOptions?: () => void;
 }) {
-  const { openNewNote } = useNoteServices();
+  const { openNewNote } = useNoteActions();
   const longPress = useLongPress({
     onLongPress: () => {
       openCreateOptions?.();

@@ -1,11 +1,11 @@
-import { Spinner } from '@/shared/components/Spinner';
-import type { UseHomeNoteReturn } from '@/app/hooks/use-note';
 import { ErrorState } from '@/app/components/ErrorState';
-import { useNoteServices } from '@/app/hooks/use-note-service';
+import type { UseHomeNoteReturn } from '@/app/hooks/use-note';
+import { useNoteActions } from '@/app/hooks/use-note-action';
 import type { NoteInterface } from '@/app/types/note.type';
-import { EmptyEmpty as EmptyNotes } from '../../ui/Empty';
 import empty_note from '@/assets/empty_note.svg';
+import { Spinner } from '@/shared/components/Spinner';
 import { IconNote } from '@tabler/icons-react';
+import { EmptyEmpty as EmptyNotes } from '../../ui/Empty';
 
 type Props = {
   api: UseHomeNoteReturn;
@@ -14,7 +14,7 @@ type Props = {
 };
 
 export const NotePanel = ({ children, api, allData }: Props) => {
-  const { openNewNote, pasteFromClipboard } = useNoteServices();
+  const { openNewNote, pasteFromClipboard } = useNoteActions();
 
   if (api.isPending)
     return (

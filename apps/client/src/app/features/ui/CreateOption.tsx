@@ -1,9 +1,9 @@
+import { useNoteActions } from '@/app/hooks/use-note-action';
+import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
 import { handleWait } from '@/shared/utils/handle-wait';
 import { ClipboardPaste, FolderOpen, SquarePen } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { FileDropZone } from '../notes/components/FileDropZone';
-import { useNoteServices } from '@/app/hooks/use-note-service';
-import { useQueryToggle } from '@/shared/hooks/use-query-toggle';
 
 type ActionKey = 'empty' | 'fromFile' | 'fromClipboard';
 type ActionLabel = {
@@ -14,7 +14,7 @@ type ActionLabel = {
 };
 
 export const CreateOption = ({ onClose }: { onClose?: () => void }) => {
-  const NoteServices = useNoteServices();
+  const NoteServices = useNoteActions();
   const {
     isOpen: isOpenFromFile,
     open: openFromFile,

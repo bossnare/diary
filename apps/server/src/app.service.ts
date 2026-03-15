@@ -1,11 +1,11 @@
-import { PrismaService } from './prisma/prisma.service.js';
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from './prisma/prisma.service.js';
 
 @Injectable()
 export class AppService {
   constructor(private readonly prisma: PrismaService) {}
   getHello(): string {
-    return 'Hello World! Welecome to DIARY API';
+    return 'Hello World! Welecome to Diary API';
   }
 
   async getHealthz() {
