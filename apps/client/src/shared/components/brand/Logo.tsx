@@ -53,7 +53,7 @@ export const Logo = ({ mono, className, size = 'lg', ...props }: Props) => {
         </span>
       )}
 
-      <span className={cn(dflt, textSize[size], 'text-foreground')}>Talor</span>
+      <span className={cn(dflt, textSize[size], 'text-foreground')}>TALOR</span>
     </div>
   );
 };
