@@ -292,7 +292,7 @@ function Overview() {
                 <TaskWrap />
               </div>
               {/* contribution teams */}
-              <div className="absolute inset-x-0 bottom-0 h-16 py-2 border-t border-border dark:border-t-sidebar-border bg-muted/50">
+              <div className="absolute inset-x-0 bottom-0 h-16 py-2 border-t border-border dark:border-t-sidebar-border bg-background">
                 <div className="flex h-full gap-3 px-2 py-4 mx-2">
                   <div className="flex items-center gap-2">
                     <UsersRound className="size-5" />

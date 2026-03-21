@@ -1,3 +1,4 @@
+import { useDragDrop } from '@/app/hooks/use-drag-drop';
 import { cn } from '@/app/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useButtonSize } from '@/shared/hooks/use-button-size';
@@ -13,7 +14,7 @@ export const FileDropZone = ({ className, onContinue, ...props }: Props) => {
 
   const buttonSize = useButtonSize({ mobile: 'lg', landscape: 'default' });
 
-  const [isDrag, setIsDrag] = useState(false);
+  const drag = useDragDrop();
 
   const textFileExtension = [
     'md',
@@ -94,22 +95,22 @@ export const FileDropZone = ({ className, onContinue, ...props }: Props) => {
         <label
           onDragOver={(e) => {
             e.preventDefault();
-            setIsDrag(true);
+            drag.setIsDrag(true);
           }}
-          onDragLeave={() => setIsDrag(false)}
+          onDragLeave={() => drag.setIsDrag(false)}
           onDrop={(e) => {
             e.preventDefault();
-            setIsDrag(false);
+            drag.setIsDrag(false);
             const file = e.dataTransfer.files[0];
             if (file) handleFiles(file);
           }}
           className={cn(
-            isDrag ? 'border-2 border-primary' : 'border-muted-foreground',
+            drag.isDrag ? 'border-2 border-primary' : 'border-muted-foreground',
             'flex select-none cursor-pointer flex-col hover:bg-muted-foreground/12 dark:hover:bg-input/40 active:opacity-60 items-center justify-center gap-2 p-2 rounded-3xl h-full bg-muted-foreground/16 dark:bg-input/60'
           )}
         >
           <CloudUpload className="size-8 md:size-5 text-primary" />
-          <p className="text-center font-medium lg:text-sm">Import text file</p>
+          <p className="font-medium text-center lg:text-sm">Import text file</p>
           <p className="px-6 text-sm text-center text-muted-foreground text-balance">
             Drag or tap to copy its content into a note
           </p>

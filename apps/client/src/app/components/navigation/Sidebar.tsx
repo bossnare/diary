@@ -1,5 +1,5 @@
 import { MiniProfile } from '@/app/features/users/MiniProfile';
-import { useNoteServices } from '@/app/hooks/use-note-service';
+import { useNoteActions } from '@/app/hooks/use-note-action';
 import { cn } from '@/app/lib/utils';
 import { useLayoutStore } from '@/app/stores/layoutStore';
 import { Button } from '@/components/ui/button';
@@ -12,7 +12,7 @@ import { NavLink } from 'react-router-dom';
 import { FileDropZone } from '../../features/notes/components/FileDropZone';
 import { tabLabel } from './label';
 import { NavTab } from './NavTab';
-import { useProfileServices } from '@/app/hooks/use-profile-service';
+import { useUserActions } from '@/app/hooks/use-user-action';
 
 type SidebarProps = React.HTMLAttributes<HTMLDivElement> & {
   ref?: React.Ref<HTMLDivElement>;
@@ -29,7 +29,7 @@ export const MobileSidebar = ({
   close: () => void;
   openLogout: () => void;
 }) => {
-  const { openProfile } = useProfileServices();
+  const { openProfile } = useUserActions();
 
   return (
     <>
@@ -120,7 +120,7 @@ export const DesktopSidebar = ({
 }: SidebarProps & { width: number }) => {
   const isOpenPanel = useLayoutStore((s) => s.isOpenPanel);
   const toggleOpenPanel = useLayoutStore((s) => s.toggleOpenPanel);
-  const { openNewNote, openCreateFromFile } = useNoteServices();
+  const { openNewNote, openCreateFromFile } = useNoteActions();
 
   return (
     <aside

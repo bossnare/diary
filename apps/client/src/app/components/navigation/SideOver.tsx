@@ -1,14 +1,14 @@
 import { MiniProfile } from '@/app/features/users/MiniProfile';
+import { useUserActions } from '@/app/hooks/use-user-action';
 import { cn } from '@/app/lib/utils';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { supabase } from '@/shared/services/supabase.service';
+import { handleWait } from '@/shared/utils/handle-wait';
 import { X } from 'lucide-react';
 import { Overlay } from '../../../shared/components/Overlay';
 import { desctructiveLabel, sideBarLabel } from './label';
 import { SideBarTabWrapper } from './sideBarTab';
-import { useProfileServices } from '@/app/hooks/use-profile-service';
-import { handleWait } from '@/shared/utils/handle-wait';
 
 export const SideOver = ({
   isOpen,
@@ -17,7 +17,7 @@ export const SideOver = ({
   isOpen?: boolean;
   close?: () => void;
 }) => {
-  const { openProfile } = useProfileServices();
+  const { openProfile } = useUserActions();
 
   return (
     <>

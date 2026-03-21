@@ -1,6 +1,5 @@
 import {
   AlertDialog,
-  AlertDialogAction,
   //   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
@@ -46,11 +45,9 @@ export function ConfirmDialog(props: Props) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>{props.cancelLabel || 'Cancel'}</AlertDialogCancel>
-          <AlertDialogAction asChild>
-            <Button onClick={handleConfirm} variant={props.buttonVariant}>
-              {props.confirmLabel || 'Continue'}
-            </Button>
-          </AlertDialogAction>
+          <Button onClick={handleConfirm} variant={props.buttonVariant}>
+            {props.confirmLabel || 'Continue'}
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

@@ -1,6 +1,6 @@
 import { cn } from '@/app/lib/utils';
-import iconMono from '@/assets/icon_mono.svg';
 import icon from '@/assets/icon.svg';
+import iconMono from '@/assets/icon_mono.svg';
 // import iconDark from '@/assets/icon_dark.svg';
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
@@ -53,9 +53,7 @@ export const Logo = ({ mono, className, size = 'lg', ...props }: Props) => {
         </span>
       )}
 
-      <span className={cn(dflt, textSize[size], 'text-foreground')}>
-        Storink
-      </span>
+      <span className={cn(dflt, textSize[size], 'text-foreground')}>TALOR</span>
     </div>
   );
 };

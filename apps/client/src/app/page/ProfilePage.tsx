@@ -1,12 +1,12 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { UserAvatar } from '../features/users/UserAvatar';
 import { useUserProfile } from '@/app/hooks/use-user';
-import { ErrorState } from '../components/ErrorState';
+import { Button } from '@/components/ui/button';
 import { Spinner } from '@/shared/components/Spinner';
 import { ChevronLeft, Link } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
+import { ErrorState } from '../components/ErrorState';
+import { UserAvatar } from '../features/users/UserAvatar';
 
 export function ProfilePage() {
   const [isCopyingLink, setIsCopyingLink] = useState(false);
@@ -45,7 +45,7 @@ export function ProfilePage() {
     return (
       <div>
         <header>
-          <nav className="pr-2 h-12">
+          <nav className="h-12 pr-2">
             <Button
               onClick={handleBack}
               size="icon-xl"
@@ -62,8 +62,8 @@ export function ProfilePage() {
 
   return (
     <>
-      <header className="sticky z-10 bg-background top-0 inset-x-0">
-        <nav className="pr-2 h-12">
+      <header className="sticky inset-x-0 top-0 z-10 bg-background">
+        <nav className="h-12 pr-2">
           <Button
             onClick={handleBack}
             size="icon-xl"
@@ -87,7 +87,7 @@ export function ProfilePage() {
             />
             <div className="flex flex-col gap-3 lg:flex-row lg:justify-between lg:pt-12 grow">
               <p className="text-2xl font-bold text-center lg:text-3xl">
-                {profile?.displayName || 'User Storink'}
+                {profile?.displayName || 'User Talor'}
               </p>
               <Button
                 disabled={isCopyingLink}
