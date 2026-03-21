@@ -12,7 +12,7 @@ import { NavLink } from 'react-router-dom';
 import { FileDropZone } from '../../features/notes/components/FileDropZone';
 import { tabLabel } from './label';
 import { NavTab } from './NavTab';
-import { useProfileActions } from '@/app/hooks/use-user-action';
+import { useUserActions } from '@/app/hooks/use-user-action';
 
 type SidebarProps = React.HTMLAttributes<HTMLDivElement> & {
   ref?: React.Ref<HTMLDivElement>;
@@ -29,7 +29,7 @@ export const MobileSidebar = ({
   close: () => void;
   openLogout: () => void;
 }) => {
-  const { openProfile } = useProfileActions();
+  const { openProfile } = useUserActions();
 
   return (
     <>

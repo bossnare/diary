@@ -87,7 +87,7 @@ export function ProfilePage() {
             />
             <div className="flex flex-col gap-3 lg:flex-row lg:justify-between lg:pt-12 grow">
               <p className="text-2xl font-bold text-center lg:text-3xl">
-                {profile?.displayName || 'User Diary'}
+                {profile?.displayName || 'User Talor'}
               </p>
               <Button
                 disabled={isCopyingLink}

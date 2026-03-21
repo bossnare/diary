@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToggle } from '@/shared/hooks/use-toggle';
 import { CirclePlus } from 'lucide-react';
+import { useRef } from 'react';
 
 export function CreateTask({
   onCreate,
@@ -14,15 +15,20 @@ export function CreateTask({
     setFalse: closeAddTask,
   } = useToggle();
 
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleAdd = () => {
+    openAddTask();
+    setTimeout(() => {
+      inputRef.current?.focus();
+    });
+  };
+
   return (
     <>
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-medium">Tasks</h3>
-        <Button
-          disabled={isAddTask}
-          onClick={openAddTask}
-          className="shadow-sm"
-        >
+        <Button disabled={isAddTask} onClick={handleAdd} className="shadow-sm">
           <CirclePlus className="size-4" /> Add task
         </Button>
       </div>
@@ -31,6 +37,7 @@ export function CreateTask({
       {isAddTask && (
         <form action={onCreate} className="flex flex-wrap gap-2">
           <Input
+            ref={inputRef}
             type="text"
             name="newTask"
             placeholder="Try write task name/title ..."

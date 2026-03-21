@@ -95,7 +95,7 @@ export function NoteList({ selection, notes, variant, className }: Props) {
                   sideOffset={12}
                   align="end"
                   showOn="desktop"
-                  className="w-50 px-2"
+                  className="px-2 w-50"
                   trigger={
                     <Button
                       onClick={(e) => {
@@ -111,7 +111,7 @@ export function NoteList({ selection, notes, variant, className }: Props) {
                 >
                   <div className="flex flex-col justify-end gap-1 w-full [&_button]:justify-start">
                     <NoteCardToolbarButton<NoteActionKey>
-                      onAction={() => null}
+                      onAction={() => {}}
                       disabled={!note.id}
                       labelItems={NoteToolbarItemItem}
                     />

@@ -90,7 +90,7 @@ export const CreateOption = ({ onClose }: { onClose?: () => void }) => {
           className="flex flex-col justify-center gap-3"
         >
           {options.map((o) => (
-            <li>
+            <li key={o.key}>
               <div
                 role="button"
                 onClick={() => handleWait(() => handleChooseAction(o.key), 250)}
