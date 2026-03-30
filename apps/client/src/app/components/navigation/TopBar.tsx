@@ -72,11 +72,11 @@ export const TopBar = ({
       <div className="flex items-center justify-end gap-3 md:gap-4 md:grow">
         <Button
           onClick={openCreateOptions}
-          size="icon-lg"
+          size="lg"
           variant="ghost"
-          className="relative hidden lg:inline-flex"
+          className="relative rounded-full hidden lg:inline-flex"
         >
-          <Plus />
+          <Plus className="size-7" /> Create
         </Button>
         <div
           role="button"
