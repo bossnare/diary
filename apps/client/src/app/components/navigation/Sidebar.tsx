@@ -127,7 +127,7 @@ export const DesktopSidebar = ({
       style={{ width: `${width}px` }}
       {...props}
       ref={ref}
-      className="fixed inset-y-0 z-20 hidden duration-260 ease-in-out border-r transition-all md:max-w-[62px] lg:max-w-64 text-sidebar-foreground bg-sidebar md:block border-sidebar-border"
+      className="fixed inset-y-0 z-20 hidden duration-260 ease-in-out border-r transition-all md:max-w-[62px] lg:max-w-64 text-sidebar-foreground bg-sidebar dark:bg-background md:block border-sidebar-border"
     >
       {/* subtle overlay */}
       <div className="absolute inset-0 hidden pointer-events-none bg-primary/2 dark:block -z-1"></div>
@@ -147,7 +147,7 @@ export const DesktopSidebar = ({
 
       <div className="relative space-y-4 px-3 w-full md:h-full lg:h-[calc(100%-8%)] overflow-y-auto scrollbar-none">
         <nav className="mt-1 rounded-md">
-          <ul className="flex flex-col gap-2">
+          <ul className="flex flex-col gap-1">
             <NavTab />
           </ul>
         </nav>
