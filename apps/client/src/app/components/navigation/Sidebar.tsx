@@ -127,7 +127,7 @@ export const DesktopSidebar = ({
       style={{ width: `${width}px` }}
       {...props}
       ref={ref}
-      className="fixed inset-y-0 z-20 hidden duration-260 ease-in-out border-r transition-all md:max-w-[62px] lg:max-w-64 text-sidebar-foreground bg-sidebar dark:bg-background md:block border-sidebar-border"
+      className="fixed inset-y-0 z-20 hidden duration-260 ease-in-out border-r transition-all md:max-w-[64px] lg:max-w-75 text-sidebar-foreground bg-sidebar dark:bg-background md:block border-sidebar-border"
     >
       {/* subtle overlay */}
       <div className="absolute inset-0 hidden pointer-events-none bg-primary/2 dark:block -z-1"></div>
@@ -138,7 +138,7 @@ export const DesktopSidebar = ({
           title="Ctrl+T"
           onClick={toggleOpenPanel}
           variant="ghost"
-          size="icon"
+          size="icon-lg"
           className="text-sidebar-foreground/80"
         >
           {isOpenPanel ? <PanelLeftClose /> : <PanelLeftOpen />}

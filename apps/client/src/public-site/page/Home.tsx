@@ -10,10 +10,10 @@ export const Home = () => {
       <Hero />
       <WhyItMatters />
       {/* divide */}
-      <div className="w-full h-0.5 bg-background dark:bg-black"></div>
+      <div className="w-full h-0.5 bg-background dark:bg-[#0a0a0a]"></div>
       <HowItWorks />
       {/* divide */}
-      <div className="w-full h-0.5 bg-background dark:bg-black"></div>
+      <div className="w-full h-0.5 bg-background dark:bg-[#0a0a0a]"></div>
       <UseCase />
       <FooterCTA />
     </>
