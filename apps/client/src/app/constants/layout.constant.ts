@@ -1,6 +1,6 @@
 // main layout (AppLayout) constant
-export const MIN_PANEL_WIDTH = 62;
-export const MAX_PANEL_WIDTH = 256;
+export const MIN_PANEL_WIDTH = 64;
+export const MAX_PANEL_WIDTH = 300;
 
 // editor constant
 export const MIN_TOOLBAR_WIDTH = 54;
