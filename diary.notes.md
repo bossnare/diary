@@ -1,4 +1,4 @@
-# Diary
+# Talor
 
 Small app to create notes online, share ideas
 

@@ -5,7 +5,7 @@ import { PrismaService } from './prisma/prisma.service.js';
 export class AppService {
   constructor(private readonly prisma: PrismaService) {}
   getHello(): string {
-    return 'Hello World! Welecome to Diary API';
+    return 'Hello World! Welecome to Talor API';
   }
 
   async getHealthz() {
