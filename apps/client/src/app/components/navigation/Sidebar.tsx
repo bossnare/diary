@@ -133,7 +133,7 @@ export const DesktopSidebar = ({
       <div className="absolute inset-0 hidden pointer-events-none bg-primary/2 dark:block -z-1"></div>
 
       <div className="items-center justify-between hidden w-full px-3 py-3 pr-2 lg:flex ">
-        {isOpenPanel && <Logo mono={true} />}
+        {isOpenPanel && <Logo />}
         <Button
           title="Ctrl+T"
           onClick={toggleOpenPanel}
