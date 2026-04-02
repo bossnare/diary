@@ -7,7 +7,7 @@ import { Paragraphe } from '@/shared/components/Paragraphe';
 import { Spinner } from '@/shared/components/Spinner';
 import { useButtonSize } from '@/shared/hooks/use-button-size';
 import { overlayVariants } from '@/shared/motions/motion.variant';
-import { AuthService } from '@/shared/services/supabase.service';
+import { AuthService, supabase } from '@/shared/services/supabase.service';
 import { handleWait } from '@/shared/utils/handle-wait';
 import { X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
@@ -56,6 +56,22 @@ const LoginCard = ({
 
     if (!email) {
       return { success: false, message: 'Please fill email field.' };
+    }
+
+    const { data: user, error } = await supabase
+      .from('profiles')
+      .select('id')
+      .eq('email', email)
+      .maybeSingle();
+
+    if (error)
+      return {
+        success: false,
+        message: `${error.message}! Please try again`,
+      };
+
+    if (!user) {
+      return { success: false, message: 'Email mbola tsy sign ato aminay!' };
     }
 
     await AuthService.signInWithOtp(email, `${siteUrl}/`);
@@ -169,6 +185,9 @@ const LoginCard = ({
                     placeholder={`${t('auth.placeholder.email')}...`}
                     className="h-12 placeholder:text-sm md:h-10 focus-visible:border-primary! focus-visible:ring-primary/50"
                   />
+                  {!state.success ? (
+                    <span className="text-destructive">{state.message}</span>
+                  ) : null}
                   <Button
                     disabled={isPending}
                     variant="secondary"
@@ -191,11 +210,7 @@ const LoginCard = ({
                         <div className="text-sm text-green-600">
                           {state.message}
                         </div>
-                      ) : (
-                        <div className="text-sm text-destructive">
-                          {state.message}
-                        </div>
-                      )}
+                      ) : null}
                     </>
                   )}
                 </form>

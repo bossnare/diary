@@ -41,7 +41,7 @@ export const Logo = ({ mono, className, size = 'lg', ...props }: Props) => {
             src={icon}
             fetchPriority="high"
             alt="logo"
-            className={cn(iconSize, 'shrink-0!')}
+            className={cn(iconSize, 'shrink-0! invert dark:invert-0')}
           />
           {/* <img
             src={iconDark}
