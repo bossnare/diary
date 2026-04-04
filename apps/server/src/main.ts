@@ -60,9 +60,7 @@ async function bootstrap() {
 
   // Enable CORS with credentials
   app.enableCors({
-    origin: [
-      production ? 'https://memoroom.vercel.app' : 'http://127.0.0.1:5173',
-    ],
+    origin: [process.env.FRONTEND_URL!],
     credentials: true,
   });
 
